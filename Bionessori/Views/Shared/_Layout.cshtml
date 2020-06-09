@@ -1,54 +1,60 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
 	<link href="~/css/Footer.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
 			<div class="container">
 				<!-- Логотип. -->
-				<a class="navbar-brand" asp-area="" asp-controller="Route" asp-action="Index">
-					<img src="~/images/logo.png" />
-				</a>
-				<span class="beta">beta</span>
+				<div>
+					<a class="navbar-brand" asp-controller="Route" asp-action="Index">
+						<img src="~/images/logo.png" />
+					</a>
+					<span class="beta" data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
+Если вы увидели какую-то ошибку - сообщите об этом через форму обратной связи! Спасибо!
+-
+С уважением, разработчик ERP-системы Bionessori.">beta</span>
+				</div>
+
+				<div class="nav-title">
+					<span>Ведение объектов</span>
+				</div>
+
+				<div class="log_check">
+					<button type="button" class="btn-item btn btn-default">Войти</button>
+					<button type="button" class="btn-item btn btn-default">Регистрация</button>
+				</div>
 
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
-				<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<span>Ведение объектов</span>
-						</li>
-					</ul>
-				</div>
 			</div>
-        </nav>
-    </header>
+		</nav>
+	</header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
-    <footer class="footer text-center">
-        <div class="container">
-            &copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
-        </div>
-    </footer>
+	<footer class="footer text-center">
+		<div class="container">
+			&copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
+		</div>
+	</footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@RenderSection("Scripts", required: false)
 </body>
 </html>

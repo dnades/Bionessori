@@ -9,6 +9,9 @@
 	<link href="~/css/Header.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
 	<link href="~/css/Footer.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
 </head>
 
 <body>
@@ -26,7 +29,7 @@
 
 				<!-- Секция описания ERP-системы. -->
 				<div class="container">
-					<h3 class="text-center mt-5">Назначение ERP</h3>
+					<h3 class="text-center">Назначение ERP</h3>
 					<p>
 						Главное назначение данной системы – это управление ресурсами и максимальная автоматизация всех процессов из расчета себестоимости предоставляемых услуг. В медицинской сфере сюда можно отнести: функции администрирования, учет взаиморасчетов, ведение медицинских карт и т.д.
 					</p>
@@ -50,7 +53,7 @@
 				</div>
 
 				<!-- Правая секция кнопок -->
-				<div class="btn-right-block">
+				<div class="btn-right-block">					
 					<button type="button" class="btn-item btn btn-default">Карточки пациентов</button><br />
 					<button type="button" class="btn-item btn btn-default">Комплексные исследования</button><br />
 					<button type="button" class="btn-item btn btn-default">Диагностика и визуализация</button><br />
@@ -69,7 +72,33 @@
 			</div>
 		</div>
 	</div>
-	
+
+	<!-- Button trigger modal -->
+	@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		Launch demo modal
+	</button>*@
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					...
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bionessori", "Bionessori\Bionessori.csproj", "{901DE336-0946-49F3-AFB2-8429886AE67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bionessori", "Bionessori\Bionessori.csproj", "{901DE336-0946-49F3-AFB2-8429886AE67A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bionessori.Models", "Bionessori.Models\Bionessori.Models.csproj", "{744DF6A4-E362-420D-9103-5CABB378C107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bionessori.Models", "Bionessori.Models\Bionessori.Models.csproj", "{744DF6A4-E362-420D-9103-5CABB378C107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bionessori.Core", "Bionessori.Core\Bionessori.Core.csproj", "{64F2657A-E4AA-4E17-82A8-D417A66412BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bionessori.Services", "Bionessori.Services\Bionessori.Services.csproj", "{FA85E13D-26CA-4F87-BA89-BAB24D183352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{744DF6A4-E362-420D-9103-5CABB378C107}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{744DF6A4-E362-420D-9103-5CABB378C107}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{744DF6A4-E362-420D-9103-5CABB378C107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F2657A-E4AA-4E17-82A8-D417A66412BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F2657A-E4AA-4E17-82A8-D417A66412BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F2657A-E4AA-4E17-82A8-D417A66412BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F2657A-E4AA-4E17-82A8-D417A66412BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA85E13D-26CA-4F87-BA89-BAB24D183352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA85E13D-26CA-4F87-BA89-BAB24D183352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA85E13D-26CA-4F87-BA89-BAB24D183352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA85E13D-26CA-4F87-BA89-BAB24D183352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

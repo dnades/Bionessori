@@ -12,8 +12,20 @@ body {
   display: flex;
   justify-content: center;
   color: #208EF3;
-  font-weight: 900; }
+  font-weight: 900;
+  align-items: center; }
 
 .beta {
   color: #66BFE0;
   transform: rotate(25.25deg); }
+  .beta:hover {
+    cursor: pointer; }
+
+.nav-title {
+  display: flex;
+  color: #208EF3;
+  font-weight: 900;
+  font-size: 18px; }
+
+.log_check {
+  display: flex; }
