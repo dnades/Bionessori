@@ -1,0 +1,27 @@
+﻿body {
+  color: white; }
+
+.container {
+  max-width: 100%; }
+
+.btn-item {
+  background: white;
+  border-radius: 10px;
+  color: #66BFE0;
+  font-weight: 900;
+  font-size: 13px;
+  margin-top: 5px;
+  width: 100%; }
+  .btn-item:hover {
+    background: black !important;
+    transition: all 0.21s ease;
+    color: white; }
+
+.btn-block-main {
+  display: flex;
+  justify-content: space-between; }
+  .btn-block-main .btn-left-block .left-btn {
+    margin-right: 5px; }
+  .btn-block-main .block-content {
+    margin-left: 2%;
+    margin-right: 2%; }

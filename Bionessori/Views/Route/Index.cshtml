@@ -1,8 +1,76 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Ведение объектов</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="row">
+		<div class="container">
+			<!-- Главная секция кнопок -->
+			<div class="btn-block-main">
+				<!-- Левая секция кнопок -->
+				<div class="btn-left-block">
+					<div class="btns">
+						<button type="button" class="btn-item left-btn btn btn-default">Bionessori - это...</button>
+						<button type="button" class="btn-item left-btn btn btn-default">FAQ</button>
+					</div>
+				</div>
+
+				<!-- Секция описания ERP-системы. -->
+				<div class="container">
+					<h3 class="text-center mt-5">Назначение ERP</h3>
+					<p>
+						Главное назначение данной системы – это управление ресурсами и максимальная автоматизация всех процессов из расчета себестоимости предоставляемых услуг. В медицинской сфере сюда можно отнести: функции администрирования, учет взаиморасчетов, ведение медицинских карт и т.д.
+					</p>
+
+					<p>
+						Медицинская система ERP создает интегрированную онлайн базу данных, в которую поступают сведения в режиме реального времени. При этом снижаются затраты на автоматизацию процессов, т.к. система ведет учет пациентов, запасов препаратов, их закупку, отслеживает количество койко-мест.
+					</p>
+
+					<h3 class="text-center">Специфика ERP-системы Bionessori</h3>
+					<p>
+						ERP-система Bionessori направлена на автоматизацию бизнес-процессов работы стационаров и поликлиник. Автоматизирует ведение различных модулей, обеспечивает хранение всех даннх о пациентах в единной базе данных.
+					</p>
+
+					<p>
+						Данные всех пациентов, их история болезни, выписанные лекарства, данные о проведенных ранее операцих, назначенных рецептах ведутся в электронном виде. На каждого пациента заведена электронная карточка, что в случаях обращения к врачу, позволяет врачам не тратить много времени на поиск данных о пациенте, все что им нужно, это найти пациента в единной базе данных.
+					</p>
+
+					<p>
+						Доступ к электронным карточкам имеют как сами пациенты, так и лечащие врачи, что делает их взаимодействие более удобным и оперативным.
+					</p>
+				</div>
+
+				<!-- Правая секция кнопок -->
+				<div class="btn-right-block">
+					<button type="button" class="btn-item btn btn-default">Карточки пациентов</button><br />
+					<button type="button" class="btn-item btn btn-default">Комплексные исследования</button><br />
+					<button type="button" class="btn-item btn btn-default">Диагностика и визуализация</button><br />
+					<button type="button" class="btn-item btn btn-default">Ведение MRP</button><br />
+					<button type="button" class="btn-item btn btn-default">Управление запасами</button><br />
+					<button type="button" class="btn-item btn btn-default">Управление персоналом</button><br />
+					<button type="button" class="btn-item btn btn-default">Управление закупками</button><br />
+					<button type="button" class="btn-item btn btn-default">Финансовый учет</button><br />
+					<button type="button" class="btn-item btn btn-default">Анкетирование</button><br />
+					<button type="button" class="btn-item btn btn-default">Ведение складов</button><br />
+					<button type="button" class="btn-item btn btn-default">Скорая помощь</button><br />
+					<button type="button" class="btn-item btn btn-default">Сервис питания</button><br />
+					<button type="button" class="btn-item btn btn-default">Сервис оповещений</button><br />
+					<button type="button" class="btn-item btn btn-default">Перейти к статистике</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
