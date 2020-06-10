@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bionessori.Services {
@@ -87,6 +88,61 @@ namespace Bionessori.Services {
             }
 
             return "Пользователь успешно добавлен.";
+        }
+
+        /// <summary>
+        /// Метод выбирает пароль пользователя из БД.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<bool> GetUserPassword(string password) {
+            using (var db = new SqlConnection(connectionString)) {
+                var oUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE password = '{password}'");
+                Console.WriteLine();
+
+                if (oUser == null) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Метод выбирает пользователя из БД
+        /// </summary>
+        /// <param name = "input" ></ param >
+        /// < param name="password"></param>
+        /// <returns></returns>
+        public async Task<ClaimsIdentity> GetIdentity(string input) {
+            bool isEmail = input.Contains("@"); // Проверяет логин передан или email.
+
+            if (isEmail) {
+                using (var db = new SqlConnection(connectionString)) {
+                    var isUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE email = '{input}'");
+                }
+
+                var claims = new List<Claim> {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, input)
+                };
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
+                return claimsIdentity;
+            }
+            else {
+                using (var db = new SqlConnection(connectionString)) {
+                    var isUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE login = '{input}'");
+                }
+
+                var claims = new List<Claim> {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, input)
+                };
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
+                return claimsIdentity;
+            }
         }
     }
 }

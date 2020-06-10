@@ -1,6 +1,7 @@
 ﻿using Bionessori.Models;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,5 +35,19 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="user"></param>
         /// <returns></returns>
         Task<string> Create(User user);
+
+        /// <summary>
+        /// Метод выбирает пароль пользователя из БД.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        Task<bool> GetUserPassword(string password);
+
+        /// <summary>
+        /// Метод проверяет пользователя по логину или email.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<ClaimsIdentity> GetIdentity(string input);
     }
 }
