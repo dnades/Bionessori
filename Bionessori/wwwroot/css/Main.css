@@ -25,3 +25,9 @@
   .btn-block-main .block-content {
     margin-left: 2%;
     margin-right: 2%; }
+
+.advantages {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 700;
+  font-size: 15px; }

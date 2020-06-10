@@ -22,6 +22,6 @@ namespace Bionessori.Controllers {
         public IActionResult Index() { ViewData["Title"] = "Ведение объектов"; return View(); }
 
         // Метод перенаправляет на страницу карточек пациентов.
-        public IActionResult RouteCard() { ViewData["Title"] = "Электронные карточки пациентов - Список карточек пациентов"; return View(); }
+        public IActionResult RouteCard() { ViewData["Title"] = "Электронные медицинские карты пациентов - Список карт пациентов"; return View(); }
     }
 }
