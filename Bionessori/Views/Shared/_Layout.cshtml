@@ -7,20 +7,26 @@
 	<link rel="stylesheet" href="~/css/site.css" />
 	<link href="~/css/Footer.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Header.css" rel="stylesheet" />
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
 			<div class="container">
 				<!-- Логотип. -->
-				<div>
-					<a class="navbar-brand" asp-controller="Route" asp-action="Index">
-						<img src="~/images/logo.png" />
-					</a>
-					<span class="beta" data-toggle="tooltip" data-placement="bottom" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
+				<div class="block-beta">
+					<div>
+						<a class="navbar-brand" asp-controller="Route" asp-action="Index">
+							<img src="~/images/logo.png" />
+						</a>
+					</div>
+
+					<div class="beta">
+						<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
 Если вы увидели какую-то ошибку - сообщите об этом через форму обратной связи! Спасибо!
 -
 С уважением, разработчик ERP-системы Bionessori.">beta</span>
+					</div>
 				</div>
 
 				<div class="nav-title">

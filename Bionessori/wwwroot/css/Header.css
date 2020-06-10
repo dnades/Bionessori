@@ -35,3 +35,7 @@ body {
 
 .modal-body {
   color: #208EF3; }
+
+.block-beta {
+  display: flex;
+  align-items: center; }
