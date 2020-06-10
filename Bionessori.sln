@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bionessori", "Bionessori\Bi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bionessori.Models", "Bionessori.Models\Bionessori.Models.csproj", "{744DF6A4-E362-420D-9103-5CABB378C107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bionessori.Core", "Bionessori.Core\Bionessori.Core.csproj", "{64F2657A-E4AA-4E17-82A8-D417A66412BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bionessori.Core", "Bionessori.Core\Bionessori.Core.csproj", "{64F2657A-E4AA-4E17-82A8-D417A66412BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bionessori.Services", "Bionessori.Services\Bionessori.Services.csproj", "{FA85E13D-26CA-4F87-BA89-BAB24D183352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bionessori.Services", "Bionessori.Services\Bionessori.Services.csproj", "{FA85E13D-26CA-4F87-BA89-BAB24D183352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

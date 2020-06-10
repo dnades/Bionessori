@@ -29,3 +29,9 @@ body {
 
 .log_check {
   display: flex; }
+
+.modal-header {
+  color: #208EF3; }
+
+.modal-body {
+  color: #208EF3; }

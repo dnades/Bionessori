@@ -1,4 +1,6 @@
-﻿* {
+﻿$blueText: #208EF3; // Делает текст темно-голубым.
+
+* {
     margin: 0;
     padding: 0;
 }
@@ -37,4 +39,12 @@ body {
 
 .log_check {
     display: flex;
+}
+
+.modal-header {
+    color: $blueText;
+}
+
+.modal-body {
+    color: $blueText;
 }

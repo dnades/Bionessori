@@ -30,7 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bionessori.Core\Bionessori.Core.csproj" />
     <ProjectReference Include="..\Bionessori.Models\Bionessori.Models.csproj" />
+    <ProjectReference Include="..\Bionessori.Services\Bionessori.Services.csproj" />
   </ItemGroup>
 
 </Project>

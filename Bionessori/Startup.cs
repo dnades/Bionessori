@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bionessori.Core;
+using Bionessori.Core.Extensions;
+using Bionessori.Core.Interfaces;
+using Bionessori.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,7 +23,14 @@ namespace Bionessori {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            string connectionString = "Server=skyhorizen.ru,1433; Database=u0772479_pacidb; Persist Security Info=False; User ID=u0772479_admin; Password=K3sxb30*;MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=true; Connection Timeout=30;Integrated Security=False;";
+
+            services.AddTransient<IUserRepository, UserService>(provider => new UserService(connectionString));
             services.AddControllersWithViews();
+
+            services.AddControllers()
+        .AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new IntToStringExtension()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

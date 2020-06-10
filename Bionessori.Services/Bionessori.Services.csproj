@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bionessori.Core\Bionessori.Core.csproj" />
+    <ProjectReference Include="..\Bionessori.Models\Bionessori.Models.csproj" />
+  </ItemGroup>
+
 </Project>
