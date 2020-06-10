@@ -18,12 +18,10 @@ namespace Bionessori.Controllers {
             _logger = logger;
         }
 
-        /// <summary>
-        /// Метод перенаправляет на главную страницу ведения объектов.
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Index() {
-            return View();
-        }
+        // Метод перенаправляет на главную страницу ведения объектов.
+        public IActionResult Index() { ViewData["Title"] = "Ведение объектов"; return View(); }
+
+        // Метод перенаправляет на страницу карточек пациентов.
+        public IActionResult RouteCard() { ViewData["Title"] = "Электронные карточки пациентов - Список карточек пациентов"; return View(); }
     }
 }
