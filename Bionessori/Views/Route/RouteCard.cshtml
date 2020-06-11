@@ -19,35 +19,64 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th class="text-center" scope="col">Поезд</th>
-					<th class="text-center" scope="col">Маршрут</th>
-					<th class="text-center" scope="col">Отправление</th>
-					<th class="text-center" scope="col">Прибытие</th>
-					<th class="text-center" scope="col">В пути</th>
-					<th class="text-center" scope="col">Заказ билетов</th>
+					<th class="text-center" scope="col">ФИО</th>
+					<th class="text-center" scope="col">Дата рождения</th>
+					<th class="text-center" scope="col">Адрес</th>
+					<th class="text-center" scope="col">Телефон</th>
+					<th class="text-center" scope="col">Полис</th>
+					<th class="text-center" scope="col">СНИЛС</th>
+					<th class="text-center" scope="col">Дата и время назначаемых<br /> процедур и записей</th>
+					<th class="text-center" scope="col">Прописанные лекарства</th>
+					<th class="text-center" scope="col">Диагноз</th>
+					<th class="text-center" scope="col">Рецепты и рекомендации</th>
+					<th class="text-center" scope="col">Лечащий врач</th>
 				</tr>
 			</thead>
 
 			<tbody>
 				<tr class="tbl-item" v-for="el in aCards">
 					<td class="text-center">
-						<span>{{el.thread.number}}</span>
+						<span>{{el.fullName}}</span>
 					</td>
 
 					<td class="text-center">
-						<span>{{sFrom}}</span>
+						<span>{{el.dateOfBirth}}</span>
 					</td>
 
 					<td class="text-center">
-						<span class="departure">{{el.departure}}</span>
+						<span class="departure">{{el.address}}</span>
 					</td>
 
 					<td class="text-center">
-						<span class="arrival">{{el.arrival}}</span>
+						<span class="arrival">{{el.number}}</span>
 					</td>
 
-					<td class="arrival text-center">
-						<span>{{el.difference}}</span>
+					<td class="text-center">
+						<span>{{el.policy}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.snails}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.timeProcRecommend}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.prescriptionDrugs}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.diagnosis}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.recipesRecommend}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.doctor}}</span>
 					</td>
 				</tr>
 			</tbody>

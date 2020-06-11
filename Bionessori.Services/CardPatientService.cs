@@ -20,6 +20,7 @@ namespace Bionessori.Services {
         public CardPatientService(string conn) {
             _conStr = conn;
         }
+
         /// <summary>
         /// Метод получает список карт пациентов.
         /// </summary>
@@ -27,7 +28,7 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<List<PatientCard>> Take() {
             using (var db = new SqlConnection(_conStr)) {
-                var oCards = await db.QueryAsync<PatientCard>("SELECT * FROM PatientCards");
+                var oCards = await db.QueryAsync<PatientCard>("sp_GetAllCards", commandType: CommandType.StoredProcedure);
 
                 return oCards.ToList();
             }            

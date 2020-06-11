@@ -94,16 +94,5 @@ namespace Bionessori.Controllers {
 
             throw new ArgumentNullException("Пользователь не найден.");
         }
-
-        /// <summary>
-        /// Метод получает список всех пользователей.
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost, Route("get-users")]
-        public async Task<IActionResult> TakeUsers() {
-            var oUsers = await _user.GetUsers();
-
-            return Ok(oUsers);
-        }
     }
 }

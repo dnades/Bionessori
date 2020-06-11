@@ -10,7 +10,17 @@ var list_card = new Vue({
 	},
 	methods: {
 		onLoadCards() {
+			let sUrl = "https://localhost:44312/api/data/card/get-cards";
 
+			// Отправляет данные на Back-end.
+			axios.post(sUrl, {})
+				.then((response) => {
+					console.log("Карточки загружены", response);
+					this.aCards = response.data;
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("request send error", XMLHttpRequest.response.data);
+				});
 		}
 	}
 });

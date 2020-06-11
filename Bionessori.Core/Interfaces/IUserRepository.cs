@@ -11,12 +11,6 @@ namespace Bionessori.Core.Interfaces {
     /// </summary>
     public interface IUserRepository {
         /// <summary>
-        /// Метод получает список пользователей.
-        /// </summary>
-        /// <returns></returns>
-        Task<List<User>> GetUsers();
-
-        /// <summary>
         /// Метод проверяет, существует ли уже в БД такой логин.
         /// </summary>
         /// <param name="login"></param>

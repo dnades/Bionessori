@@ -65,18 +65,6 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод получает список всех пользователей.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<User>> GetUsers() {
-            using (var db = new SqlConnection(connectionString)) {
-                var users = await db.QueryAsync<User>("SELECT * FROM Users");
-
-                return users.ToList();
-            }
-        }
-
-        /// <summary>
         /// Метод добавляет в БД нового пользователя.
         /// </summary>
         /// <param name="user"></param>
