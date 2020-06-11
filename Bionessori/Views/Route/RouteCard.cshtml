@@ -30,6 +30,8 @@
 					<th class="text-center" scope="col">Диагноз</th>
 					<th class="text-center" scope="col">Рецепты и рекомендации</th>
 					<th class="text-center" scope="col">Лечащий врач</th>
+					<th class="text-center" scope="col"></th>
+					<th class="text-center" scope="col"></th>
 				</tr>
 			</thead>
 
@@ -77,6 +79,18 @@
 
 					<td class="text-center">
 						<span>{{el.doctor}}</span>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" class="btn btn-default btn-sm" v-on:click="">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" class="btn btn-default btn-sm" v-on:click="">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+						</button>
 					</td>
 				</tr>
 			</tbody>

@@ -19,7 +19,7 @@ var list_card = new Vue({
 					this.aCards = response.data;
 				})
 				.catch((XMLHttpRequest) => {
-					console.log("request send error", XMLHttpRequest.response.data);
+					console.log("Ошибка получения списка карт пациентов.", XMLHttpRequest.response.data);
 				});
 		}
 	}

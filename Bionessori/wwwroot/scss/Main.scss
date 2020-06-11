@@ -59,11 +59,27 @@ table {
     }
 
     tr {
-        border: 2px solid azure !important;
+        border: 2px solid azure !important;        
     }
 
     th {
         border: 2px solid azure !important;
         font-weight: 900 !important;
+    }
+
+    .state {
+        vertical-align: middle;
+    }
+}
+
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.tbl-item {
+
+    &:hover {
+        box-shadow: 0 0 10px #000000!important;
     }
 }
