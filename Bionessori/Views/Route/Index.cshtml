@@ -8,13 +8,15 @@
 	<title>@ViewData["Title"]</title>
 	<link href="~/css/Header.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
-	<link href="~/css/Footer.css" rel="stylesheet" />
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+	<link href="~/css/Footer.css" rel="stylesheet" />	
 </head>
 
 <body>
+	@*<script src="https://cdn.jsdelivr.net/npm/vue"></script>*@
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
 	<div id="main">
 		<div class="row">
 			<div class="container">
@@ -51,13 +53,13 @@
 						<p>
 							Доступ к электронным карточкам имеют как сами пациенты, так и лечащие врачи, что делает их взаимодействие более удобным и оперативным.
 						</p>
-					</div>					
+					</div>
 
 					<!-- Правая секция кнопок -->
 					<div class="btn-right-block">
 						<button type="button" class="btn-item btn btn-default" value="card" v-on:click="onRouteCard">Карточки пациентов</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Комплексные исследования</button><br />
+						<button type="button" class="btn-item btn btn-default">Комплексные обследования</button><br />
 
 						<button type="button" class="btn-item btn btn-default">Диагностика и визуализация</button><br />
 
@@ -82,14 +84,16 @@
 						<button type="button" class="btn-item btn btn-default">Сервис оповещений</button><br />
 
 						<button type="button" class="btn-item btn btn-default">Перейти к статистике</button>
+
+						<button type="button" class="btn-item btn btn-default">Регистратура</button>
 					</div>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
 
+	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/Route.js"></script>
 </body>
 </html>

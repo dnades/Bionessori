@@ -49,3 +49,21 @@
     font-weight: 700;
     font-size: 15px;
 }
+
+table {
+    border: 2px solid azure !important;
+    color: azure !important;
+
+    td {
+        border: 2px solid azure !important;
+    }
+
+    tr {
+        border: 2px solid azure !important;
+    }
+
+    th {
+        border: 2px solid azure !important;
+        font-weight: 900 !important;
+    }
+}

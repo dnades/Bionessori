@@ -31,3 +31,14 @@
   justify-content: space-around;
   font-weight: 700;
   font-size: 15px; }
+
+table {
+  border: 2px solid azure !important;
+  color: azure !important; }
+  table td {
+    border: 2px solid azure !important; }
+  table tr {
+    border: 2px solid azure !important; }
+  table th {
+    border: 2px solid azure !important;
+    font-weight: 900 !important; }

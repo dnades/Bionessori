@@ -2,7 +2,6 @@
 
 var main = new Vue({
 	el: '#main',
-	data: {},
 	methods: {
 		// Функция распределяет роуты веб-приложения.
 		onRouteCard(event) {

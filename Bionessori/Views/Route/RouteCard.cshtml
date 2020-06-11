@@ -14,7 +14,47 @@
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
 </head>
 <body>
+	<div id="list_card">
+		<!-- Секция таблицы со списком карт пациентов -->
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">Поезд</th>
+					<th class="text-center" scope="col">Маршрут</th>
+					<th class="text-center" scope="col">Отправление</th>
+					<th class="text-center" scope="col">Прибытие</th>
+					<th class="text-center" scope="col">В пути</th>
+					<th class="text-center" scope="col">Заказ билетов</th>
+				</tr>
+			</thead>
 
+			<tbody>
+				<tr class="tbl-item" v-for="el in aCards">
+					<td class="text-center">
+						<span>{{el.thread.number}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{sFrom}}</span>
+					</td>
+
+					<td class="text-center">
+						<span class="departure">{{el.departure}}</span>
+					</td>
+
+					<td class="text-center">
+						<span class="arrival">{{el.arrival}}</span>
+					</td>
+
+					<td class="arrival text-center">
+						<span>{{el.difference}}</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="~/js/Card.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
