@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bionessori.Services {
     /// <summary>
-    /// Сервис описывает методы работы регистратуры.
+    /// Сервис реализует методы работы регистратуры.
     /// </summary>
     public class RegistryService : IRegistry {
         /// <summary>

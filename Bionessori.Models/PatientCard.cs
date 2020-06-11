@@ -30,5 +30,7 @@ namespace Bionessori.Models {
         public string RecipesRecommend { get; set; }    // Рекомендации по лечению.
 
         public string MedicalHistory { get; set; }  // История болезни.
+
+        public string Doctor { get; set; }  // Лечащий доктор.
     }
 }

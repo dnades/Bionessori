@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Bionessori.Core.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Bionessori.Controllers {
+    /// <summary>
+    /// Контроллер описывает работу с картами пациентов.
+    /// </summary>
+    [ApiController, Route("api/data/card")]
+    public class CardController : Controller {
+        ICard _card;
+
+        public CardController(ICard card) {
+            _card = card;
+        }
+
+        /// <summary>
+        /// Метод получает список всех карт пациентов.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-cards")]
+        public async Task<IActionResult> GetCards() {
+            var oCards = await _card.Take();
+
+            return Ok(oCards);
+        }
+    }
+}

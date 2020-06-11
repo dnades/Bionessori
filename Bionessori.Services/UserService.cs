@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Bionessori.Services {
     /// <summary>
-    /// Сервис описывает реализации методов работы с пользователем.
+    /// Сервис реализует методы работы с пользователем.
     /// </summary>
     public class UserService : IUserRepository {
         string connectionString = null;
@@ -69,7 +69,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async Task<List<User>> GetUsers() {
-            using (IDbConnection db = new SqlConnection(connectionString)) {
+            using (var db = new SqlConnection(connectionString)) {
                 var users = await db.QueryAsync<User>("SELECT * FROM Users");
 
                 return users.ToList();
