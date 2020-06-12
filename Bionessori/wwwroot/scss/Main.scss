@@ -1,4 +1,6 @@
-﻿body {
+﻿$whiteText: azure;  // Делает текст белым.
+
+body {
     color: white;
 }
 
@@ -81,5 +83,25 @@ table {
 
     &:hover {
         box-shadow: 0 0 10px #000000!important;
+    }
+}
+
+.modal-dialog {
+    max-width: 100%;
+
+    .btn-modal {
+        width: auto;
+    }
+
+    .modal-content {
+        background: #66BFE0;
+    }
+
+    .modal-header {
+        color: $whiteText;
+    }
+
+    .modal-body {
+        color: $whiteText;
     }
 }

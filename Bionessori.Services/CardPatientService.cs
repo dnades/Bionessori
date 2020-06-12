@@ -28,7 +28,9 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<List<PatientCard>> Take() {
             using (var db = new SqlConnection(_conStr)) {
-                var oCards = await db.QueryAsync<PatientCard>("sp_GetAllCards", commandType: CommandType.StoredProcedure);
+                // Вызывает процедуру для получения списка карт пациентов.
+                var oCards = await db.QueryAsync<PatientCard>("sp_GetAllCards", 
+                    commandType: CommandType.StoredProcedure);
 
                 return oCards.ToList();
             }            

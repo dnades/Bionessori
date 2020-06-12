@@ -71,10 +71,18 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<string> Create(User user) {
             using (var db = new SqlConnection(connectionString)) {
-                string sQuery = $"INSERT INTO Users VALUES ('{user.Login}', '{user.Email}', '{user.Number}', '{user.Password}')";
-                await db.ExecuteAsync(sQuery);
-            }
+                var parameters = new DynamicParameters();
+                parameters.Add("@login", user.Login, DbType.String);
+                parameters.Add("@email", user.Email, DbType.String);
+                parameters.Add("@number", user.Number, DbType.String);
+                parameters.Add("@password", user.Password, DbType.String);
 
+                // Вызывает процедуру добавление нового пользователя в БД.
+                var oCards = await db.QueryAsync<User>("sp_CreateUser",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+            }
+            
             return "Пользователь успешно добавлен.";
         }
 
@@ -86,7 +94,6 @@ namespace Bionessori.Services {
         public async Task<bool> GetUserPassword(string password) {
             using (var db = new SqlConnection(connectionString)) {
                 var oUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE password = '{password}'");
-                Console.WriteLine();
 
                 if (oUser == null) {
                     return false;

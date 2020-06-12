@@ -51,3 +51,14 @@ table {
 
 .tbl-item:hover {
   box-shadow: 0 0 10px #000000 !important; }
+
+.modal-dialog {
+  max-width: 100%; }
+  .modal-dialog .btn-modal {
+    width: auto; }
+  .modal-dialog .modal-content {
+    background: #66BFE0; }
+  .modal-dialog .modal-header {
+    color: azure; }
+  .modal-dialog .modal-body {
+    color: azure; }
