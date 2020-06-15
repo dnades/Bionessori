@@ -1,5 +1,0 @@
-﻿CREATE TABLE [dbo].[Users] (
-	[id] INT PRIMARY KEY IDENTITY,
-	[name] NVARCHAR(50) NULL,
-	[age] INT NULL
-);
