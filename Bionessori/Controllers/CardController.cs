@@ -37,6 +37,8 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("update-card")]
         public async Task<IActionResult> Edit([FromBody] PatientCard patientCard) {
+            await _card.Edit(patientCard);
+
             return Ok("Карта пациента успешно изменена");
         }
     }

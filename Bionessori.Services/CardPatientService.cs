@@ -35,7 +35,30 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<string> Edit(PatientCard patientCard) {
+        public async Task<string> Edit(PatientCard patientCard) {            
+            using (var db = new SqlConnection(_conStr)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@id", patientCard.Id, DbType.Int32);
+                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
+                parameters.Add("@fullName", patientCard.FullName, DbType.String);
+                parameters.Add("@dateOfBirth", patientCard.DateOfBirth, DbType.DateTime);
+                parameters.Add("@address", patientCard.Address, DbType.String);
+                parameters.Add("@number", patientCard.Number, DbType.String);
+                parameters.Add("@policy", patientCard.Policy, DbType.String);
+                parameters.Add("@snails", patientCard.Snails, DbType.String);
+                parameters.Add("@timeProcAndRec", patientCard.TimeProcRecommend, DbType.DateTime);
+                parameters.Add("@prescriptionDrugs", patientCard.PrescriptionDrugs, DbType.String);
+                parameters.Add("@diagnosis", patientCard.Diagnosis, DbType.String);
+                parameters.Add("@recipesRecommend", patientCard.RecipesRecommend, DbType.String);
+                parameters.Add("@medicalHistory", patientCard.MedicalHistory, DbType.String);
+                parameters.Add("@doctor", patientCard.Doctor, DbType.String);
+
+                // Вызывает процедуру изменения карты пациента.
+                var oCard = await db.QueryAsync<PatientCard>("sp_UpdateCard", 
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+            }
+
             return "Карта пациента успешно изменена.";
         }
 
