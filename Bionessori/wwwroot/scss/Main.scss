@@ -80,11 +80,21 @@ table {
 }
 
 .tbl-item {
+    .card-id {
+        display: none;
+    }
 
     &:hover {
-        box-shadow: 0 0 10px #000000!important;
+        box-shadow: 0 0 10px #000000 !important;
+    }    
+}
+
+#tbl-item-edit {
+    &:hover {
+        box-shadow: none !important;
     }
 }
+
 
 .modal-dialog {
     max-width: 100%;

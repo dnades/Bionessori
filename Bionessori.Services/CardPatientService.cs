@@ -22,6 +22,24 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
+        /// Метод удаляет карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        public async Task<string> Delete(PatientCard patientCard) {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод редактирует карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        public async Task<string> Edit(PatientCard patientCard) {
+            return "Карта пациента успешно изменена.";
+        }
+
+        /// <summary>
         /// Метод получает список карт пациентов.
         /// </summary>
         /// <param name="patient"></param>

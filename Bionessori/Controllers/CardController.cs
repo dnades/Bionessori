@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionessori.Core.Interfaces;
+using Bionessori.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,16 @@ namespace Bionessori.Controllers {
             var oCards = await _card.Take();
 
             return Ok(oCards);
+        }
+
+        /// <summary>
+        /// Метод изменяет карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        [HttpPost, Route("update-card")]
+        public async Task<IActionResult> Edit([FromBody] PatientCard patientCard) {
+            return Ok("Карта пациента успешно изменена");
         }
     }
 }

@@ -49,8 +49,14 @@ table {
   vertical-align: middle;
   border-bottom: 2px solid #dee2e6; }
 
+.tbl-item .card-id {
+  display: none; }
+
 .tbl-item:hover {
   box-shadow: 0 0 10px #000000 !important; }
+
+#tbl-item-edit:hover {
+  box-shadow: none !important; }
 
 .modal-dialog {
   max-width: 100%; }
