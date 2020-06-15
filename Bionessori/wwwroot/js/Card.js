@@ -85,8 +85,29 @@ var list_card = new Vue({
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка изменение карты.", XMLHttpRequest.response.data);
 				});
+		},
 
-			console.log("test");
+		// Функция удаляет карту пациента.
+		onDelete() {
+			let sUrl = "https://localhost:44312/api/data/card/delete-card";
+			let iId = +$("#id").val();	// Id карты пациента.
+
+			// Отправляет данные на Back-end.
+			axios.post(sUrl, {
+				Id: iId
+			})
+				.then((response) => {
+					console.log(response);
+
+					// Убирает модальное окно удаления карты пациента.
+					$('#delete-card-modal').modal('toggle');
+
+					// Выводит модальное окно об успешном удалении карты пациента.
+					$('#success-delete-card-modal').modal('toggle');
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка удаления карты.", XMLHttpRequest.response.data);
+				});
 		}
 	}
 });

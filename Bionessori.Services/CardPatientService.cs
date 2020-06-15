@@ -27,7 +27,11 @@ namespace Bionessori.Services {
         /// <param name="patientCard"></param>
         /// <returns></returns>
         public async Task<string> Delete(PatientCard patientCard) {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_conStr)) {
+                await db.QueryAsync<PatientCard>($"DELETE FROM PatientCards WHERE id = {patientCard.Id}");
+            }
+
+            return "Карта пациента успешно удалена.";
         }
 
         /// <summary>
@@ -35,7 +39,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<string> Edit(PatientCard patientCard) {            
+        public async Task<string> Edit(PatientCard patientCard) {
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@id", patientCard.Id, DbType.Int32);
@@ -54,7 +58,7 @@ namespace Bionessori.Services {
                 parameters.Add("@doctor", patientCard.Doctor, DbType.String);
 
                 // Вызывает процедуру изменения карты пациента.
-                var oCard = await db.QueryAsync<PatientCard>("sp_UpdateCard", 
+                await db.QueryAsync<PatientCard>("sp_UpdateCard",
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
             }
