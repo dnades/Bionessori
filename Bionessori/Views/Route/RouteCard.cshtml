@@ -102,7 +102,7 @@
 					</td>
 
 					<td class="text-center state">
-						<button type="button" class="btn btn-default btn-sm" v-on:click="onDeleteCard">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onDeleteCard">
 							<i class="fa fa-trash-o" aria-hidden="true"></i>
 						</button>
 					</td>
@@ -124,7 +124,7 @@
 					<div class="modal-body">
 						<table class="table table-bordered">
 							<thead>
-								<tr>									
+								<tr>
 									<th class="text-center" scope="col">№ карты</th>
 									<th class="text-center" scope="col">ФИО</th>
 									<th class="text-center" scope="col">Дата рождения</th>
@@ -210,57 +210,54 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Секция модального окна создания карты пациента. -->
-	<div class="modal fade" id="edit-card-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="editModalLabel">Создание новой карты пациента</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+		<!-- Секция модального окна создания карты пациента. -->
+		<div class="modal fade" id="edit-card-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="editModalLabel">Создание новой карты пациента</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn-item btn-modal btn btn-default">Создать карту</button>
+					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="modal-body">
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-					Тело<br />
-				</div>
+		<!-- Секция модального окна подтверждения удаления карты пациента. -->
+		<div class="modal fade" id="delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+			<div id="modal-delete" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in aSelectCard">
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteModalLabel">Удаление карты пациента № {{el.cardNumber}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button type="button" class="btn-item btn-modal btn btn-default">Создать карту</button>
+					<div class="modal-body">
+						<span>Вы действительно хотите удалить карту: № {{el.cardNumber}} пациента {{el.fullName}}?</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn-item btn-modal btn btn-default">Удалить карту</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	
 	<script src="~/js/Card.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

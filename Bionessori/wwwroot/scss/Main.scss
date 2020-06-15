@@ -98,7 +98,7 @@ table {
 
 .modal-dialog {
     max-width: 100%;
-
+    
     .btn-modal {
         width: auto;
     }
@@ -114,4 +114,12 @@ table {
     .modal-body {
         color: $whiteText;
     }
+}
+
+.modal {
+    padding-right: 0px!important;
+}
+
+#modal-delete {
+    width: max-content !important;
 }

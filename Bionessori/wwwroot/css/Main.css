@@ -68,3 +68,9 @@ table {
     color: azure; }
   .modal-dialog .modal-body {
     color: azure; }
+
+.modal {
+  padding-right: 0px !important; }
+
+#modal-delete {
+  width: max-content !important; }

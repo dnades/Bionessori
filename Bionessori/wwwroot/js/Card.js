@@ -35,8 +35,11 @@ var list_card = new Vue({
 
 		// Функция удаляет карту пациента.
 		onDeleteCard(event) {
+			// Получает Id карты, на которую нажали.
 			let cardId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
-			console.log("test");
+
+			// Записывает выделенную карту в массив.
+			this.aSelectCard = this.aCards.filter(el => el.id == cardId);
 		},
 
 		// Функция редактирует карту пациента.
