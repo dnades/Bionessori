@@ -22,6 +22,37 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
+        /// Метод создает новую карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        public async Task<string> Create(PatientCard patientCard) {
+            using (var db = new SqlConnection(_conStr)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
+                parameters.Add("@fullName", patientCard.FullName, DbType.String);
+                parameters.Add("@dateOfBirth", patientCard.DateOfBirth, DbType.DateTime);
+                parameters.Add("@address", patientCard.Address, DbType.String);
+                parameters.Add("@number", patientCard.Number, DbType.String);
+                parameters.Add("@policy", patientCard.Policy, DbType.String);
+                parameters.Add("@snails", patientCard.Snails, DbType.String);
+                parameters.Add("@timeProcAndRec", patientCard.TimeProcRecommend, DbType.DateTime);
+                parameters.Add("@prescriptionDrugs", patientCard.PrescriptionDrugs, DbType.String);
+                parameters.Add("@diagnosis", patientCard.Diagnosis, DbType.String);
+                parameters.Add("@recipesRecommend", patientCard.RecipesRecommend, DbType.String);
+                parameters.Add("@medicalHistory", patientCard.MedicalHistory, DbType.String);
+                parameters.Add("@doctor", patientCard.Doctor, DbType.String);
+
+                // Вызывает процедуру создания новой карты пациента.
+                await db.QueryAsync<PatientCard>("sp_CreateCard",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+            }
+
+            return "Новая карта пациента успешно создана.";
+        }
+
+        /// <summary>
         /// Метод удаляет карту пациента.
         /// </summary>
         /// <param name="patientCard"></param>
