@@ -122,17 +122,5 @@ table {
 }
 
 #modal-delete {
-    width: $widthModal;
-}
-
-#signin-modal {
-    width: $widthModal;
-}
-
-#checkin-modall {
-    width: $widthModal;
-}
-
-.btn-right-block {
-    padding-bottom: 5px;
+    width: max-content !important;
 }
