@@ -1,4 +1,4 @@
-﻿$whiteText: azure;  // Делает текст белым.
+﻿$whiteText: azure; // Делает текст белым.
 $widthModal: max-content !important;
 
 body {
@@ -62,7 +62,7 @@ table {
     }
 
     tr {
-        border: 2px solid azure !important;        
+        border: 2px solid azure !important;
     }
 
     th {
@@ -87,7 +87,7 @@ table {
 
     &:hover {
         box-shadow: 0 0 10px #000000 !important;
-    }    
+    }
 }
 
 #tbl-item-edit {
@@ -99,7 +99,7 @@ table {
 
 .modal-dialog {
     max-width: 100%;
-    
+
     .btn-modal {
         width: auto;
     }
@@ -118,11 +118,19 @@ table {
 }
 
 .modal {
-    padding-right: 0px!important;
+    padding-right: 0px !important;
 }
 
 #modal-delete {
-    width: max-content !important;
+    width: $widthModal;
+}
+
+#signin-modal {
+    width: $widthModal;
+}
+
+#checkin-modall {
+    width: $widthModal;
 }
 
 .btn-right-block {
