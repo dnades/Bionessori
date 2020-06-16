@@ -41,5 +41,29 @@ namespace Bionessori.Controllers {
 
             return Ok("Карта пациента успешно изменена");
         }
+
+        /// <summary>
+        /// Метод удаляет карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        [HttpPost, Route("delete-card")]
+        public async Task<IActionResult> Delete([FromBody] PatientCard patientCard) {
+            await _card.Delete(patientCard);
+
+            return Ok("Карта пациента успешно удалена.");
+        }
+
+        /// <summary>
+        /// Метод создает новую карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        [HttpPost, Route("create-card")]
+        public async Task<IActionResult> Create([FromBody] PatientCard patientCard) {
+            await _card.Create(patientCard);
+
+            return Ok("Новая карта пациента успешно создана.");
+        }
     }
 }

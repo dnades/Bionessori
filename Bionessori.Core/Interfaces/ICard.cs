@@ -30,5 +30,12 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="patientCard"></param>
         /// <returns></returns>
         Task<string> Delete(PatientCard patientCard);
+
+        /// <summary>
+        /// Метод создаетновую карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        Task<string> Create(PatientCard patientCard);
     }
 }

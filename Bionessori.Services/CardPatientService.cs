@@ -22,12 +22,47 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
+        /// Метод создает новую карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        public async Task<string> Create(PatientCard patientCard) {
+            using (var db = new SqlConnection(_conStr)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
+                parameters.Add("@fullName", patientCard.FullName, DbType.String);
+                parameters.Add("@dateOfBirth", patientCard.DateOfBirth, DbType.DateTime);
+                parameters.Add("@address", patientCard.Address, DbType.String);
+                parameters.Add("@number", patientCard.Number, DbType.String);
+                parameters.Add("@policy", patientCard.Policy, DbType.String);
+                parameters.Add("@snails", patientCard.Snails, DbType.String);
+                parameters.Add("@timeProcAndRec", patientCard.TimeProcRecommend, DbType.DateTime);
+                parameters.Add("@prescriptionDrugs", patientCard.PrescriptionDrugs, DbType.String);
+                parameters.Add("@diagnosis", patientCard.Diagnosis, DbType.String);
+                parameters.Add("@recipesRecommend", patientCard.RecipesRecommend, DbType.String);
+                parameters.Add("@medicalHistory", patientCard.MedicalHistory, DbType.String);
+                parameters.Add("@doctor", patientCard.Doctor, DbType.String);
+
+                // Вызывает процедуру создания новой карты пациента.
+                await db.QueryAsync<PatientCard>("sp_CreateCard",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+            }
+
+            return "Новая карта пациента успешно создана.";
+        }
+
+        /// <summary>
         /// Метод удаляет карту пациента.
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
         public async Task<string> Delete(PatientCard patientCard) {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_conStr)) {
+                await db.QueryAsync<PatientCard>($"DELETE FROM PatientCards WHERE id = {patientCard.Id}");
+            }
+
+            return "Карта пациента успешно удалена.";
         }
 
         /// <summary>
@@ -35,7 +70,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<string> Edit(PatientCard patientCard) {            
+        public async Task<string> Edit(PatientCard patientCard) {
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@id", patientCard.Id, DbType.Int32);
@@ -54,7 +89,7 @@ namespace Bionessori.Services {
                 parameters.Add("@doctor", patientCard.Doctor, DbType.String);
 
                 // Вызывает процедуру изменения карты пациента.
-                var oCard = await db.QueryAsync<PatientCard>("sp_UpdateCard", 
+                await db.QueryAsync<PatientCard>("sp_UpdateCard",
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
             }
