@@ -8,55 +8,50 @@
 	<link href="~/css/Footer.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
 	<link href="~/css/Header.css" rel="stylesheet" />
-</head>
-<body>
 	<script src="https://unpkg.com/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+</head>
+<body>
+	<div id="app">
+		<header>
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
+				<div class="container">
+					<!-- Логотип. -->
+					<div class="block-beta">
+						<div>
+							<a class="navbar-brand" asp-controller="Route" asp-action="Index">
+								<img src="~/images/logo.png" />
+							</a>
+						</div>
 
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
-			<div class="container">
-				<!-- Логотип. -->
-				<div class="block-beta">
-					<div>
-						<a class="navbar-brand" asp-controller="Route" asp-action="Index">
-							<img src="~/images/logo.png" />
-						</a>
-					</div>
-
-					<div class="beta">
-						<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
+						<div class="beta">
+							<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
 Если вы увидели какую-то ошибку - сообщите об этом через форму обратной связи! Спасибо!
 -
 С уважением, разработчик ERP-системы Bionessori.">beta</span>
+						</div>
 					</div>
+
+					<div class="nav-title">
+						<span>@ViewData["Title"]</span>
+					</div>
+
+					<div class="log_check">
+						<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#login-modal">Войти</button>
+						<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
+					</div>
+
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 				</div>
+			</nav>
+		</header>
 
-				<div class="nav-title">
-					<span>@ViewData["Title"]</span>
-				</div>
 
-				<div class="log_check">
-					<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#login-modal">Войти</button>
-					<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
-				</div>
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</nav>
-	</header>
-
-	@*<div class="container">
-			<main role="main" class="pb-3">
-
-			</main>
-		</div>*@
-
-	<div id="app">
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
 			<div id="signin-modal" class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -84,9 +79,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div id="app">
 		<div class="modal fade" id="checkin-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
 			<div id="checkin-modall" class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -139,7 +132,12 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
-	@RenderBody()
+
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 	@RenderSection("Scripts", required: false)
 </body>
 </html>
