@@ -14,15 +14,17 @@ var app = new Vue({
 			// Делает кнопку регистрации не активной пока Back-end не получит данные.
 			$(".btn-checkin").prop('disabled', true);
 
-			var sLogin = $("#id-login").val();
-			var sEmail = $("#id-email").val();
-			var sPassword = $("#id-password").val();
+			let sLogin = $("#id-login").val();
+			let sEmail = $("#id-email").val();
+			let sNumber = $("#id-number").val();
+			let sPassword = $("#id-password").val();
 
-			const sUrlCheckIn = "https://localhost:44350/api/data/auth/checkin";
+			const sUrlCheckIn = "https://localhost:44312/api/data/auth/checkin";
 
 			const oUser = {
 				Login: sLogin,
 				Email: sEmail,
+				Number: sNumber,
 				Password: sPassword
 			};
 
@@ -44,10 +46,10 @@ var app = new Vue({
 		onSignIn() {
 			$(".btn-login").prop('disabled', true);
 
-			var sLogin = $("#exampleInputLogin").val();
-			var sPassword = $("#exampleInputPassword").val();
+			var sLogin = $("#id-sign-login").val();
+			var sPassword = $("#id-sign-password").val();
 
-			const sUrl = "https://localhost:44323/api/data/auth/signin";
+			const sUrl = "https://localhost:44312/api/data/auth/signin";
 
 			const oUserReg = {
 				Login: sLogin,

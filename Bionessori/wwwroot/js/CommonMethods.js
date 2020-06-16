@@ -38,7 +38,7 @@ class BaseClass {
 	// Проверка на совпадение паролей.
 	static onCheckPasswordFields() {
 		let sPasswordFirstField = $("#id-password").val();
-		let sPasswordSecondField = $("#id-repeat-password").val();
+		let sPasswordSecondField = $("#id-password-repeat").val();
 
 		if (sPasswordFirstField !== sPasswordSecondField) {
 			$("#id-error-password").html("Пароли не совпадают");
