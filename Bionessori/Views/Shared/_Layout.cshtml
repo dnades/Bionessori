@@ -59,7 +59,7 @@
 	</footer>
 
 	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div id="signin-modal" class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="loginModalLabel">Авторизация</h5>
@@ -69,7 +69,13 @@
 				</div>
 
 				<div class="modal-body">
-					Тело
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Логин или Email" />
+					</div>
+
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Пароль" />
+					</div>
 				</div>
 
 				<div class="modal-footer">
@@ -81,7 +87,7 @@
 	</div>
 
 	<div class="modal fade" id="checkin-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div id="checkin-modall" class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="checkinModalLabel">Регистрация</h5>
@@ -91,7 +97,25 @@
 				</div>
 
 				<div class="modal-body">
-					Тело
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Логин" />
+					</div>
+
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Email" />
+					</div>
+
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Номер телефона" />
+					</div>
+
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Пароль" />
+					</div>
+
+					<div class="form-group">
+						<input type="button" class="form-control" placeholder="Повторите пароль" />
+					</div>
 				</div>
 
 				<div class="modal-footer">
