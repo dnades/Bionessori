@@ -1,4 +1,5 @@
 ﻿$whiteText: azure;  // Делает текст белым.
+$widthModal: max-content !important;
 
 body {
     color: white;
@@ -118,10 +119,18 @@ table {
 
 .modal {
     padding-right: 0px!important;
-} 
+}
 
 #modal-delete {
-    width: max-content !important;
+    width: $widthModal;
+}
+
+#signin-modal {
+    width: $widthModal;
+}
+
+#checkin-modall {
+    width: $widthModal;
 }
 
 .btn-right-block {
