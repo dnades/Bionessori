@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -10,125 +10,134 @@
 	<link href="~/css/Header.css" rel="stylesheet" />
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
-			<div class="container">
-				<!-- Логотип. -->
-				<div class="block-beta">
-					<div>
-						<a class="navbar-brand" asp-controller="Route" asp-action="Index">
-							<img src="~/images/logo.png" />
-						</a>
-					</div>
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
 
-					<div class="beta">
-						<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
+	<div id="app">
+		<header>
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3">
+				<div class="container">
+					<!-- Логотип. -->
+					<div class="block-beta">
+						<div>
+							<a class="navbar-brand" asp-controller="Route" asp-action="Index">
+								<img src="~/images/logo.png" />
+							</a>
+						</div>
+
+						<div class="beta">
+							<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
 Если вы увидели какую-то ошибку - сообщите об этом через форму обратной связи! Спасибо!
 -
 С уважением, разработчик ERP-системы Bionessori.">beta</span>
+						</div>
 					</div>
+
+					<div class="nav-title">
+						<span>@ViewData["Title"]</span>
+					</div>
+
+					<div class="log_check">
+						<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#login-modal">Войти</button>
+						<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
+					</div>
+
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 				</div>
+			</nav>
+		</header>
 
-				<div class="nav-title">
-					<span>@ViewData["Title"]</span>
-				</div>
-
-				<div class="log_check">
-					<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#login-modal">Войти</button>
-					<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
-				</div>
-
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</nav>
-	</header>
-
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
-	</div>
-
-	<footer class="footer text-center">
 		<div class="container">
-			&copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
+			<main role="main" class="pb-3">
+
+			</main>
 		</div>
-	</footer>
 
-	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div id="signin-modal" class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="loginModalLabel">Авторизация</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+		<footer class="footer text-center">
+			<div class="container">
+				&copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
+			</div>
+		</footer>
+
+		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div id="signin-modal" class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="loginModalLabel">Авторизация</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" id="id-sign-login" class="form-control" placeholder="Логин или Email" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" id="id-sign-password" class="form-control" placeholder="Пароль" />
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn-item btn btn-default" v-on:click="onSignIn">Войти</button>
+					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Логин или Email" />
+		<div class="modal fade" id="checkin-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div id="checkin-modall" class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="checkinModalLabel">Регистрация</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
 
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Пароль" />
-					</div>
-				</div> 
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" id="id-login" class="form-control" placeholder="Логин" />
+						</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button type="button" class="btn-item btn btn-default">Войти</button>
+						<div class="form-group">
+							<input type="text" id="id-email" class="form-control" placeholder="Email" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" id="id-number" class="form-control" placeholder="Номер телефона" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" id="id-password" class="form-control" placeholder="Пароль" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" id="id-password-repeat" class="form-control" placeholder="Повторите пароль" />
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn-item btn btn-default" v-on:click="onCheckIn">Регистрация</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="checkin-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div id="checkin-modall" class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="checkinModalLabel">Регистрация</h5> 
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Логин" />
-					</div>
-
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Email" />
-					</div>
-
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Номер телефона" />
-					</div>
-
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Пароль" />
-					</div>
-
-					<div class="form-group">
-						<input type="button" class="form-control" placeholder="Повторите пароль" />
-					</div>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button type="button" class="btn-item btn btn-default">Создать новый аккаунт</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<script src="~/js/Auth.js"></script>
+	<script src="~/js/CommonMethods.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
+	@RenderBody()
 	@RenderSection("Scripts", required: false)
 </body>
 </html>
