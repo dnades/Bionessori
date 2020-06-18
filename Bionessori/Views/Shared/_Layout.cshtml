@@ -27,7 +27,7 @@
 						</div>
 
 						<div class="beta">
-							<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа сервиса может быть не стабильной и могут наблюдаться ошибки.
+							<span data-toggle="tooltip" title="Beta - означает, что в некоторых случаях работа ERP-системы может быть не стабильной и могут наблюдаться ошибки.
 Если вы увидели какую-то ошибку - сообщите об этом через форму обратной связи! Спасибо!
 -
 С уважением, разработчик ERP-системы Bionessori.">beta</span>
@@ -50,12 +50,6 @@
 				</div>
 			</nav>
 		</header>
-
-		<div class="container">
-			<main role="main" class="pb-3">
-
-			</main>
-		</div>
 
 		<footer class="footer text-center">
 			<div class="container">
@@ -137,7 +131,13 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
-	@RenderBody()
+
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
 	@RenderSection("Scripts", required: false)
 </body>
 </html>

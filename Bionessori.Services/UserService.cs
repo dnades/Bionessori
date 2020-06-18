@@ -15,10 +15,10 @@ namespace Bionessori.Services {
     /// Сервис реализует методы работы с пользователем.
     /// </summary>
     public class UserService : IUserRepository {
-        string connectionString = null;
+        string _connectionString = null;
 
         public UserService(string conn) {
-            connectionString = conn;
+            _connectionString = conn;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Bionessori.Services {
             }
 
             // Проверяет, есть ли пользователь с таким логином.
-            using (var db = new SqlConnection(connectionString)) {
+            using (var db = new SqlConnection(_connectionString)) {
                 var isUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE login = '{login}'");
 
                 if (isUser != null) {
@@ -53,7 +53,7 @@ namespace Bionessori.Services {
             }
 
             // Проверяет, есть ли пользователь с таким email.
-            using (var db = new SqlConnection(connectionString)) {
+            using (var db = new SqlConnection(_connectionString)) {
                 var isUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE email = '{email}'");
 
                 if (isUser != null) {
@@ -70,7 +70,7 @@ namespace Bionessori.Services {
         /// <param name="user"></param>
         /// <returns></returns>
         public async Task<string> Create(User user) {
-            using (var db = new SqlConnection(connectionString)) {
+            using (var db = new SqlConnection(_connectionString)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@login", user.Login, DbType.String);
                 parameters.Add("@email", user.Email, DbType.String);
@@ -82,7 +82,7 @@ namespace Bionessori.Services {
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
             }
-            
+
             return "Пользователь успешно добавлен.";
         }
 
@@ -92,7 +92,7 @@ namespace Bionessori.Services {
         /// <param name="login"></param>
         /// <returns></returns>
         public async Task<bool> GetUserPassword(string password) {
-            using (var db = new SqlConnection(connectionString)) {
+            using (var db = new SqlConnection(_connectionString)) {
                 var oUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE password = '{password}'");
 
                 if (oUser == null) {
@@ -113,7 +113,7 @@ namespace Bionessori.Services {
             bool isEmail = input.Contains("@"); // Проверяет логин передан или email.
 
             if (isEmail) {
-                using (var db = new SqlConnection(connectionString)) {
+                using (var db = new SqlConnection(_connectionString)) {
                     var isUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE email = '{input}'");
                 }
 
@@ -126,7 +126,7 @@ namespace Bionessori.Services {
                 return claimsIdentity;
             }
             else {
-                using (var db = new SqlConnection(connectionString)) {
+                using (var db = new SqlConnection(_connectionString)) {
                     var isUser = await db.QueryFirstOrDefaultAsync($"SELECT * FROM Users WHERE login = '{input}'");
                 }
 
@@ -137,6 +137,24 @@ namespace Bionessori.Services {
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
                 return claimsIdentity;
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список ролей пользователя.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<string>> TakeUserRole(string login) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var param = new DynamicParameters();
+                param.Add("@login", login, DbType.String);
+
+                // Вызывает процедуру, которая возвращает список ролей пользователя.
+                var isMemberRole = await db.QueryAsync<string>("sp_IsMemberUserRole",
+                    commandType: CommandType.StoredProcedure,
+                    param: param);
+
+                return isMemberRole.ToList();
             }
         }
     }
