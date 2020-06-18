@@ -43,5 +43,11 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="input"></param>
         /// <returns></returns>
         Task<ClaimsIdentity> GetIdentity(string input);
+
+        /// <summary>
+        /// Метод проверяет роль пользователя.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> TakeUserRole(string login); 
     }
 }

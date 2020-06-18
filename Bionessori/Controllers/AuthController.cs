@@ -7,9 +7,12 @@ using Bionessori.Core;
 using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Bionessori.Services;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 
 namespace Bionessori.Controllers {
     [ApiController, Route("api/data/auth")]
@@ -84,10 +87,15 @@ namespace Bionessori.Controllers {
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
                 var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                // Выбирает роли пользователя.
+                var isMemberRole = await _user.TakeUserRole(user.Login);
+
                 var response = new {
                     access_token = encodedJwt,
-                    username = isUser.Name
-                };
+                    username = isUser.Name,
+                    role = isMemberRole
+                };                
 
                 return Ok(response);
             }
