@@ -2,7 +2,8 @@
   color: white; }
 
 .container {
-  max-width: 100%; }
+  max-width: 100%;
+  overflow: auto; }
 
 .btn-item {
   background: white;
