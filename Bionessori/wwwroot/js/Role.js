@@ -11,7 +11,6 @@ var role = new Vue({
 	methods: {				
 		onInitRole() {
 			let aRoles;	// Все роли пользователя.
-			let sToken = JSON.parse(localStorage["user"]).access_token;	// Токен пользователя.
 
 			if (localStorage["roles"] !== undefined) {
 				aRoles = JSON.parse(localStorage["roles"]);

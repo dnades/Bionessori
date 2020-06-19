@@ -7,7 +7,6 @@ body {
 
 .container {
     max-width: 100%;
-    overflow: auto;
 }
 
 .btn-item {
@@ -74,6 +73,15 @@ table {
     .state {
         vertical-align: middle;
     }
+
+    .btn-link {
+        color: azure !important;
+        font-weight: 900;
+    }
+}
+
+#id--card-list-table {
+    height: 100vh;
 }
 
 .table thead th {

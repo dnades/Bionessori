@@ -4,7 +4,7 @@ var list_card = new Vue({
 	el: '#list_card',
 	created() {
 		this.onLoadCards();
-	},
+	},	
 	data: {
 		aCards: [],
 		aSelectCard: []
@@ -151,6 +151,54 @@ var list_card = new Vue({
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка создания карты.", XMLHttpRequest.response.data);
 				});
+		},
+
+		// Функция сортирует таблицу со списком карт пациентов.
+		sortedList(event) {
+			let sParam = event.target.value
+
+			switch (sParam) {
+				case 'card_number':
+					return this.aCards.sort(BaseClass.sortByCardNumber);
+
+				case 'fio':
+					return this.aCards.sort(BaseClass.sortByFio);
+
+				case 'year_of_birth':
+					return this.aCards.sort(BaseClass.sortByYearOfBirth);
+
+				case 'address':
+					return this.aCards.sort(BaseClass.sortByAddress);
+
+				case 'number':
+					return this.aCards.sort(BaseClass.sortByNumber); 
+
+				case 'policy':
+					return this.aCards.sort(BaseClass.sortByPolicy);
+
+				case 'snails':
+					return this.aCards.sort(BaseClass.sortBySnails); 
+
+				case 'date_time_proc':
+					return this.aCards.sort(BaseClass.sortByDateTimeProc);
+
+				case 'drugs':
+					return this.aCards.sort(BaseClass.sortByDrugs);
+
+				case 'diagnosis':
+					return this.aCards.sort(BaseClass.sortByDiagnosis);
+
+				case 'recommends':
+					return this.aCards.sort(BaseClass.sortByRecommends);
+
+				case 'history':
+					return this.aCards.sort(BaseClass.sortByHistory);
+
+				case 'doctor':
+					return this.aCards.sort(BaseClass.sortByDoctor);
+
+				default: return this.aCards;
+			}
 		}
-	}
+	},	
 });
