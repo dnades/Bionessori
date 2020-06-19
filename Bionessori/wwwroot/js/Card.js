@@ -203,6 +203,7 @@ var list_card = new Vue({
 		},
 
 		// Функция ищет карту пациента в таблице.
+		// Поиск работает пока только по № карты или ФИО пациента.
 		searchCard() {
 			let searchCard = $("#id-search").val();
 			let aFirstTemp;

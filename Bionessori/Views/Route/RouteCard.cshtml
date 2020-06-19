@@ -26,8 +26,16 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">				
-				<div class="btn-right-block">					
-					<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#create-card-modal">Создать новую карту пациента</button>
+				<div class="btn-right-block">
+					<button type="button" class="btn-item btn btn-default print">На печать</button>
+
+					<button type="button" class="btn-item btn btn-default export-pdf">Выгрузить в PDF</button>
+
+					<button type="button" class="btn-item btn btn-default export-excel">Выгрузить в Excel</button>
+
+					<button type="button" class="btn-item btn btn-default export-word">Выгрузить в Word</button>
+
+					<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту пациента</button>
 				</div>
 			</div>
 		</div>
@@ -36,6 +44,8 @@
 		<table id="id--card-list-table" class="table table-bordered table-responsive">
 			<thead>
 				<tr>
+					<th class="text-center" scope="col"><input type="checkbox" aria-hidden="true" /></th>
+
 					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
 							№ карты
@@ -123,6 +133,8 @@
 					<td class="text-center card-id">
 						<span>{{el.id}}</span>
 					</td>
+
+					<th class="text-center" scope="col"><input type="checkbox" aria-hidden="true" /></th>
 
 					<td class="text-center">
 						<span>{{el.cardNumber}}</span>

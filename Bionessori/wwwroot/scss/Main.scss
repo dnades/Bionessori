@@ -1,5 +1,6 @@
 ﻿$whiteText: azure; // Делает текст белым.
 $widthModal: max-content !important;
+$widthBtnsCard: auto !important;
 
 body {
     color: white;
@@ -43,6 +44,26 @@ body {
     .input-search {
         width: 200%;
     }
+
+    .btn-create-card {
+        width: $widthBtnsCard;
+    }
+
+    .export-excel {
+        width: $widthBtnsCard;
+    }
+
+    .export-word {
+        width: $widthBtnsCard;
+    }
+
+    .print {
+        width: $widthBtnsCard;
+    }
+
+    .export-pdf {
+        width: $widthBtnsCard;
+    }
 }
 
 .advantages {
@@ -67,6 +88,7 @@ table {
     th {
         border: 2px solid azure !important;
         font-weight: 900 !important;
+        vertical-align: middle!important;
     }
 
     .state {
