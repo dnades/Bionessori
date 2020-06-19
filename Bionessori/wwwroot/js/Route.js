@@ -1,18 +1,18 @@
 ﻿"use strict";
 
+// Распределение роутов веб-приложения.
 var main = new Vue({
-	el: '#main',
-	methods: {
-		// Функция распределяет роуты веб-приложения.
+	el: '#main',	
+	methods: {		
 		onRouteCard(event) {
 			let sRoute = event.target.value;
 
 			switch (sRoute) {
-				// Переходит на страницу карточек.
+				// Переходит на страницу карт пациентов.
 				case "card":
 					window.location.href = "https://localhost:44312/Route/RouteCard";
 					break;
 			}
-		}
-	}
+		}		
+	}	
 });

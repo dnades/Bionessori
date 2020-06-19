@@ -46,8 +46,9 @@ var app = new Vue({
 		onSignIn() {
 			$(".btn-login").prop('disabled', true);
 
-			var sLogin = $("#id-sign-login").val();
-			var sPassword = $("#id-sign-password").val();
+			let sLogin = $("#id-sign-login").val();
+			let sPassword = $("#id-sign-password").val();
+			let aRoles;
 
 			const sUrl = "https://localhost:44312/api/data/auth/signin";
 
@@ -61,14 +62,21 @@ var app = new Vue({
 				.then((response) => {
 					$(".btn-login").prop('disabled', false);
 
-					console.log(response);
+					// Записывает роли пользователя.
+					aRoles = response.data.role;
+					localStorage["roles"] = JSON.stringify(aRoles);
+
+					// Записывает данные авторизованного пользователя в кэш.
+					localStorage["user"] = JSON.stringify(response.data);
+
+					console.log("Пользователь успешно авторизован.", response);
 				})
 				.catch((XMLHttpRequest) => {
 					$(".btn-login").prop('disabled', false);
 					$("#id-error-login").addClass("check-authorization");
 					$("#id-error-login").html("Логин или пароль введены не верно.");
 
-					console.log("request send error", XMLHttpRequest.response.data);
+					console.log("Ошибка авторизации пользователя.", XMLHttpRequest.response.data);
 				});
 		}
 	}

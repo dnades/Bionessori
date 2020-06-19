@@ -12,6 +12,7 @@
 </head>
 
 <body>	
+	<div id="role"></div>
 	<div id="main">
 		<div class="row">
 			<div class="container">
@@ -55,39 +56,40 @@
 					<div class="btn-right-block">
 						<button type="button" id="id-card" class="btn-item btn btn-default" value="card" v-on:click="onRouteCard">Карточки пациентов</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Комплексные обследования</button><br />
+						<button type="button" id="id-complex" class="btn-item btn btn-default">Комплексные обследования</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Диагностика и визуализация</button><br />
+						<button type="button" id="id-diagnostic" class="btn-item btn btn-default">Диагностика и визуализация</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Ведение MRP</button><br />
+						<button type="button" id="id-mrp" class="btn-item btn btn-default">Ведение MRP</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Управление запасами</button><br />
+						<button type="button" id="id-manage-resource" class="btn-item btn btn-default">Управление запасами</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Управление персоналом</button><br />
+						<button type="button" id="id-manage-personal" class="btn-item btn btn-default">Управление персоналом</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Управление закупками</button><br />
+						<button type="button" id="id-manage-shop" class="btn-item btn btn-default">Управление закупками</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Финансовый учет</button><br />
+						<button type="button" id="id-finance" class="btn-item btn btn-default">Финансовый учет</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Анкетирование</button><br />
+						<button type="button"id="id-anketa" class="btn-item btn btn-default">Анкетирование</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Ведение складов</button><br />
+						<button type="button" id="id-manage-warehouse" class="btn-item btn btn-default">Ведение складов</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Скорая помощь</button><br />
+						<button type="button" id="id-quick-help" class="btn-item btn btn-default">Скорая помощь</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Сервис питания</button><br />
+						<button type="button" id="id-eating-service" class="btn-item btn btn-default">Сервис питания</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Сервис оповещений</button><br />
+						<button type="button" id="id-indicator-service" class="btn-item btn btn-default">Сервис оповещений</button><br />
 
-						<button type="button" class="btn-item btn btn-default">Перейти к статистике</button>
+						<button type="button" id="id-statistic" class="btn-item btn btn-default">Перейти к статистике</button>
 
-						<button type="button" class="btn-item btn btn-default">Регистратура</button>
+						<button type="button" id="id-registry" class="btn-item btn btn-default">Регистратура</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<script src="~/js/Role.js"></script>
 	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -44,6 +44,12 @@ table {
     font-weight: 900 !important; }
   table .state {
     vertical-align: middle; }
+  table .btn-link {
+    color: azure !important;
+    font-weight: 900; }
+
+#id--card-list-table {
+  height: 100vh; }
 
 .table thead th {
   vertical-align: middle;
