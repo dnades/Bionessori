@@ -30,11 +30,6 @@ body {
     justify-content: space-between;
 
     .btn-left-block {
-        //width: 300px;
-        .btns {
-            //display: flex;
-        }
-
         .left-btn {
             margin-right: 5px;
         }
@@ -43,6 +38,10 @@ body {
     .block-content {
         margin-left: 2%;
         margin-right: 2%;
+    }
+
+    .input-search {
+        width: 200%;
     }
 }
 

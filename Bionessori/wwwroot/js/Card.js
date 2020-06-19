@@ -7,7 +7,8 @@ var list_card = new Vue({
 	},	
 	data: {
 		aCards: [],
-		aSelectCard: []
+		aSelectCard: [],
+		aFindCard: []
 	},
 	methods: {
 		onLoadCards() {
@@ -155,7 +156,7 @@ var list_card = new Vue({
 
 		// Функция сортирует таблицу со списком карт пациентов.
 		sortedList(event) {
-			let sParam = event.target.value
+			let sParam = event.target.value;
 
 			switch (sParam) {
 				case 'card_number':
@@ -199,6 +200,45 @@ var list_card = new Vue({
 
 				default: return this.aCards;
 			}
+		},
+
+		// Функция ищет карту пациента в таблице.
+		searchCard() {
+			let searchCard = $("#id-search").val();
+			let aFirstTemp;
+			let aSecondTemp;
+			let aRes = [];
+			let aTemp = [];
+
+			// Если поиск пустой, значит нужно снова загрузить все карты.
+			if (searchCard == "") {
+				this.onLoadCards();
+			}
+			
+			for (let value1 of Object.values(this.aCards)) {
+				for (let value2 of Object.values(value1)) {
+					if (value2 !== null && value2 !== undefined) {
+						aTemp.push(value2.match(searchCard));
+						aFirstTemp = aTemp.filter(el => el !== null && el !== undefined);						
+					}
+				}
+			}
+
+			aFirstTemp.map(el => {
+				console.log(el.input);	// TODO: хорошо для дебага.
+				aSecondTemp = el.input;				
+			});
+
+			// Ищет по ФИО пациента.
+			aRes = this.aCards.filter(el => el.fullName == aSecondTemp);
+
+			// Если не найдено по ФИО пациента, то ищет по номеру карты.
+			if (!aRes.length) {
+				aRes = this.aCards.filter(el => el.cardNumber == +aSecondTemp);
+			}
+
+			// Записывает карты, которые соответствуют условиям поиска.
+			this.aCards = aRes;
 		}
 	},	
 });
