@@ -166,3 +166,38 @@ table {
 .btn-right-block {
     padding-bottom: 5px;
 }
+
+// Для прелоадера.
+/////////////////////////
+.mask {
+    width: 100%;
+    height: 100%;
+    background: #66BFE0;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    transition: 0.6s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    width: 75px;
+    height: 75px;
+    border: 10px solid rgba(253, 253, 253, 0.6);
+    border-radius: 50%;
+    border-left-color: var(--white);
+    animation: loader 1.3s linear infinite;
+}
+
+@keyframes loader {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hide {
+    opacity: 0;
+}
+////////////////////////////

@@ -8,11 +8,19 @@
 	<link href="~/css/Footer.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
 	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />	
 </head>
 <body>
 	<script src="https://unpkg.com/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+	<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+
+	<div class="mask">
+		<div class="loader">
+
+		</div>
+	</div>
 
 	<div id="app">
 		<header>
@@ -131,6 +139,7 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/Loader.js"></script>
 
 	<div class="container">
 		<main role="main" class="pb-3">
