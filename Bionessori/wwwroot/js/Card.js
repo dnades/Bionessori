@@ -4,6 +4,10 @@ var list_card = new Vue({
 	el: '#list_card',
 	created() {
 		this.onLoadCards();
+
+		if (localStorage["user"]) {
+			RoleBase.initRole();
+		}
 	},
 	data: {
 		aCards: [],

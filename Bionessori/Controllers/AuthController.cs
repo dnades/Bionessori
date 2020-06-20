@@ -101,6 +101,6 @@ namespace Bionessori.Controllers {
             }
 
             throw new ArgumentNullException("Пользователь не найден.");
-        }
+        }        
     }
 }
