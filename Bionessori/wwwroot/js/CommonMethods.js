@@ -115,4 +115,9 @@ class BaseClass {
 	static sortByDoctor(d1, d2) {
 		return (d1.doctor.toLowerCase() > d2.doctor.toLowerCase()) ? 1 : -1;
 	}
+
+	// Поиск по слову в таблице карт пациентов.
+	static searchCard(word, words) {
+		return words.filter(el => el.length);
+	}
 }

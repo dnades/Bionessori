@@ -20,94 +20,101 @@
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
-
+					<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по ФИО или № карты пациента">
 				</div>
 			</div>
 
 			<!-- Правая секция кнопок -->
-			<div class="btn-right-block">
+			<div class="btn-right-block">				
 				<div class="btn-right-block">
-					<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#create-card-modal">Создать новую карту пациента</button>
+					<button type="button" class="btn-item btn btn-default print" v-on:click="window.print()">
+					На печать</button>
+
+					<button type="button" class="btn-item btn btn-default print">Загрузить из Excel</button>
+
+					<button type="button" class="btn-item btn btn-default export-excel">Выгрузить в Excel</button>
+
+					<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту пациента</button>
 				</div>
 			</div>
 		</div>
 
-		<!-- Секция таблицы со списком карт пациентов -->
+		<!-- Секция таблицы со списком карт пациентов -->		
 		<table id="id--card-list-table" class="table table-bordered table-responsive">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
 							№ карты
-						</button>					
+						</button>
 					</th>
 
 					<th class="text-center" scope="col" v-on:click="">
 						<button class="btn btn-link" value="fio" v-on:click="sortedList">
 							ФИО
-						</button>						
+						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="year_of_birth" v-on:click="sortedList">
 							Дата рождения
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="address" v-on:click="sortedList">
 							Адрес
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="number" v-on:click="sortedList">
 							Телефон
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="policy" v-on:click="sortedList">
 							Полис
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="snails" v-on:click="sortedList">
 							СНИЛС
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
 							Дата и время назначаемых<br /> процедур и записей
 						</button>
 					</th>
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="drugs" v-on:click="sortedList">
 							Прописанные лекарства
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
 							Диагноз
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="recommends" v-on:click="sortedList">
 							Рецепты и рекомендации
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="history" v-on:click="sortedList">
 							История болезни
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">						
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="doctor" v-on:click="sortedList">
 							Лечащий врач
 						</button>

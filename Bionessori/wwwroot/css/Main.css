@@ -25,6 +25,18 @@
   .btn-block-main .block-content {
     margin-left: 2%;
     margin-right: 2%; }
+  .btn-block-main .input-search {
+    width: 200%; }
+  .btn-block-main .btn-create-card {
+    width: auto !important; }
+  .btn-block-main .export-excel {
+    width: auto !important; }
+  .btn-block-main .export-word {
+    width: auto !important; }
+  .btn-block-main .print {
+    width: auto !important; }
+  .btn-block-main .export-pdf {
+    width: auto !important; }
 
 .advantages {
   display: flex;
@@ -41,7 +53,8 @@ table {
     border: 2px solid azure !important; }
   table th {
     border: 2px solid azure !important;
-    font-weight: 900 !important; }
+    font-weight: 900 !important;
+    vertical-align: middle !important; }
   table .state {
     vertical-align: middle; }
   table .btn-link {
