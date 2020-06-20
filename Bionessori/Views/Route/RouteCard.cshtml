@@ -8,12 +8,15 @@
 	<title>@ViewData["Title"]</title>
 	<link href="~/css/Header.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
-	<link href="~/css/Footer.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />	
+</head>
+<body>
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
-</head>
-<body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
+
 	<div id="list_card">
 		<!-- Главная секция кнопок -->
 		<div class="btn-block-main">
@@ -25,12 +28,13 @@
 			</div>
 
 			<!-- Правая секция кнопок -->
-			<div class="btn-right-block">				
+			<div class="btn-right-block">
 				<div class="btn-right-block">
 					<button type="button" class="btn-item btn btn-default print" v-on:click="window.print()">
-					На печать</button>
+						На печать
+					</button>
 
-					<button type="button" class="btn-item btn btn-default print">Загрузить из Excel</button>
+					<button type="button" id="btnExport" class="btn-item btn btn-default print">Загрузить из Excel</button>
 
 					<button type="button" class="btn-item btn btn-default export-excel" v-on:click="onExportExcel">Выгрузить в Excel</button>
 
@@ -39,8 +43,8 @@
 			</div>
 		</div>
 
-		<!-- Секция таблицы со списком карт пациентов -->		
-		<table id="id--card-list-table" class="table table-bordered table-responsive">
+		<!-- Секция таблицы со списком карт пациентов -->
+		<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">
