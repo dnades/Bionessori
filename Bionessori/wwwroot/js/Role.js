@@ -4,7 +4,7 @@
 var role = new Vue({
 	el: '#role',
 	created() {
-		if (JSON.parse(localStorage["user"]).access_token !== "" && JSON.parse(localStorage["user"]).access_token !== undefined) {
+		if (localStorage["user"]) {
 			this.onInitRole();
 		}
 	},

@@ -11,6 +11,8 @@
 	<link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />	
 </head>
 <body>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://unpkg.com/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
@@ -47,11 +49,11 @@
 					</div>
 
 					<div class="log_check">
-						<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#login-modal">Войти</button>
+						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#login-modal">Войти</button>
 
-						<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
+						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
 
-						<button type="button" class="btn-item btn btn-default"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
+						<button type="button" class="btn-item btn btn-default state"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
 					</div>
 
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -84,7 +86,7 @@
 						</div>
 
 						<div class="form-group">
-							<input type="text" id="id-sign-password" class="form-control" placeholder="Пароль" />
+							<input type="password" id="id-sign-password" class="form-control" placeholder="Пароль" />
 						</div>
 					</div>
 
@@ -139,8 +141,6 @@
 
 	<script src="~/js/Auth.js"></script>
 	<script src="~/js/CommonMethods.js"></script>
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="~/js/Loader.js"></script>
 
