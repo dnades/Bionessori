@@ -201,3 +201,8 @@ table {
     opacity: 0;
 }
 ////////////////////////////
+
+.btn:focus {
+    outline: 0;
+    box-shadow: none!important;
+}
