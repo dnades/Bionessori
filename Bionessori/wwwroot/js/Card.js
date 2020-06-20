@@ -17,11 +17,22 @@ var list_card = new Vue({
 			// Отправляет данные на Back-end.
 			axios.post(sUrl, {})
 				.then((response) => {
-					console.log("Карточки загружены", response);
+					console.log("Список карт", response.data);
+
 					this.aCards = response.data;
+
+					this.aCards.forEach(el => {
+						// Форматирует дату и время рождения.
+						let tempDate = new Date(el.dateOfBirth).toLocaleString(); 
+						el.dateOfBirth = tempDate;
+
+						// Форматирует дату и время записей на процедуры.
+						let tempProc = new Date(el.timeProcRecommend).toLocaleString();
+						el.timeProcRecommend = tempProc;
+					});
 				})
 				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения списка карт пациентов.", XMLHttpRequest.response.data);
+					console.log("Ошибка получения списка карт пациентов", XMLHttpRequest.response.data);
 				});
 		},
 
