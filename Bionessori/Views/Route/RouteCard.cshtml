@@ -38,7 +38,7 @@
 
 					<button type="button" class="btn-item btn btn-default export-excel" v-on:click="onExportExcel">Выгрузить в Excel</button>
 
-					<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту</button>
+					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту</button>
 				</div>
 			</div>
 		</div>
@@ -299,7 +299,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" v-on:click="onSaveEditChange">Сохранить изменения</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onSaveEditChange">Сохранить изменения</button>
 					</div>
 				</div>
 			</div>
@@ -400,7 +400,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" v-on:click="onCreateCard">Создать карту</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onCreateCard">Создать карту</button>
 					</div>
 				</div>
 			</div>
@@ -423,7 +423,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" v-on:click="onDelete">Удалить карту</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onDelete">Удалить карту</button>
 					</div>
 				</div>
 			</div>
@@ -450,9 +450,30 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Секция модального окна об успешном изменении карты пациента. -->
+		<div class="modal fade" id="success-change-card-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+			<div id="modal-delete" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in aSelectCard">
+					<div class="modal-header">
+						<h5 class="modal-title" id="successModalLabel">Удаление карты пациента № {{el.cardNumber}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<span>Карта пациента №: {{el.cardNumber}} успешно изменена.</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<script src="~/js/RoleMethods.js"></script>
 	<script src="~/js/Card.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

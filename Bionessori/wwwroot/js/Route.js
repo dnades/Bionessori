@@ -4,9 +4,7 @@
 var main = new Vue({
 	el: '#main',	
 	created() {
-		if (localStorage["user"]) {
-			RoleBase.initRole();
-		}
+		RoleBase.initRole();
 	},
 	methods: {		
 		onRouteCard(event) {
