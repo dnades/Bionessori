@@ -4,12 +4,7 @@
 var main = new Vue({
 	el: '#main',
 	created() {
-		RoleBase.initRole();
-
-		// Если зашел админ.
-		if (localStorage["roles"].includes("admin")) {
-			window.location.href = "https://localhost:44312/Route/RouteAdmin";
-		}
+		RoleBase.initRole();		
 	},
 	methods: {
 		onRouteMatched(event) {

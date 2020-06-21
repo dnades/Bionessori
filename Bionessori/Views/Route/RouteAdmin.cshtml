@@ -24,7 +24,7 @@
 					<!-- Левая секция кнопок -->
 					<div class="btn-left-block">
 						<div class="btns">
-
+							<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по логину или почте">
 						</div>
 					</div>
 
@@ -69,6 +69,7 @@
 
 					<th class="text-center" scope="col"></th>
 					<th class="text-center" scope="col"></th>
+					<th class="text-center" scope="col"></th>
 				</tr>
 			</thead>
 
@@ -103,6 +104,12 @@
 					<td class="text-center state">
 						<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="">
 							<i class="fa fa-trash-o" aria-hidden="true"></i>
+						</button>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="">
+							<i class="fa fa-globe" aria-hidden="true"></i>
 						</button>
 					</td>
 				</tr>
