@@ -74,6 +74,9 @@ table {
 .tbl-item:hover {
   box-shadow: 0 0 10px #000000 !important; }
 
+.tbl-item .user-id {
+  display: none; }
+
 #tbl-item-edit:hover {
   box-shadow: none !important; }
 
