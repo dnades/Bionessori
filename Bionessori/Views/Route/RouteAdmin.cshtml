@@ -1,0 +1,101 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div id="admin">
+		<div class="row">
+			<div class="container">
+				<!-- Главная секция кнопок -->
+				<div class="btn-block-main">
+					<!-- Левая секция кнопок -->
+					<div class="btn-left-block">
+						<div class="btns">
+
+						</div>
+					</div>
+
+					<!-- Правая секция кнопок -->
+					<div class="btn-right-block">
+						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Создать пользователя</button>
+
+						@*<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Изменить данные пользователя</button>
+
+						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Удалить пользователя</button>*@
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table id="id-card-list-table" class="table table-bordered table-responsive">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
+							Логин
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio" v-on:click="sortedList">
+							Email
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio" v-on:click="sortedList">
+							Номер телефона
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio" v-on:click="sortedList">
+							Пароль
+						</button>
+					</th>
+
+					<th class="text-center" scope="col"></th>
+					<th class="text-center" scope="col"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr class="tbl-item" v-for="el in aCards">
+					<td class="text-center card-id">
+						<span>{{el.id}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.cardNumber}}</span>
+					</td>
+					
+					<td class="text-center state">
+						<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="onEditCard">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onDeleteCard">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="~/js/BackOffice.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

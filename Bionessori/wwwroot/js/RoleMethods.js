@@ -47,6 +47,31 @@ class RoleBase {
 			if (!aRoles.includes("registrar")) {
 				$("#id-create-card").hide();
 			}
+
+			// Если у пользователя есть все роли.
+			if (aRoles.includes("admin")) {
+				$("#id-card").prop("disabled", false);
+				$("#id-complex").prop("disabled", false);
+				$("#id-diagnostic").prop("disabled", false);
+				$("#id-mrp").prop("disabled", false);
+				$("#id-manage-resource").prop("disabled", false);
+				$("#id-manage-personal").prop("disabled", false);
+				$("#id-manage-shop").prop("disabled", false);
+				$("#id-finance").prop("disabled", false);
+				$("#id-anketa").prop("disabled", false);
+				$("#id-manage-warehouse").prop("disabled", false);
+				$("#id-quick-help").prop("disabled", false);
+				$("#id-eating-service").prop("disabled", false);
+				$("#id-indicator-service").prop("disabled", false);
+				$("#id-statistic").prop("disabled", false);
+				$("#id-registry").prop("disabled", false);
+
+				$("#id-icon-edit").show();
+				$("#id-icon-delete").show();
+				$(".export-excel").show();
+				$(".print").show();
+				$("#id-create-card").show();
+			}
 		}				
 	}
 }
