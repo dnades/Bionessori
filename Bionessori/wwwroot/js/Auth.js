@@ -1,8 +1,15 @@
 ﻿"use strict";
 
 var app = new Vue({
-	el: '#app',
-	data: {},
+	el: '#app',	
+	created() {
+		$(".state").hide();	// Изначально скрывает иконку пользователя.
+
+		if (localStorage["user"]) {
+			$(".state-log").hide();
+			$(".state").show();
+		}
+	},
 	methods: {		
 		// Функция отправляет данные регистрации на Back-end.
 		onCheckIn() {
@@ -69,6 +76,25 @@ var app = new Vue({
 					// Записывает данные авторизованного пользователя в кэш.
 					localStorage["user"] = JSON.stringify(response.data);
 
+					$(".state-log").hide();
+					$(".state").show();
+
+					$("#id-card").prop("disabled", false);
+					$("#id-complex").prop("disabled", false);
+					$("#id-diagnostic").prop("disabled", false);
+					$("#id-mrp").prop("disabled", false);
+					$("#id-manage-resource").prop("disabled", false);
+					$("#id-manage-personal").prop("disabled", false);
+					$("#id-manage-shop").prop("disabled", false);
+					$("#id-finance").prop("disabled", false);
+					$("#id-anketa").prop("disabled", false);
+					$("#id-manage-warehouse").prop("disabled", false);
+					$("#id-quick-help").prop("disabled", false);
+					$("#id-eating-service").prop("disabled", false);
+					$("#id-indicator-service").prop("disabled", false);
+					$("#id-statistic").prop("disabled", false);
+					$("#id-registry").prop("disabled", false);
+				
 					console.log("Пользователь успешно авторизован.", response);
 				})
 				.catch((XMLHttpRequest) => {

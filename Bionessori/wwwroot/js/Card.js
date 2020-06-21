@@ -4,7 +4,11 @@ var list_card = new Vue({
 	el: '#list_card',
 	created() {
 		this.onLoadCards();
-	},	
+
+		if (localStorage["user"]) {
+			RoleBase.initRole();
+		}
+	},
 	data: {
 		aCards: [],
 		aSelectCard: [],
@@ -23,12 +27,12 @@ var list_card = new Vue({
 
 					this.aCards.forEach(el => {
 						// Форматирует дату и время рождения.
-						let tempDate = new Date(el.dateOfBirth).toLocaleString(); 
-						el.dateOfBirth = tempDate;
+						//let tempDate = new Date(el.dateOfBirth).toLocaleString();
+						//el.dateOfBirth = tempDate;
 
 						// Форматирует дату и время записей на процедуры.
-						let tempProc = new Date(el.timeProcRecommend).toLocaleString();
-						el.timeProcRecommend = tempProc;
+						//let tempProc = new Date(el.timeProcRecommend).toLocaleString();
+						//el.timeProcRecommend = tempProc;
 					});
 				})
 				.catch((XMLHttpRequest) => {
@@ -93,6 +97,9 @@ var list_card = new Vue({
 			axios.post(sUrl, oCard)
 				.then((response) => {
 					console.log(response);
+
+					// Выводит модальное окно об успешном изменении карты пациента.
+					$('#success-change-card-modal').modal('toggle');
 				})
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка изменение карты.", XMLHttpRequest.response.data);
@@ -183,13 +190,13 @@ var list_card = new Vue({
 					return this.aCards.sort(BaseClass.sortByAddress);
 
 				case 'number':
-					return this.aCards.sort(BaseClass.sortByNumber); 
+					return this.aCards.sort(BaseClass.sortByNumber);
 
 				case 'policy':
 					return this.aCards.sort(BaseClass.sortByPolicy);
 
 				case 'snails':
-					return this.aCards.sort(BaseClass.sortBySnails); 
+					return this.aCards.sort(BaseClass.sortBySnails);
 
 				case 'date_time_proc':
 					return this.aCards.sort(BaseClass.sortByDateTimeProc);
@@ -226,19 +233,19 @@ var list_card = new Vue({
 			if (searchCard == "") {
 				this.onLoadCards();
 			}
-			
+
 			for (let value1 of Object.values(this.aCards)) {
 				for (let value2 of Object.values(value1)) {
 					if (value2 !== null && value2 !== undefined) {
 						aTemp.push(value2.match(searchCard));
-						aFirstTemp = aTemp.filter(el => el !== null && el !== undefined);						
+						aFirstTemp = aTemp.filter(el => el !== null && el !== undefined);
 					}
 				}
 			}
 
 			aFirstTemp.map(el => {
 				console.log(el.input);	// TODO: хорошо для дебага.
-				aSecondTemp = el.input;				
+				aSecondTemp = el.input;
 			});
 
 			// Ищет по ФИО пациента.
@@ -251,6 +258,23 @@ var list_card = new Vue({
 
 			// Записывает карты, которые соответствуют условиям поиска.
 			this.aCards = aRes;
-		}		
-	},	
+		},
+
+		// Функция выгружает список карт в Excel.
+		onExportExcel() {
+			let wb = XLSX.utils.table_to_book(document.getElementById('id-card-list-table'), { sheet: "Sheet JS" });
+			let wbout = XLSX.write(wb, { bookType: 'xls', bookSST: true, type: 'binary' });
+
+			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список карт пациентов.xls');
+
+			function s2ab(s) {
+				let buf = new ArrayBuffer(s.length);
+				let view = new Uint8Array(buf);
+
+				for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+
+				return buf;
+			}			
+		}
+	},
 });

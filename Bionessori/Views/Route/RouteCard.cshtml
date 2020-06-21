@@ -8,12 +8,15 @@
 	<title>@ViewData["Title"]</title>
 	<link href="~/css/Header.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
-	<link href="~/css/Footer.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />	
+</head>
+<body>
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
-</head>
-<body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
+
 	<div id="list_card">
 		<!-- Главная секция кнопок -->
 		<div class="btn-block-main">
@@ -25,178 +28,181 @@
 			</div>
 
 			<!-- Правая секция кнопок -->
-			<div class="btn-right-block">				
+			<div class="btn-right-block">
 				<div class="btn-right-block">
 					<button type="button" class="btn-item btn btn-default print" v-on:click="window.print()">
-					На печать</button>
+						На печать
+					</button>
 
-					<button type="button" class="btn-item btn btn-default print">Загрузить из Excel</button>
+					@*<button type="button" id="btnExport" class="btn-item btn btn-default print">Загрузить из Excel</button>*@
 
-					<button type="button" class="btn-item btn btn-default export-excel">Выгрузить в Excel</button>
+					<button type="button" class="btn-item btn btn-default export-excel" v-on:click="onExportExcel">Выгрузить в Excel</button>
 
-					<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту пациента</button>
+					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту</button>
 				</div>
 			</div>
 		</div>
 
-		<!-- Секция таблицы со списком карт пациентов -->		
-		<table id="id--card-list-table" class="table table-bordered table-responsive">
-			<thead>
-				<tr>
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
-							№ карты
-						</button>
-					</th>
+		<!-- Секция таблицы со списком карт пациентов -->
+		<div class="table-fix-head">
+			<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="sortedList">
+								№ карты
+							</button>
+						</th>
 
-					<th class="text-center" scope="col" v-on:click="">
-						<button class="btn btn-link" value="fio" v-on:click="sortedList">
-							ФИО
-						</button>
-					</th>
+						<th class="text-center" scope="col" v-on:click="">
+							<button class="btn btn-link" value="fio" v-on:click="sortedList">
+								ФИО
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="year_of_birth" v-on:click="sortedList">
-							Дата рождения
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="year_of_birth" v-on:click="sortedList">
+								Дата рождения
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="address" v-on:click="sortedList">
-							Адрес
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="address" v-on:click="sortedList">
+								Адрес
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="number" v-on:click="sortedList">
-							Телефон
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="number" v-on:click="sortedList">
+								Телефон
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="policy" v-on:click="sortedList">
-							Полис
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="policy" v-on:click="sortedList">
+								Полис
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="snails" v-on:click="sortedList">
-							СНИЛС
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="snails" v-on:click="sortedList">
+								СНИЛС
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
-							Дата и время назначаемых<br /> процедур и записей
-						</button>
-					</th>
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="drugs" v-on:click="sortedList">
-							Прописанные лекарства
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
+								Дата и время назначаемых<br /> процедур и записей
+							</button>
+						</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="drugs" v-on:click="sortedList">
+								Прописанные лекарства
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
-							Диагноз
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
+								Диагноз
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="recommends" v-on:click="sortedList">
-							Рецепты и рекомендации
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="recommends" v-on:click="sortedList">
+								Рецепты и рекомендации
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="history" v-on:click="sortedList">
-							История болезни
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="history" v-on:click="sortedList">
+								История болезни
+							</button>
+						</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="doctor" v-on:click="sortedList">
-							Лечащий врач
-						</button>
-					</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="doctor" v-on:click="sortedList">
+								Лечащий врач
+							</button>
+						</th>
 
-					<th class="text-center" scope="col"></th>
-					<th class="text-center" scope="col"></th>
-				</tr>
-			</thead>
+						<th class="text-center" scope="col"></th>
+						<th class="text-center" scope="col"></th>
+					</tr>
+				</thead>
 
-			<tbody>
-				<tr class="tbl-item" v-for="el in aCards">
-					<td class="text-center card-id">
-						<span>{{el.id}}</span>
-					</td>
+				<tbody>
+					<tr class="tbl-item" v-for="el in aCards">
+						<td class="text-center card-id">
+							<span>{{el.id}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.cardNumber}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.cardNumber}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.fullName}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.fullName}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.dateOfBirth}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.dateOfBirth}}</span>
+						</td>
 
-					<td class="text-center">
-						<span class="departure">{{el.address}}</span>
-					</td>
+						<td class="text-center">
+							<span class="departure">{{el.address}}</span>
+						</td>
 
-					<td class="text-center">
-						<span class="arrival">{{el.number}}</span>
-					</td>
+						<td class="text-center">
+							<span class="arrival">{{el.number}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.policy}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.policy}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.snails}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.snails}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.timeProcRecommend}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.timeProcRecommend}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.prescriptionDrugs}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.prescriptionDrugs}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.diagnosis}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.diagnosis}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.recipesRecommend}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.recipesRecommend}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.medicalHistory}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.medicalHistory}}</span>
+						</td>
 
-					<td class="text-center">
-						<span>{{el.doctor}}</span>
-					</td>
+						<td class="text-center">
+							<span>{{el.doctor}}</span>
+						</td>
 
-					<td class="text-center state">
-						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="onEditCard">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-						</button>
-					</td>
+						<td class="text-center state">
+							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="onEditCard">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+							</button>
+						</td>
 
-					<td class="text-center state">
-						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onDeleteCard">
-							<i class="fa fa-trash-o" aria-hidden="true"></i>
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+						<td class="text-center state">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onDeleteCard">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
 		<!-- Секция модального окна редактирования карты пациента. -->
 		<div class="modal fade" id="edit-card-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -293,7 +299,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" v-on:click="onSaveEditChange">Сохранить изменения</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onSaveEditChange">Сохранить изменения</button>
 					</div>
 				</div>
 			</div>
@@ -394,7 +400,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" v-on:click="onCreateCard">Создать карту</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onCreateCard">Создать карту</button>
 					</div>
 				</div>
 			</div>
@@ -417,7 +423,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" v-on:click="onDelete">Удалить карту</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onDelete">Удалить карту</button>
 					</div>
 				</div>
 			</div>
@@ -436,6 +442,28 @@
 
 					<div class="modal-body">
 						<span>Карта пациента №: {{el.cardNumber}} успешно удалена.</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция модального окна об успешном изменении карты пациента. -->
+		<div class="modal fade" id="success-change-card-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+			<div id="modal-delete" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in aSelectCard">
+					<div class="modal-header">
+						<h5 class="modal-title" id="successModalLabel">Удаление карты пациента № {{el.cardNumber}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<span>Карта пациента №: {{el.cardNumber}} успешно изменена.</span>
 					</div>
 
 					<div class="modal-footer">

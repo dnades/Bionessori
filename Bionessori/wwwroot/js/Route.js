@@ -3,6 +3,9 @@
 // Распределение роутов веб-приложения.
 var main = new Vue({
 	el: '#main',	
+	created() {
+		RoleBase.initRole();
+	},
 	methods: {		
 		onRouteCard(event) {
 			let sRoute = event.target.value;
