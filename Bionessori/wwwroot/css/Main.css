@@ -139,3 +139,8 @@ table {
 
 .form-control-modal {
   width: auto !important; }
+
+.table-head table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #52bce3; }
