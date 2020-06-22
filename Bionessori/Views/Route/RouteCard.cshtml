@@ -8,7 +8,7 @@
 	<title>@ViewData["Title"]</title>
 	<link href="~/css/Header.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
-	<link href="~/css/Footer.css" rel="stylesheet" />	
+	<link href="~/css/Footer.css" rel="stylesheet" />
 </head>
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -44,7 +44,7 @@
 		</div>
 
 		<!-- Секция таблицы со списком карт пациентов -->
-		<div class="table-fix-head">
+		<div class="table-head">
 			<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
 				<thead>
 					<tr>
@@ -54,7 +54,7 @@
 							</button>
 						</th>
 
-						<th class="text-center" scope="col" v-on:click="">
+						<th class="text-center" scope="col">
 							<button class="btn btn-link" value="fio" v-on:click="sortedList">
 								ФИО
 							</button>
@@ -216,12 +216,12 @@
 					</div>
 
 					<div class="modal-body">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-responsive">
 							<thead>
 								<tr>
 									<th class="text-center" scope="col">№ карты</th>
-									<th class="text-center" scope="col">ФИО</th>
-									<th class="text-center" scope="col">Дата рождения</th>
+									<th class="text-center" scope="col" col width="400">ФИО</th>
+									<th class="text-center" scope="col" col width="400">Дата рождения</th>
 									<th class="text-center" scope="col">Адрес</th>
 									<th class="text-center" scope="col">Телефон</th>
 									<th class="text-center" scope="col">Полис</th>
@@ -238,59 +238,59 @@
 							<tbody>
 								<tr id="tbl-item-edit" class="tbl-item">
 									<td class="text-center card-id">
-										<textarea id="id" class="form-control">{{el.id}}</textarea>
+										<textarea id="id" class="form-control form-control-modal">{{el.id}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-card-number" class="form-control">{{el.cardNumber}}</textarea>
+										<textarea id="id-card-number" class="form-control form-control-modal">{{el.cardNumber}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-name" class="form-control">{{el.fullName}}</textarea>
+										<textarea id="id-name" class="form-control form-control-modal">{{el.fullName}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control">{{el.dateOfBirth}}</textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.dateOfBirth}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-address" class="form-control">{{el.address}}</textarea>
+										<textarea id="id-address" class="form-control form-control-modal">{{el.address}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-number" class="form-control">{{el.number}}</textarea>
+										<textarea id="id-number" class="form-control form-control-modal">{{el.number}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-policy" class="form-control">{{el.policy}}</textarea>
+										<textarea id="id-policy" class="form-control form-control-modal">{{el.policy}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-snails" class="form-control">{{el.snails}}</textarea>
+										<textarea id="id-snails" class="form-control form-control-modal">{{el.snails}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-time" class="form-control">{{el.timeProcRecommend}}</textarea>
+										<textarea id="id-time" class="form-control form-control-modal">{{el.timeProcRecommend}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-pres" class="form-control">{{el.prescriptionDrugs}}</textarea>
+										<textarea id="id-pres" class="form-control form-control-modal">{{el.prescriptionDrugs}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-diagnosis" class="form-control">{{el.diagnosis}}</textarea>
+										<textarea id="id-diagnosis" class="form-control form-control-modal">{{el.diagnosis}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-recip" class="form-control">{{el.recipesRecommend}}</textarea>
+										<textarea id="id-recip" class="form-control form-control-modal">{{el.recipesRecommend}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-history" class="form-control">{{el.medicalHistory}}</textarea>
+										<textarea id="id-history" class="form-control form-control-modal">{{el.medicalHistory}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-doc" class="form-control">{{el.doctor}}</textarea>
+										<textarea id="id-doc" class="form-control form-control-modal">{{el.doctor}}</textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -298,8 +298,8 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onSaveEditChange">Сохранить изменения</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
 			</div>
@@ -317,7 +317,7 @@
 					</div>
 
 					<div class="modal-body">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-responsive">
 							<thead>
 								<tr>
 									<th class="text-center" scope="col">№ карты</th>
@@ -339,59 +339,59 @@
 							<tbody>
 								<tr id="tbl-item-edit" class="tbl-item">
 									<td class="text-center card-id">
-										<textarea id="id" class="form-control"></textarea>
+										<textarea id="id" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-card-number" class="form-control"></textarea>
+										<textarea id="id-card-number" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-name" class="form-control"></textarea>
+										<textarea id="id-name" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control"></textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-address" class="form-control"></textarea>
+										<textarea id="id-address" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-number" class="form-control"></textarea>
+										<textarea id="id-number" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-policy" class="form-control"></textarea>
+										<textarea id="id-policy" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-snails" class="form-control"></textarea>
+										<textarea id="id-snails" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-time" class="form-control"></textarea>
+										<textarea id="id-time" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-pres" class="form-control"></textarea>
+										<textarea id="id-pres" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-diagnosis" class="form-control"></textarea>
+										<textarea id="id-diagnosis" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-recip" class="form-control"></textarea>
+										<textarea id="id-recip" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-history" class="form-control"></textarea>
+										<textarea id="id-history" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-doc" class="form-control"></textarea>
+										<textarea id="id-doc" class="form-control form-control-modal"></textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -399,8 +399,8 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onCreateCard">Создать карту</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
 			</div>
@@ -422,8 +422,8 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onDelete">Удалить карту</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
 			</div>

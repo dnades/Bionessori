@@ -31,5 +31,12 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Метод переходит на страницу администратора.
+        public IActionResult RouteAdmin() {
+            ViewData["Title"] = "Панель администратора";
+
+            return View();
+        }
     }
 }

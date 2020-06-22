@@ -76,6 +76,11 @@ var app = new Vue({
 					// Записывает данные авторизованного пользователя в кэш.
 					localStorage["user"] = JSON.stringify(response.data);
 
+					// Если зашел админ.
+					if (localStorage["roles"].includes("admin")) {
+						window.location.href = "https://localhost:44312/Route/RouteAdmin";
+					}
+
 					$(".state-log").hide();
 					$(".state").show();
 

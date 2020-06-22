@@ -1,0 +1,149 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
+	<div id="admin">
+		<div class="row">
+			<div class="container">
+				<!-- Главная секция кнопок -->
+				<div class="btn-block-main">
+					<!-- Левая секция кнопок -->
+					<div class="btn-left-block">
+						<div class="btns">
+							<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по логину или почте">
+						</div>
+					</div>
+
+					<!-- Правая секция кнопок -->
+					<div class="btn-right-block">
+						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Создать пользователя</button>
+
+						@*<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Изменить данные пользователя</button>
+
+						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Удалить пользователя</button>*@
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table id="id-card-list-table" class="table table-bordered table-responsive">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="card_number">
+							Логин
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio">
+							Email
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio">
+							Номер телефона
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio">
+							Пароль
+						</button>
+					</th>
+
+					<th class="text-center" scope="col"></th>
+					<th class="text-center" scope="col"></th>
+					<th class="text-center" scope="col"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr class="tbl-item" v-for="el in aUsers">
+					<td class="text-center user-id">
+						<span>{{el.id}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.login}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.email}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.number}}</span>
+					</td>
+
+					<td class="text-center">
+						<span>{{el.password}}</span>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+						</button>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-role" class="btn btn-default btn-sm" data-toggle="modal" data-target="#give-role-modal" v-on:click="setRole">
+							<i class="fa fa-globe" aria-hidden="true"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Секция модального окна -->
+		<div class="modal fade" id="give-role-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
+			<div id="modal-role" class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="roleModalLabel">Назначение роли пользователю: {{user_role}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" class="form-control input-role" placeholder="Введите название роли" />
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onGiveRole">Назначить роль</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/js/BackOffice.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

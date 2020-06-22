@@ -27,6 +27,7 @@ namespace Bionessori {
 
             services.AddTransient<IUserRepository, UserService>(provider => new UserService(connectionString));
             services.AddTransient<ICard, CardPatientService>(provider => new CardPatientService(connectionString));
+            services.AddTransient<IBackOffice, BackOfficeService>(provider => new BackOfficeService(connectionString));
             services.AddControllersWithViews();
 
             services.AddControllers()

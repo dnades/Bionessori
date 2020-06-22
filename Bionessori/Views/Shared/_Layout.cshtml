@@ -49,6 +49,8 @@
 					</div>
 
 					<div class="log_check">
+						@*<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#admin" v-on:click="onRouteMatched" value="admin">Личный кабинет</button>*@
+
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#login-modal">Войти</button>
 
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
@@ -92,8 +94,8 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
 						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="onSignIn">Войти</button>
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
 			</div>
@@ -133,8 +135,8 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
 						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="onCheckIn">Регистрация</button>
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
 			</div>

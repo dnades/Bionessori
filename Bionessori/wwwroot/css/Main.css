@@ -74,6 +74,9 @@ table {
 .tbl-item:hover {
   box-shadow: 0 0 10px #000000 !important; }
 
+.tbl-item .user-id {
+  display: none; }
+
 #tbl-item-edit:hover {
   box-shadow: none !important; }
 
@@ -133,3 +136,11 @@ table {
 .btn:focus {
   outline: 0;
   box-shadow: none !important; }
+
+.form-control-modal {
+  width: auto !important; }
+
+.table-head table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #52bce3; }

@@ -1,6 +1,7 @@
 ﻿$whiteText: azure; // Делает текст белым.
 $widthModal: max-content !important;
 $widthBtnsCard: auto !important;
+$noneId: none;
 
 body {
     color: white;
@@ -88,7 +89,7 @@ table {
     th {
         border: 2px solid azure !important;
         font-weight: 900 !important;
-        vertical-align: middle!important;
+        vertical-align: middle !important;
     }
 
     .state {
@@ -112,11 +113,15 @@ table {
 
 .tbl-item {
     .card-id {
-        display: none;
+        display: $noneId;
     }
 
     &:hover {
         box-shadow: 0 0 10px #000000 !important;
+    }
+
+    .user-id {
+        display: $noneId;
     }
 }
 
@@ -205,4 +210,19 @@ table {
 .btn:focus {
     outline: 0;
     box-shadow: none!important;
+}
+
+// Перезапись ширины form-control
+.form-control-modal {
+    width: auto !important;
+}
+
+.table-head {
+    table {
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #52bce3;
+        }
+    }
 }
