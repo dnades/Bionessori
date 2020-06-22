@@ -89,7 +89,7 @@ table {
     th {
         border: 2px solid azure !important;
         font-weight: 900 !important;
-        vertical-align: middle!important;
+        vertical-align: middle !important;
     }
 
     .state {
@@ -210,4 +210,9 @@ table {
 .btn:focus {
     outline: 0;
     box-shadow: none!important;
+}
+
+// Перезапись ширины form-control
+.form-control-modal {
+    width: auto !important;
 }

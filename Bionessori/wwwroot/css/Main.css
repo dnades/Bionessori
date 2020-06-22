@@ -136,3 +136,6 @@ table {
 .btn:focus {
   outline: 0;
   box-shadow: none !important; }
+
+.form-control-modal {
+  width: auto !important; }

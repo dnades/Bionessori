@@ -14,5 +14,11 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<List<User>> GetUsers();
+
+        /// <summary>
+        /// Метод назначает роли пользователю.
+        /// </summary>
+        /// <returns></returns>
+        Task<string> GiveRole(UserRole role);
     }
 }

@@ -30,5 +30,18 @@ namespace Bionessori.Services {
                 return oUsers;
             }
         }
+
+        /// <summary>
+        /// Метод назначает роли пользователю.
+        /// </summary>
+        ///// <returns></returns>
+        public async Task<string> GiveRole(UserRole role) { 
+            using (var db = new SqlConnection(_connectionString)) {
+                await db.ExecuteAsync($"INSERT INTO UserRoles VALUES " +
+                    $"({role.UserId}, '{role.UserName}', '{role.Role}')");
+                
+                return "Роль успешно назначена.";
+            }
+        }
     }
 }

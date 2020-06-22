@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionessori.Core.Interfaces;
+using Bionessori.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,18 @@ namespace Bionessori.Controllers {
             var oUsers = await _office.GetUsers();
 
             return Ok(oUsers);
+        }
+
+        /// <summary>
+        /// Метод назначает роль пользователю.
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        [HttpPost, Route("give-role")]
+        public async Task<IActionResult> GiveRole([FromBody] UserRole role) {
+            await _office.GiveRole(role);
+
+            return Ok();
         }
     }
 }
