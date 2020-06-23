@@ -209,7 +209,7 @@ table {
 
 .btn:focus {
     outline: 0;
-    box-shadow: none!important;
+    box-shadow: none !important;
 }
 
 // Перезапись ширины form-control
@@ -217,12 +217,10 @@ table {
     width: auto !important;
 }
 
-.table-head {
-    table {
-        thead th {
-            position: sticky;
-            top: 0;
-            background-color: #52bce3;
-        }
+table {
+    thead th {
+        position: sticky;
+        top: 0;
+        background-color: #52bce3;
     }
 }

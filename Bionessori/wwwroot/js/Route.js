@@ -14,7 +14,12 @@ var main = new Vue({
 				// Переходит на страницу карт пациентов.
 				case "card":
 					window.location.href = "https://localhost:44312/Route/RouteCard";
-					break;				
+					break;		
+
+				// Переходит на страницу ведения MRP
+				case "mrp":
+					window.location.href = "https://localhost:44312/Route/RouteMRP";
+					break;
 			}
 		}
 	}
