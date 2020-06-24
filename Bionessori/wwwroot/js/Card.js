@@ -67,6 +67,7 @@ var list_card = new Vue({
 			let dDateBirth = $("#id-date-of-birth").val();	// Дата рождения пациента.
 			let sAddress = $("#id-address").val();	// Адрес пациента.
 			let sNumber = $("#id-number").val();	// Телефон пациента.
+			let sBloodGroup = $("#id-blood-group").val();	// Группа крови.
 			let sPolicy = $("#id-policy").val();	// Полис пациента.
 			let sSnils = $("#id-snails").val();	// СНИЛС пациента.
 			let dTime = $("#id-time").val();	// Время назначенных процедур.
@@ -83,6 +84,7 @@ var list_card = new Vue({
 				DateOfBirth: dDateBirth,
 				Address: sAddress,
 				Number: sNumber,
+				BloodGroup: sBloodGroup,
 				Policy: sPolicy,
 				Snails: sSnils,
 				TimeProcRecommend: dTime,
@@ -137,6 +139,7 @@ var list_card = new Vue({
 			let dDateBirth = $("#id-date-of-birth").val();	// Дата рождения пациента.
 			let sAddress = $("#id-address").val();	// Адрес пациента.
 			let sNumber = $("#id-number").val();	// Телефон пациента.
+			let sBloodGroup = $("#id-blood-group").val();	// Группа крови.
 			let sPolicy = $("#id-policy").val();	// Полис пациента.
 			let sSnils = $("#id-snails").val();	// СНИЛС пациента.
 			let dTime = $("#id-time").val();	// Время назначенных процедур.
@@ -152,6 +155,7 @@ var list_card = new Vue({
 				DateOfBirth: dDateBirth,
 				Address: sAddress,
 				Number: sNumber,
+				BloodGroup: sBloodGroup,
 				Policy: sPolicy,
 				Snails: sSnils,
 				TimeProcRecommend: dTime,

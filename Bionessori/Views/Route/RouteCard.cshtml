@@ -78,6 +78,12 @@
 					</th>
 
 					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="number" v-on:click="sortedList">
+							Группа крови
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="policy" v-on:click="sortedList">
 							Полис
 						</button>
@@ -156,6 +162,10 @@
 					</td>
 
 					<td class="text-center">
+						<span class="arrival">{{el.bloodGroup}}</span>
+					</td>
+
+					<td class="text-center">
 						<span>{{el.policy}}</span>
 					</td>
 
@@ -222,6 +232,7 @@
 									<th class="text-center" scope="col" col width="400">Дата рождения</th>
 									<th class="text-center" scope="col">Адрес</th>
 									<th class="text-center" scope="col">Телефон</th>
+									<th class="text-center" scope="col">Группа крови</th>
 									<th class="text-center" scope="col">Полис</th>
 									<th class="text-center" scope="col">СНИЛС</th>
 									<th class="text-center" scope="col">Дата и время назначаемых<br /> процедур и записей</th>
@@ -257,6 +268,10 @@
 
 									<td class="text-center">
 										<textarea id="id-number" class="form-control form-control-modal">{{el.number}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-blood-group" class="form-control form-control-modal">{{el.bloodGroup}}</textarea>
 									</td>
 
 									<td class="text-center">
@@ -323,6 +338,7 @@
 									<th class="text-center" scope="col">Дата рождения</th>
 									<th class="text-center" scope="col">Адрес</th>
 									<th class="text-center" scope="col">Телефон</th>
+									<th class="text-center" scope="col">Группа крови</th>
 									<th class="text-center" scope="col">Полис</th>
 									<th class="text-center" scope="col">СНИЛС</th>
 									<th class="text-center" scope="col">Дата и время назначаемых<br /> процедур и записей</th>
@@ -358,6 +374,10 @@
 
 									<td class="text-center">
 										<textarea id="id-number" class="form-control form-control-modal"></textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-blood-group" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">

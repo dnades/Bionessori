@@ -14,17 +14,19 @@ namespace Bionessori.Models {
 
         public string FullName { get; set; }    // ФИО пациента.
 
-        public string DateOfBirth { get; set; }   // Дата рождения пациента.
+        public DateTime DateOfBirth { get; set; }   // Дата рождения пациента.
 
         public string Address { get; set; } // Адрес пациента.
 
         public string Number { get; set; }  // Номер телефона пациента.
 
+        public int BloodGroup { get; set; } // Группа крови.
+
         public string Policy { get; set; }  // Полис пациента. Должен быть в виде 111111 1111111111
 
         public string Snails { get; set; }  // СНИЛС пациента. Должен быть в виде 111-111-111 11
 
-        public string TimeProcRecommend { get; set; } // Время записи на процедуры.
+        public DateTime TimeProcRecommend { get; set; } // Время записи на процедуры.
 
         public string PrescriptionDrugs { get; set; }   // Прописанные лекарства.
 
