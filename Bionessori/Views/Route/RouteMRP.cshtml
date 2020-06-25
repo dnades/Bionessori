@@ -44,7 +44,7 @@
 						<tr>
 							<th class="text-center" scope="col">
 								<button class="btn btn-link" value="card_number">
-									Материал
+									№ заявки
 								</button>
 							</th>
 
@@ -69,25 +69,25 @@
 					</thead>
 
 					<tbody>
-						<tr class="tbl-item">
+						<tr class="tbl-item" v-for="el in aRequests">
 							@*<td class="text-center req-id">
 									<span>{{el.id}}</span>
 								</td>*@
 
 							<td class="text-center">
-								<span>Материал</span>
+								<span>{{el.number}}</span>
 							</td>
 
 							<td class="text-center">
-								<span>Количество</span>
+								<span>{{el.count}}</span>
 							</td>
 
 							<td class="text-center">
-								<span>Ед.Изм.</span>
+								<span>{{el.measure}}</span>
 							</td>
 
 							<td class="text-center">
-								<span>Статус</span>
+								<span>{{el.status}}</span>
 							</td>
 						</tr>
 					</tbody>
@@ -108,7 +108,7 @@
 
 							<th class="text-center" scope="col">
 								<button class="btn btn-link" value="fio">
-									Название материала
+									Материал
 								</button>
 							</th>
 
@@ -133,7 +133,7 @@
 					</thead>
 
 					<tbody>
-						<tr class="tbl-item" v-for="el in aMeterials">
+						<tr class="tbl-item" v-for="el in aMaterials">
 							@*<td class="text-center req-id">
 									<span>{{el.id}}</span>
 								</td>*@
