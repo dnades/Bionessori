@@ -18,11 +18,15 @@ namespace Bionessori.Controllers {
             _werehouse = werehouse;
         }
 
+        /// <summary>
+        /// Метод получает список со складов.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("get-products")]
         public async Task<IActionResult> GetProducts() {
             var oProducts = await _werehouse.GetProducts();
 
-            return Ok();
+            return Ok(oProducts);
         }
     }
 }

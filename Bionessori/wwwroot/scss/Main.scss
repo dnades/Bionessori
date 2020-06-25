@@ -224,3 +224,12 @@ table {
         background-color: #52bce3;
     }
 }
+
+.req-id {
+    display: $noneId;
+}
+
+.block-tables {
+    display: flex;
+    justify-content: space-between;
+}

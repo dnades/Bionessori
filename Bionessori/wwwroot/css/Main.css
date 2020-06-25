@@ -144,3 +144,10 @@ table thead th {
   position: sticky;
   top: 0;
   background-color: #52bce3; }
+
+.req-id {
+  display: none; }
+
+.block-tables {
+  display: flex;
+  justify-content: space-between; }

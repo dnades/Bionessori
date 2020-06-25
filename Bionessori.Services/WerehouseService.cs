@@ -21,7 +21,7 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод получает список продуктов.
+        /// Метод получает список продуктов со склада.
         /// </summary>
         /// <returns></returns>
         public async Task<object> GetProducts() {

@@ -17,7 +17,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
 
-	<div id="list_card">
+	<div id="main_mrp">
 		<!-- Главная секция кнопок -->
 		<div class="btn-block-main">
 			<!-- Левая секция кнопок -->
@@ -29,13 +29,142 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Мониторинг количества запасов</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к мониторингу количества запасов</button>
 
 				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к заявкам потребностей</button>
 			</div>
 		</div>
+
+		<div class="block-tables">
+			<!-- Секция с левой таблицей со списком заявок. -->
+			<div class="mr-2">
+				<h3>Список заявок</h3>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number">
+									Материал
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Количество
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Ед.Изм.
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Статус
+								</button>
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr class="tbl-item">
+							@*<td class="text-center req-id">
+									<span>{{el.id}}</span>
+								</td>*@
+
+							<td class="text-center">
+								<span>Материал</span>
+							</td>
+
+							<td class="text-center">
+								<span>Количество</span>
+							</td>
+
+							<td class="text-center">
+								<span>Ед.Изм.</span>
+							</td>
+
+							<td class="text-center">
+								<span>Статус</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Секция с правой таблицей со списком материалов складов. -->
+			<div>
+				<h3>Список материалов на складах</h3>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number">
+									Код
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Название материала
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Группа
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Ед.Изм.
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="fio">
+									Количество
+								</button>
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr class="tbl-item" v-for="el in aMeterials">
+							@*<td class="text-center req-id">
+									<span>{{el.id}}</span>
+								</td>*@
+
+							<td class="text-center">
+								<span>{{el.code}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.description}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.pathName}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>шт.</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.volume}}</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 
+	<script src="~/js/MRP.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
