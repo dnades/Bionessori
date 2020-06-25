@@ -44,165 +44,173 @@
 		</div>
 
 		<!-- Секция таблицы со списком карт пациентов -->
-		<div class="table-head">
-			<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
-				<thead>
-					<tr>
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="sortedList">
-								№ карты
-							</button>
-						</th>
+		<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
+							№ карты
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="fio" v-on:click="sortedList">
-								ФИО
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="fio" v-on:click="sortedList">
+							ФИО
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="year_of_birth" v-on:click="sortedList">
-								Дата рождения
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="year_of_birth" v-on:click="sortedList">
+							Дата рождения
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="address" v-on:click="sortedList">
-								Адрес
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="address" v-on:click="sortedList">
+							Адрес
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="number" v-on:click="sortedList">
-								Телефон
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="number" v-on:click="sortedList">
+							Телефон
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="policy" v-on:click="sortedList">
-								Полис
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="number" v-on:click="sortedList">
+							Группа крови
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="snails" v-on:click="sortedList">
-								СНИЛС
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="policy" v-on:click="sortedList">
+							Полис
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
-								Дата и время назначаемых<br /> процедур и записей
-							</button>
-						</th>
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="drugs" v-on:click="sortedList">
-								Прописанные лекарства
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="snails" v-on:click="sortedList">
+							СНИЛС
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
-								Диагноз
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
+							Дата и время назначаемых<br /> процедур и записей
+						</button>
+					</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="drugs" v-on:click="sortedList">
+							Прописанные лекарства
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="recommends" v-on:click="sortedList">
-								Рецепты и рекомендации
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
+							Диагноз
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="history" v-on:click="sortedList">
-								История болезни
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="recommends" v-on:click="sortedList">
+							Рецепты и рекомендации
+						</button>
+					</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="doctor" v-on:click="sortedList">
-								Лечащий врач
-							</button>
-						</th>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="history" v-on:click="sortedList">
+							История болезни
+						</button>
+					</th>
 
-						<th class="text-center" scope="col"></th>
-						<th class="text-center" scope="col"></th>
-					</tr>
-				</thead>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="doctor" v-on:click="sortedList">
+							Лечащий врач
+						</button>
+					</th>
 
-				<tbody>
-					<tr class="tbl-item" v-for="el in aCards">
-						<td class="text-center card-id">
-							<span>{{el.id}}</span>
-						</td>
+					<th class="text-center" scope="col"></th>
+					<th class="text-center" scope="col"></th>
+				</tr>
+			</thead>
 
-						<td class="text-center">
-							<span>{{el.cardNumber}}</span>
-						</td>
+			<tbody>
+				<tr class="tbl-item" v-for="el in aCards">
+					<td class="text-center card-id">
+						<span>{{el.id}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.fullName}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.cardNumber}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.dateOfBirth}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.fullName}}</span>
+					</td>
 
-						<td class="text-center">
-							<span class="departure">{{el.address}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.dateOfBirth}}</span>
+					</td>
 
-						<td class="text-center">
-							<span class="arrival">{{el.number}}</span>
-						</td>
+					<td class="text-center">
+						<span class="departure">{{el.address}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.policy}}</span>
-						</td>
+					<td class="text-center">
+						<span class="arrival">{{el.number}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.snails}}</span>
-						</td>
+					<td class="text-center">
+						<span class="arrival">{{el.bloodGroup}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.timeProcRecommend}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.policy}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.prescriptionDrugs}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.snails}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.diagnosis}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.timeProcRecommend}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.recipesRecommend}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.prescriptionDrugs}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.medicalHistory}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.diagnosis}}</span>
+					</td>
 
-						<td class="text-center">
-							<span>{{el.doctor}}</span>
-						</td>
+					<td class="text-center">
+						<span>{{el.recipesRecommend}}</span>
+					</td>
 
-						<td class="text-center state">
-							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="onEditCard">
-								<i class="fa fa-pencil" aria-hidden="true"></i>
-							</button>
-						</td>
+					<td class="text-center">
+						<span>{{el.medicalHistory}}</span>
+					</td>
 
-						<td class="text-center state">
-							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onDeleteCard">
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
-							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+					<td class="text-center">
+						<span>{{el.doctor}}</span>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="onEditCard">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+					</td>
+
+					<td class="text-center state">
+						<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onDeleteCard">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 
 		<!-- Секция модального окна редактирования карты пациента. -->
 		<div class="modal fade" id="edit-card-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -224,6 +232,7 @@
 									<th class="text-center" scope="col" col width="400">Дата рождения</th>
 									<th class="text-center" scope="col">Адрес</th>
 									<th class="text-center" scope="col">Телефон</th>
+									<th class="text-center" scope="col">Группа крови</th>
 									<th class="text-center" scope="col">Полис</th>
 									<th class="text-center" scope="col">СНИЛС</th>
 									<th class="text-center" scope="col">Дата и время назначаемых<br /> процедур и записей</th>
@@ -259,6 +268,10 @@
 
 									<td class="text-center">
 										<textarea id="id-number" class="form-control form-control-modal">{{el.number}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-blood-group" class="form-control form-control-modal">{{el.bloodGroup}}</textarea>
 									</td>
 
 									<td class="text-center">
@@ -325,6 +338,7 @@
 									<th class="text-center" scope="col">Дата рождения</th>
 									<th class="text-center" scope="col">Адрес</th>
 									<th class="text-center" scope="col">Телефон</th>
+									<th class="text-center" scope="col">Группа крови</th>
 									<th class="text-center" scope="col">Полис</th>
 									<th class="text-center" scope="col">СНИЛС</th>
 									<th class="text-center" scope="col">Дата и время назначаемых<br /> процедур и записей</th>
@@ -360,6 +374,10 @@
 
 									<td class="text-center">
 										<textarea id="id-number" class="form-control form-control-modal"></textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-blood-group" class="form-control form-control-modal"></textarea>
 									</td>
 
 									<td class="text-center">
