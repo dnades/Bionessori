@@ -133,7 +133,7 @@
 					</thead>
 
 					<tbody>
-						<tr class="tbl-item tbl-row-click" v-for="el in aMaterials">
+						<tr class="tbl-item tbl-row-click" data-toggle="modal" data-target="#details-material-modal" v-for="el in aMaterials" v-on:click="onGetMaterial">
 							<td class="text-center req-id">
 								<span>{{el.id}}</span>
 							</td>
@@ -181,7 +181,7 @@
 									<th class="text-center" scope="col">№ заявки</th>
 									<th class="text-center" scope="col">Количество</th>
 									<th class="text-center" scope="col">Ед.Изм.</th>
-									<th class="text-center" scope="col">Статус</th>				
+									<th class="text-center" scope="col">Статус</th>
 								</tr>
 							</thead>
 
@@ -211,7 +211,63 @@
 						</table>
 					</div>
 
-					<div class="modal-footer">						
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция модального окна подробнее о материале. -->
+		<div class="modal fade" id="details-material-modal" tabindex="-1" role="dialog" aria-labelledby="materialModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in concreteMaterial">
+					<div class="modal-header">
+						<h5 class="modal-title" id="materialModalLabel">Детали материала с кодом {{el.code}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">Код</th>
+									<th class="text-center" scope="col">Материал</th>
+									<th class="text-center" scope="col">Группа</th>
+									<th class="text-center" scope="col">Ед.Изм.</th>
+									@*<th class="text-center" scope="col">Количество</th>*@
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteMaterial">
+									<td class="text-center req-id">
+										<span>{{el.id}}</span>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id" class="form-control form-control-modal">{{el.code}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-card-number" class="form-control form-control-modal">{{el.description}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-name" class="form-control form-control-modal">{{el.name}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.volume}}</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="modal-footer">
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>

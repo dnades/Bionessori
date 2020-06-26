@@ -9,7 +9,8 @@ var main_mrp = new Vue({
 	data: {
 		aMaterials: [],
 		aRequests: [],
-		concreteRequest: []
+		concreteRequest: [],
+		concreteMaterial: []
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -45,8 +46,16 @@ var main_mrp = new Vue({
 			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
 
 			// Находит заявку, на которую нажали.
-			this.concreteRequest = this.aRequests.filter(el => el.number  == reqId);
-			console.log("show req");
+			this.concreteRequest = this.aRequests.filter(el => el.number  == reqId);			
+		},
+
+		// Функция получает конкретный материал склада.
+		onGetMaterial(event) {
+			let materialId = $(event.target).parent().parent()[0].textContent.split(" ")[0];
+
+			this.concreteMaterial = this.aMaterials.filter(el => el.id == materialId);
+
+			console.log("show material");
 		}
 	}
 });
