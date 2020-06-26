@@ -25,7 +25,8 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        // Метод перенаправляет на страницу со списком карт пациентов.
+        // Метод перенаправляет на страницу со списком карт пациентов.       
+        [Route("route/card")]
         public IActionResult RouteCard() {
             ViewData["Title"] = "Электронные медицинские карты пациентов - Список карт пациентов";
 
@@ -33,6 +34,7 @@ namespace Bionessori.Controllers {
         }
 
         // Метод переходит на страницу администратора.
+        [Route("route/admin")]
         public IActionResult RouteAdmin() {
             ViewData["Title"] = "Панель администратора";
 
@@ -40,6 +42,7 @@ namespace Bionessori.Controllers {
         }
 
         // Метод переходи на страницу MRP.
+        [Route("route/mrp")]
         public IActionResult RouteMRP() {
             ViewData["Title"] = "Планирование потребности в материалах";
 

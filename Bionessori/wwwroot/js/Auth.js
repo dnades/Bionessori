@@ -78,7 +78,7 @@ var app = new Vue({
 
 					// Если зашел админ.
 					if (localStorage["roles"].includes("admin")) {
-						window.location.href = "https://localhost:44312/Route/RouteAdmin";
+						window.location.href = "https://localhost:44312/route/admin";
 					}
 
 					$(".state-log").hide();
