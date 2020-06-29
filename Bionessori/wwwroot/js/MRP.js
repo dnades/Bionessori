@@ -19,7 +19,7 @@ var main_mrp = new Vue({
 
 			axios.post(sUrl)
 				.then((response) => {					
-					this.aMaterials = response.data.rows;
+					this.aMaterials = response.data;
 					console.log("Список материалов на складах.", this.aMaterials);
 				})
 				.catch((XMLHttpRequest) => {

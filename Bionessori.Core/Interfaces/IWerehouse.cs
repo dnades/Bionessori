@@ -10,9 +10,9 @@ namespace Bionessori.Core.Interfaces {
     /// </summary>
     public interface IWerehouse {
         /// <summary>
-        /// Метод получает список продуктов (под продуктом понимается не только пищевой товар).
+        /// Метод получает список материалов.
         /// </summary>
         /// <returns></returns>
-        Task<object> GetProducts(); 
+        Task<List<Werehouse>> GetMaterials(); 
     }
 }

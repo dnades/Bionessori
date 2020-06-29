@@ -9,16 +9,14 @@ namespace Bionessori.Models {
     public class Request {
         public int Id { get; set; }
 
-        public string Number { get; set; }
+        public string Number { get; set; }  // Номер заявки.
 
         public int Count { get; set; }
 
-        public string Measure { get; set; }
+        public string Measure { get; set; } // Ед.Изм.
 
-        public string Status { get; set; }
+        public string Status { get; set; }  // Статус заявки.
 
-        public int MaterialId { get; set; }
-
-        public string Name { get; set; } 
+        public string Material { get; set; }    // Название материала.
     }
 }

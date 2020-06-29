@@ -19,7 +19,7 @@
 
 	<div id="main_mrp">
 		<!-- Главная секция кнопок -->
-		<div class="btn-block-main">
+		<div class="btn-block-main mb-3">
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
@@ -29,6 +29,8 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
+				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Управление складами</button>
+
 				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к мониторингу количества запасов</button>
 
 				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к заявкам потребностей</button>
@@ -143,19 +145,19 @@
 							</td>
 
 							<td class="text-center">
-								<span>{{el.description}}</span>
+								<span>{{el.material}}</span>
 							</td>
 
 							<td class="text-center">
-								<span>{{el.pathName}}</span>
+								<span>{{el.materialGroup}}</span>
 							</td>
 
 							<td class="text-center">
-								<span>шт.</span>
+								<span>{{el.measure}}</span>
 							</td>
 
 							<td class="text-center">
-								<span>{{el.volume}}</span>
+								<span>{{el.count}}</span>
 							</td>
 						</tr>
 					</tbody>
@@ -237,7 +239,8 @@
 									<th class="text-center" scope="col">Материал</th>
 									<th class="text-center" scope="col">Группа</th>
 									<th class="text-center" scope="col">Ед.Изм.</th>
-									@*<th class="text-center" scope="col">Количество</th>*@
+									<th class="text-center" scope="col">Количество</th>
+									<th class="text-center" scope="col">Номер склада</th>
 								</tr>
 							</thead>
 
@@ -252,15 +255,23 @@
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal">{{el.description}}</textarea>
+										<textarea id="id-card-number" class="form-control form-control-modal">{{el.material}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal">{{el.name}}</textarea>
+										<textarea id="id-name" class="form-control form-control-modal">{{el.materialGroup}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.volume}}</textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.measure}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.count}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.werehouseNumber}}</textarea>
 									</td>
 								</tr>
 							</tbody>

@@ -19,14 +19,14 @@ namespace Bionessori.Controllers {
         }
 
         /// <summary>
-        /// Метод получает список со складов.
+        /// Метод получает список материалов со складов.
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("get-products")]
         public async Task<IActionResult> GetProducts() {
-            var oProducts = await _werehouse.GetProducts();
+            var oMaterials = await _werehouse.GetMaterials();
 
-            return Ok(oProducts);
+            return Ok(oMaterials);
         }
     }
 }
