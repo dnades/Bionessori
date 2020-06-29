@@ -43,7 +43,7 @@ var main_mrp = new Vue({
 
 		// Функция получает конкретную заявку.
 		onGetRequest(event) {
-			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
+			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[0];
 
 			// Находит заявку, на которую нажали.
 			this.concreteRequest = this.aRequests.filter(el => el.number  == reqId);			
@@ -54,8 +54,6 @@ var main_mrp = new Vue({
 			let materialId = $(event.target).parent().parent()[0].textContent.split(" ")[1];
 
 			this.concreteMaterial = this.aMaterials.filter(el => el.code == materialId);
-
-			console.log("show material");
 		},
 
 		// Функция сортирует список материалов на складах.
