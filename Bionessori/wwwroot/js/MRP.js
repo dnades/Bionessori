@@ -51,9 +51,9 @@ var main_mrp = new Vue({
 
 		// Функция получает конкретный материал склада.
 		onGetMaterial(event) {
-			let materialId = $(event.target).parent().parent()[0].textContent.split(" ")[0];
+			let materialId = $(event.target).parent().parent()[0].textContent.split(" ")[1];
 
-			this.concreteMaterial = this.aMaterials.filter(el => el.id == materialId);
+			this.concreteMaterial = this.aMaterials.filter(el => el.code == materialId);
 
 			console.log("show material");
 		},
