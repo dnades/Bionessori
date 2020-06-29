@@ -120,4 +120,14 @@ class BaseClass {
 	static searchCard(word, words) {
 		return words.filter(el => el.length);
 	}
+
+	// Сортирует по названию материала.
+	static sortByMaterial(value1, value2) {
+		return (value1.material.toLowerCase() > value2.material.toLowerCase()) ? 1 : -1;
+	}
+
+	// Сортирует по группе материала.
+	static sortByMaterialGroup(value1, value2) {
+		return (value1.materialGroup.toLowerCase() > value2.materialGroup.toLowerCase()) ? 1 : -1;
+	}
 }

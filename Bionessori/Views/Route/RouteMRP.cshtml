@@ -23,7 +23,7 @@
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
-					@*<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по ФИО или № карты пациента">*@
+					
 				</div>
 			</div>
 
@@ -41,6 +41,7 @@
 			<!-- Секция с левой таблицей со списком заявок. -->
 			<div class="mr-2">
 				<h3>Список заявок</h3>
+				<input class="form-control input-search" id="id-search-request" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по номеру или статусу заявки">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -73,8 +74,8 @@
 					<tbody>
 						<tr class="tbl-item tbl-row-click" data-toggle="modal" data-target="#details-request-modal" v-for="el in aRequests" v-on:click="onGetRequest">
 							@*<td class="text-center req-id">
-								<span>{{el.id}}</span>
-							</td>*@
+						<span>{{el.id}}</span>
+					</td>*@
 
 							<td class="text-center">
 								<span>{{el.number}}</span>
@@ -99,35 +100,36 @@
 			<!-- Секция с правой таблицей со списком материалов складов. -->
 			<div>
 				<h3>Список материалов на складах</h3>
+				<input class="form-control input-search" id="id-search-material" type="text" v-on:keyup.enter="onSearchMaterial" placeholder="Поиск по названию материала или группе">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="card_number">
+								<button class="btn btn-link">
 									Код
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link" value="material" v-on:click="sortedMaterial">
 									Материал
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link" value="group" v-on:click="sortedMaterial">
 									Группа
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link">
 									Ед.Изм.
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link">
 									Количество
 								</button>
 							</th>

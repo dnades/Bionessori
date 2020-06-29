@@ -56,6 +56,40 @@ var main_mrp = new Vue({
 			this.concreteMaterial = this.aMaterials.filter(el => el.id == materialId);
 
 			console.log("show material");
+		},
+
+		// Функция сортирует список материалов на складах.
+		sortedMaterial(event) {
+			let sParam = event.target.value;
+
+			switch (sParam) {
+				case "material":
+					return this.aMaterials.sort(BaseClass.sortByMaterial);
+
+				case "group":
+					return this.aMaterials.sort(BaseClass.sortByMaterialGroup);
+			}
+		},
+
+		// Функция ищет материал по его названию или группе.
+		onSearchMaterial() {
+			let sMaterial = $("#id-search-material").val();	// Что ищет.
+			let aMaterial, aMaterialGroup;
+
+			if (sMaterial == "")
+				this.loadMaterials();
+
+			aMaterial = this.aMaterials.filter(el => el.material.includes(sMaterial));
+
+			// Если искали по названию.
+			if (aMaterial.length !== 0) {
+				this.aMaterials = aMaterial;
+			}
+			// Если по названию не нашли, значит искали по группе.
+			else {
+				aMaterialGroup = this.aMaterials.filter(el => el.materialGroup.includes(sMaterial));
+				this.aMaterials = aMaterialGroup;
+			}
 		}
 	}
 });
