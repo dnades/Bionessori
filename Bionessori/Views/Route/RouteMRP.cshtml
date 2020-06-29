@@ -41,30 +41,30 @@
 			<!-- Секция с левой таблицей со списком заявок. -->
 			<div class="mr-2">
 				<h3>Список заявок</h3>
-				<input class="form-control input-search" id="id-search-request" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по номеру или статусу заявки">
+				<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="card_number">
+								<button class="btn btn-link" value="card_number" v-on:click="sortedRequeest">
 									№ заявки
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link">
 									Количество
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link">
 									Ед.Изм.
 								</button>
 							</th>
 
 							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="fio">
+								<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
 									Статус
 								</button>
 							</th>
@@ -76,7 +76,6 @@
 							@*<td class="text-center req-id">
 						<span>{{el.id}}</span>
 					</td>*@
-
 							<td class="text-center">
 								<span>{{el.number}}</span>
 							</td>
@@ -100,7 +99,7 @@
 			<!-- Секция с правой таблицей со списком материалов складов. -->
 			<div>
 				<h3>Список материалов на складах</h3>
-				<input class="form-control input-search" id="id-search-material" type="text" v-on:keyup.enter="onSearchMaterial" placeholder="Поиск по названию материала или группе">
+				<input class="form-control input-search mb-1" id="id-search-material" type="text" v-on:keyup.enter="onSearchMaterial" placeholder="Поиск по названию материала или группе">
 				<table class="table table-bordered">
 					<thead>
 						<tr>

@@ -82,13 +82,47 @@ var main_mrp = new Vue({
 			aMaterial = this.aMaterials.filter(el => el.material.includes(sMaterial));
 
 			// Если искали по названию.
-			if (aMaterial.length !== 0) {
+			if (aMaterial.length > 0) {
 				this.aMaterials = aMaterial;
 			}
 			// Если по названию не нашли, значит искали по группе.
 			else {
 				aMaterialGroup = this.aMaterials.filter(el => el.materialGroup.includes(sMaterial));
 				this.aMaterials = aMaterialGroup;
+			}
+		},
+
+		// Функция сортирует заявки по номеру или статусу.
+		sortedRequeest(event) {
+			let sParam = event.target.value;
+
+			switch (sParam) {
+				case "card_number":
+					return this.aRequests.sort(BaseClass.sortByRequestNumber);
+
+				case "req_status":
+					return this.aRequests.sort(BaseClass.sortByRequestStatus);
+			}
+		},
+
+		// Функция ищет заявку по ее номеру или статусу.
+		onSearchRequest() {
+			let sRequest = $("#id-search-request").val();	// Что ищет.
+			let aRequest, aRequestStatus;
+
+			if (sRequest == "")
+				this.loadRequests();
+
+			aRequest = this.aRequests.filter(el => el.number.includes(sRequest));
+
+			// Если искали по номеру заявки.
+			if (aRequest.length > 0) {
+				this.aRequests = aRequest;
+			}
+			// Если по номеру заявки не нашли, значит искали по статусу заявки.
+			else {
+				aRequestStatus = this.aRequests.filter(el => el.status.includes(sRequest));
+				this.aRequests = aRequestStatus;
 			}
 		}
 	}

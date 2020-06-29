@@ -130,4 +130,14 @@ class BaseClass {
 	static sortByMaterialGroup(value1, value2) {
 		return (value1.materialGroup.toLowerCase() > value2.materialGroup.toLowerCase()) ? 1 : -1;
 	}
+
+	// Сортирует по номеру заявки.
+	static sortByRequestNumber(value1, value2) {
+		return (value1.number > value2.number) ? 1 : -1;
+	}
+
+	// Сортирует по статусу заявки.
+	static sortByRequestStatus(value1, value2) {
+		return (value1.status.toLowerCase() > value2.status.toLowerCase()) ? 1 : -1;
+	}
 }
