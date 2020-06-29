@@ -48,5 +48,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Метод переходит на страницу со списком всех заявок в MRP.
+        [Route("view/request")]
+        public IActionResult GetRequests() {
+            ViewData["Title"] = "Планирование потребности в материалах - Список заявок";
+
+            return View();
+        }
     }
 }

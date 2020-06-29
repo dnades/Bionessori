@@ -50,6 +50,10 @@ body {
         width: $widthBtnsCard;
     }
 
+    .btn-create-req {
+        width: $widthBtnsCard;
+    }
+
     .export-excel {
         width: $widthBtnsCard;
     }
@@ -236,4 +240,8 @@ table {
 
 .tbl-row-click {
     cursor: pointer;
+}
+
+.input-search {
+    width: 300px;
 }

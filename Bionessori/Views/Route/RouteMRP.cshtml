@@ -23,7 +23,7 @@
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
-					
+
 				</div>
 			</div>
 
@@ -33,7 +33,7 @@
 
 				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к мониторингу количества запасов</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к заявкам потребностей</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_lists" data-toggle="modal" data-target="#create-card-modal" v-on:click="onRouteReq">Перейти к заявкам потребностей</button>
 			</div>
 		</div>
 
@@ -73,9 +73,6 @@
 
 					<tbody>
 						<tr class="tbl-item tbl-row-click" data-toggle="modal" data-target="#details-request-modal" v-for="el in aRequests" v-on:click="onGetRequest">
-							@*<td class="text-center req-id">
-						<span>{{el.id}}</span>
-					</td>*@
 							<td class="text-center">
 								<span>{{el.number}}</span>
 							</td>
@@ -195,19 +192,19 @@
 									</td>
 
 									<td class="text-center">
-										<textarea id="id" class="form-control form-control-modal">{{el.number}}</textarea>
+										<textarea id="id" class="form-control form-control-modal not-edit">{{el.number}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal">{{el.count}}</textarea>
+										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal">{{el.measure}}</textarea>
+										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.status}}</textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.status}}</textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -252,27 +249,27 @@
 									</td>
 
 									<td class="text-center">
-										<textarea id="id" class="form-control form-control-modal">{{el.code}}</textarea>
+										<textarea id="id" class="form-control form-control-modal not-edit">{{el.code}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal">{{el.material}}</textarea>
+										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.material}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal">{{el.materialGroup}}</textarea>
+										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.materialGroup}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.measure}}</textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.count}}</textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
 									</td>
 
 									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal">{{el.werehouseNumber}}</textarea>
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.werehouseNumber}}</textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -288,6 +285,7 @@
 	</div>
 
 	<script src="~/js/MRP.js"></script>
+	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

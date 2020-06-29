@@ -5,6 +5,9 @@ var main_mrp = new Vue({
 	created() {
 		this.loadMaterials();
 		this.loadRequests();
+
+		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
+		$(".not-edit").prop("disabled", true);	
 	},
 	data: {
 		aMaterials: [],
@@ -122,6 +125,12 @@ var main_mrp = new Vue({
 				aRequestStatus = this.aRequests.filter(el => el.status.includes(sRequest));
 				this.aRequests = aRequestStatus;
 			}
+		},
+
+		// Функция перенаправляет роут к списку заявок MRP.
+		onRouteReq(event) {
+			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
+			console.log("test route req");
 		}
 	}
 });

@@ -20,6 +20,11 @@ var main = new Vue({
 				case "mrp":
 					window.location.href = "https://localhost:44312/route/mrp";
 					break;
+
+				// Переходит на страницу списка заявок на потребности.
+				case "mrp_requests_lists":
+					window.location.href = "https://localhost:44312/view/request";
+					break;
 			}
 		}
 	}

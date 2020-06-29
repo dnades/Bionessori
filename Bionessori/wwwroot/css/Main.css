@@ -29,6 +29,8 @@
     width: 200%; }
   .btn-block-main .btn-create-card {
     width: auto !important; }
+  .btn-block-main .btn-create-req {
+    width: auto !important; }
   .btn-block-main .export-excel {
     width: auto !important; }
   .btn-block-main .export-word {
@@ -154,3 +156,6 @@ table thead th {
 
 .tbl-row-click {
   cursor: pointer; }
+
+.input-search {
+  width: 300px; }
