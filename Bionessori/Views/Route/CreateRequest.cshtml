@@ -1,0 +1,45 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
+	<div id="main_mrp">
+		<!-- Главная секция кнопок -->
+		<div class="btn-block-main mb-3">
+			<!-- Левая секция кнопок -->
+			<div class="btn-left-block">
+				<div class="btns">
+
+				</div>
+			</div>
+
+			<!-- Правая секция кнопок -->
+			<div class="btn-right-block">
+				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Создать заявку</button>
+			</div>
+		</div>
+
+		<!-- Секция создания новой заявки. -->
+		<div class="mr-2">
+			<h3>Создание новой заявки</h3>		
+		
+		</div>
+	</div>
+
+	<script src="~/js/MRP.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

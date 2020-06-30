@@ -31,7 +31,7 @@
 			<div class="btn-right-block">
 				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Выгрузить в Excel</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Создать новую заявку</button>
+				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-request-modal">Создать новую заявку</button>
 			</div>
 		</div>
 
@@ -39,7 +39,7 @@
 		<div class="mr-2">
 			<h3>Список заявок</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
-			<table class="table table-bordered">
+			<table class="table table-bordered table-responsive">
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">
@@ -88,10 +88,54 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>		
+		</div>
+
+		<!-- Секция модального окна создания новой заявки на потребности в материалах. -->
+		<div class="modal fade" id="create-request-modal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+			<div id="signin-modal" class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="requestModalLabel">Создание новой заявки<br /> на потребность в материалах</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="id-select-material">Материал</label>
+							<select id="id-select-material" class="form-control"></select>
+						</div>
+
+						<div class="form-group">
+							<label for="id-select-count">Количество материалов</label>
+							<input id="id-select-count" type="number" class="form-control"/>
+						</div>
+
+						<!-- Не обязательно для заполнения. -->
+						<div class="form-group">
+							<label for="id-select-measure">Ед.Изм.</label>
+							<select id="id-select-measure" class="form-control"></select>
+						</div>
+
+						<!-- Не обязательно для заполнения. -->
+						<div class="form-group">
+							<label for="id-select-werehouse">Номер склада</label>
+							<select id="id-select-werehouse" class="form-control"></select>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="">Создать заявку</button>
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script src="~/js/MRP.js"></script>
+	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

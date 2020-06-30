@@ -44,7 +44,7 @@ namespace Bionessori.Controllers {
         // Метод переходи на страницу MRP.
         [Route("route/mrp")]
         public IActionResult RouteMRP() {
-            ViewData["Title"] = "Планирование потребности в материалах";
+            ViewData["Title"] = "Планирование потребностей в материалах";
 
             return View();
         }
@@ -52,7 +52,7 @@ namespace Bionessori.Controllers {
         // Метод переходит на страницу со списком всех заявок в MRP.
         [Route("view/request")]
         public IActionResult GetRequests() {
-            ViewData["Title"] = "Планирование потребности в материалах - Список заявок";
+            ViewData["Title"] = "Планирование потребностей в материалах - Список заявок";
 
             return View();
         }
@@ -60,7 +60,15 @@ namespace Bionessori.Controllers {
         // Метод переходит на страницу со списком материалов.
         [Route("view/material")]
         public IActionResult GetMaterials() {
-            ViewData["Title"] = "Планирование потребности в материалах - Список материалов на складах";
+            ViewData["Title"] = "Планирование потребностей в материалах - Список материалов на складах";
+
+            return View();
+        }
+
+        // Переходит к созданию новой заявки на потребности в материалах.
+        [Route("create/request")]
+        public IActionResult CreateRequest() {
+            ViewData["Title"] = "Планирование потребностей в материалах - Создание новой заявки";
 
             return View();
         }
