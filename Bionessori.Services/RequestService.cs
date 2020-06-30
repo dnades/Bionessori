@@ -32,5 +32,30 @@ namespace Bionessori.Services {
                 return oRequests.ToList();
             }
         }
+        /// <summary>
+        /// Метод реализует создание новой заявки на потребности в закупках.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Request> Create(Request request) {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод реализует удаление заявки на потребности в закупках.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> Delete() {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод реализует изменение существующей заявки на потребности в закупках.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Request> Edit(Request request) {
+            throw new NotImplementedException();
+        }
     }
 }

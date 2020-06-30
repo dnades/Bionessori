@@ -5,6 +5,7 @@ var main_mrp = new Vue({
 	created() {
 		this.loadMaterials();
 		this.loadRequests();
+		this.loadNameWerehouses();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);	
@@ -13,12 +14,13 @@ var main_mrp = new Vue({
 		aMaterials: [],
 		aRequests: [],
 		concreteRequest: [],
-		concreteMaterial: []
+		concreteMaterial: [],
+		aWerehouses: []
 	},
 	methods: {
 		// Функция загружает список материалов.
 		loadMaterials() {
-			let sUrl = "https://localhost:44312/api/werehouse/product/get-products";
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
 
 			axios.post(sUrl)
 				.then((response) => {					
@@ -135,6 +137,20 @@ var main_mrp = new Vue({
 		// Функция перенаправляет роут к списку материалов MRP.
 		onRouteMaterial(event) {
 			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
+		},
+
+		// Функция получает список названий складов.
+		loadNameWerehouses() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-werehouses";
+
+			axios.post(sUrl, {})
+				.then((response) => {
+					this.aWerehouses = response.data;
+					console.log("Список названий складов.", this.aWerehouses);
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка получения названий складов.", XMLHttpRequest.response.data);
+				});
 		}
 	}
 });

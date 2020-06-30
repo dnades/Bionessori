@@ -13,6 +13,12 @@ namespace Bionessori.Core.Interfaces {
         /// Метод получает список материалов.
         /// </summary>
         /// <returns></returns>
-        Task<List<Werehouse>> GetMaterials(); 
+        Task<List<Werehouse>> GetMaterials();
+
+        /// <summary>
+        /// Метод получает названия и коды складов.
+        /// </summary>
+        /// <returns></returns>
+        Task<object> GetNameWerehouses();  
     }
 }

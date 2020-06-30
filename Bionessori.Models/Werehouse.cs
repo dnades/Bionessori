@@ -19,6 +19,6 @@ namespace Bionessori.Models {
 
         public Guid Code { get; set; }    // Код материала.
 
-        public int WerehouseNumber { get; set; }    // Номер склада.
+        public string WerehouseNumber { get; set; }    // Номер склада.
     }
 }

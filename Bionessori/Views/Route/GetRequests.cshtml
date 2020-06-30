@@ -105,6 +105,7 @@
 						<div class="form-group">
 							<label for="id-select-material">Материал</label>
 							<select id="id-select-material" class="form-control"></select>
+							<input type="checkbox" name="add_new_material" /> Такого материала еще нет
 						</div>
 
 						<div class="form-group">
@@ -116,12 +117,17 @@
 						<div class="form-group">
 							<label for="id-select-measure">Ед.Изм.</label>
 							<select id="id-select-measure" class="form-control"></select>
+							<input type="checkbox" name="add_new_material" /> Не знаю ед.изм. для этого материала
 						</div>
 
 						<!-- Не обязательно для заполнения. -->
 						<div class="form-group">
 							<label for="id-select-werehouse">Номер склада</label>
-							<select id="id-select-werehouse" class="form-control"></select>
+							<select id="id-select-werehouse" class="form-control">
+								<option></option>
+								<option v-for="el in aWerehouses">{{el.WerehouseNumber}}</option>
+							</select>
+							<input type="checkbox" name="add_new_material" /> Не знаю номер склада
 						</div>
 					</div>
 

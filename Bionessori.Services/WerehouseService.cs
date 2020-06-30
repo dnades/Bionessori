@@ -34,5 +34,17 @@ namespace Bionessori.Services {
                 return oMaterials.ToList();
             }
         }
+
+        /// <summary>
+        /// Метод получает список названий и кодов складов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<object> GetNameWerehouses() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oWerehouses = await db.QueryAsync("sp_GetNameWerehouses");
+
+                return oWerehouses.ToList();
+            }
+        }
     }
 }
