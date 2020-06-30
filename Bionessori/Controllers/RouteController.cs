@@ -56,5 +56,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Метод переходит на страницу со списком материалов.
+        [Route("view/material")]
+        public IActionResult GetMaterials() {
+            ViewData["Title"] = "Планирование потребности в материалах - Список материалов на складах";
+
+            return View();
+        }
     }
 }

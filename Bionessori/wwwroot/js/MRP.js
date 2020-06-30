@@ -130,7 +130,11 @@ var main_mrp = new Vue({
 		// Функция перенаправляет роут к списку заявок MRP.
 		onRouteReq(event) {
 			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
-			console.log("test route req");
+		},
+
+		// Функция перенаправляет роут к списку материалов MRP.
+		onRouteMaterial(event) {
+			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
 		}
 	}
 });

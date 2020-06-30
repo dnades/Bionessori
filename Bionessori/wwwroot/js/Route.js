@@ -21,9 +21,14 @@ var main = new Vue({
 					window.location.href = "https://localhost:44312/route/mrp";
 					break;
 
-				// Переходит на страницу списка заявок на потребности.
-				case "mrp_requests_lists":
+				// Переходит на страницу списка заявок на потребности MRP.
+				case "mrp_requests_list":
 					window.location.href = "https://localhost:44312/view/request";
+					break;
+
+				// Переходит на страницу списка материалов на складах MRP.
+				case "mrp_material_list":
+					window.location.href = "https://localhost:44312/view/material";
 					break;
 			}
 		}
