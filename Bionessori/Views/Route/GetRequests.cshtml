@@ -104,20 +104,35 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="id-select-material">Материал</label>
-							<select id="id-select-material" class="form-control"></select>
-							<input type="checkbox" name="add_new_material" /> Такого материала еще нет
+							<select id="id-select-material" class="form-control">
+								<option></option>
+								<option v-for="el in aWerehouses">{{el.material}}</option>
+							</select>
+							<input type="checkbox" /> Такого материала еще нет
+						</div>
+
+						<div class="form-group">
+							<label for="id-select-group">Группа</label>
+							<select id="id-select-group" class="form-control">
+								<option></option>
+								<option v-for="el in aWerehouses">{{el.material_group}}</option>
+							</select>
+							<input type="checkbox" /> Не знаю к какой группе относится материал
 						</div>
 
 						<div class="form-group">
 							<label for="id-select-count">Количество материалов</label>
-							<input id="id-select-count" type="number" class="form-control"/>
+							<input id="id-select-count" type="number" class="form-control" />
 						</div>
 
 						<!-- Не обязательно для заполнения. -->
 						<div class="form-group">
 							<label for="id-select-measure">Ед.Изм.</label>
-							<select id="id-select-measure" class="form-control"></select>
-							<input type="checkbox" name="add_new_material" /> Не знаю ед.изм. для этого материала
+							<select id="id-select-measure" class="form-control">
+								<option></option>
+								<option v-for="el in aWerehouses">{{el.measure}}</option>
+							</select>
+							<input type="checkbox" /> Не знаю ед.изм. для этого материала
 						</div>
 
 						<!-- Не обязательно для заполнения. -->
@@ -125,9 +140,9 @@
 							<label for="id-select-werehouse">Номер склада</label>
 							<select id="id-select-werehouse" class="form-control">
 								<option></option>
-								<option v-for="el in aWerehouses">{{el.WerehouseNumber}}</option>
+								<option v-for="el in aWerehouses">{{el.werehouse_number}}</option>
 							</select>
-							<input type="checkbox" name="add_new_material" /> Не знаю номер склада
+							<input type="checkbox" /> Не знаю номер склада
 						</div>
 					</div>
 
