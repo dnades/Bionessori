@@ -31,14 +31,47 @@ namespace Bionessori.Controllers {
         }
 
         /// <summary>
-        /// Метод получает список кодов и названий складов.
+        /// Метод получает список названий складов.
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("get-werehouses")]
-        public async Task<IActionResult> GetNameWerehouses() {
-            var oWerehouses = await _werehouse.GetNameWerehouses();
+        public async Task<IActionResult> GetNameWerehouses() { 
+            var oNames = await _werehouse.GetNameWerehouses();
 
-            return Ok(oWerehouses);
+            return Ok(oNames);
+        }
+
+        /// <summary>
+        /// Метод получает список групп материалов.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-groups")]
+        public async Task<IActionResult> GetGroupshouses() {
+            var oGroups = await _werehouse.GetGroupsWerehouses();
+
+            return Ok(oGroups);
+        }
+
+        /// <summary>
+        /// Метод получает список ед.изм.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-measures")]
+        public async Task<IActionResult> GetMeasuresWerehouses() {
+            var oMeasures = await _werehouse.GetMeasuresWerehouses();
+
+            return Ok(oMeasures);
+        }
+
+        /// <summary>
+        /// Метод получает список названий материалов без дубликатов.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-distinct-materials")]
+        public async Task<IActionResult> GetDistinctMaterials() {
+            var oDistinctMaterials = await _werehouse.GetDistinctMaterials();
+
+            return Ok(oDistinctMaterials);
         }
     }
 }

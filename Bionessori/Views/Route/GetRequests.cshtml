@@ -106,7 +106,7 @@
 							<label for="id-select-material">Материал</label>
 							<select id="id-select-material" class="form-control">
 								<option></option>
-								<option v-for="el in aWerehouses">{{el.material}}</option>
+								<option v-for="el in aDistinctMaterials">{{el.material}}</option>
 							</select>
 							<input type="checkbox" /> Такого материала еще нет
 						</div>
@@ -115,7 +115,7 @@
 							<label for="id-select-group">Группа</label>
 							<select id="id-select-group" class="form-control">
 								<option></option>
-								<option v-for="el in aWerehouses">{{el.material_group}}</option>
+								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
 							</select>
 							<input type="checkbox" /> Не знаю к какой группе относится материал
 						</div>
@@ -130,7 +130,7 @@
 							<label for="id-select-measure">Ед.Изм.</label>
 							<select id="id-select-measure" class="form-control">
 								<option></option>
-								<option v-for="el in aWerehouses">{{el.measure}}</option>
+								<option v-for="el in aMeasures">{{el.measure}}</option>
 							</select>
 							<input type="checkbox" /> Не знаю ед.изм. для этого материала
 						</div>
@@ -140,7 +140,7 @@
 							<label for="id-select-werehouse">Номер склада</label>
 							<select id="id-select-werehouse" class="form-control">
 								<option></option>
-								<option v-for="el in aWerehouses">{{el.werehouse_number}}</option>
+								<option v-for="el in aWerehousesNames">{{el.werehouse_number}}</option>
 							</select>
 							<input type="checkbox" /> Не знаю номер склада
 						</div>

@@ -6,6 +6,9 @@ var main_mrp = new Vue({
 		this.loadMaterials();
 		this.loadRequests();
 		this.loadNameWerehouses();
+		this.loadGroupsMaterials();
+		this.loadDistinctMaterials();
+		this.loadMeasures();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);	
@@ -15,13 +18,17 @@ var main_mrp = new Vue({
 		aRequests: [],
 		concreteRequest: [],
 		concreteMaterial: [],
-		aWerehouses: []
+		aWerehousesNames: [],
+		aMaterialsGroups: [],
+		aDistinctMaterials: [],
+		aMeasures: []
 	},
 	methods: {
 		// Функция загружает список материалов.
 		loadMaterials() {
+			//let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
-
+			
 			axios.post(sUrl)
 				.then((response) => {					
 					this.aMaterials = response.data;
@@ -34,8 +41,9 @@ var main_mrp = new Vue({
 
 		// Функция загружает список заявок на потребности.
 		loadRequests() {
+			//let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
 			let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
-
+			
 			axios.post(sUrl, {})
 				.then((response) => {
 					this.aRequests = response.data;
@@ -145,11 +153,53 @@ var main_mrp = new Vue({
 
 			axios.post(sUrl, {})
 				.then((response) => {
-					this.aWerehouses = response.data;
-					console.log("Список названий складов.", this.aWerehouses);
+					this.aWerehousesNames = response.data;
+					console.log("Список названий складов.", this.aWerehousesNames);
 				})
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка получения названий складов.", XMLHttpRequest.response.data);
+				});
+		},
+
+		// Функция получает список групп материалов.
+		loadGroupsMaterials() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-groups";
+
+			axios.post(sUrl, {})
+				.then((response) => {
+					this.aMaterialsGroups = response.data;
+					console.log("Список групп.", this.aMaterialsGroups);
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка получения списка групп.", XMLHttpRequest.response.data);
+				});
+		},
+
+		// Функция получает список материалов без дублей.
+		loadDistinctMaterials() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-distinct-materials";
+
+			axios.post(sUrl, {})
+				.then((response) => {
+					this.aDistinctMaterials = response.data;
+					console.log("Список материалов без дублей.", this.aDistinctMaterials);
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка получения списка материалов без дублей.", XMLHttpRequest.response.data);
+				});
+		},
+
+		// Функция получает список ед.изм.
+		loadMeasures() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-measures";
+
+			axios.post(sUrl, {})
+				.then((response) => {
+					this.aMeasures = response.data;
+					console.log("Список ед.изм.", this.aMeasures);
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка получения ед.изм.", XMLHttpRequest.response.data);
 				});
 		}
 	}

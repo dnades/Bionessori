@@ -16,6 +16,7 @@ var list_card = new Vue({
 	},
 	methods: {
 		onLoadCards() {
+			//let sUrl = "https://localhost:44312/api/data/card/get-cards";
 			let sUrl = "https://localhost:44312/api/data/card/get-cards";
 
 			// Отправляет данные на Back-end.
@@ -60,6 +61,7 @@ var list_card = new Vue({
 
 		// Функция редактирует карту пациента.
 		onSaveEditChange() {
+			//let sUrl = "https://localhost:44312/api/data/card/update-card";
 			let sUrl = "https://localhost:44312/api/data/card/update-card";
 			let iId = +$("#id").val();	// Id карты пациента.
 			let iCardNumber = +$("#id-card-number").val();	// Номер карты пациента.
@@ -110,6 +112,7 @@ var list_card = new Vue({
 
 		// Функция удаляет карту пациента.
 		onDelete() {
+			//let sUrl = "https://localhost:44312/api/data/card/delete-card";
 			let sUrl = "https://localhost:44312/api/data/card/delete-card";
 			let iId = +$("#id").val();	// Id карты пациента.
 
@@ -133,6 +136,7 @@ var list_card = new Vue({
 
 		// Функция создает новую карту пациента.
 		onCreateCard() {
+			//let sUrl = "https://localhost:44312/api/data/card/create-card";
 			let sUrl = "https://localhost:44312/api/data/card/create-card";
 			let iCardNumber = +$("#id-card-number").val();	// Номер карты пациента.
 			let sFullName = $("#id-name").val();	// ФИО пациента.

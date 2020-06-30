@@ -1,5 +1,6 @@
 ﻿using Bionessori.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,27 @@ namespace Bionessori.Core.Interfaces {
         Task<List<Werehouse>> GetMaterials();
 
         /// <summary>
-        /// Метод получает названия и коды складов.
+        /// Метод получает названия складов.
         /// </summary>
         /// <returns></returns>
-        Task<object> GetNameWerehouses();  
+        Task<IEnumerable> GetNameWerehouses();
+
+        /// <summary>
+        /// Метод получает список групп материалов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetGroupsWerehouses();
+
+        /// <summary>
+        /// Метод получает список ед.измерений.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetMeasuresWerehouses();
+
+        /// <summary>
+        /// Метод получает названия материалов без дубликатов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetDistinctMaterials();
     }
 }

@@ -3,6 +3,7 @@ using Bionessori.Models;
 using Dapper;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод получает список продуктов со склада.
+        /// Метод получает список материалов со складов.
         /// </summary>
         /// <returns></returns>
         public async Task<List<Werehouse>> GetMaterials() {
@@ -36,14 +37,50 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод получает список названий и кодов складов.
+        /// Метод получает список названий складов.
         /// </summary>
         /// <returns></returns>
-        public async Task<object> GetNameWerehouses() {
+        public async Task<IEnumerable> GetNameWerehouses() {
             using (var db = new SqlConnection(_connectionString)) {
-                var oWerehouses = await db.QueryAsync("sp_GetNameWerehouses");
+                var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
 
-                return oWerehouses.ToList();
+                return oNames.ToList(); 
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список групп материалов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetGroupsWerehouses() { 
+            using (var db = new SqlConnection(_connectionString)) {
+                var oGroups = await db.QueryAsync("sp_GetGroupNames");
+
+                return oGroups.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список ед.изм.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetMeasuresWerehouses() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oMeasures = await db.QueryAsync("sp_GetMeasures");
+
+                return oMeasures.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список материалов без дубликатов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetDistinctMaterials() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
+
+                return oDistinctMaterials.ToList();
             }
         }
     }

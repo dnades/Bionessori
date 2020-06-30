@@ -37,6 +37,12 @@ namespace Bionessori {
             
             services.AddControllersWithViews();
 
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
+                builder.WithOrigins("https://localhost:44312/", "https://localhost:44312").AllowAnyMethod().AllowAnyHeader();
+            }));
+
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+
             services.AddControllers()
         .AddJsonOptions(options =>
                 options.JsonSerializerOptions.Converters.Add(new IntToStringExtension()));

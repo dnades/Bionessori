@@ -11,6 +11,7 @@ var admin = new Vue({
 	},
 	methods: {
 		onInit() {
+			//const sUrl = "https://localhost:44312/api/back-office/get-users";
 			const sUrl = "https://localhost:44312/api/back-office/get-users";
 
 			axios.post(sUrl, {})
@@ -39,7 +40,9 @@ var admin = new Vue({
 
 		// Функция назначает роль.
 		onGiveRole() {
+			//let sUrl = "https://localhost:44312/api/back-office/give-role";
 			let sUrl = "https://localhost:44312/api/back-office/give-role";
+			
 			let sRole = $(".input-role").val();
 
 			// Дозаписывает в глобальный объект Vue роль.

@@ -26,6 +26,7 @@ var app = new Vue({
 			let sNumber = $("#id-number").val();
 			let sPassword = $("#id-password").val();
 
+			//const sUrlCheckIn = "https://localhost:44312/api/data/auth/checkin";
 			const sUrlCheckIn = "https://localhost:44312/api/data/auth/checkin";
 
 			const oUser = {
@@ -57,6 +58,7 @@ var app = new Vue({
 			let sPassword = $("#id-sign-password").val();
 			let aRoles;
 
+			//const sUrl = "https://localhost:44312/api/data/auth/signin";
 			const sUrl = "https://localhost:44312/api/data/auth/signin";
 
 			const oUserReg = {
@@ -77,9 +79,10 @@ var app = new Vue({
 					localStorage["user"] = JSON.stringify(response.data);
 
 					// Если зашел админ.
-					if (localStorage["roles"].includes("admin")) {
-						window.location.href = "https://localhost:44312/route/admin";
-					}
+					//if (localStorage["roles"].includes("admin")) {
+					//	//window.location.href = "https://localhost:44312/route/admin";
+					//	window.location.href = "https://localhost:44312/route/admin";
+					//}
 
 					$(".state-log").hide();
 					$(".state").show();
