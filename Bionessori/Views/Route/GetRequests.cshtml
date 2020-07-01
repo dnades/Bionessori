@@ -39,7 +39,7 @@
 		<div class="mr-2">
 			<h3>Список заявок</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
-			<table class="table table-bordered table-responsive">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">
@@ -147,7 +147,7 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="">Создать заявку</button>
+						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="onCreateRequest">Создать заявку</button>
 						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>

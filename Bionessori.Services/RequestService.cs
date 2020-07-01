@@ -37,8 +37,14 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<Request> Create(Request request) {
-            throw new NotImplementedException();
+        public async Task<string> Create(Request request) {
+            using (var db = new SqlConnection(_connectionString)) {
+                // Добавляет новую заявку в список заявок со статусом "Новая".
+                await db.QueryAsync($"INSERT INTO Requests VALUES ('123', {request.Count}, '{request.Measure}', " +
+                    $"'Новая', '{request.Material}', '{request.MaterialGroup}')");
+
+                return "Ok";
+            }
         }
 
         /// <summary>

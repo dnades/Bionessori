@@ -26,5 +26,17 @@ namespace Bionessori.Controllers {
 
             return Ok(oRequests);
         }
+
+        /// <summary>
+        /// Метод создает новую заявку на потребность в материалах.
+        /// </summary>
+        /// <param name="werehouse"></param>
+        /// <returns></returns>
+        [HttpPost, Route("create-request")]
+        public async Task<IActionResult> Create([FromBody] Request request) {
+            await _request.Create(request);
+
+            return Ok("Заявка на потребность успешно создана.");
+        }
     }
 }

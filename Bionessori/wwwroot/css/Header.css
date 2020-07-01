@@ -16,7 +16,7 @@ body {
   align-items: center; }
 
 .beta {
-  color: #66BFE0;
+  color: #FFFFFF;
   transform: rotate(25.25deg); }
   .beta:hover {
     cursor: pointer; }
@@ -24,7 +24,7 @@ body {
 .nav-title {
   display: flex;
   border-radius: 10px;
-  color: #66BFE0;
+  color: #FFFFFF;
   font-weight: 900;
   font-size: 18px;
   margin-right: 150px; }

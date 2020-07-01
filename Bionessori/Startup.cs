@@ -26,7 +26,7 @@ namespace Bionessori {
             string connectionString = "Server=skyhorizen.ru,1433; Database=u0772479_pacidb; Persist Security Info=False; User ID=u0772479_admin; Password=K3sxb30*;MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=true; Connection Timeout=30;Integrated Security=False;";
             
             services.AddTransient<IUserRepository, UserService>(provider => new UserService(connectionString));
-
+            
             services.AddTransient<ICard, CardPatientService>(provider => new CardPatientService(connectionString));
 
             services.AddTransient<IBackOffice, BackOfficeService>(provider => new BackOfficeService(connectionString));
@@ -38,7 +38,7 @@ namespace Bionessori {
             services.AddControllersWithViews();
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
-                builder.WithOrigins("https://localhost:44312/", "https://localhost:44312").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("https://apihosting.online/", "https://apihosting.online").AllowAnyMethod().AllowAnyHeader();
             }));
 
             services.AddMvc(option => option.EnableEndpointRouting = false);

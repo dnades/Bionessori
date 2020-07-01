@@ -26,7 +26,6 @@ var main_mrp = new Vue({
 	methods: {
 		// Функция загружает список материалов.
 		loadMaterials() {
-			//let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
 			
 			axios.post(sUrl)
@@ -41,7 +40,6 @@ var main_mrp = new Vue({
 
 		// Функция загружает список заявок на потребности.
 		loadRequests() {
-			//let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
 			let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
 			
 			axios.post(sUrl, {})
@@ -200,6 +198,33 @@ var main_mrp = new Vue({
 				})
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка получения ед.изм.", XMLHttpRequest.response.data);
+				});
+		},
+
+		// Функция создает новую заявку на потребность в материалах.
+		onCreateRequest() {
+			let sMaterial = $("#id-select-material").val();
+			let sGroup = $("#id-select-group").val();
+			let nCount = +$("#id-select-count").val();
+			let sMeasure = $("#id-select-measure").val();
+			let sWerehouse = $("#id-select-werehouse").val();
+
+			let oRequest = {
+				Material: sMaterial,
+				MaterialGroup: sGroup,
+				Measure: sMeasure,
+				Count: nCount,
+				WerehouseNumber: sWerehouse
+			};
+
+			let sUrl = "https://localhost:44312/api/werehouse/request/create-request";
+
+			axios.post(sUrl, oRequest)
+				.then((response) => {
+					console.log("Заявка на потребность успешно создана.", response);
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
 				});
 		}
 	}
