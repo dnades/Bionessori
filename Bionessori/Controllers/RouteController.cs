@@ -72,5 +72,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Переходит на страницу создания карты пациента.
+        [Route("route/create-card")]
+        public IActionResult RouteCreateCard() {
+            ViewData["Title"] = "Ведение электронных карт пациентов - Создание новой карты пациента";
+
+            return View();
+        }
     }
 }

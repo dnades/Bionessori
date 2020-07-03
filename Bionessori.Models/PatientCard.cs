@@ -20,7 +20,7 @@ namespace Bionessori.Models {
 
         public string Number { get; set; }  // Номер телефона пациента.
 
-        public int? BloodGroup { get; set; } // Группа крови.
+        public string BloodGroup { get; set; } // Группа крови.
 
         public string Policy { get; set; }  // Полис пациента. Должен быть в виде 111111 1111111111
 

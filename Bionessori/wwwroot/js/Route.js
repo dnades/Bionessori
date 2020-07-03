@@ -15,6 +15,10 @@ var main = new Vue({
 				case "card":
 					window.location.href = "https://localhost:44312/route/card";
 					break;		
+
+				case "create_card":
+					window.location.href = "https://localhost:44312/route/create-card";
+					break;
 					
 				// Переходит на страницу ведения MRP
 				case "mrp":

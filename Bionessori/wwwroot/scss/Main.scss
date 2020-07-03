@@ -3,6 +3,20 @@ $widthModal: max-content !important;
 $widthBtnsCard: auto !important;
 $noneId: none;
 
+@mixin Lbl {
+    width: 300px;
+    font-size: 12px;
+}
+
+@mixin shadow {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@mixin flexDirCol {
+    display: flex;
+    flex-direction: column;
+}
+
 body {
     //color: white;
     background: #FDFFFF;
@@ -96,7 +110,13 @@ body {
 table {
     thead {
         th {
-            background-color: white!important;
+            //background-color: white !important;
+            background-color: #66BFE0 !important;
+
+            .btn-link {
+                color: white;
+                font-weight: 600;
+            }
         }
     }
     //border: 2px solid azure !important;
@@ -201,7 +221,8 @@ table {
 .mask {
     width: 100%;
     height: 100%;
-    background: #66BFE0;
+    //background: #66BFE0;
+    background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
     position: fixed;
     top: 0;
     z-index: 100;
@@ -264,4 +285,58 @@ table {
 
 .input-search {
     width: 300px;
+}
+
+.form-card {
+    //width: 300px;
+    //line-height: 2;
+    //height: 20px;
+}
+
+.column-1 {
+    //display: flex;
+    //margin-right: 10%;
+    label {
+        //@include Lbl;
+    }
+}
+
+.column-2 {
+    label {
+        //@include Lbl;
+    }
+}
+
+.column-3 {
+    label {
+        //@include Lbl;
+    }
+}
+
+.block-main-info {
+    display: flex;
+    justify-content: space-around;
+
+    .row-1 {
+        //@include shadow;
+        @include flexDirCol;
+    }
+
+    .row-2 {
+        @include flexDirCol;
+        width: 300px;
+        //@include shadow;
+    }
+
+    .row-3 {
+        @include flexDirCol;
+        //@include shadow;
+    }
+    /*.card {
+        padding: 5%;
+    }*/
+}
+
+.main-block-card {
+    background: #FDFFFC;    
 }

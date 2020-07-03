@@ -38,7 +38,9 @@
 
 					<button type="button" class="btn-item btn btn-default export-excel" v-on:click="onExportExcel">Выгрузить в Excel</button>
 
-					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту</button>
+					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" v-on:click="">Удалить выбранные</button>
+
+					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" value="create_card" v-on:click="onRouteCreateCard">Создать карту</button>
 				</div>
 			</div>
 		</div>
@@ -47,6 +49,10 @@
 		<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
 			<thead>
 				<tr>
+					<th class="text-center" scope="col">
+						<input type="checkbox" name="a" value="1934">
+					</th>
+
 					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
 							№ карты
@@ -95,41 +101,6 @@
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
-							Дата и время назначаемых<br /> процедур и записей
-						</button>
-					</th>
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="drugs" v-on:click="sortedList">
-							Прописанные лекарства
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
-							Диагноз
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="recommends" v-on:click="sortedList">
-							Рецепты и рекомендации
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="history" v-on:click="sortedList">
-							История болезни
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="doctor" v-on:click="sortedList">
-							Лечащий врач
-						</button>
-					</th>
-
 					<th class="text-center" scope="col"></th>
 					<th class="text-center" scope="col"></th>
 				</tr>
@@ -137,6 +108,10 @@
 
 			<tbody>
 				<tr class="tbl-item" v-for="el in aCards">
+					<th class="text-center" scope="col">
+						<input type="checkbox" name="a" value="1934">
+					</th>
+
 					<td class="text-center card-id">
 						<span>{{el.id}}</span>
 					</td>
@@ -171,30 +146,6 @@
 
 					<td class="text-center">
 						<span>{{el.snails}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.timeProcRecommend}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.prescriptionDrugs}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.diagnosis}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.recipesRecommend}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.medicalHistory}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.doctor}}</span>
 					</td>
 
 					<td class="text-center state">
@@ -416,8 +367,9 @@
 						</table>
 					</div>
 
-					<div class="modal-footer">
+					<div class="modal-footer">						
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onCreateCard">Создать карту</button>
+
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
@@ -493,6 +445,7 @@
 	</div>
 
 	<script src="~/js/Card.js"></script>
+	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -167,13 +167,13 @@ var list_card = new Vue({
 			};
 
 			// Отправляет данные на Back-end.
-			axios.post(sUrl, oCard)
-				.then((response) => {
-					console.log(response);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка создания карты.", XMLHttpRequest.response.data);
-				});
+			//axios.post(sUrl, oCard)
+			//	.then((response) => {
+			//		console.log(response);
+			//	})
+			//	.catch((XMLHttpRequest) => {
+			//		console.log("Ошибка создания карты.", XMLHttpRequest.response.data);
+			//	});
 		},
 
 		// Функция сортирует таблицу со списком карт пациентов.
@@ -279,6 +279,11 @@ var list_card = new Vue({
 
 				return buf;
 			}			
+		},
+
+		// Функция передает роут в главную точку распределения маршрутов.
+		onRouteCreateCard(event) {
+			main.onRouteMatched(event);
 		}
 	},
 });
