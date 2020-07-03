@@ -42,6 +42,28 @@ namespace Bionessori.Services {
                 parameters.Add("@recipesRecommend", patientCard.RecipesRecommend, DbType.String);
                 parameters.Add("@medicalHistory", patientCard.MedicalHistory, DbType.String);
                 parameters.Add("@doctor", patientCard.Doctor, DbType.String);
+                parameters.Add("@blood_group", patientCard.BloodGroup, DbType.String);
+                parameters.Add("@category", patientCard.Category, DbType.String);
+                parameters.Add("@seat_work", patientCard.SeatWord, DbType.String);
+                parameters.Add("@position", patientCard.Position, DbType.String);
+                parameters.Add("@tab_number", patientCard.TabNum, DbType.String);
+                parameters.Add("@insurance_company", patientCard.InsuranceCompany, DbType.String);
+                parameters.Add("@date_to", patientCard.DateTo, DbType.Date);
+                parameters.Add("@comment", patientCard.Comment, DbType.String);
+                parameters.Add("@email", patientCard.Email, DbType.String);
+                parameters.Add("@indicator", patientCard.Indicator, DbType.String);
+                parameters.Add("@isVich", patientCard.isVich, DbType.String);
+                parameters.Add("@isHb", patientCard.isHb, DbType.String);
+                parameters.Add("@isRw", patientCard.isRw, DbType.String);
+                parameters.Add("@city", patientCard.City, DbType.String);
+                parameters.Add("@dop", patientCard.Dop, DbType.String);
+                parameters.Add("@region", patientCard.Region, DbType.String);
+                parameters.Add("@district", patientCard.District, DbType.String);
+                parameters.Add("@form_payment", patientCard.FormPay, DbType.String);
+                parameters.Add("@plan_payment", patientCard.Plan, DbType.String);
+                parameters.Add("@registry", patientCard.Registry, DbType.Date);
+                parameters.Add("@who_change", patientCard.WhoChange, DbType.String);
+                parameters.Add("@operator", patientCard.Operator, DbType.String);
 
                 // Вызывает процедуру создания новой карты пациента.
                 await db.QueryAsync<PatientCard>("sp_CreateCard",

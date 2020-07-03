@@ -148,6 +148,28 @@ var list_card = new Vue({
 			let sRecommend = $("#id-recip").val();	// Прописанные лекарства.
 			let sHistory = $("#id-history").val();	// История болезни.
 			let sDoc = $("#id-doc").val();	// Доктор.
+			let sCategory = $("#id-category").val();	// Категория пациента.
+			let sSeatWord = $("#id-word").val();	// Место работы.
+			let sPosition = $("#id-position").val();	// Должность пациента.
+			let sTabNumber = $("#id-tab").val();	// Таб №.
+			let sInsurance = $("#insurance-company").val();	// Страховая компания.
+			let sDateTo = $("#id-do").val();	// Обслуж.до
+			let sComment = $("#id-comment").val();	// Комментарии.
+			let sIndicator = $("#id-indicator").val();	// Сигнальная информация.
+			let isVich = $("#id-vich").val();	// ВИЧ.
+			let isHb = $("#id-hb").val();	// Hb.
+			let isRw = $("#id-rw").val();	// Rw.
+			let sCity = $("#id-city").val();	// Город.
+			let sDopAddress = $("#id-address-dop").val();	// Дополнительный адрес.
+			let sDop = $("#id-dop").val();	// Дополнительное описание.
+			let sDistrict = $("#id-district").val();	// Район.
+			let sRegion = $("#id-region").val();	// Регион.
+			let sFormPay = $("#id-form-pay").val();	// Форма оплаты.
+			let sPlan = $("#id-plan").val();	// Тариф.
+			let sRegistry = $("#id-registry").val();	// Зарегистрирован.
+			let sWhoChange = $("#id-change").val();		// Изменен.
+			let sOperator = $("#id-operator").val();	// Оператор.
+			let sEmail = $("#id-email").val();
 
 			let oCard = {
 				CardNumber: iCardNumber,
@@ -163,17 +185,39 @@ var list_card = new Vue({
 				Diagnosis: sDiagnosis,
 				RecipesRecommend: sRecommend,
 				MedicalHistory: sHistory,
-				Doctor: sDoc
+				Doctor: sDoc,
+				Category: sCategory,
+				SeatWord: sSeatWord,
+				Position: sPosition,
+				TabNum: sTabNumber,
+				InsuranceCompany: sInsurance,
+				DateTo: sDateTo,
+				Comment: sComment,
+				Indicator: sIndicator,
+				isVich: isVich,
+				isHb: isHb,
+				isRw: isRw,
+				City: sCity,
+				DopAddress: sDopAddress,
+				Dop: sDop,
+				District: sDistrict,
+				Region: sRegion,
+				FormPay: sFormPay,
+				Plan: sPlan,
+				Registry: sRegistry,
+				WhoChange: sWhoChange,
+				Operator: sOperator,
+				Email: sEmail
 			};
 
 			// Отправляет данные на Back-end.
-			//axios.post(sUrl, oCard)
-			//	.then((response) => {
-			//		console.log(response);
-			//	})
-			//	.catch((XMLHttpRequest) => {
-			//		console.log("Ошибка создания карты.", XMLHttpRequest.response.data);
-			//	});
+			axios.post(sUrl, oCard)
+				.then((response) => {
+					console.log("Карта пациента успешно создана." , response);
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка создания карты.", XMLHttpRequest.response.data);
+				});
 		},
 
 		// Функция сортирует таблицу со списком карт пациентов.

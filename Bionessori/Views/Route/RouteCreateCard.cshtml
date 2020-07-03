@@ -79,7 +79,7 @@
 
 								<!-- Правая секция кнопок -->
 								<div class="btn-right-block">
-									<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" value="create_card" v-on:click="">Сохранить</button>
+									<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" value="create_card" v-on:click="onCreateCard">Сохранить</button>
 
 									<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Отмена</button>
 								</div>
@@ -89,9 +89,6 @@
 								<div class="row-1">
 									<label for="#id-family">ФИО</label>
 									<input id="id-family" type="text" class="form-control-sm form-card mb-3" />
-
-									<label for="#id-pin">PIN</label>
-									<input id="id-pin" type="number" class="form-control-sm form-card mb-3" />
 
 									<label for="#id-address">Адрес</label>
 									<input id="id-address" type="text" class="form-control-sm form-card mb-3" />
@@ -110,8 +107,8 @@
 									<label for="#id-tab">Таб.№</label>
 									<input id="id-tab" type="text" class="form-control-sm form-card mb-3" />
 
-									<label for="#id-company-strah">Страховая компания</label>
-									<select id="id-category" class="form-control-sm form-card mb-3">
+									<label for="#id-insurance-company">Страховая компания</label>
+									<select id="id-insurance-company" class="form-control-sm form-card mb-3">
 										<option>ООО "Хлебный порошок"</option>
 									</select>
 
@@ -162,7 +159,7 @@
 										</tbody>
 									</table>
 
-									<input id="id-date-year" type="file" class="form-control-sm form-card mb-3" />
+									<input id="id-photo" type="file" class="form-control-sm form-card mb-3" />
 									<!-- Сюда будет вставляться фото пациента. -->
 
 									<label for="#id-comment">Комментарии</label>
@@ -235,14 +232,14 @@
 									<label for="#id-plan">Тариф</label>
 									<input id="id-plan" type="text" class="form-control-sm form-card mb-3" />
 
-									<label for="#id-plan">Зарегистрирован</label>
-									<input id="id-plan" type="date" class="form-control-sm form-card mb-3" />
+									<label for="#id-registry">Зарегистрирован</label>
+									<input id="id-registry" type="date" class="form-control-sm form-card mb-3" />
 
-									<label for="#id-plan">Изменен</label>
-									<input id="id-plan" type="datetime" class="form-control-sm form-card mb-3" />
+									<label for="#id-change">Изменен</label>
+									<input id="id-change" type="datetime" class="form-control-sm form-card mb-3" />
 
-									<label for="#id-plan">Оператор</label>
-									<input id="id-plan" type="text" class="form-control-sm form-card mb-3" />
+									<label for="#id-operator">Оператор</label>
+									<input id="id-operator" type="text" class="form-control-sm form-card mb-3" />
 								</div>
 							</div>
 						</div>
