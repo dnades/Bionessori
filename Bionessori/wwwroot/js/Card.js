@@ -134,26 +134,19 @@ var list_card = new Vue({
 		// Функция создает новую карту пациента.
 		onCreateCard() {
 			let sUrl = "https://localhost:44312/api/data/card/create-card";
-			let iCardNumber = +$("#id-card-number").val();	// Номер карты пациента.
-			let sFullName = $("#id-name").val();	// ФИО пациента.
-			let dDateBirth = $("#id-date-of-birth").val();	// Дата рождения пациента.
+			let sFullName = $("#id-family").val();	// ФИО пациента.
+			let dDateBirth = $("#id-date-year").val().replace(/-/g, "/");	// Дата рождения пациента.
 			let sAddress = $("#id-address").val();	// Адрес пациента.
 			let sNumber = $("#id-number").val();	// Телефон пациента.
 			let sBloodGroup = $("#id-blood-group").val();	// Группа крови.
 			let sPolicy = $("#id-policy").val();	// Полис пациента.
-			let sSnils = $("#id-snails").val();	// СНИЛС пациента.
-			let dTime = $("#id-time").val();	// Время назначенных процедур.
-			let sDrugs = $("#id-pres").val();	// Прописанные лекарства.
-			let sDiagnosis = $("#id-diagnosis").val;	// Диагноз.
-			let sRecommend = $("#id-recip").val();	// Прописанные лекарства.
-			let sHistory = $("#id-history").val();	// История болезни.
 			let sDoc = $("#id-doc").val();	// Доктор.
 			let sCategory = $("#id-category").val();	// Категория пациента.
-			let sSeatWord = $("#id-word").val();	// Место работы.
+			let sSeatWork = $("#id-word").val();	// Место работы.
 			let sPosition = $("#id-position").val();	// Должность пациента.
 			let sTabNumber = $("#id-tab").val();	// Таб №.
-			let sInsurance = $("#insurance-company").val();	// Страховая компания.
-			let sDateTo = $("#id-do").val();	// Обслуж.до
+			let sInsurance = $("#id-insurance-company").val();	// Страховая компания.
+			let sDateTo = $("#id-do").val().replace(/-/g, "/");	// Обслуж.до
 			let sComment = $("#id-comment").val();	// Комментарии.
 			let sIndicator = $("#id-indicator").val();	// Сигнальная информация.
 			let isVich = $("#id-vich").val();	// ВИЧ.
@@ -166,28 +159,21 @@ var list_card = new Vue({
 			let sRegion = $("#id-region").val();	// Регион.
 			let sFormPay = $("#id-form-pay").val();	// Форма оплаты.
 			let sPlan = $("#id-plan").val();	// Тариф.
-			let sRegistry = $("#id-registry").val();	// Зарегистрирован.
-			let sWhoChange = $("#id-change").val();		// Изменен.
+			let sRegistry = $("#id-registry").val().replace(/-/g, "/");	// Зарегистрирован.
+			let sWhoChange = $("#id-change").val().replace(/-/g, "/");		// Изменен.
 			let sOperator = $("#id-operator").val();	// Оператор.
 			let sEmail = $("#id-email").val();
 
 			let oCard = {
-				CardNumber: iCardNumber,
 				FullName: sFullName,
 				DateOfBirth: dDateBirth,
 				Address: sAddress,
 				Number: sNumber,
 				BloodGroup: sBloodGroup,
 				Policy: sPolicy,
-				Snails: sSnils,
-				TimeProcRecommend: dTime,
-				PrescriptionDrugs: sDrugs,
-				Diagnosis: sDiagnosis,
-				RecipesRecommend: sRecommend,
-				MedicalHistory: sHistory,
 				Doctor: sDoc,
 				Category: sCategory,
-				SeatWord: sSeatWord,
+				SeatWork: sSeatWork,
 				Position: sPosition,
 				TabNum: sTabNumber,
 				InsuranceCompany: sInsurance,

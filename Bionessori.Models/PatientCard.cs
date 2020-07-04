@@ -14,7 +14,7 @@ namespace Bionessori.Models {
 
         public string FullName { get; set; }    // ФИО пациента.
 
-        public DateTime DateOfBirth { get; set; }   // Дата рождения пациента.
+        public string DateOfBirth { get; set; }   // Дата рождения пациента.
 
         public string Address { get; set; } // Адрес пациента.
 
@@ -30,7 +30,7 @@ namespace Bionessori.Models {
 
         public string Snails { get; set; }  // СНИЛС пациента. Должен быть в виде 111-111-111 11
 
-        public DateTime TimeProcRecommend { get; set; } // Время записи на процедуры.
+        public string TimeProcRecommend { get; set; } // Время записи на процедуры.   2019-01-06T17:16:40
 
         public string PrescriptionDrugs { get; set; }   // Прописанные лекарства.
 
@@ -44,7 +44,7 @@ namespace Bionessori.Models {
 
         public string Category { get; set; }    // Категория пациента.
 
-        public string SeatWord { get; set; }    // Место работы пациента.
+        public string SeatWork { get; set; }    // Место работы пациента.
 
         public string Position { get; set; }    // Должность пациента.
 
@@ -52,7 +52,7 @@ namespace Bionessori.Models {
 
         public string InsuranceCompany { get; set; }    // Страховая компания.
 
-        public DateTime DateTo { get; set; }    // Обслуж.до
+        public string DateTo { get; set; }    // Обслуж.до    2019-01-06T17:16:40
 
         public string Comment { get; set; } // Комментарии.
 
@@ -76,7 +76,7 @@ namespace Bionessori.Models {
 
         public string FormPay { get; set; } // Форма оплаты.
 
-        public string Registry { get; set; }    // Зарегистрирован.
+        public string Registry { get; set; }    // Зарегистрирован.   2019-01-06T17:16:40
 
         public string WhoChange { get; set; }   // Изменен.
 

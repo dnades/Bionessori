@@ -16,6 +16,7 @@ namespace Bionessori.Services {
     /// </summary>
     public class CardPatientService : ICard {
         string _conStr = null;
+        IRandom _random;
 
         public CardPatientService(string conn) {
             _conStr = conn;
@@ -27,6 +28,9 @@ namespace Bionessori.Services {
         /// <param name="patientCard"></param>
         /// <returns></returns>
         public async Task<string> Create(PatientCard patientCard) {
+            // Генерит рандомный номер карты.
+            patientCard.CardNumber = await _random.GenerateCardNumber();
+
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
@@ -44,7 +48,7 @@ namespace Bionessori.Services {
                 parameters.Add("@doctor", patientCard.Doctor, DbType.String);
                 parameters.Add("@blood_group", patientCard.BloodGroup, DbType.String);
                 parameters.Add("@category", patientCard.Category, DbType.String);
-                parameters.Add("@seat_work", patientCard.SeatWord, DbType.String);
+                parameters.Add("@seat_work", patientCard.SeatWork, DbType.String);
                 parameters.Add("@position", patientCard.Position, DbType.String);
                 parameters.Add("@tab_number", patientCard.TabNum, DbType.String);
                 parameters.Add("@insurance_company", patientCard.InsuranceCompany, DbType.String);
