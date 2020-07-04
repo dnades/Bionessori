@@ -8,6 +8,10 @@ var list_card = new Vue({
 		if (localStorage["user"]) {
 			RoleBase.initRole();
 		}
+
+		if (localStorage["selectCard"]) {
+			this.aSelectCard = JSON.parse(localStorage["selectCard"]);
+		}
 	},
 	data: {
 		aCards: [],
@@ -314,6 +318,17 @@ var list_card = new Vue({
 		// Функция передает роут в главную точку распределения маршрутов.
 		onRouteCreateCard(event) {
 			main.onRouteMatched(event);
-		}
+		},
+
+		// Функция получает конкретную карту.
+		onGetCard(event) {
+			// Получает Id карты, на которую нажали.
+			let cardId = $(event.target).parent().parent()[0].textContent.split(" ")[2];
+
+			// Записывает выделенную карту в массив.
+			localStorage["selectCard"] = JSON.stringify(this.aCards.filter(el => el.cardNumber == cardId));
+
+			window.location.href = "https://localhost:44312/route/get-card";
+		},
 	},
 });

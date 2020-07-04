@@ -80,5 +80,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Переходит на страницу просмотра карты пациента.
+        [Route("route/get-card")]
+        public IActionResult RouteGetCard() {
+            ViewData["Title"] = "Ведение электронных карт пациентов - Просмотр карты пациента";
+
+            return View();
+        }
     }
 }

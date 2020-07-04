@@ -83,6 +83,9 @@ table .state {
 .tbl-item .user-id {
   display: none; }
 
+.tbl-item :hover {
+  cursor: pointer; }
+
 #tbl-item-edit:hover {
   box-shadow: none !important; }
 

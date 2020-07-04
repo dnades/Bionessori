@@ -167,6 +167,10 @@ table {
     .user-id {
         display: $noneId;
     }
+
+    :hover {
+        cursor: pointer;
+    }
 }
 
 #tbl-item-edit {

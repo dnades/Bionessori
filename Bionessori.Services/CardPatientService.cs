@@ -176,5 +176,18 @@ namespace Bionessori.Services {
                 return checkCard.ToArray()[0];
             }
         }
+
+        /// <summary>
+        /// Метод получает карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        public async Task<List<PatientCard>> GetCard(PatientCard patientCard) {
+            using (var db = new SqlConnection(_conStr)) {
+                var oCard = await db.QueryAsync<PatientCard>($"SELECT * FROM PatientCards WHERE card_number = '{patientCard.CardNumber}'");
+
+                return oCard.ToList();
+            }
+        }
     }
 }

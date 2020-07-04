@@ -44,5 +44,12 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="param"></param>
         /// <returns></returns>
         Task<string> CheckingCard(string typeParam, string param);
+
+        /// <summary>
+        /// Метод получает конкретную карту пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        Task<List<PatientCard>> GetCard(PatientCard patientCard);
     }
 }
