@@ -16,24 +16,43 @@ namespace Bionessori.Services {
     /// </summary>
     public class CardPatientService : ICard {
         string _conStr = null;
-        IRandom _random;
+        //IRandom _random;
 
         public CardPatientService(string conn) {
             _conStr = conn;
         }
-
+      
         /// <summary>
         /// Метод создает новую карту пациента.
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
         public async Task<string> Create(PatientCard patientCard) {
+            string typeParam = "card";
+            string generateNumber = "";
+
             // Генерит рандомный номер карты.
-            patientCard.CardNumber = await _random.GenerateCardNumber();
+            Task<string> taskGenerate = new Task<string>(() => RandomDataService.GenerateCardNumber());
+            taskGenerate.Start();
+
+            // Ждет результат задачи.
+            generateNumber = taskGenerate.Result;            
+
+            // Проверяет существует ли уже такая карта.
+            var resultCheck = await CheckingCard(typeParam, patientCard.CardNumber);
+
+            // Если такая карта уже существует, то повторно пойдет генерить номер карты.
+            if (Convert.ToBoolean(resultCheck)) {
+                Task<string> repeatTask = new Task<string>(() => RandomDataService.GenerateCardNumber());
+                repeatTask.Start();
+                generateNumber = repeatTask.Result;
+            }
+
+            patientCard.CardNumber = generateNumber;
 
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
-                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
+                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.String);
                 parameters.Add("@fullName", patientCard.FullName, DbType.String);
                 parameters.Add("@dateOfBirth", patientCard.DateOfBirth, DbType.DateTime);
                 parameters.Add("@address", patientCard.Address, DbType.String);
@@ -136,6 +155,26 @@ namespace Bionessori.Services {
 
                 return oCards.ToList();
             }            
+        }
+
+        /// <summary>
+        /// Метод проверяет существование карты пациента.
+        /// </summary>
+        /// <param name="typeParam"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<string> CheckingCard(string typeParam, string param) {
+            using (var db = new SqlConnection(_conStr)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@type_param", typeParam, DbType.String);
+                parameters.Add("@param", param, DbType.String);
+
+                var checkCard = await db.QueryAsync<string>("dbo.sp_Checking",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+
+                return checkCard.ToArray()[0];
+            }
         }
     }
 }
