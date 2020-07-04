@@ -27,12 +27,12 @@ var list_card = new Vue({
 
 					this.aCards.forEach(el => {
 						// Форматирует дату и время рождения.
-						//let tempDate = new Date(el.dateOfBirth).toLocaleString();
-						//el.dateOfBirth = tempDate;
+						let tempDate = new Date(el.dateOfBirth).toLocaleDateString();
+						el.dateOfBirth = tempDate;
 
 						// Форматирует дату и время записей на процедуры.
-						//let tempProc = new Date(el.timeProcRecommend).toLocaleString();
-						//el.timeProcRecommend = tempProc;
+						let tempProc = new Date(el.timeProcRecommend).toLocaleDateString();
+						el.timeProcRecommend = tempProc;
 					});
 				})
 				.catch((XMLHttpRequest) => {
