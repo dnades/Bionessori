@@ -88,5 +88,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Переходит на страницу редактирования карты пациента.
+        [Route("route/edit-card")]
+        public IActionResult RouteEditCard() {
+            ViewData["Title"] = "Ведение электронных карт пациентов - Редактирование карты пациента";
+
+            return View();
+        }
     }
 }

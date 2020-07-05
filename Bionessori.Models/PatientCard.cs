@@ -22,7 +22,7 @@ namespace Bionessori.Models {
 
         public string Email { get; set; }
 
-        public string Plan { get; set; }
+        public string PlanPay { get; set; }
 
         public string BloodGroup { get; set; } // Группа крови.
 
@@ -66,10 +66,6 @@ namespace Bionessori.Models {
 
         public string City { get; set; }    // Город.
 
-        public string DopAddress { get; set; }  // Дополнительный адрес.
-
-        public string Dop { get; set; } // Дополнительное описание.
-
         public string District { get; set; }    // Район.
 
         public string Region { get; set; }  // Регион.
@@ -81,5 +77,7 @@ namespace Bionessori.Models {
         public string WhoChange { get; set; }   // Изменен.
 
         public string Operator { get; set; }    // Оператор.
+
+        public string IndexNumber { get; set; }
     }
 }
