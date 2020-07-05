@@ -17,7 +17,10 @@ var list_card = new Vue({
 	data: {
 		aCards: [],
 		aSelectCard: [],
-		aFindCard: []
+		aFindCard: [],
+		visibleYear: false,
+		visibleDo: false,
+		visibleReg: false
 	},
 	methods: {
 		onLoadCards() {
@@ -70,7 +73,11 @@ var list_card = new Vue({
 			let sUrl = "https://localhost:44312/api/data/card/update-card";
 			let cardNumber = JSON.parse(localStorage["selectCard"])[0].cardNumber;
 			let sFullName = $("#id-family").val();	// ФИО пациента.
-			let dDateBirth = $("#id-date-year").val().replace(/-/g, "/");	// Дата рождения пациента.
+			let dDateBirth;
+
+			$("#id-check-year").prop("checked") == false ? dDateBirth = $("#id-date-year").val().replace(/-/g, "/") :
+				dDateBirth = $("#id-date-year-new").val().replace(/-/g, "/");
+
 			let sAddress = $("#id-address").val();	// Адрес пациента.
 			let sNumber = $("#id-number").val();	// Телефон пациента.
 			let sBloodGroup = $("#id-blood-group").val();	// Группа крови.
@@ -81,7 +88,11 @@ var list_card = new Vue({
 			let sPosition = $("#id-position").val();	// Должность пациента.
 			let sTabNumber = $("#id-tab").val();	// Таб №.
 			let sInsurance = $("#id-insurance-company").val();	// Страховая компания.
-			let sDateTo = $("#id-do").val().replace(/-/g, "/");	// Обслуж.до
+
+			let sDateTo;	// Обслуж.до
+			$("#id-check-do").prop("checked") == false ? sDateTo = $("#id-do").val().replace(/-/g, "/") :
+				sDateTo = $("#id-do-new").val().replace(/-/g, "/");
+
 			let sComment = $("#id-comment").val();	// Комментарии.
 			let sIndicator = $("#id-indicator").val();	// Сигнальная информация.
 			let isVich = $("#id-vich").val();	// ВИЧ.
@@ -94,7 +105,11 @@ var list_card = new Vue({
 			let sRegion = $("#id-region").val();	// Регион.
 			let sFormPay = $("#id-form-pay").val();	// Форма оплаты.
 			let sPlan = $("#id-plan").val();	// Тариф.
-			let sRegistry = $("#id-date-registry").val().replace(/-/g, "/");	// Зарегистрирован.
+
+			let sRegistry;	// Зарегистрирован.
+			$("#id-check-reg").prop("checked") == false ? sRegistry = $("#id-date-registry").val().replace(/-/g, "/") :
+				sRegistry = $("#id-date-registry-new").val().replace(/-/g, "/");
+
 			let sWhoChange = $("#id-change").val().replace(/-/g, "/");		// Изменен.
 			let sOperator = $("#id-operator").val();	// Оператор.
 			let sEmail = $("#id-email-address").val();
@@ -362,8 +377,15 @@ var list_card = new Vue({
 
 			// Записывает выделенную карту в массив.
 			localStorage["selectCard"] = JSON.stringify(this.aCards.filter(el => el.cardNumber == cardId));
+			// Форматирует дату и время рождения.
+			//let tempDate = new Date(el.dateOfBirth).toLocaleDateString();
+			//el.dateOfBirth = tempDate;
+
+			//// Форматирует дату и время записей на процедуры.
+			//let tempProc = new Date(el.timeProcRecommend).toLocaleDateString();
+			//el.timeProcRecommend = tempProc;
 
 			window.location.href = "https://localhost:44312/route/get-card";
-		},
+		}
 	},
 });
