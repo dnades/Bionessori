@@ -3,7 +3,6 @@
 var list_card = new Vue({
 	el: '#list_card',
 	created() {		
-		//$("#id-date-registry").prop("disabled", true);
 		this.onLoadCards();
 		
 		if (localStorage["user"]) {
@@ -57,11 +56,11 @@ var list_card = new Vue({
 
 		// Функция удаляет карту пациента.
 		onDeleteCard(event) {
-			// Получает Id карты, на которую нажали.
-			let cardId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
+			// Получает номер карты, на которую нажали.
+			let cardNumber = $(event.target).parent().parent().parent()[0].textContent.split(" ")[2];
 
 			// Записывает выделенную карту в массив.
-			this.aSelectCard = this.aCards.filter(el => el.id == cardId);
+			this.aSelectCard = this.aCards.filter(el => el.cardNumber == cardNumber);
 		},
 
 		// Функция редактирует карту пациента.
