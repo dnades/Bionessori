@@ -2,15 +2,17 @@
 
 var list_card = new Vue({
 	el: '#list_card',
-	created() {
+	created() {		
+		//$("#id-date-registry").prop("disabled", true);
 		this.onLoadCards();
-
+		
 		if (localStorage["user"]) {
 			RoleBase.initRole();
 		}
 
 		if (localStorage["selectCard"]) {
 			this.aSelectCard = JSON.parse(localStorage["selectCard"]);
+			console.log("Выбранная карта", this.aSelectCard);
 		}
 	},
 	data: {
@@ -163,10 +165,10 @@ var list_card = new Vue({
 			let sRegion = $("#id-region").val();	// Регион.
 			let sFormPay = $("#id-form-pay").val();	// Форма оплаты.
 			let sPlan = $("#id-plan").val();	// Тариф.
-			let sRegistry = $("#id-registry").val().replace(/-/g, "/");	// Зарегистрирован.
+			let sRegistry = $("#id-date-registry").val().replace(/-/g, "/");	// Зарегистрирован.
 			let sWhoChange = $("#id-change").val().replace(/-/g, "/");		// Изменен.
 			let sOperator = $("#id-operator").val();	// Оператор.
-			let sEmail = $("#id-email").val();
+			let sEmail = $("#id-email-address").val();
 
 			let oCard = {
 				FullName: sFullName,
