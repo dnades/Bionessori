@@ -77,7 +77,7 @@ var list_card = new Vue({
 
 			$("#id-check-year").prop("checked") == false ? dDateBirth = $("#id-date-year").val().replace(/-/g, "/") :
 				dDateBirth = $("#id-date-year-new").val().replace(/-/g, "/");
-
+			
 			let sAddress = $("#id-address").val();	// Адрес пациента.
 			let sNumber = $("#id-number").val();	// Телефон пациента.
 			let sBloodGroup = $("#id-blood-group").val();	// Группа крови.
@@ -118,7 +118,7 @@ var list_card = new Vue({
 			let oCard = {
 				CardNumber: cardNumber,
 				FullName: sFullName,
-				DateOfBirth: dDateBirth,
+				DateOfBirth: new Date(dDateBirth).toLocaleDateString(),
 				Address: sAddress,
 				Number: sNumber,
 				BloodGroup: sBloodGroup,
@@ -129,20 +129,18 @@ var list_card = new Vue({
 				Position: sPosition,
 				TabNum: sTabNumber,
 				InsuranceCompany: sInsurance,
-				DateTo: sDateTo,
+				DateTo: new Date(sDateTo).toLocaleDateString(),
 				Comment: sComment,
 				Indicator: sIndicator,
 				isVich: isVich,
 				isHb: isHb,
 				isRw: isRw,
 				City: sCity,
-				DopAddress: sDopAddress,
-				Dop: sDop,
 				District: sDistrict,
 				Region: sRegion,
 				FormPay: sFormPay,
 				Plan: sPlan,
-				Registry: sRegistry,
+				Registry: new Date(sRegistry).toLocaleDateString(),
 				WhoChange: sWhoChange,
 				Operator: sOperator,
 				Email: sEmail,

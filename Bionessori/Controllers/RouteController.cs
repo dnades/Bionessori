@@ -41,7 +41,7 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        // Метод переходи на страницу MRP.
+        // Метод переходит на страницу MRP.
         [Route("route/mrp")]
         public IActionResult RouteMRP() {
             ViewData["Title"] = "Планирование потребностей в материалах";

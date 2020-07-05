@@ -21,7 +21,17 @@
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
 
+							<li class="breadcrumb-item">
+								<a href="@Url.Action("RouteCard", "Route")">Список карт</a>
+							</li>
+
+							<li class="breadcrumb-item active" aria-current="page">Создание карты</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
 

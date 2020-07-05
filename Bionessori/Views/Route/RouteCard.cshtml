@@ -24,6 +24,14 @@
 			<div class="btn-left-block">
 				<div class="btns">
 					<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по ФИО или № карты пациента">
+
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+							
+							<li class="breadcrumb-item active" aria-current="page">Список карт</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
 
