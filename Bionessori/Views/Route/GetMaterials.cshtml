@@ -23,7 +23,17 @@
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
 
+							<li class="breadcrumb-item active" aria-current="page">
+								<a href="@Url.Action("RouteMRP", "Route")">Планирование потребностей в материалах</a>
+							</li>
+
+							<li class="breadcrumb-item active" aria-current="page">Список материалов</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
 
