@@ -41,6 +41,8 @@
 			<div class="btn-right-block">
 				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Выгрузить в Excel</button>
 
+				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Отправить в закупки</button>
+
 				<button type="button" class="btn-item btn btn-default btn-create-req" value="create_request" v-on:click="onRouteCreateRequest">Создать новую заявку</button>
 			</div>
 		</div>
@@ -51,7 +53,7 @@
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
 			<table class="table table-bordered">
 				<thead>
-					<tr>
+					<tr v-on:dblclick="onGetRequest">
 						<th class="text-center" scope="col">
 							<button class="btn btn-link" value="card_number" v-on:click="sortedRequeest">
 								№ заявки

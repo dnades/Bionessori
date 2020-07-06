@@ -96,5 +96,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Метод переходит на страницу просмотра заявки.
+        [Route("view-request")]
+        public IActionResult GetRequest() {
+            ViewData["Title"] = "Планирование потребностей в материалах - Просмотр заявки";
+
+            return View();
+        }
     }
 }

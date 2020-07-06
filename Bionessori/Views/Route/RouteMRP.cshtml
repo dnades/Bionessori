@@ -78,7 +78,7 @@
 					</thead>
 
 					<tbody>
-						<tr class="tbl-item tbl-row-click" data-toggle="modal" data-target="#details-request-modal" v-for="el in aRequests" v-on:click="onGetRequest">
+						<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="onGetRequest">
 							<td class="text-center">
 								<span>{{el.number}}</span>
 							</td>

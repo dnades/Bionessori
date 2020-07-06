@@ -15,7 +15,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
 
-	<div id="main_mrp" class="main-block-card">		
+	<div id="main_mrp" class="main-block-card">
 		<div>
 			<div class="col-lg-12">
 				<div class="row block-main-info">
@@ -35,7 +35,7 @@
 											<a href="@Url.Action("GetRequests", "Route")">Список заявок</a>
 										</li>
 
-										<li class="breadcrumb-item active" aria-current="page">Создание заявки</li>
+										<li class="breadcrumb-item active" aria-current="page">Просмотр заявки</li>
 									</ol>
 								</nav>
 							</div>
@@ -54,18 +54,17 @@
 						<div class="row-1">
 							<label for="#id-select-material">Материал</label>
 							<select id="id-select-material" class="form-control-sm form-card">
+								<option v-for="el in aSelectRequest">{{el.material}}</option>
 								<option></option>
-								<option v-for="el in aDistinctMaterials">{{el.material}}</option>
 							</select>
 							<div class="checkbox-date">
 								<input type="checkbox" id="id-check-material" class="form-control-sm"><span class="ml-1">Такого материала еще нет</span>
 							</div>
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-sm btn-create-card form-control-modal mb-3" v-on:click="onAddMaterialRequest">Добавить материал в заявку</button>
 
 							<label for="#id-select-group">Группа</label>
 							<select id="id-select-group" class="form-control-sm form-card">
+								<option v-for="el in aSelectRequest">{{el.material_group}}</option>
 								<option></option>
-								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
 							</select>
 							<div class="checkbox-date">
 								<input type="checkbox" id="id-check-group" class="form-control-sm"><span class="ml-1">Не знаю к какой группе относится материал</span>
@@ -76,8 +75,8 @@
 
 							<label for="#id-select-measure">Ед.Изм.</label>
 							<select id="id-select-measure" class="form-control-sm form-card">
+								<option v-for="el in aSelectRequest">{{el.measure}}</option>
 								<option></option>
-								<option v-for="el in aMeasures">{{el.measure}}</option>
 							</select>
 							<div class="checkbox-date">
 								<input type="checkbox" id="id-check-werehouse-num" class="form-control-sm"><span class="ml-1">Не знаю ед.изм. для этого материала</span>
@@ -85,8 +84,8 @@
 
 							<label for="#id-select-werehouse">Номер склада</label>
 							<select id="id-select-werehouse" class="form-control-sm form-card">
+								<option v-for="el in aSelectRequest">{{el.werehouse_number}}</option>
 								<option></option>
-								<option v-for="el in aWerehousesNames">{{el.werehouse_number}}</option>
 							</select>
 							<div class="checkbox-date">
 								<input type="checkbox" id="id-check-werehouse-num" class="form-control-sm"><span class="ml-1">Не знаю номер склада</span>
@@ -96,12 +95,7 @@
 
 					<div class="mt-3 column-2">
 						<div class="row-2">
-							<h3>Список материалов заявки</h3>
-							<ul class="list-group">
-								<li class="list-group-item">First item</li>
-								<li class="list-group-item">Second item</li>
-								<li class="list-group-item">Third item</li>
-							</ul>
+							
 						</div>
 					</div>
 				</div>

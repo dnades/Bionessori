@@ -12,6 +12,11 @@ var main_mrp = new Vue({
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);	
+
+		if (localStorage["selectRequest"]) {
+			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
+			console.log("Выбранная заявка", this.aSelectRequest);
+		}
 	},
 	data: {
 		aMaterials: [],
@@ -21,7 +26,8 @@ var main_mrp = new Vue({
 		aWerehousesNames: [],
 		aMaterialsGroups: [],
 		aDistinctMaterials: [],
-		aMeasures: []
+		aMeasures: [],
+		aSelectRequest: []
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -57,7 +63,9 @@ var main_mrp = new Vue({
 			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[0];
 
 			// Находит заявку, на которую нажали.
-			this.concreteRequest = this.aRequests.filter(el => el.number  == reqId);			
+			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+
+			window.location.href = "https://localhost:44312/view-request";
 		},
 
 		// Функция получает конкретный материал склада.
@@ -231,6 +239,10 @@ var main_mrp = new Vue({
 		// Функция передает роут создания заявки в главную точку роутинга.
 		onRouteCreateRequest(event) {
 			main.onRouteMatched(event);
+		},
+
+		onAddMaterialRequest() {
+
 		}
 	}
 });
