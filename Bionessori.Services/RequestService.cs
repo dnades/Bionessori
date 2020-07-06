@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bionessori.Services {
@@ -62,9 +63,12 @@ namespace Bionessori.Services {
 
                 request.Number = generateNumber;
 
+                var materialJson = JsonSerializer.Serialize(request.Material);
+                //var materialJson = JsonSerializer.Deserialize<Request>(json);
+
                 // Добавляет новую заявку в список заявок со статусом "Новая".
                 await db.QueryAsync($"INSERT INTO Requests VALUES ('{request.Number}', {request.Count}, '{request.Measure}', " +
-                    $"'Новая', '{request.Material}', '{request.MaterialGroup}')");
+                    $"'Новая', '{materialJson}', '{request.MaterialGroup}')");
 
                 return "Заявка успешно создана.";
             }

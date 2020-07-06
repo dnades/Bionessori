@@ -17,7 +17,7 @@ namespace Bionessori.Models {
 
         public string Status { get; set; }  // Статус заявки.
 
-        public string Material { get; set; }    // Название материала.
+        public List<string> Material { get; set; }    // Название материала.
 
         public string MaterialGroup { get; set; }   // Группа, к которой относится материал.
     }

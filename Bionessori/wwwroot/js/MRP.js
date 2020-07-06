@@ -27,7 +27,8 @@ var main_mrp = new Vue({
 		aMaterialsGroups: [],
 		aDistinctMaterials: [],
 		aMeasures: [],
-		aSelectRequest: []
+		aSelectRequest: [],
+		aAddedMaterials: []
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -218,7 +219,7 @@ var main_mrp = new Vue({
 			let sWerehouse = $("#id-select-werehouse").val();
 
 			let oRequest = {
-				Material: sMaterial,
+				Material: main_mrp.aAddedMaterials,
 				MaterialGroup: sGroup,
 				Measure: sMeasure,
 				Count: nCount,
@@ -241,8 +242,9 @@ var main_mrp = new Vue({
 			main.onRouteMatched(event);
 		},
 
+		// Функция добавляет материал к заявке.
 		onAddMaterialRequest() {
-
+			this.aAddedMaterials.push($("#id-select-material").val());
 		}
 	}
 });

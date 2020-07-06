@@ -184,9 +184,6 @@ table thead th {
     display: flex;
     flex-direction: column; }
 
-.main-block-card {
-  background: #FDFFFC; }
-
 .checkbox-date {
   font-size: 10px;
   display: flex;
