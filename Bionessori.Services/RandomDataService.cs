@@ -13,7 +13,7 @@ namespace Bionessori.Services {
         /// Метод реализует генерацию рандомного номера карты пациента.
         /// </summary>
         /// <returns></returns>
-        public static string GenerateCardNumber() {
+        public static string GenerateRandomNumber() {
             Random r = new Random();
             string numberReq = r.Next(1, 99999).ToString();
 

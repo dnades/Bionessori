@@ -3,6 +3,7 @@ using Bionessori.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
@@ -39,11 +40,30 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<string> Create(Request request) {
             using (var db = new SqlConnection(_connectionString)) {
-                // Генерит номер заявки.
-                var reqNumber = Guid.NewGuid().ToString();
+                string typeParam = "request";
+                string generateNumber = "";
+
+                // Генерит рандомный номер заявки.
+                Task<string> taskGenerate = new Task<string>(() => RandomDataService.GenerateRandomNumber());
+                taskGenerate.Start();
+
+                // Ждет результат задачи.
+                generateNumber = taskGenerate.Result;
+
+                // Проверяет существует ли уже такая заявка.
+                var resultCheck = await CheckingRequest(typeParam, request.Number);
+
+                // Если такая заявка уже существует, то повторно пойдет генерить номер заявки.
+                if (Convert.ToBoolean(resultCheck)) {
+                    Task<string> repeatTask = new Task<string>(() => RandomDataService.GenerateRandomNumber());
+                    repeatTask.Start();
+                    generateNumber = repeatTask.Result;
+                }
+
+                request.Number = generateNumber;
 
                 // Добавляет новую заявку в список заявок со статусом "Новая".
-                await db.QueryAsync($"INSERT INTO Requests VALUES ('{reqNumber}', {request.Count}, '{request.Measure}', " +
+                await db.QueryAsync($"INSERT INTO Requests VALUES ('{request.Number}', {request.Count}, '{request.Measure}', " +
                     $"'Новая', '{request.Material}', '{request.MaterialGroup}')");
 
                 return "Заявка успешно создана.";
@@ -65,6 +85,26 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<Request> Edit(Request request) {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод проверяет существование заявки.
+        /// </summary>
+        /// <param name="typeParam"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<string> CheckingRequest(string typeParam, string param) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@type_param", typeParam, DbType.String);
+                parameters.Add("@param", param, DbType.String);
+
+                var checkCard = await db.QueryAsync<string>("dbo.sp_Checking",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+
+                return checkCard.ToArray()[0];
+            }
         }
     }
 }

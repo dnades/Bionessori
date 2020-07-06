@@ -32,7 +32,7 @@ namespace Bionessori.Services {
             string generateNumber = "";
 
             // Генерит рандомный номер карты.
-            Task<string> taskGenerate = new Task<string>(() => RandomDataService.GenerateCardNumber());
+            Task<string> taskGenerate = new Task<string>(() => RandomDataService.GenerateRandomNumber());
             taskGenerate.Start();
 
             // Ждет результат задачи.
@@ -43,7 +43,7 @@ namespace Bionessori.Services {
 
             // Если такая карта уже существует, то повторно пойдет генерить номер карты.
             if (Convert.ToBoolean(resultCheck)) {
-                Task<string> repeatTask = new Task<string>(() => RandomDataService.GenerateCardNumber());
+                Task<string> repeatTask = new Task<string>(() => RandomDataService.GenerateRandomNumber());
                 repeatTask.Start();
                 generateNumber = repeatTask.Result;
             }

@@ -34,6 +34,11 @@ var main = new Vue({
 				case "mrp_material_list":
 					window.location.href = "https://localhost:44312/view/material";
 					break;
+
+				// Переходит к созданию заявки.
+				case "create_request":
+					window.location.href = "https://localhost:44312/route/create-request";
+					break;
 			}
 		}
 	}

@@ -66,7 +66,7 @@ namespace Bionessori.Controllers {
         }
 
         // Переходит к созданию новой заявки на потребности в материалах.
-        [Route("create/request")]
+        [Route("route/create-request")]
         public IActionResult CreateRequest() {
             ViewData["Title"] = "Планирование потребностей в материалах - Создание новой заявки";
 

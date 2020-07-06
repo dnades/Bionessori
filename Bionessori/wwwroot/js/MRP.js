@@ -226,6 +226,11 @@ var main_mrp = new Vue({
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
 				});
+		},
+
+		// Функция передает роут создания заявки в главную точку роутинга.
+		onRouteCreateRequest(event) {
+			main.onRouteMatched(event);
 		}
 	}
 });

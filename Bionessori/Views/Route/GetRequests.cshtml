@@ -27,7 +27,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
 
-							<li class="breadcrumb-item active" aria-current="page">
+							<li class="breadcrumb-item">
 								<a href="@Url.Action("RouteMRP", "Route")">Планирование потребностей в материалах</a>
 							</li>
 
@@ -41,7 +41,7 @@
 			<div class="btn-right-block">
 				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Выгрузить в Excel</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-request-modal">Создать новую заявку</button>
+				<button type="button" class="btn-item btn btn-default btn-create-req" value="create_request" v-on:click="onRouteCreateRequest">Создать новую заявку</button>
 			</div>
 		</div>
 
