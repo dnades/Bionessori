@@ -52,7 +52,16 @@ var main_mrp = new Vue({
 			axios.post(sUrl, {})
 				.then((response) => {
 					this.aRequests = response.data;
+
+					// Парсит объект заявки с материалами.
+					this.aRequests.forEach(el => el.material = JSON.parse(el.material));
+
+					this.aRequests[0].material.forEach(el => {
+						this.aAddedMaterials.push(el);
+					});
+
 					console.log("Список заявок.", this.aRequests);
+					console.log("Материалы заявки.", this.aAddedMaterials);
 				})
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка получения списка заявок.", XMLHttpRequest.response.data);

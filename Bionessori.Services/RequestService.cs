@@ -1,14 +1,18 @@
 ﻿using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+//using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bionessori.Services {
@@ -26,14 +30,15 @@ namespace Bionessori.Services {
         /// Метод получает список заявок на потребности.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Request>> GetRequests(Request request) {
+        public async Task<object> GetRequests(Request request) {
             // Вызывает процедуру для выборки списка заявок.
             using (var db = new SqlConnection(_connectionString)) {
-                var oRequests = await db.QueryAsync<Request>("sp_GetRequests");
-
+                var oRequests = await db.QueryAsync("sp_GetRequests");
+                
                 return oRequests.ToList();
             }
         }
+
         /// <summary>
         /// Метод реализует создание новой заявки на потребности в закупках.
         /// </summary>
@@ -68,7 +73,7 @@ namespace Bionessori.Services {
 
                 // Добавляет новую заявку в список заявок со статусом "Новая".
                 await db.QueryAsync($"INSERT INTO Requests VALUES ('{request.Number}', {request.Count}, '{request.Measure}', " +
-                    $"'Новая', '{materialJson}', '{request.MaterialGroup}')");
+                    $"'Новая', '{request.MaterialGroup}', '{materialJson}')");
 
                 return "Заявка успешно создана.";
             }

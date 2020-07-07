@@ -198,3 +198,7 @@ table thead th {
             color: azure;
         }
     }*/ }
+
+.list-group {
+  height: 400px;
+  overflow-x: auto; }

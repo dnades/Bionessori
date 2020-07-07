@@ -1,5 +1,6 @@
 ﻿using Bionessori.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Bionessori.Core.Interfaces {
         /// Метод получает список заявок.
         /// </summary>
         /// <returns></returns>
-        Task<List<Request>> GetRequests(Request request);
+        Task<object> GetRequests(Request request);
 
         /// <summary>
         /// Метод создает новую заявку на потребности в закупках.

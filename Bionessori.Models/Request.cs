@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,7 +18,7 @@ namespace Bionessori.Models {
 
         public string Status { get; set; }  // Статус заявки.
 
-        public List<string> Material { get; set; }    // Название материала.
+        public List<object> Material { get; set; }    // Название материала.
 
         public string MaterialGroup { get; set; }   // Группа, к которой относится материал.
     }
