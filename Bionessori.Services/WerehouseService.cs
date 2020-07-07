@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -81,6 +82,25 @@ namespace Bionessori.Services {
                 var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
 
                 return oDistinctMaterials.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует выбору материалов группы.
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GetMaterialsGroup(string group) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@group", group, DbType.String);
+
+                // Процедура выбирает все материалы группы.
+                var oMaterialsGroup = await db.QueryAsync<string>("dbo.sp_GetMaterialsGroup",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+
+                return oMaterialsGroup.ToList();
             }
         }
     }

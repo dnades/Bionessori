@@ -104,5 +104,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Метод переходит на страницу редактирования заявки.
+        [Route("edit-request")]
+        public IActionResult RouteEditRequest() {
+            ViewData["Title"] = "Планирование потребностей в материалах - Редактирование заявки";
+
+            return View();
+        }
     }
 }

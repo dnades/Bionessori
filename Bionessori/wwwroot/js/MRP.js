@@ -17,6 +17,12 @@ var main_mrp = new Vue({
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
 			console.log("Выбранная заявка", this.aSelectRequest);
 		}
+
+		// Еслим список материалов к заявке уже добавляли, то запишет их в массив.
+		if (localStorage["addedMaterials"]) {
+			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
+			console.log("Материалы заявки.", this.aAddedMaterials);
+		}
 	},
 	data: {
 		aMaterials: [],
@@ -55,13 +61,8 @@ var main_mrp = new Vue({
 
 					// Парсит объект заявки с материалами.
 					this.aRequests.forEach(el => el.material = JSON.parse(el.material));
-
-					this.aRequests[0].material.forEach(el => {
-						this.aAddedMaterials.push(el);
-					});
-
+					
 					console.log("Список заявок.", this.aRequests);
-					console.log("Материалы заявки.", this.aAddedMaterials);
 				})
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка получения списка заявок.", XMLHttpRequest.response.data);
@@ -74,6 +75,11 @@ var main_mrp = new Vue({
 
 			// Находит заявку, на которую нажали.
 			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+
+			this.aRequests[0].material.forEach(el => {
+				this.aAddedMaterials.push(el);
+			});
+			localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);			
 
 			window.location.href = "https://localhost:44312/view-request";
 		},
@@ -220,7 +226,7 @@ var main_mrp = new Vue({
 		},
 
 		// Функция создает новую заявку на потребность в материалах.
-		onCreateRequest() {
+		onCreateRequest() {			
 			let sMaterial = $("#id-select-material").val();
 			let sGroup = $("#id-select-group").val();
 			let nCount = +$("#id-select-count").val();
@@ -247,13 +253,53 @@ var main_mrp = new Vue({
 		},
 
 		// Функция передает роут создания заявки в главную точку роутинга.
-		onRouteCreateRequest(event) {
+		onRouteCreateRequest(event) {	
+			// Очищает список материалов заявки.
+			localStorage.removeItem("addedMaterials");
 			main.onRouteMatched(event);
 		},
 
 		// Функция добавляет материал к заявке.
 		onAddMaterialRequest() {
 			this.aAddedMaterials.push($("#id-select-material").val());
+		},
+
+		// Функция переходит к редактированию заявки.
+		onRouteEditRequest(event) {
+			// Очищает список материалов заявки.
+			localStorage.removeItem("addedMaterials");
+			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
+
+			// На всякий случай чистит массив материалов заявки.
+			this.aAddedMaterials = [];
+
+			// Находит заявку, на которую нажали.
+			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+
+			this.aRequests[0].material.forEach(el => {
+				this.aAddedMaterials.push(el);
+			});
+			localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);	
+
+			window.location.href = "https://localhost:44312/edit-request";
+		},
+
+		// Функция получает материалы группы.
+		onChangeGroup(event) {
+			console.log("change group", event.target.value);
+			let sGroup = event.target.value;			
+
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-material-group?group=".concat(sGroup);
+
+			axios.get(sUrl)
+				.then((response) => {
+					console.log("Материалы группы", response.data);
+					this.aDistinctMaterials = response.data;
+					console.log("test");
+				})
+				.catch((XMLHttpRequest) => {
+					console.log("Ошибка получения материалов группы", XMLHttpRequest.response.data);
+				});
 		}
 	}
 });

@@ -14,8 +14,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
 
 	<div id="main_mrp">
 		<!-- Главная секция кнопок -->
@@ -46,126 +44,12 @@
 		<div class="block-tables">
 			<!-- Секция с левой таблицей со списком заявок. -->
 			<div class="mr-2">
-				<h3>Список заявок</h3>
-				<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="card_number" v-on:click="sortedRequeest">
-									№ заявки
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Количество
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Ед.Изм.
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
-									Статус
-								</button>
-							</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="onGetRequest">
-							<td class="text-center">
-								<span>{{el.number}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.count}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.measure}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.status}}</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				
 			</div>
 
 			<!-- Секция с правой таблицей со списком материалов складов. -->
 			<div>
-				<h3>Список материалов на складах</h3>
-				<input class="form-control input-search mb-1" id="id-search-material" type="text" v-on:keyup.enter="onSearchMaterial" placeholder="Поиск по названию материала или группе">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Код
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="material" v-on:click="sortedMaterial">
-									Материал
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="group" v-on:click="sortedMaterial">
-									Группа
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Ед.Изм.
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Количество
-								</button>
-							</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr class="tbl-item tbl-row-click" data-toggle="modal" data-target="#details-material-modal" v-for="el in aMaterials" v-on:click="onGetMaterial">
-							<td class="text-center req-id">
-								<span>{{el.id}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.code}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.material}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.materialGroup}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.measure}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.count}}</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			
 			</div>
 		</div>
 

@@ -73,5 +73,17 @@ namespace Bionessori.Controllers {
 
             return Ok(oDistinctMaterials);
         }
+
+        /// <summary>
+        /// Метод получает список материалов определенной группы.
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        [HttpGet, Route("get-material-group")]
+        public async Task<IActionResult> GetMaterialsGroup([FromQuery] string group) {
+            var oMaterialsGroup = await _werehouse.GetMaterialsGroup(group);
+
+            return Ok(oMaterialsGroup);
+        }
     }
 }

@@ -39,5 +39,12 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable> GetDistinctMaterials();
+
+        /// <summary>
+        /// Метод выбирает все материалы группы.
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        Task<List<string>> GetMaterialsGroup(string group);
     }
 }

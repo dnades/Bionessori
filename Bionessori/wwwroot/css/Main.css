@@ -190,14 +190,7 @@ table thead th {
   align-items: center; }
 
 .breadcrumb {
-  background-color: white !important;
-  /*background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
-
-    li {
-        a {
-            color: azure;
-        }
-    }*/ }
+  background-color: white !important; }
 
 .list-group {
   height: 400px;
