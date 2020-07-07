@@ -359,4 +359,19 @@ table {
 .list-group {
     height: 400px;
     overflow-x: auto;
+
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            cursor: pointer;
+        }
+
+        .close {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
 }

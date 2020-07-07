@@ -195,3 +195,10 @@ table thead th {
 .list-group {
   height: 400px;
   overflow-x: auto; }
+  .list-group .list-group-item {
+    display: flex;
+    justify-content: space-between; }
+    .list-group .list-group-item span {
+      cursor: pointer; }
+    .list-group .list-group-item .close:hover {
+      cursor: pointer; }

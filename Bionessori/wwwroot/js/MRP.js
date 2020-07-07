@@ -295,11 +295,19 @@ var main_mrp = new Vue({
 				.then((response) => {
 					console.log("Материалы группы", response.data);
 					this.aDistinctMaterials = response.data;
-					console.log("test");
 				})
 				.catch((XMLHttpRequest) => {
 					console.log("Ошибка получения материалов группы", XMLHttpRequest.response.data);
 				});
+		},
+
+		// Функция удаляет материал из заявки (удаления на бэке не произодет, если изменения в заявке не были сохранены).
+		onDeleteMaterialRequest(event) {
+			let elem = $(event.target).parent().parent().parent()[0].textContent.split(" × ")[0];
+
+			// Оставляет в массиве лишь те материалы, которые не равны выбранному.
+			let temp = this.aAddedMaterials.filter(el => el !== elem);
+			this.aAddedMaterials = temp;
 		}
 	}
 });

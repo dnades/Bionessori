@@ -98,7 +98,14 @@
 						<div class="row-2">
 							<h3>Материалы заявки</h3>
 							<ul class="list-group">
-								<li v-for="el in aAddedMaterials" class="list-group-item">{{el}}</li>
+								<li v-for="el in aAddedMaterials" class="list-group-item">
+									<span>{{el}}</span>
+									<div v-on:click="onDeleteMaterialRequest">
+										<div><span aria-hidden="true">&times;</span></div>
+
+										<div><span class="close"></span></div>
+									</div>
+								</li>
 							</ul>
 						</div>
 					</div>
