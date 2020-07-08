@@ -34,7 +34,11 @@ var main_mrp = new Vue({
 		aDistinctMaterials: [],
 		aMeasures: [],
 		aSelectRequest: [],
-		aAddedMaterials: []
+		aAddedMaterials: [],
+		visibleGroup: false,
+		visibleMaterial: false,
+		visibleMeasure: false,
+		werehouseNum: false
 	},
 	methods: {
 		// Функция загружает список материалов.
