@@ -279,6 +279,8 @@ var main_mrp = new Vue({
 				axios.post(sUrl, oRequest)
 					.then((response) => {
 						console.log("Заявка на потребность успешно создана.", response);
+						//$('#success-create-request-modal').modal('toggle');
+						window.location.href = "https://localhost:44312/view/request";
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
@@ -381,6 +383,7 @@ var main_mrp = new Vue({
 				axios.post(sUrl, oRequest)
 					.then((response) => {
 						console.log("Заявка на потребность успешно изменена", response);
+						window.location.href = "https://localhost:44312/view/request";
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка изменения заявки на потребность", XMLHttpRequest.response.data);
@@ -418,6 +421,40 @@ var main_mrp = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
-		}
+		},
+
+		// Функция выгружает список карт в Excel.
+		onExportExcelRequests() {
+			let wb = XLSX.utils.table_to_book(document.getElementById('id-request-list-table'), { sheet: "Список заявок" });
+			let wbout = XLSX.write(wb, { bookType: 'xls', bookSST: true, type: 'binary' });
+
+			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список заявок.xls');
+
+			function s2ab(s) {
+				let buf = new ArrayBuffer(s.length);
+				let view = new Uint8Array(buf);
+
+				for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+
+				return buf;
+			}
+		},
+
+		// Функция выгружает список материалов в Excel.
+		onExportExcelMaterials() {
+			let wb = XLSX.utils.table_to_book(document.getElementById('id-material-list-table'), { sheet: "Список материалов" });
+			let wbout = XLSX.write(wb, { bookType: 'xls', bookSST: true, type: 'binary' });
+
+			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список заявок.xls');
+
+			function s2ab(s) {
+				let buf = new ArrayBuffer(s.length);
+				let view = new Uint8Array(buf);
+
+				for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+
+				return buf;
+			}
+		},
 	}
 });

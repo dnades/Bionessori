@@ -348,7 +348,7 @@ var list_card = new Vue({
 
 		// Функция выгружает список карт в Excel.
 		onExportExcel() {
-			let wb = XLSX.utils.table_to_book(document.getElementById('id-card-list-table'), { sheet: "Sheet JS" });
+			let wb = XLSX.utils.table_to_book(document.getElementById('id-card-list-table'), { sheet: "Список карт" });
 			let wbout = XLSX.write(wb, { bookType: 'xls', bookSST: true, type: 'binary' });
 
 			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список карт пациентов.xls');

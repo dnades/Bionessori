@@ -39,7 +39,7 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Выгрузить в Excel</button>
+				<button type="button" class="btn-item btn btn-default btn-create-req" v-on:click="onExportExcelRequests">Выгрузить в Excel</button>
 
 				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Отправить в закупки</button>
 
@@ -51,7 +51,7 @@
 		<div class="mr-2">
 			<h3>Список заявок</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
-			<table class="table table-bordered">
+			<table id="id-request-list-table" class="table table-bordered">
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">

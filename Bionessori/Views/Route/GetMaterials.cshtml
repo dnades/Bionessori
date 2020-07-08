@@ -39,7 +39,7 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Выгрузить в Excel</button>
+				<button type="button" class="btn-item btn btn-default btn-create-req" v-on:click="onExportExcelMaterials">Выгрузить в Excel</button>
 			</div>
 		</div>
 
@@ -47,7 +47,7 @@
 		<div class="mr-2">
 			<h3>Список материалов на складах</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по названию или группе">
-			<table class="table table-bordered">
+			<table id="id-material-list-table" class="table table-bordered">
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">
