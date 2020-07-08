@@ -65,5 +65,16 @@ namespace Bionessori.Controllers {
 
             return Ok("Новая карта пациента успешно создана.");
         }
+
+        /// <summary>
+        /// Метод получает конкретную карту пациента.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-card")]
+        public async Task<IActionResult> GetCard([FromBody] PatientCard patientCard) {
+            var oCard = await _card.GetCard(patientCard);
+
+            return View(oCard);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bionessori.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,40 @@ namespace Bionessori.Core.Interfaces {
     /// </summary>
     public interface IWerehouse {
         /// <summary>
-        /// Метод получает список продуктов (под продуктом понимается не только пищевой товар).
+        /// Метод получает список материалов.
         /// </summary>
         /// <returns></returns>
-        Task<object> GetProducts(); 
+        Task<List<Werehouse>> GetMaterials();
+
+        /// <summary>
+        /// Метод получает названия складов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetNameWerehouses();
+
+        /// <summary>
+        /// Метод получает список групп материалов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetGroupsWerehouses();
+
+        /// <summary>
+        /// Метод получает список ед.измерений.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetMeasuresWerehouses();
+
+        /// <summary>
+        /// Метод получает названия материалов без дубликатов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable> GetDistinctMaterials();
+
+        /// <summary>
+        /// Метод выбирает все материалы группы.
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        Task<List<string>> GetMaterialsGroup(string group);
     }
 }

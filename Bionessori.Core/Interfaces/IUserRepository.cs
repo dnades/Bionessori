@@ -9,7 +9,8 @@ namespace Bionessori.Core.Interfaces {
     /// <summary>
     /// Интерфейс описывает методы работы с пользователем.
     /// </summary>
-    public interface IUserRepository {
+    public interface IUserRepository {        
+
         /// <summary>
         /// Метод проверяет, существует ли уже в БД такой логин.
         /// </summary>
@@ -48,6 +49,6 @@ namespace Bionessori.Core.Interfaces {
         /// Метод проверяет роль пользователя.
         /// </summary>
         /// <returns></returns>
-        Task<List<string>> TakeUserRole(string login); 
+        Task<List<string>> TakeUserRole(string login);
     }
 }

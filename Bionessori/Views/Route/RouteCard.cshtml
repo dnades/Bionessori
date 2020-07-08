@@ -24,6 +24,14 @@
 			<div class="btn-left-block">
 				<div class="btns">
 					<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по ФИО или № карты пациента">
+
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+							
+							<li class="breadcrumb-item active" aria-current="page">Список карт</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
 
@@ -38,7 +46,9 @@
 
 					<button type="button" class="btn-item btn btn-default export-excel" v-on:click="onExportExcel">Выгрузить в Excel</button>
 
-					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Создать новую карту</button>
+					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" v-on:click="">Удалить выбранные</button>
+
+					<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card" value="create_card" v-on:click="onRouteCreateCard">Создать карту</button>
 				</div>
 			</div>
 		</div>
@@ -47,6 +57,10 @@
 		<table id="id-card-list-table" class="table table-bordered table-responsive txtArea1">
 			<thead>
 				<tr>
+					<th class="text-center" scope="col">
+						<input type="checkbox" name="a" value="1934">
+					</th>
+
 					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="card_number" v-on:click="sortedList">
 							№ карты
@@ -95,48 +109,17 @@
 						</button>
 					</th>
 
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="date_time_proc" v-on:click="sortedList">
-							Дата и время назначаемых<br /> процедур и записей
-						</button>
-					</th>
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="drugs" v-on:click="sortedList">
-							Прописанные лекарства
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="diagnosis" v-on:click="sortedList">
-							Диагноз
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="recommends" v-on:click="sortedList">
-							Рецепты и рекомендации
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="history" v-on:click="sortedList">
-							История болезни
-						</button>
-					</th>
-
-					<th class="text-center" scope="col">
-						<button class="btn btn-link" value="doctor" v-on:click="sortedList">
-							Лечащий врач
-						</button>
-					</th>
-
 					<th class="text-center" scope="col"></th>
 					<th class="text-center" scope="col"></th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<tr class="tbl-item" v-for="el in aCards">
+				<tr class="tbl-item" v-for="el in aCards" v-on:dblclick="onGetCard">
+					<th class="text-center" scope="col">
+						<input type="checkbox" name="a" value="1934">
+					</th>
+
 					<td class="text-center card-id">
 						<span>{{el.id}}</span>
 					</td>
@@ -173,32 +156,8 @@
 						<span>{{el.snails}}</span>
 					</td>
 
-					<td class="text-center">
-						<span>{{el.timeProcRecommend}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.prescriptionDrugs}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.diagnosis}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.recipesRecommend}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.medicalHistory}}</span>
-					</td>
-
-					<td class="text-center">
-						<span>{{el.doctor}}</span>
-					</td>
-
 					<td class="text-center state">
-						<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-card-modal" v-on:click="onEditCard">
+						<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" v-on:click="onEditCard">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 						</button>
 					</td>
@@ -316,113 +275,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Секция модального окна создания карты пациента. -->
-		<div class="modal fade" id="create-card-modal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="createModalLabel">Создание новой карты пациента</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-
-					<div class="modal-body">
-						<table class="table table-bordered table-responsive">
-							<thead>
-								<tr>
-									<th class="text-center" scope="col">№ карты</th>
-									<th class="text-center" scope="col">ФИО</th>
-									<th class="text-center" scope="col">Дата рождения</th>
-									<th class="text-center" scope="col">Адрес</th>
-									<th class="text-center" scope="col">Телефон</th>
-									<th class="text-center" scope="col">Группа крови</th>
-									<th class="text-center" scope="col">Полис</th>
-									<th class="text-center" scope="col">СНИЛС</th>
-									<th class="text-center" scope="col">Дата и время назначаемых<br /> процедур и записей</th>
-									<th class="text-center" scope="col">Прописанные лекарства</th>
-									<th class="text-center" scope="col">Диагноз</th>
-									<th class="text-center" scope="col">Рецепты и рекомендации</th>
-									<th class="text-center" scope="col">История болезни</th>
-									<th class="text-center" scope="col">Лечащий врач</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr id="tbl-item-edit" class="tbl-item">
-									<td class="text-center card-id">
-										<textarea id="id" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-address" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-number" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-blood-group" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-policy" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-snails" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-time" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-pres" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-diagnosis" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-recip" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-history" class="form-control form-control-modal"></textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-doc" class="form-control form-control-modal"></textarea>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onCreateCard">Создать карту</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		</div>		
 
 		<!-- Секция модального окна подтверждения удаления карты пациента. -->
 		<div class="modal fade" id="delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -493,6 +346,7 @@
 	</div>
 
 	<script src="~/js/Card.js"></script>
+	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

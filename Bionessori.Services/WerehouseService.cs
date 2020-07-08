@@ -1,8 +1,12 @@
 ﻿using Bionessori.Core.Interfaces;
 using Bionessori.Models;
+using Dapper;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,28 +25,83 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод получает список продуктов.
+        /// Метод получает список материалов со складов.
         /// </summary>
         /// <returns></returns>
-        public async Task<object> GetProducts() {
-            HttpClient httpClient = new HttpClient();
+        public async Task<List<Werehouse>> GetMaterials() {
+            using (var db = new SqlConnection(_connectionString)) {
+                // Вызывает процедуру для выбора списка материалов.
+                var oMaterials = await db.QueryAsync<Werehouse>("sp_GetMaterials");
 
-            HttpRequestMessage httpResponse = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://online.moysklad.ru/api/remap/1.1/entity/product"),
-                Headers = {
-                { HttpRequestHeader.Authorization.ToString(), "Basic YWRtaW5Ac2llcnJhXzkzMToJN2MzZTQ5YTU0OQ==" },
-                { HttpRequestHeader.Accept.ToString(), "application/json" },
-                }
-            };
+                return oMaterials.ToList();
+            }
+        }
 
-            // Отправляет запрос.
-            var response = httpClient.SendAsync(httpResponse).Result;
+        /// <summary>
+        /// Метод получает список названий складов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetNameWerehouses() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
 
-            // Получает результат запроса со списком.
-            var httpResponseBody = await response.Content.ReadAsStringAsync();
+                return oNames.ToList(); 
+            }
+        }
 
-            return httpResponseBody;
+        /// <summary>
+        /// Метод получает список групп материалов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetGroupsWerehouses() { 
+            using (var db = new SqlConnection(_connectionString)) {
+                var oGroups = await db.QueryAsync("sp_GetGroupNames");
+
+                return oGroups.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список ед.изм.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetMeasuresWerehouses() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oMeasures = await db.QueryAsync("sp_GetMeasures");
+
+                return oMeasures.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список материалов без дубликатов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable> GetDistinctMaterials() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
+
+                return oDistinctMaterials.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует выбору материалов группы.
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GetMaterialsGroup(string group) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var parameters = new DynamicParameters();
+                parameters.Add("@group", group, DbType.String);
+
+                // Процедура выбирает все материалы группы.
+                var oMaterialsGroup = await db.QueryAsync<string>("dbo.sp_GetMaterialsGroup",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+
+                return oMaterialsGroup.ToList();
+            }
         }
     }
 }

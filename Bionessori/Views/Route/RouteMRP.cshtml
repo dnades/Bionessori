@@ -14,28 +14,168 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
 
-	<div id="list_card">
+	<div id="main_mrp">
 		<!-- Главная секция кнопок -->
-		<div class="btn-block-main">
+		<div class="btn-block-main mb-3">
 			<!-- Левая секция кнопок -->
 			<div class="btn-left-block">
 				<div class="btns">
-					@*<input class="form-control input-search" id="id-search" type="text" v-on:keyup.enter="searchCard" placeholder="Поиск по ФИО или № карты пациента">*@
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+							<li class="breadcrumb-item active" aria-current="page">Планирование потребностей в материалах</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Мониторинг количества запасов</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Управление складами</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Перейти к заявкам потребностей</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Перейти к мониторингу количества запасов</button>
+
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Перейти к заявкам потребностей</button>
+			</div>
+		</div>
+
+		<div class="block-tables">
+			<!-- Секция с левой таблицей со списком заявок. -->
+			<div class="mr-2">
+				
+			</div>
+
+			<!-- Секция с правой таблицей со списком материалов складов. -->
+			<div>
+			
+			</div>
+		</div>
+
+		<!-- Секция модального окна подробнее о заявке. -->
+		<div class="modal fade" id="details-request-modal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in concreteRequest">
+					<div class="modal-header">
+						<h5 class="modal-title" id="requestModalLabel">Детали заявки № {{el.number}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">№ заявки</th>
+									<th class="text-center" scope="col">Количество</th>
+									<th class="text-center" scope="col">Ед.Изм.</th>
+									<th class="text-center" scope="col">Статус</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteRequest">
+									<td class="text-center req-id">
+										<span>{{el.id}}</span>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id" class="form-control form-control-modal not-edit">{{el.number}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.status}}</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция модального окна подробнее о материале. -->
+		<div class="modal fade" id="details-material-modal" tabindex="-1" role="dialog" aria-labelledby="materialModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in concreteMaterial">
+					<div class="modal-header">
+						<h5 class="modal-title" id="materialModalLabel">Детали материала с кодом {{el.code}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">Код</th>
+									<th class="text-center" scope="col">Материал</th>
+									<th class="text-center" scope="col">Группа</th>
+									<th class="text-center" scope="col">Ед.Изм.</th>
+									<th class="text-center" scope="col">Количество</th>
+									<th class="text-center" scope="col">Номер склада</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteMaterial">
+									<td class="text-center req-id">
+										<span>{{el.id}}</span>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id" class="form-control form-control-modal not-edit">{{el.code}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.material}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.materialGroup}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
+									</td>
+
+									<td class="text-center">
+										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.werehouseNumber}}</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
+	<script src="~/js/MRP.js"></script>
+	<script src="~/js/Route.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
