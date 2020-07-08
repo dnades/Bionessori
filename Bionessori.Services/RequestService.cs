@@ -83,8 +83,17 @@ namespace Bionessori.Services {
         /// Метод реализует удаление заявки на потребности в закупках.
         /// </summary>
         /// <returns></returns>
-        public async Task<string> Delete() {
-            throw new NotImplementedException();
+        public async Task<string> Delete(string number) {
+            using (var db = new SqlConnection(_connectionString)) {
+                try {
+                    await db.QueryAsync<string>($"DELETE Requests WHERE number = '{number}'");
+
+                    return "Заявка удалена.";
+                }
+                catch(Exception ex) {
+                    throw new Exception(ex.Message);
+                }
+            }                
         }
 
         /// <summary>

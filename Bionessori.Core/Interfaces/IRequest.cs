@@ -27,7 +27,7 @@ namespace Bionessori.Core.Interfaces {
         /// Метод удаляет заявку на потребности в закупках.
         /// </summary>
         /// <returns></returns>
-        Task<string> Delete();
+        Task<string> Delete(string number);
 
         /// <summary>
         /// Метод изменяет существующую заявку на потребности в закупках.

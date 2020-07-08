@@ -116,7 +116,7 @@
 						</td>
 
 						<td class="text-center state">
-							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onBeforeDeleteRequest">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</button>
 						</td>
@@ -125,65 +125,46 @@
 			</table>
 		</div>
 
-		<!-- Секция модального окна создания новой заявки на потребности в материалах. -->
-		<div class="modal fade" id="create-request-modal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
-			<div id="signin-modal" class="modal-dialog" role="document">
-				<div class="modal-content">
+		<!-- Секция модального окна подтверждения удаления заявки. -->
+		<div class="modal fade" id="delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+			<div id="modal-delete" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in aSelectRequest">
 					<div class="modal-header">
-						<h5 class="modal-title" id="requestModalLabel">Создание новой заявки<br /> на потребность в материалах</h5>
+						<h5 class="modal-title" id="deleteModalLabel">Удаление заявки № {{el.number}}</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 
 					<div class="modal-body">
-						<div class="form-group">
-							<label for="id-select-material">Материал</label>
-							<select id="id-select-material" class="form-control">
-								<option></option>
-								<option v-for="el in aDistinctMaterials">{{el.material}}</option>
-							</select>
-							<input type="checkbox" /> Такого материала еще нет
-						</div>
-
-						<div class="form-group">
-							<label for="id-select-group">Группа</label>
-							<select id="id-select-group" class="form-control">
-								<option></option>
-								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
-							</select>
-							<input type="checkbox" /> Не знаю к какой группе относится материал
-						</div>
-
-						<div class="form-group">
-							<label for="id-select-count">Количество материалов</label>
-							<input id="id-select-count" type="number" class="form-control" />
-						</div>
-
-						<!-- Не обязательно для заполнения. -->
-						<div class="form-group">
-							<label for="id-select-measure">Ед.Изм.</label>
-							<select id="id-select-measure" class="form-control">
-								<option></option>
-								<option v-for="el in aMeasures">{{el.measure}}</option>
-							</select>
-							<input type="checkbox" /> Не знаю ед.изм. для этого материала
-						</div>
-
-						<!-- Не обязательно для заполнения. -->
-						<div class="form-group">
-							<label for="id-select-werehouse">Номер склада</label>
-							<select id="id-select-werehouse" class="form-control">
-								<option></option>
-								<option v-for="el in aWerehousesNames">{{el.werehouse_number}}</option>
-							</select>
-							<input type="checkbox" /> Не знаю номер склада
-						</div>
+						<span>Вы действительно хотите удалить карту: № {{el.number}}?</span>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="onCreateRequest">Создать заявку</button>
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onDeleteRequest">Удалить заявку</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция модального окна об успешном удалении заявки. -->
+		<div class="modal fade" id="success-delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+			<div id="modal-delete" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in aSelectRequest">
+					<div class="modal-header">
+						<h5 class="modal-title" id="successModalLabel">Удаление карты пациента № {{el.number}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<span>Карта пациента №: {{el.number}} успешно удалена.</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
 			</div>

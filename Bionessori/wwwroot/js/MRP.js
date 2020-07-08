@@ -389,6 +389,35 @@ var main_mrp = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		onBeforeDeleteRequest() {
+			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
+
+			// Находит заявку, на которую нажали.
+			let temp = this.aRequests.filter(el => el.number == reqId);
+			this.aSelectRequest = temp;
+		},
+
+		// Функция удаляет заявку.
+		onDeleteRequest() {
+			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request";
+			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[3];
+
+			try {
+				axios.post(sUrl, {
+					Number: reqId
+				})
+					.then((response) => {
+						console.log("Заявка на потребность успешно удалена", response);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });
