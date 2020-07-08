@@ -92,8 +92,25 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<Request> Edit(Request request) {
-            throw new NotImplementedException();
+        public async Task<string> Edit(Request request) {
+            var materialJson = JsonSerializer.Serialize(request.Material);
+
+            try {
+                using (var db = new SqlConnection(_connectionString)) {                    
+                    // Сохраняет изменения заявки.
+                    await db.QueryAsync($"UPDATE Requests SET " +
+                        $"count = {request.Count}," +
+                        $"measure = '{request.Measure}'," +
+                        $"status = '{request.Status}'," +
+                        $"material_group = '{request.MaterialGroup}'," +
+                        $"material = '{materialJson}'");
+
+                    return "Заявка изменена.";
+                }
+            }
+            catch(Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>

@@ -39,5 +39,16 @@ namespace Bionessori.Controllers {
 
             return Ok("Заявка на потребность успешно создана.");
         }
+
+        /// <summary>
+        /// Метод сохраняет изменения в заявке.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("save-change-request")]
+        public async Task<IActionResult> SaveChangeRequest([FromBody] Request request) {
+            await _request.Edit(request);
+
+            return Ok("Заявка успешно изменена.");
+        }
     }
 }

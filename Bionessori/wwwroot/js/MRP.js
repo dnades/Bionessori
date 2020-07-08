@@ -11,7 +11,7 @@ var main_mrp = new Vue({
 		this.loadMeasures();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
-		$(".not-edit").prop("disabled", true);	
+		$(".not-edit").prop("disabled", true);
 
 		if (localStorage["selectRequest"]) {
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
@@ -40,38 +40,49 @@ var main_mrp = new Vue({
 		// Функция загружает список материалов.
 		loadMaterials() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
-			
-			axios.post(sUrl)
-				.then((response) => {					
-					this.aMaterials = response.data;
-					console.log("Список материалов на складах.", this.aMaterials);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения списка материалов.", XMLHttpRequest.response.data);
-				});
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aMaterials = response.data;
+						console.log("Список материалов на складах.", this.aMaterials);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения списка материалов.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция загружает список заявок на потребности.
 		loadRequests() {
 			let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
-			
-			axios.post(sUrl, {})
-				.then((response) => {
-					this.aRequests = response.data;
 
-					// Парсит объект заявки с материалами.
-					this.aRequests.forEach(el => el.material = JSON.parse(el.material));
-					
-					console.log("Список заявок.", this.aRequests);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения списка заявок.", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.post(sUrl, {})
+					.then((response) => {
+						this.aRequests = response.data;
+
+						// Парсит объект заявки с материалами.
+						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
+
+						console.log("Список заявок.", this.aRequests);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения списка заявок.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция получает конкретную заявку.
 		onGetRequest(event) {
-			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[0];
+			localStorage.removeItem("addedMaterials");
+			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[1];
 
 			// Находит заявку, на которую нажали.
 			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
@@ -79,7 +90,8 @@ var main_mrp = new Vue({
 			this.aRequests[0].material.forEach(el => {
 				this.aAddedMaterials.push(el);
 			});
-			localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);			
+
+			localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);
 
 			window.location.href = "https://localhost:44312/view-request";
 		},
@@ -173,61 +185,81 @@ var main_mrp = new Vue({
 		loadNameWerehouses() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-werehouses";
 
-			axios.post(sUrl, {})
-				.then((response) => {
-					this.aWerehousesNames = response.data;
-					console.log("Список названий складов.", this.aWerehousesNames);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения названий складов.", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.post(sUrl, {})
+					.then((response) => {
+						this.aWerehousesNames = response.data;
+						console.log("Список названий складов.", this.aWerehousesNames);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения названий складов.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция получает список групп материалов.
 		loadGroupsMaterials() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-groups";
 
-			axios.post(sUrl, {})
-				.then((response) => {
-					this.aMaterialsGroups = response.data;
-					console.log("Список групп.", this.aMaterialsGroups);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения списка групп.", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.post(sUrl, {})
+					.then((response) => {
+						this.aMaterialsGroups = response.data;
+						console.log("Список групп.", this.aMaterialsGroups);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения списка групп.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция получает список материалов без дублей.
 		loadDistinctMaterials() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-distinct-materials";
 
-			axios.post(sUrl, {})
-				.then((response) => {
-					this.aDistinctMaterials = response.data;
-					console.log("Список материалов без дублей.", this.aDistinctMaterials);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения списка материалов без дублей.", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.post(sUrl, {})
+					.then((response) => {
+						this.aDistinctMaterials = response.data;
+						console.log("Список материалов без дублей.", this.aDistinctMaterials);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения списка материалов без дублей.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция получает список ед.изм.
 		loadMeasures() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-measures";
 
-			axios.post(sUrl, {})
-				.then((response) => {
-					this.aMeasures = response.data;
-					console.log("Список ед.изм.", this.aMeasures);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения ед.изм.", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.post(sUrl, {})
+					.then((response) => {
+						this.aMeasures = response.data;
+						console.log("Список ед.изм.", this.aMeasures);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения ед.изм.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция создает новую заявку на потребность в материалах.
-		onCreateRequest() {			
-			let sMaterial = $("#id-select-material").val();
+		onCreateRequest() {
+			localStorage.removeItem("addedMaterials");
 			let sGroup = $("#id-select-group").val();
 			let nCount = +$("#id-select-count").val();
 			let sMeasure = $("#id-select-measure").val();
@@ -243,17 +275,22 @@ var main_mrp = new Vue({
 
 			let sUrl = "https://localhost:44312/api/werehouse/request/create-request";
 
-			axios.post(sUrl, oRequest)
-				.then((response) => {
-					console.log("Заявка на потребность успешно создана.", response);
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.post(sUrl, oRequest)
+					.then((response) => {
+						console.log("Заявка на потребность успешно создана.", response);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция передает роут создания заявки в главную точку роутинга.
-		onRouteCreateRequest(event) {	
+		onRouteCreateRequest(event) {
 			// Очищает список материалов заявки.
 			localStorage.removeItem("addedMaterials");
 			main.onRouteMatched(event);
@@ -269,36 +306,48 @@ var main_mrp = new Vue({
 			// Очищает список материалов заявки.
 			localStorage.removeItem("addedMaterials");
 			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
+			let reqStatus = this.aRequests[0].status;
 
 			// На всякий случай чистит массив материалов заявки.
 			this.aAddedMaterials = [];
 
-			// Находит заявку, на которую нажали.
-			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+			if (reqStatus == "Новая" || reqStatus == "В работе") {
+				// Находит заявку, на которую нажали.
+				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
 
-			this.aRequests[0].material.forEach(el => {
-				this.aAddedMaterials.push(el);
-			});
-			localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);	
+				this.aRequests[0].material.forEach(el => {
+					this.aAddedMaterials.push(el);
+				});
 
-			window.location.href = "https://localhost:44312/edit-request";
+				localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);
+
+				window.location.href = "https://localhost:44312/edit-request";
+			}
+			else {
+				alert("Статус заявки не позволяет редактировать.");
+			}
 		},
 
 		// Функция получает материалы группы.
 		onChangeGroup(event) {
 			console.log("change group", event.target.value);
-			let sGroup = event.target.value;			
+			let sGroup = event.target.value;
 
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-material-group?group=".concat(sGroup);
 
-			axios.get(sUrl)
-				.then((response) => {
-					console.log("Материалы группы", response.data);
-					this.aDistinctMaterials = response.data;
-				})
-				.catch((XMLHttpRequest) => {
-					console.log("Ошибка получения материалов группы", XMLHttpRequest.response.data);
-				});
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Материалы группы", response.data);
+						this.aDistinctMaterials = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения материалов группы", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		},
 
 		// Функция удаляет материал из заявки (удаления на бэке не произодет, если изменения в заявке не были сохранены).
@@ -308,6 +357,38 @@ var main_mrp = new Vue({
 			// Оставляет в массиве лишь те материалы, которые не равны выбранному.
 			let temp = this.aAddedMaterials.filter(el => el !== elem);
 			this.aAddedMaterials = temp;
+		},
+
+		// Функция сохраняет отредактированную заявку.
+		onSaveChangeRequest() {
+			let sGroup = $("#id-select-group").val();
+			let nCount = +$("#id-select-count").val();
+			let sMeasure = $("#id-select-measure").val();
+			let sWerehouse = $("#id-select-werehouse").val();
+
+			let oRequest = {
+				Material: main_mrp.aAddedMaterials,
+				MaterialGroup: sGroup,
+				Measure: sMeasure,
+				Count: nCount,
+				WerehouseNumber: sWerehouse,
+				Status: this.aSelectRequest[0].status
+			};
+
+			let sUrl = "https://localhost:44312/api/werehouse/request/save-change-request";
+
+			try {
+				axios.post(sUrl, oRequest)
+					.then((response) => {
+						console.log("Заявка на потребность успешно изменена", response);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка изменения заявки на потребность", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });

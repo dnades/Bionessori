@@ -34,6 +34,6 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<Request> Edit(Request request);
+        Task<string> Edit(Request request);
     }
 }

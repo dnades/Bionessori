@@ -45,7 +45,7 @@
 						<div class="btn-right-block">
 							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Отменить</button>
 
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onCreateRequest">Сохранить изменения</button>
+							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onSaveChangeRequest">Сохранить изменения</button>
 						</div>
 					</div>
 
@@ -54,7 +54,7 @@
 						<div class="row-1">
 							<label for="#id-select-group">Группа</label>
 							<select id="id-select-group" class="form-control-sm form-card" v-on:change="onChangeGroup">
-								<option></option>
+								@*<option></option>*@
 								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
 							</select>
 							<div class="checkbox-date">
@@ -63,7 +63,7 @@
 
 							<label for="#id-select-material">Материал</label>
 							<select id="id-select-material" class="form-control-sm form-card">
-								<option></option>
+								@*<option></option>*@
 								<option v-for="el in aDistinctMaterials">{{el}}</option>
 							</select>
 							<div class="checkbox-date">
@@ -76,7 +76,7 @@
 
 							<label for="#id-select-measure">Ед.Изм.</label>
 							<select id="id-select-measure" class="form-control-sm form-card">
-								<option></option>
+								@*<option></option>*@
 								<option v-for="el in aMeasures">{{el.measure}}</option>
 							</select>
 							<div class="checkbox-date">
@@ -85,7 +85,7 @@
 
 							<label for="#id-select-werehouse">Номер склада</label>
 							<select id="id-select-werehouse" class="form-control-sm form-card">
-								<option></option>
+								@*<option></option>*@
 								<option v-for="el in aWerehousesNames">{{el.werehouse_number}}</option>
 							</select>
 							<div class="checkbox-date">
