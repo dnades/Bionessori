@@ -34,7 +34,10 @@ namespace Bionessori {
             services.AddTransient<IWerehouse, WerehouseService>(provider => new WerehouseService(connectionString));
 
             services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
-            
+
+            //services.AddTransient<ILoggerException, LoggerExceptionService>(provider => new LoggerExceptionService(connectionString));
+
+
             services.AddControllersWithViews();
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {

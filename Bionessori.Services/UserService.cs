@@ -16,7 +16,7 @@ namespace Bionessori.Services {
     /// </summary>
     public class UserService : IUserRepository {
         string _connectionString = null;
-
+        
         public UserService(string conn) {
             _connectionString = conn;
         }
@@ -155,6 +155,30 @@ namespace Bionessori.Services {
                     param: param);
 
                 return isMemberRole.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует оповещение о регистрации нового пользователя в системе.
+        /// </summary>
+        /// <param name="notification"></param>
+        /// <returns></returns>
+        public async Task NotificationCheckIn(Notification notification) {
+            var parameters = new DynamicParameters();
+            parameters.Add("@message", notification.Message, DbType.String);
+            parameters.Add("@category", notification.Category, DbType.String);
+            parameters.Add("@module", notification.Module, DbType.String);
+
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Вызывает процедуру добавления оповещения о регистрации нового пользователя.
+                    await db.QueryAsync("dbo.sp_SendNotification",
+                        commandType: CommandType.StoredProcedure,
+                        param: parameters);
+                }
+            }
+            catch(ArgumentException ex) {
+                throw new ArgumentException("Ошибка оповещения о регистрации пользователя.", ex.Message.ToString());
             }
         }
     }

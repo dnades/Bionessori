@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
+using Bionessori.Core.Extensions;
 
 namespace Bionessori.Controllers {
     [ApiController, Route("api/data/auth")]
@@ -31,25 +32,38 @@ namespace Bionessori.Controllers {
         [HttpPost, Route("checkin")]
         public async Task<IActionResult> CheckIn([FromBody] User user) {
             if (string.IsNullOrEmpty(user.Login) || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.Email)) {
-                throw new ArgumentNullException("Параметры не должны быть пустыми.");
+                throw new ArgumentNullException();
             }
 
-            // Проверяет, есть ли пользователь с таким логином.
-            await _user.GetIdentityLogin(user.Login);
+            try {
+                // Проверяет, есть ли пользователь с таким логином.
+                await _user.GetIdentityLogin(user.Login);
 
-            // Проверяет, есть ли пользователь с таким email.
-            await _user.GetIdentityEmail(user.Email);
+                // Проверяет, есть ли пользователь с таким email.
+                await _user.GetIdentityEmail(user.Email);
 
-            string sPassword = user.Password;
+                string sPassword = user.Password;
 
-            // Хэширует пароль в MD5.
-            var hashPassword = await HashMD5Service.HashPassword(sPassword);
-            user.Password = hashPassword;
+                // Хэширует пароль в MD5.
+                var hashPassword = await HashMD5Service.HashPassword(sPassword);
+                user.Password = hashPassword;
 
-            // Добавляет нового пользователя в БД.
-            await _user.Create(user);
+                // Добавляет нового пользователя в БД.
+                await _user.Create(user);
 
-            return Ok("Пользователь успешно зарегистрирован.");
+                // Оповещает о регистрации нового пользователя.
+                Notification notification = new Notification() {
+                    Message = $"Зарегистрирован новый пользователь: {user.Login}",
+                    Category = NotificationType.Registry.ToString(),
+                    Module = ModuleType.CheckIn.ToString()
+                };
+                await _user.NotificationCheckIn(notification);
+
+                return Ok("Пользователь успешно зарегистрирован.");
+            }
+            catch(ArgumentNullException ex) {
+                throw new ArgumentNullException("Входные параметры не заполнены.", ex.Message.ToString());
+            }
         }
 
         /// <summary>

@@ -25,7 +25,7 @@ class RoleBase {
 			$("#id-manage-shop").prop("disabled", true);
 			$("#id-finance").prop("disabled", true);
 			$("#id-anketa").prop("disabled", true);
-			$("#id-manage-warehouse").prop("disabled", true);
+			$("#id-nomenclature").prop("disabled", true);
 			$("#id-quick-help").prop("disabled", true);
 			$("#id-eating-service").prop("disabled", true);
 			$("#id-indicator-service").prop("disabled", true);
@@ -59,7 +59,7 @@ class RoleBase {
 				$("#id-manage-shop").prop("disabled", false);
 				$("#id-finance").prop("disabled", false);
 				$("#id-anketa").prop("disabled", false);
-				$("#id-manage-warehouse").prop("disabled", false);
+				$("#id-nomenclature").prop("disabled", false);
 				$("#id-quick-help").prop("disabled", false);
 				$("#id-eating-service").prop("disabled", false);
 				$("#id-indicator-service").prop("disabled", false);

@@ -50,5 +50,12 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<List<string>> TakeUserRole(string login);
+
+        /// <summary>
+        /// Метод оповещает о регистрации нового пользователя в системе.
+        /// </summary>
+        /// <param name="notification"></param>
+        /// <returns></returns>
+        Task NotificationCheckIn(Notification notification);
     }
 }

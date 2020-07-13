@@ -6,22 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Bionessori.Models;
+using Bionessori.Core;
+using Bionessori.Core.Interfaces;
 
 namespace Bionessori.Controllers {
     /// <summary>
     /// Контроллер описывает работу с роутами ERP-системы.
     /// </summary>
-    public class RouteController : Controller {
-        private readonly ILogger<RouteController> _logger;
-
-        public RouteController(ILogger<RouteController> logger) {
-            _logger = logger;
-        }
-
+    public class RouteController : Controller {   
         // Метод перенаправляет на главную страницу ведения объектов.
         public IActionResult Index() {
             ViewData["Title"] = "Ведение объектов";
-
+            
             return View();
         }
 
@@ -29,7 +25,7 @@ namespace Bionessori.Controllers {
         [Route("route/card")]
         public IActionResult RouteCard() {
             ViewData["Title"] = "Электронные медицинские карты пациентов - Список карт пациентов";
-
+            
             return View();
         }
 

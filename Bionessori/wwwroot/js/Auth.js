@@ -93,7 +93,7 @@ var app = new Vue({
 					$("#id-manage-shop").prop("disabled", false);
 					$("#id-finance").prop("disabled", false);
 					$("#id-anketa").prop("disabled", false);
-					$("#id-manage-warehouse").prop("disabled", false);
+					$("#id-nomenclature").prop("disabled", false);
 					$("#id-quick-help").prop("disabled", false);
 					$("#id-eating-service").prop("disabled", false);
 					$("#id-indicator-service").prop("disabled", false);
