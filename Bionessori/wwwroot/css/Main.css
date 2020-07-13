@@ -112,6 +112,9 @@ table .state {
 #checkin-modall {
   width: max-content !important; }
 
+#id-feedback-modall {
+  width: max-content !important; }
+
 .btn-right-block {
   padding-bottom: 5px; }
 
