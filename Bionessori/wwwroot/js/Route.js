@@ -39,6 +39,10 @@ var main = new Vue({
 				case "create_request":
 					window.location.href = "https://localhost:44312/route/create-request";
 					break;
+
+				case "registry":
+					window.location.href = "https://localhost:44312/route/route-registry";
+					break;
 			}
 		}
 	}

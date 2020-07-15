@@ -449,7 +449,7 @@ var main_mrp = new Vue({
 			let wb = XLSX.utils.table_to_book(document.getElementById('id-material-list-table'), { sheet: "Список материалов" });
 			let wbout = XLSX.write(wb, { bookType: 'xls', bookSST: true, type: 'binary' });
 
-			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список заявок.xls');
+			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список материалов.xls');
 
 			function s2ab(s) {
 				let buf = new ArrayBuffer(s.length);

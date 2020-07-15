@@ -108,5 +108,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        // Метод переходит на страницу регистратуры.
+        [Route("route/route-registry")]
+        public IActionResult RouteRegistry() {
+            ViewData["Title"] = "Ведение объектов регистратуры";
+
+            return View();
+        }
     }
 }

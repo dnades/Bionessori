@@ -33,11 +33,11 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Управление складами</button>
+				@*<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Управление номенклатурой</button>*@
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Перейти к мониторингу количества запасов</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Номенклатура</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Перейти к заявкам потребностей</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Перейти к заявкам</button>
 			</div>
 		</div>
 
