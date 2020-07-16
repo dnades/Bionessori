@@ -43,6 +43,10 @@ var main = new Vue({
 				case "registry":
 					window.location.href = "https://localhost:44312/route/route-registry";
 					break;
+
+				case "route_reception":
+					window.location.href = "https://localhost:44312/add-registry";
+					break;
 			}
 		}
 	}

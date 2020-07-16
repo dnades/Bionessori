@@ -116,5 +116,15 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        /// <summary>
+        /// Метод переходит на страницу записи пациента на прием к врачу.
+        /// </summary>
+        [Route("add-registry")]
+        public IActionResult AddRegistry() {
+            ViewData["Title"] = "Ведение объектов регистратуры - Запись пациента на прием";
+
+            return View();
+        }
     }
 }

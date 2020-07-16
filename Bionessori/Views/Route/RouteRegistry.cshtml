@@ -12,6 +12,7 @@
 </head>
 
 <body>
+	<div id="main"></div>
 	<div id="registry">
 		<div class="row">
 			<div class="container">
@@ -32,40 +33,18 @@
 
 					<!-- Правая секция кнопок -->
 					<div class="btn-right-block">
-						<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Вызвать скорую</button>
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Выгрузить в Excel</button>
 
-						<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Направить на исследование</button>
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Вызвать скорую</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="route_reception" v-on:click="onRouteReception">Записать на прием</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Направить на исследование</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- Секция модального окна обратной связи -->
-		<div class="modal fade" id="id-feedback-modal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
-			<div id="id-feedback-modall" class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="feedbackModalLabel">Обратная связь</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="#id-feedback">Сообщение:</label><br />
-							<textarea type="text" id="id-feedback" class="form-control"></textarea>
-						</div>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal" v-on:click="">Отправить</button>
-						<button type="button" class="btn-item btn btn-default" data-dismiss="modal">Закрыть</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
+		
 		<!-- Секция с таблицей со списком записей на прием. -->
 		<div class="mr-2">
 			<h3>Список записей на прием</h3>
@@ -96,7 +75,7 @@
 						</th>
 
 						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
+							<button class="btn btn-link" value="req_status" v-on:click="">
 								Врач
 							</button>
 						</th>
@@ -129,13 +108,13 @@
 						</td>
 
 						<td class="text-center state">
-							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_request" v-on:click="onRouteEditRequest">
+							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_request" v-on:click="">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</button>
 						</td>
 
 						<td class="text-center state">
-							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onBeforeDeleteRequest">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</button>
 						</td>
@@ -146,6 +125,7 @@
 	</div>
 
 	<script src="~/js/Route.js"></script>
+	<script src="~/js/Registry.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
