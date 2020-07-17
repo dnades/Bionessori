@@ -33,21 +33,29 @@
 
 					<!-- Правая секция кнопок -->
 					<div class="btn-right-block">
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Рецепты</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Направления</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Отмена записи</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Перенос записи</button>
+
 						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Выгрузить в Excel</button>
 
 						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Вызвать скорую</button>
 
-						<button type="button" class="btn-item btn btn-default btn-create-card" value="route_reception" v-on:click="onRouteReception">Записать на прием</button>
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="route_reception" v-on:click="onRouteReception">Создание записи</button>
 
-						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Направить на исследование</button>
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Создать направление</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-		<!-- Секция с таблицей со списком записей на прием. -->
+		<!-- Секция с таблицей со списком записей на приемы. -->
 		<div class="mr-2">
-			<h3>Список записей на прием</h3>
+			<h3>Список записей на приемы</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск по номеру записи на прием">
 			<table id="id-request-list-table" class="table table-bordered">
 				<thead>

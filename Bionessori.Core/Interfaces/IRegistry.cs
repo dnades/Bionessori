@@ -14,20 +14,20 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
-        Task<PatientCard> Write(PatientCard patient);
+        Task Write(PatientCard patient);
 
         /// <summary>
         /// Метод вызывает скорую помощь пациенту.
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
-        Task<PatientCard> Call(PatientCard patient);
+        Task Call(PatientCard patient);
 
         /// <summary>
-        /// Метод отправляет карту пациента.
+        /// Метод получает номера картпациентов.
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
-        Task<PatientCard> Send(PatientCard patient);
+        Task<List<string>> LoadCardsNumbers();
     }
 }

@@ -1,7 +1,12 @@
-﻿using Bionessori.Core.Interfaces;
+﻿using Bionessori.Core.Extensions;
+using Bionessori.Core.Interfaces;
 using Bionessori.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,26 +15,36 @@ namespace Bionessori.Services {
     /// Сервис реализует методы работы регистратуры.
     /// </summary>
     public class RegistryService : IRegistry {
-        /// <summary>
-        /// Метод вызывает скорую помощь.
-        /// </summary>
-        /// <param name="patient"></param>
-        /// <returns></returns>
-        public Task<PatientCard> Call(PatientCard patient) {
-            throw new NotImplementedException();
+        string _connectionString = null;
+
+        public RegistryService(string conn) {
+            _connectionString = conn;
         }
 
-        // TODO: пока не трогать, так как пока не придумал, куда регистратура может отправлять карту.
-        public Task<PatientCard> Send(PatientCard patient) {
+        public Task Call(PatientCard patient) {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Метод записывает на прием.
+        /// Метод получает номера карт пациентов.
         /// </summary>
-        /// <param name="patient"></param>
         /// <returns></returns>
-        public Task<PatientCard> Write(PatientCard patient) {
+        public async Task<List<string>> LoadCardsNumbers() {
+            var parameters = new DynamicParameters();
+            string sParam = CardExtension.Number.ToString();
+            parameters.Add("@param", sParam, DbType.String);
+
+            using (var db = new SqlConnection(_connectionString)) {
+                // Процедура получает список номеров карт пациентов.
+                var oNumbersCards = await db.QueryAsync<string>("dbo.sp_GetAllCards",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+
+                return oNumbersCards.ToList();
+            }
+        }
+
+        public Task Write(PatientCard patient) {
             throw new NotImplementedException();
         }
     }

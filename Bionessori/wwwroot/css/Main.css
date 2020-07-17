@@ -15,7 +15,6 @@
 .btn-item {
   background: white;
   border-radius: 10px;
-  /* background: #66BFE0; */
   border-color: #66BFE0;
   color: #66BFE0;
   font-size: 13px;
@@ -172,10 +171,7 @@ table thead th {
 
 .block-main-info {
   display: flex;
-  justify-content: space-around;
-  /*.card {
-        padding: 5%;
-    }*/ }
+  justify-content: space-around; }
   .block-main-info .row-1 {
     display: flex;
     flex-direction: column; }
@@ -205,3 +201,26 @@ table thead th {
       cursor: pointer; }
     .list-group .list-group-item .close:hover {
       cursor: pointer; }
+
+.block-registry {
+  display: flex;
+  align-items: center; }
+  .block-registry .item-set-registry {
+    display: flex;
+    flex-direction: column; }
+    .block-registry .item-set-registry .control-set {
+      width: 300px;
+      height: 50px; }
+    .block-registry .item-set-registry .control-set-date {
+      width: 200px;
+      height: 50px; }
+  .block-registry .btn-add-registry {
+    height: 50px;
+    margin: 0 auto; }
+
+.create-list {
+  display: flex;
+  flex-direction: column; }
+
+.block-add-list {
+  margin: 0 auto; }

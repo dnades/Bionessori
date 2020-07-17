@@ -35,7 +35,7 @@ namespace Bionessori {
 
             services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
 
-            //services.AddTransient<ILoggerException, LoggerExceptionService>(provider => new LoggerExceptionService(connectionString));
+            services.AddTransient<IRegistry, RegistryService>(provider => new RegistryService(connectionString));
 
 
             services.AddControllersWithViews();
