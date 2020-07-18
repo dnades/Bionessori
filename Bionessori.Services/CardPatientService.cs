@@ -169,13 +169,22 @@ namespace Bionessori.Services {
         /// <param name="patient"></param>
         /// <returns></returns>
         public async Task<List<PatientCard>> Take() {
-            using (var db = new SqlConnection(_conStr)) {
-                // Вызывает процедуру для получения списка карт пациентов.
-                var oCards = await db.QueryAsync<PatientCard>("sp_GetAllCards", 
-                    commandType: CommandType.StoredProcedure);
+            var parameters = new DynamicParameters();
+            parameters.Add("@param", "", DbType.String);
 
-                return oCards.ToList();
-            }            
+            try {
+                using (var db = new SqlConnection(_conStr)) {
+                    // Вызывает процедуру для получения списка карт пациентов.
+                    var oCards = await db.QueryAsync<PatientCard>("sp_GetAllCards",
+                        commandType: CommandType.StoredProcedure,
+                        param: parameters);
+
+                    return oCards.ToList();
+                }
+            }
+            catch(Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         /// <summary>

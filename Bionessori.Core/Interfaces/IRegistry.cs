@@ -29,5 +29,12 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="patient"></param>
         /// <returns></returns>
         Task<List<string>> LoadCardsNumbers();
+
+        /// <summary>
+        /// Метод проверяет существование пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        Task<dynamic> GetIdentityPatient(PatientCard patientCard);
     }
 }

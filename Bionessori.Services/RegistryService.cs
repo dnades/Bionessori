@@ -24,7 +24,7 @@ namespace Bionessori.Services {
         public Task Call(PatientCard patient) {
             throw new NotImplementedException();
         }
-
+       
         /// <summary>
         /// Метод получает номера карт пациентов.
         /// </summary>
@@ -46,6 +46,36 @@ namespace Bionessori.Services {
 
         public Task Write(PatientCard patient) {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод проверяет существование пациента.
+        /// </summary>
+        /// <param name="patientCard"></param>
+        /// <returns></returns>
+        public async Task<dynamic> GetIdentityPatient(PatientCard patientCard) {
+            try {
+                // Проверяет, существует ли пациент.
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oPatient = await db.QueryAsync($"" +
+                        $"SELECT card_number AS cardNumber " +
+                        $"FROM dbo.PatientCards " +
+                        $"WHERE date_of_birth = '{patientCard.DateOfBirth}' " +
+                        $"AND policy = '{patientCard.Policy}'");
+
+                    //return Convert.ToBoolean(Convert.ToInt32(isPatient.ToList()[0]));
+                    bool isPatient = Convert.ToBoolean(oPatient.Count());
+
+                    if (!isPatient) {
+                        throw new ArgumentNullException("Такого пациента не существует");
+                    }
+
+                    return oPatient;
+                }
+            }
+            catch(Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
     }
 }

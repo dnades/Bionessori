@@ -59,27 +59,27 @@
 			<div class="container block-registry">
 				<div class="item-set-registry">
 					<label>Номер полиса</label>
-					<input type="text" class="form-control-sm control-set" placeholder="Например 7100 0000 0000 0000" />
+					<input type="text" id="id-policy" class="form-control-sm control-set" placeholder="Например 7100 0000 0000 0000" />
 				</div>
 				&nbsp;
 				<div class="item-set-registry">
 					<label>Дата рождения</label>
-					<input type="text" class="form-control-sm control-set-date" placeholder="День" />
+					<input type="text" id="id-day" class="form-control-sm control-set-date" placeholder="День" />
 				</div>
 				&nbsp;
 				<div class="item-set-registry">
 					<label>&nbsp;</label>
-					<input type="text" class="form-control-sm control-set-date" placeholder="Месяц" />
+					<input type="text" id="id-month" class="form-control-sm control-set-date" placeholder="Месяц" />
 				</div>
 				&nbsp;
 				<div class="item-set-registry">
 					<label>&nbsp;</label>
-					<input type="text" class="form-control-sm control-set-date" placeholder="Год" />
+					<input type="text" id="id-year" class="form-control-sm control-set-date" placeholder="Год" />
 				</div>
 				&nbsp;
 				<div class="item-set-registry">
 					<label>&nbsp;</label>
-					<button class="form-control-sm btn-add-registry btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Создать запись</button>
+					<button class="form-control-sm btn-add-registry btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onSearchPatient">Создать запись</button>
 				</div>
 			</div>
 		</div>
@@ -87,9 +87,7 @@
 		<div class="row block-add-list mt-3">
 			<div class="form-group create-list">
 				<label for="#id-select-list-number" class="form-control-sm">Номер карты</label>
-				<select id="id-select-list-number" class="form-control-sm">
-					<option v-for="el in aNumbers">{{el}}</option>
-				</select>
+				<input disabled type="text" id="id-select-list-number" class="form-control-sm" v-bind:value="cardNumber"/>
 			</div>
 			&nbsp;
 			<div class="form-group create-list">

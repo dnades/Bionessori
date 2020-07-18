@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionessori.Core.Interfaces;
+using Bionessori.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,16 @@ namespace Bionessori.Controllers {
             var oNumbers = await _registry.LoadCardsNumbers();
 
             return Ok(oNumbers);
+        }
+
+        /// <summary>
+        /// Метод проверяет существование пациента и если он есть, то возвращает номер его карты.
+        /// </summary>
+        [HttpPost, Route("identity-patient")]
+        public async Task<IActionResult> IdentityPatient(PatientCard patientCard) {
+            var isPatient = await _registry.GetIdentityPatient(patientCard);
+
+            return Ok(isPatient);
         }
     }
 }

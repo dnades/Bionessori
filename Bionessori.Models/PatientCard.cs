@@ -26,7 +26,7 @@ namespace Bionessori.Models {
 
         public string BloodGroup { get; set; } // Группа крови.
 
-        public string Policy { get; set; }  // Полис пациента. Должен быть в виде 111111 1111111111
+        public string Policy { get; set; }  // Полис пациента. Должен быть в виде 1111 0000 0000 0000
 
         public string Snails { get; set; }  // СНИЛС пациента. Должен быть в виде 111-111-111 11
 
