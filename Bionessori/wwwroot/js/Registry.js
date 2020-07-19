@@ -4,6 +4,8 @@ var registry = new Vue({
 	el: "#registry",
 	created() {
 		this.loadNumbersCards();
+		this.onGetEmployee();
+		this.loadEmployees();
 	},
 	data: {
 		visibleGroup: false,
@@ -11,7 +13,11 @@ var registry = new Vue({
 		visibleMeasure: false,
 		werehouseNum: false,
 		aNumbers: [],
-		cardNumber: ""
+		cardNumber: "",
+		errorPatient: false,
+		aEmployee: [],
+		aSchedules: [],
+		aEmployees: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -54,12 +60,53 @@ var registry = new Vue({
 					Policy: sPolicy
 				})
 					.then((response) => {
+						this.errorPatient = false;
 						this.cardNumber = response.data[0].cardNumber;
 						console.log("Пациент существует", this.cardNumber);
 					})
 					.catch((XMLHttpRequest) => {
+						this.errorPatient = true;
 						throw new Error("Пациент не существует", XMLHttpRequest.response.data);
 					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает ФИО и специализацию врача.
+		onGetEmployee() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-partial-employee";
+			let sLogin = JSON.parse(localStorage["user"]).username;
+
+			try {
+				axios.post(sUrl, { login: sLogin })
+					.then((response) => {						
+						this.aEmployee = response.data;
+						console.log("Авторизованный сотрудник", this.aEmployee);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения сотрудника", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает список сотрудников.
+		loadEmployees() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-employees";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aEmployees = response.data;
+						console.log("Список сотрудников", this.aEmployees);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения списка сотрудников", XMLHttpRequest.response.data);
+					})
 			}
 			catch (ex) {
 				throw new Error(ex);

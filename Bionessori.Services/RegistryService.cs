@@ -63,7 +63,6 @@ namespace Bionessori.Services {
                         $"WHERE date_of_birth = '{patientCard.DateOfBirth}' " +
                         $"AND policy = '{patientCard.Policy}'");
 
-                    //return Convert.ToBoolean(Convert.ToInt32(isPatient.ToList()[0]));
                     bool isPatient = Convert.ToBoolean(oPatient.Count());
 
                     if (!isPatient) {
@@ -75,6 +74,67 @@ namespace Bionessori.Services {
             }
             catch(Exception ex) {
                 throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает расписания врачей.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<string>> GetSchedules() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oSchedules = await db.QueryAsync<string>("dbo.sp_GetSchedules");
+
+                return oSchedules.ToList();
+            }   
+        }
+
+        /// <summary>
+        /// Метод получает список врачей.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public async Task<List<Employee>> GetEmployees() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oEmployees = await db.QueryAsync<Employee>("dbo.sp_GetEmployees");
+
+                return oEmployees.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод получает ФИО и специализацию конкретного врача.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public async Task<Employee> GetPartialEmployee(int id) {
+            var parameters = new DynamicParameters();
+            parameters.Add("@userId", id, DbType.Int32);
+
+            using (var db = new SqlConnection(_connectionString)) {
+                // Продедура получает ФИО и специализацию конкретного врача.
+                var oPartialEmployee = await db.QueryAsync<Employee>("dbo.sp_GetConcreteEmployee",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
+
+                return oPartialEmployee.FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Метод полуает id юзера по его логину.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<Employee> GetUserId(User user) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var oUser = await db.QueryAsync<Employee>($"SELECT id FROM u0772479_admin.Users WHERE login = '{user.Login}'");
+                int id = oUser.FirstOrDefault().Id;
+
+                // Получает данные врача.
+                var oEmployee = await GetPartialEmployee(id);
+
+                return oEmployee;
             }
         }
     }

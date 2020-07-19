@@ -16,7 +16,6 @@ namespace Bionessori.Services {
     /// </summary>
     public class CardPatientService : ICard {
         string _conStr = null;
-        //IRandom _random;
 
         public CardPatientService(string conn) {
             _conStr = conn;

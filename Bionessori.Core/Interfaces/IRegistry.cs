@@ -36,5 +36,32 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="patientCard"></param>
         /// <returns></returns>
         Task<dynamic> GetIdentityPatient(PatientCard patientCard);
+
+        /// <summary>
+        /// Метод получает расписания врачей.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> GetSchedules();
+
+        /// <summary>
+        /// Метод получает список врачей.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        Task<List<Employee>> GetEmployees();
+
+        /// <summary>
+        /// Метод получает ФИО и специализацию конкретного врача.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        Task<Employee> GetPartialEmployee(int id);
+
+        /// <summary>
+        /// Метод на вход принимает логин юзера, находит его в базе и выдает его id.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        Task<Employee> GetUserId(User user);
     }
 }

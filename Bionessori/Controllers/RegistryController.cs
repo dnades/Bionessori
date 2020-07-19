@@ -33,10 +33,47 @@ namespace Bionessori.Controllers {
         /// Метод проверяет существование пациента и если он есть, то возвращает номер его карты.
         /// </summary>
         [HttpPost, Route("identity-patient")]
-        public async Task<IActionResult> IdentityPatient(PatientCard patientCard) {
+        public async Task<IActionResult> IdentityPatient([FromBody] PatientCard patientCard) {
             var isPatient = await _registry.GetIdentityPatient(patientCard);
 
             return Ok(isPatient);
+        }
+
+        /// <summary>
+        /// Метод получает список расписаний.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-schedules")]
+        public async Task<IActionResult> GetSchedules() {
+            var oSchedules = await _registry.GetSchedules();
+
+            return Ok(oSchedules);
+        }
+
+        /// <summary>
+        /// Метод получает ФИО и специализацию врача.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        [HttpPost, Route("get-partial-employee")]
+        public async Task<IActionResult> GetPartialEmployee([FromBody] User user) {
+            var oUser = await _registry.GetUserId(user);
+            var oEmp = new {
+                fullName = oUser.FullName,
+                position = oUser.Position
+            };
+
+            return Ok(oEmp);
+        }
+
+        /// <summary>
+        /// Метод получает список сотрудников.
+        /// </summary>
+        [HttpPost, Route("get-employees")]
+        public async Task<IActionResult> GetEmployees() {
+            var oEmployees = await _registry.GetEmployees();
+
+            return Ok(oEmployees);
         }
     }
 }

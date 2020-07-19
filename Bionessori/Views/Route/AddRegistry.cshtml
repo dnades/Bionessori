@@ -41,13 +41,20 @@
 						<div class="btn-right-block">
 							@*<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Завести карту</button>
 
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Создать запись</button>*@
+								<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Создать запись</button>*@
+
+							<div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="errorPatient">
+								<strong>Произошла ошибка.</strong><br /> Пациент не найден.
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Секция создания записи. -->
 		<div class="row">
 			<div class="col-lg-12">
@@ -55,7 +62,7 @@
 			</div>
 		</div>
 
-		<div class="row">			
+		<div class="row">
 			<div class="container block-registry">
 				<div class="item-set-registry">
 					<label>Номер полиса</label>
@@ -86,8 +93,22 @@
 
 		<div class="row block-add-list mt-3">
 			<div class="form-group create-list">
-				<label for="#id-select-list-number" class="form-control-sm">Номер карты</label>
-				<input disabled type="text" id="id-select-list-number" class="form-control-sm" v-bind:value="cardNumber"/>
+				<label for="#id-select-list-number" class="form-control-sm">Номер карты пациента</label>
+				<input disabled type="text" id="id-select-list-number" class="form-control-sm" v-bind:value="cardNumber" />
+			</div>
+			&nbsp;
+			<div class="form-group create-list">
+				<label for="#id-select-doctor" class="form-control-sm">Врач</label>
+				<select id="id-select-doctor" class="form-control-sm">
+					<option v-for="el in aEmployees">{{el.fullName}}</option>
+				</select>
+			</div>
+			&nbsp;
+			<div class="form-group create-list">
+				<label for="#id-select-spec" class="form-control-sm">Специализация</label>
+				<select id="id-select-spec" class="form-control-sm">
+					<option v-for="el in aEmployees">{{el.position}}</option>
+				</select>
 			</div>
 			&nbsp;
 			<div class="form-group create-list">
@@ -99,7 +120,7 @@
 			&nbsp;
 			<div class="form-group create-list">
 				<label>&nbsp;</label>
-				<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Сохранить</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" v-on:click="">Сохранить</button>
 			</div>
 		</div>
 	</div>
