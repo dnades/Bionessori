@@ -111,6 +111,26 @@ var registry = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		// Функция получает расписания врача.
+		onGetSchedules(event) {
+			let sDoctor = event.target.value;
+			let sUrl = "https://localhost:44312/api/data/registry/get-schedules";
+
+			try {
+				axios.post(sUrl, { FullName: sDoctor})
+					.then((response) => {
+						this.aSchedules = response.data;
+						console.log("Список расписаний", this.aSchedules);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения списка расписаний", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });

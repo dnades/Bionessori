@@ -44,8 +44,8 @@ namespace Bionessori.Controllers {
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("get-schedules")]
-        public async Task<IActionResult> GetSchedules() {
-            var oSchedules = await _registry.GetSchedules();
+        public async Task<IActionResult> GetSchedules([FromBody] Employee employee) {
+            var oSchedules = await _registry.GetSchedules(employee.FullName);
 
             return Ok(oSchedules);
         }

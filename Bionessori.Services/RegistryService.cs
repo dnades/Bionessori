@@ -81,9 +81,15 @@ namespace Bionessori.Services {
         /// Метод получает расписания врачей.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> GetSchedules() {
+        public async Task<List<string>> GetSchedules(string fullName) {
+            var parameters = new DynamicParameters();
+            parameters.Add("@fullName", fullName, DbType.String);
+
             using (var db = new SqlConnection(_connectionString)) {
-                var oSchedules = await db.QueryAsync<string>("dbo.sp_GetSchedules");
+                // Процедура получает список расписаний врача.s
+                var oSchedules = await db.QueryAsync<string>("dbo.sp_GetSchedules",
+                    commandType: CommandType.StoredProcedure,
+                    param: parameters);
 
                 return oSchedules.ToList();
             }   

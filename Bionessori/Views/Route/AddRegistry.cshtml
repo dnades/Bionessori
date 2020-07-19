@@ -99,7 +99,8 @@
 			&nbsp;
 			<div class="form-group create-list">
 				<label for="#id-select-doctor" class="form-control-sm">Врач</label>
-				<select id="id-select-doctor" class="form-control-sm">
+				<select id="id-select-doctor" class="form-control-sm" v-on:change="onGetSchedules">
+					<option>-</option>
 					<option v-for="el in aEmployees">{{el.fullName}}</option>
 				</select>
 			</div>
@@ -114,7 +115,7 @@
 			<div class="form-group create-list">
 				<label for="#id-select-date" class="form-control-sm">Дата приема</label>
 				<select id="id-select-date" class="form-control-sm">
-					<option v-for=""></option>
+					<option v-for="el in aSchedules">{{el}}</option>
 				</select>
 			</div>
 			&nbsp;

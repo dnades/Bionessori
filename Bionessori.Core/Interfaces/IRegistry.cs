@@ -41,7 +41,7 @@ namespace Bionessori.Core.Interfaces {
         /// Метод получает расписания врачей.
         /// </summary>
         /// <returns></returns>
-        Task<List<string>> GetSchedules();
+        Task<List<string>> GetSchedules(string fullName);
 
         /// <summary>
         /// Метод получает список врачей.
