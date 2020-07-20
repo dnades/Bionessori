@@ -49,6 +49,19 @@
   .btn-block-main .export-pdf {
     width: auto !important; }
 
+.btn-item-small {
+  background: white;
+  border-radius: 10px;
+  border-color: #66BFE0;
+  color: #66BFE0;
+  font-size: 13px;
+  margin-top: 5px;
+  border-width: 2px; }
+  .btn-item-small:hover {
+    background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
+    transition: all 0.21s ease;
+    color: white; }
+
 .advantages {
   display: flex;
   justify-content: space-around;

@@ -17,7 +17,10 @@ var registry = new Vue({
 		errorPatient: false,
 		aEmployee: [],
 		aSchedules: [],
-		aEmployees: []
+		aEmployees: [],
+		selectFullName: "",
+		selectSpec: "",
+		selectDate: ""
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -81,7 +84,7 @@ var registry = new Vue({
 
 			try {
 				axios.post(sUrl, { login: sLogin })
-					.then((response) => {						
+					.then((response) => {
 						this.aEmployee = response.data;
 						console.log("Авторизованный сотрудник", this.aEmployee);
 					})
@@ -118,8 +121,10 @@ var registry = new Vue({
 			let sDoctor = event.target.value;
 			let sUrl = "https://localhost:44312/api/data/registry/get-schedules";
 
+			this.selectFullName = sDoctor;
+
 			try {
-				axios.post(sUrl, { FullName: sDoctor})
+				axios.post(sUrl, { FullName: sDoctor })
 					.then((response) => {
 						this.aSchedules = response.data;
 						console.log("Список расписаний", this.aSchedules);
@@ -136,9 +141,9 @@ var registry = new Vue({
 		// Функция создает запись к врачу.
 		onSaveReception() {
 			let sUrl = "https://localhost:44312/api/data/registry/write-reception";
-			let sTimeWrite = $("#id-select-date").val();
-			let sName = $("#id-select-doctor").val();
-			let sCardNumber = $("#id-select-list-number").val();
+			let sTimeWrite = $("#id-select-date-val").val();
+			let sName = $("#id-select-doctor-val").val();
+			let sCardNumber = $("#id-select-number-val").val();
 
 			try {
 				axios.post(sUrl, {
@@ -147,7 +152,7 @@ var registry = new Vue({
 					CardNumber: sCardNumber
 				})
 					.then((response) => {
-						console.log("Запись успешно создана", response.data);
+						console.log(response.data);
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка создания записи", XMLHttpRequest.response.data);
@@ -156,6 +161,18 @@ var registry = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		// Функция получает значение специализации для таблицы подтверждения.
+		onChangeSpec(event) {
+			let sValue = event.target.value;
+			this.selectSpec = sValue
+		},
+
+		// Функция получает дату приема для таблицы подтверждения.
+		onChangeSchedule(event) {
+			let sValue = event.target.value;
+			this.selectDate = sValue
 		}
 	}
 });

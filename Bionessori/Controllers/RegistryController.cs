@@ -83,7 +83,7 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> WriteReception([FromBody] PatientCard patientCard) {
             await _registry.Write(patientCard);
 
-            return Ok("Запись прошла успешно.");
+            return Ok("Запись прошла успешно");
         }
     }
 }

@@ -17,6 +17,16 @@ $noneId: none;
     flex-direction: column;
 }
 
+@mixin btnItemSmall {
+    background: white;
+    border-radius: 10px;
+    border-color: #66BFE0;
+    color: #66BFE0;
+    font-size: 13px;
+    margin-top: 5px;
+    border-width: 2px;
+}
+
 body {
     background: #FDFFFF;
     color: #676767;
@@ -93,6 +103,16 @@ body {
 
     .export-pdf {
         width: $widthBtnsCard;
+    }
+}
+
+.btn-item-small {
+    @include btnItemSmall;
+
+    &:hover {
+        background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
+        transition: all 0.21s ease;
+        color: white;
     }
 }
 
