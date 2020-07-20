@@ -44,8 +44,38 @@ namespace Bionessori.Services {
             }
         }
 
-        public Task Write(PatientCard patient) {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод записывает на пациента прием.
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <returns></returns>
+        public async Task Write(PatientCard patient) {
+            int sNum = Convert.ToInt32(RandomDataService.GenerateRandomNumber());    // Получает рандомный номер записи на прием.
+            int userId = await GetUserIds(patient.FullName);
+
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    await db.QueryAsync($"INSERT INTO dbo.Receptions (date, number_reception, employee_id, card_number) " +
+                        $"VALUES ('{patient.TimeProcRecommend}', {sNum}, {userId}, '{patient.CardNumber}')");
+                }
+            }
+            catch(Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Получает id юзера по его имени.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<int> GetUserIds(string login) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var result = await db.QueryAsync<string>($"SELECT id FROM dbo.Employees WHERE full_name = '{login}'");
+                int userId = Convert.ToInt32(result.FirstOrDefault());
+
+                return userId;
+            }
         }
 
         /// <summary>
@@ -132,9 +162,9 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        public async Task<Employee> GetUserId(User user) {
+        public async Task<Employee> GetUserId(string login) {
             using (var db = new SqlConnection(_connectionString)) {
-                var oUser = await db.QueryAsync<Employee>($"SELECT id FROM u0772479_admin.Users WHERE login = '{user.Login}'");
+                var oUser = await db.QueryAsync<Employee>($"SELECT id FROM u0772479_admin.Users WHERE login = '{login}'");
                 int id = oUser.FirstOrDefault().Id;
 
                 // Получает данные врача.

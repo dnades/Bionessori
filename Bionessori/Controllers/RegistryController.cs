@@ -57,7 +57,7 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-partial-employee")]
         public async Task<IActionResult> GetPartialEmployee([FromBody] User user) {
-            var oUser = await _registry.GetUserId(user);
+            var oUser = await _registry.GetUserId(user.Login);
             var oEmp = new {
                 fullName = oUser.FullName,
                 position = oUser.Position
@@ -74,6 +74,16 @@ namespace Bionessori.Controllers {
             var oEmployees = await _registry.GetEmployees();
 
             return Ok(oEmployees);
+        }
+
+        /// <summary>
+        /// Метод записывает пациента на прием.
+        /// </summary>
+        [HttpPost, Route("write-reception")]
+        public async Task<IActionResult> WriteReception([FromBody] PatientCard patientCard) {
+            await _registry.Write(patientCard);
+
+            return Ok("Запись прошла успешно.");
         }
     }
 }

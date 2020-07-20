@@ -131,6 +131,31 @@ var registry = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		// Функция создает запись к врачу.
+		onSaveReception() {
+			let sUrl = "https://localhost:44312/api/data/registry/write-reception";
+			let sTimeWrite = $("#id-select-date").val();
+			let sName = $("#id-select-doctor").val();
+			let sCardNumber = $("#id-select-list-number").val();
+
+			try {
+				axios.post(sUrl, {
+					TimeProcRecommend: sTimeWrite,
+					FullName: sName,
+					CardNumber: sCardNumber
+				})
+					.then((response) => {
+						console.log("Запись успешно создана", response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка создания записи", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });

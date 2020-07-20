@@ -10,7 +10,7 @@ namespace Bionessori.Services {
     /// </summary>
     public class RandomDataService {      
         /// <summary>
-        /// Метод реализует генерацию рандомного номера карты пациента.
+        /// Метод реализует генерацию рандомного номера.
         /// </summary>
         /// <returns></returns>
         public static string GenerateRandomNumber() {

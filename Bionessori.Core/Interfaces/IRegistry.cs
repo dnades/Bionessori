@@ -62,6 +62,6 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        Task<Employee> GetUserId(User user);
+        Task<Employee> GetUserId(string login);
     }
 }
