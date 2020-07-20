@@ -63,5 +63,11 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="login"></param>
         /// <returns></returns>
         Task<Employee> GetUserId(string login);
+
+        /// <summary>
+        /// Метод получает список всех записей на прием.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Reception>> GetReceptions();
     }
 }

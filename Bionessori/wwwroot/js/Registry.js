@@ -6,6 +6,7 @@ var registry = new Vue({
 		this.loadNumbersCards();
 		this.onGetEmployee();
 		this.loadEmployees();
+		this.loadReceptions();
 	},
 	data: {
 		visibleGroup: false,
@@ -20,7 +21,8 @@ var registry = new Vue({
 		aEmployees: [],
 		selectFullName: "",
 		selectSpec: "",
-		selectDate: ""
+		selectDate: "",
+		aReceptions: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -173,6 +175,25 @@ var registry = new Vue({
 		onChangeSchedule(event) {
 			let sValue = event.target.value;
 			this.selectDate = sValue
+		},
+
+		// Функция получает список записей на прием.
+		loadReceptions() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-receptions";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {						
+						this.aReceptions = response.data;
+						console.log("Список записей", this.aReceptions);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения списка записей", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });

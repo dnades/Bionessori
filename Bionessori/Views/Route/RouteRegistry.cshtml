@@ -66,7 +66,7 @@
 
 						<th class="text-center" scope="col">
 							<button class="btn btn-link" value="card_number" v-on:click="">
-								Регистрационный номер
+								№ записи
 							</button>
 						</th>
 
@@ -78,12 +78,12 @@
 
 						<th class="text-center" scope="col">
 							<button class="btn btn-link">
-								№ паспорта врача
+								№ карты пациента
 							</button>
 						</th>
 
 						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="req_status" v-on:click="">
+							<button class="btn btn-link">
 								Врач
 							</button>
 						</th>
@@ -94,25 +94,29 @@
 				</thead>
 
 				<tbody>
-					<tr class="tbl-item tbl-row-click" v-for="" v-on:dblclick="">
+					<tr class="tbl-item tbl-row-click" v-for="el in aReceptions" v-on:dblclick="">
 						<th class="text-center" scope="col">
 							<input type="checkbox">
 						</th>
 
-						<td class="text-center">
-							<span>{{}}</span>
+						<td class="text-center req-id">
+							<span>{{el.id}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.numberReception}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.date}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.cardNumber}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.fullName}}</span>
 						</td>
 
 						<td class="text-center state">

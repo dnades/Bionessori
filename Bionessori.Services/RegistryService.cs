@@ -173,5 +173,24 @@ namespace Bionessori.Services {
                 return oEmployee;
             }
         }
+
+        /// <summary>
+        /// Метод реализует получение списка записей на прием.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Reception>> GetReceptions() {
+            var parameters = new DynamicParameters();
+
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oReceptions = await db.QueryAsync<Reception>("dbo.sp_GetReceptions");
+
+                    return oReceptions.ToList();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

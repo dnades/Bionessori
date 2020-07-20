@@ -85,5 +85,15 @@ namespace Bionessori.Controllers {
 
             return Ok("Запись прошла успешно");
         }
+
+        /// <summary>
+        /// Метод получает список записей на прием.
+        /// </summary>
+        [HttpPost, Route("get-receptions")]
+        public async Task<IActionResult> GetReceptions() {
+            var oReceptions = await _registry.GetReceptions();
+
+            return Ok(oReceptions);
+        }
     }
 }
