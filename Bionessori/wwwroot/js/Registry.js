@@ -7,6 +7,8 @@ var registry = new Vue({
 		this.onGetEmployee();
 		this.loadEmployees();
 		this.loadReceptions();
+
+		localStorage["selectCard"] ? this.selectCard = localStorage["selectCard"] : "";
 	},
 	data: {
 		visibleGroup: false,
@@ -22,7 +24,8 @@ var registry = new Vue({
 		selectFullName: "",
 		selectSpec: "",
 		selectDate: "",
-		aReceptions: []
+		aReceptions: [],
+		selectCard: ""
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -189,6 +192,39 @@ var registry = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка получения списка записей", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает запись для редактирования и переходит на страницу редактирования записи.
+		onRouteEditReception(event) {			
+			let receptionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
+			//localStorage["receptionId"] = receptionId;
+			localStorage["receptionId"] = +receptionId;
+			localStorage["selectCard"] = $(event.target).parent().parent().parent()[0].textContent.split(" ")[5];
+			window.location.href = "https://localhost:44312/edit-reception";
+		},
+
+		// Функция редактирует запись на прием.
+		onEditReception() {
+			let sUrl = "https://localhost:44312/api/data/registry/edit-reception";
+			let sTimeWrite = $("#id-select-date-val").val();
+			let sName = $("#id-select-doctor-val").val();
+			let sCardNumber = $("#id-select-number-val").val();
+
+			try {
+				axios.post(sUrl, {
+					Date: sTimeWrite,
+					Id: localStorage["receptionId"]
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка создания записи", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

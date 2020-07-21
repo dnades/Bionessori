@@ -69,5 +69,19 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<List<Reception>> GetReceptions();
+
+        /// <summary>
+        /// Метод редактирует запись на прием.
+        /// </summary>
+        /// <param name="reception"></param>
+        /// <returns></returns>
+        Task EditReception(Reception reception);
+
+        /// <summary>
+        /// Метод удаляет запись на прием.
+        /// </summary>
+        /// <param name="reception"></param>
+        /// <returns></returns>
+        Task DeleteReception(Reception reception);
     }
 }

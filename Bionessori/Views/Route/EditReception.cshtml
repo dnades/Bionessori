@@ -31,7 +31,7 @@
 											<a href="@Url.Action("RouteRegistry", "Route")">Регистратура</a>
 										</li>
 
-										<li class="breadcrumb-item active" aria-current="page">Запись на прием</li>
+										<li class="breadcrumb-item active" aria-current="page">Редактирование записи на прием</li>
 									</ol>
 								</nav>
 							</div>
@@ -41,7 +41,7 @@
 						<div class="btn-right-block">
 							@*<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Завести карту</button>
 
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Создать запись</button>*@
+								<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Создать запись</button>*@
 
 							<div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="errorPatient">
 								<strong>Произошла ошибка.</strong><br /> Пациент не найден.
@@ -55,14 +55,14 @@
 			</div>
 		</div>
 
-		<!-- Секция создания записи. -->
-		<div class="row">
+		<!-- Секция редактирования записи. -->
+		@*<div class="row">
 			<div class="col-lg-12">
 				<h3>Запись к врачу</h3>
 			</div>
-		</div>
+		</div>*@
 
-		<div class="row mb-3">
+		@*<div class="row mb-3">
 			<div class="container block-registry">
 				<div class="item-set-registry">
 					<label>Номер полиса</label>
@@ -89,18 +89,18 @@
 					<button class="form-control-sm btn-add-registry btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onSearchPatient">Создать запись</button>
 				</div>
 			</div>
-		</div>
+		</div>*@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h3>Формирование новой записи</h3>
+				<h3>Редактирование записи</h3>
 			</div>
 		</div>
 
 		<div class="row block-add-list mb-3">
 			<div class="form-group create-list">
 				<label for="#id-select-list-number" class="form-control-sm">№ карты пациента</label>
-				<input disabled type="text" id="id-select-list-number" class="form-control-sm" v-bind:value="cardNumber" />
+				<input disabled type="text" id="id-select-list-number" class="form-control-sm" v-bind:value="selectCard" />
 			</div>
 			&nbsp;
 			<div class="form-group create-list">
@@ -131,7 +131,7 @@
 		<!-- Секция с таблицей вывода записи. -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h3>Подтверждение новой записи</h3>
+				<h3>Подтверждение измененной записи</h3>
 			</div>
 		</div>
 
@@ -177,7 +177,7 @@
 					</td>
 
 					<td class="text-center">
-						<input disabled type="text" id="id-select-number-val" class="form-control-sm" v-bind:value="cardNumber" />
+						<input disabled type="text" id="id-select-number-val" class="form-control-sm" v-bind:value="selectCard" />
 					</td>
 
 					<td class="text-center">
@@ -193,7 +193,7 @@
 					</td>
 
 					<td class="text-center">
-						<button type="button" class="btn-item-small btn btn-default" v-on:click="onSaveReception">Сохранить</button>
+						<button type="button" class="btn-item-small btn btn-default" v-on:click="onEditReception">Сохранить</button>
 					</td>
 				</tr>
 			</tbody>

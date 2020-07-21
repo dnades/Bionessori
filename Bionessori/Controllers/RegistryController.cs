@@ -95,5 +95,15 @@ namespace Bionessori.Controllers {
 
             return Ok(oReceptions);
         }
+
+        /// <summary>
+        /// Метод редактирует запись пациента.
+        /// </summary>
+        [HttpPost, Route("edit-reception")]
+        public async Task<IActionResult> EditReception(Reception reception) {
+            await _registry.EditReception(reception);
+
+            return Ok("Запись успешно изменена");
+        }
     }
 }

@@ -179,8 +179,6 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async Task<List<Reception>> GetReceptions() {
-            var parameters = new DynamicParameters();
-
             try {
                 using (var db = new SqlConnection(_connectionString)) {
                     var oReceptions = await db.QueryAsync<Reception>("dbo.sp_GetReceptions");
@@ -189,6 +187,52 @@ namespace Bionessori.Services {
                 }
             }
             catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует редактирование записи на прием.
+        /// </summary>
+        /// <param name="reception"></param>
+        /// <returns></returns>
+        public async Task EditReception(Reception reception) {
+            try {
+                // Проверка входных параметров.
+                if (string.IsNullOrEmpty(reception.Date)) {
+                    throw new ArgumentNullException();
+                }
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Обновляет данные записи на прием.
+                    await db.QueryAsync($"UPDATE dbo.Receptions SET date = '{reception.Date}' WHERE id = {reception.Id}");
+                }
+            }            
+            catch(ArgumentNullException ex) {
+                throw new ArgumentNullException("Входные параметры не заполнены", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception($"Произошла неизвестная ошибка {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует удаление записи на прием.
+        /// </summary>
+        /// <param name="reception"></param>
+        /// <returns></returns>
+        public async Task DeleteReception(Reception reception) {
+            if (Convert.ToInt32(reception.Id) == 0) {
+                throw new ArgumentNullException("Id записи не передан");
+            }
+
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Удаляет запись на прием.
+                    await db.QueryAsync($"DELETE dbo.Reception WHERE id = {reception.Id}");
+                }
+            }
+            catch(Exception ex) {
                 throw new Exception(ex.Message.ToString());
             }
         }

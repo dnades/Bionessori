@@ -126,5 +126,15 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        /// <summary>
+        /// Метод переходит на страницу редактирования записи.
+        /// </summary>
+        [Route("edit-reception")]
+        public IActionResult EditReception() {
+            ViewData["Title"] = "Ведение объектов регистратуры - Редактирование записи пациента на прием";
+
+            return View();
+        }
     }
 }
