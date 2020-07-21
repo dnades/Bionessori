@@ -221,15 +221,11 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="reception"></param>
         /// <returns></returns>
-        public async Task DeleteReception(Reception reception) {
-            if (Convert.ToInt32(reception.Id) == 0) {
-                throw new ArgumentNullException("Id записи не передан");
-            }
-
+        public async Task DeleteReception(int id) {           
             try {
                 using (var db = new SqlConnection(_connectionString)) {
                     // Удаляет запись на прием.
-                    await db.QueryAsync($"DELETE dbo.Reception WHERE id = {reception.Id}");
+                    await db.QueryAsync($"DELETE dbo.Receptions WHERE id = {id}");
                 }
             }
             catch(Exception ex) {

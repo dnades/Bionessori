@@ -25,7 +25,8 @@ var registry = new Vue({
 		selectSpec: "",
 		selectDate: "",
 		aReceptions: [],
-		selectCard: ""
+		selectCard: "",
+		deleteReception: null
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -202,7 +203,6 @@ var registry = new Vue({
 		// Функция получает запись для редактирования и переходит на страницу редактирования записи.
 		onRouteEditReception(event) {			
 			let receptionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
-			//localStorage["receptionId"] = receptionId;
 			localStorage["receptionId"] = +receptionId;
 			localStorage["selectCard"] = $(event.target).parent().parent().parent()[0].textContent.split(" ")[5];
 			window.location.href = "https://localhost:44312/edit-reception";
@@ -212,8 +212,6 @@ var registry = new Vue({
 		onEditReception() {
 			let sUrl = "https://localhost:44312/api/data/registry/edit-reception";
 			let sTimeWrite = $("#id-select-date-val").val();
-			let sName = $("#id-select-doctor-val").val();
-			let sCardNumber = $("#id-select-number-val").val();
 
 			try {
 				axios.post(sUrl, {
@@ -225,6 +223,29 @@ var registry = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка создания записи", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		onAfterDeleteReception(event) {
+			let receptionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
+			this.deleteReception = receptionId;
+		},
+
+		// Функция удаляет запись.
+		onDeleteReception(event) {
+			let sUrl = "https://localhost:44312/api/data/registry/delete-reception?id=".concat(this.deleteReception);
+
+			try {
+				axios.delete(sUrl)
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка удаления записи", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

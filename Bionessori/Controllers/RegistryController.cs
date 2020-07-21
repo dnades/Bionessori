@@ -105,5 +105,24 @@ namespace Bionessori.Controllers {
 
             return Ok("Запись успешно изменена");
         }
+
+        /// <summary>
+        /// Метод удаляет запись.
+        /// </summary>
+        [HttpDelete, Route("delete-reception")]
+        public async Task<IActionResult> DeleteReception(int id) {
+            try {
+                if (id == 0) {
+                    throw new ArgumentException();
+                }
+
+                await _registry.DeleteReception(id);
+
+                return Ok("Запись успешно удалена");
+            }
+            catch(ArgumentException ex) {
+                throw new ArgumentException($"Id не передан {ex.Message}");
+            }            
+        }
     }
 }

@@ -82,6 +82,6 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="reception"></param>
         /// <returns></returns>
-        Task DeleteReception(Reception reception);
+        Task DeleteReception(int id);
     }
 }
