@@ -8,7 +8,7 @@
 	<link href="~/css/Footer.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
 	<link href="~/css/Header.css" rel="stylesheet" />
-	<link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />	
+	<link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />
 </head>
 <body>
 	<script src="https://unpkg.com/vue"></script>
@@ -49,13 +49,33 @@
 					</div>
 
 					<div class="log_check">
-						@*<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#admin" v-on:click="onRouteMatched" value="admin">Личный кабинет</button>*@
-
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#login-modal">Войти</button>
 
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
-
-						<button type="button" class="btn-item btn btn-default state"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
+						
+						<nav class="navigation">
+							<div class="container">
+								<ul class="menu">
+									<li class="menu_link_man">
+										@*<a class="menu_link" href="./product.html">Man</a>*@
+										<div class="dropdown">
+											<button type="button" class="btn-item btn btn-default state" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
+										</div>
+										<div class="mega_box_menu">
+											<div class="mega_menu">
+												<div class="mega_block_left mega_block">
+													<ul class="sub_menu_manwoman">
+														<li><a href="#">Мой профиль</a> </li>
+														<li><a href="#">Ближайшие приемы</a> </li>
+														<li><a href="#">Выйти</a> </li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</nav>
 					</div>
 
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -71,7 +91,7 @@
 				&copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
 			</div>
 		</footer>
-
+		
 		<!-- Модальное окно авторизации. -->
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
 			<div id="signin-modal" class="modal-dialog" role="document">
@@ -143,7 +163,7 @@
 		</div>
 	</div>
 
-	<script src="~/js/RoleMethods.js"></script>	
+	<script src="~/js/RoleMethods.js"></script>
 	<script src="~/js/Auth.js"></script>
 	<script src="~/js/CommonMethods.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>

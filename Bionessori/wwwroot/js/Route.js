@@ -3,7 +3,23 @@
 var main = new Vue({
 	el: '#main',
 	created() {
-		RoleBase.initRole();		
+		RoleBase.initRole();	
+
+		$('.popover-dismiss').popover({
+			trigger: 'focus'
+		})
+
+		//$("#dropdownMenuButton").hover(function () {
+		//	console.log("hover");
+		//	$("div.dropdown-menu").removeClass("dropdown-menu");
+		//	$("div.dropdown-menu").addClass("dropdown");
+		//});
+
+		//$("#dropdownMenuButton").mouseover(function () {
+		//	console.log("hover out");
+		//	$("div.dropdown-menu").removeClass("dropdown");
+		//	$("div.dropdown-menu").addClass("dropdown-menu");
+		//});		
 	},
 	methods: {
 		onRouteMatched(event) {

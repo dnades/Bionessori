@@ -26,7 +26,7 @@ var registry = new Vue({
 		selectDate: "",
 		aReceptions: [],
 		editCard: "",
-		deleteReception: null
+		deleteReception: null		
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.

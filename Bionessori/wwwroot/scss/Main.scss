@@ -155,8 +155,10 @@ table {
     border-bottom: 2px solid #dee2e6;
 }
 
+// Для высоты таблиц.
 .tbl {
-    height: 100vh;
+    //height: 100vh;
+    height: 450px;
     overflow-y: scroll;
 }
 
@@ -379,4 +381,22 @@ table {
 
 .block-add-list {
     margin: 0 auto;
+}
+
+// Выпадающе меню
+.mega_box_menu {
+    display: none;
+}
+
+.menu_link_man:hover .mega_box_menu {
+    display: block;
+    position: relative;
+}
+
+.menu_link_man {
+    list-style-type: none;
+}
+
+ul li {
+    list-style-type: none;
 }

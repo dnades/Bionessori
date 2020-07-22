@@ -44,7 +44,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<string> Create(Request request) {
+        public async Task Create(Request request) {
             using (var db = new SqlConnection(_connectionString)) {
                 string typeParam = "request";
                 string generateNumber = "";
@@ -74,8 +74,6 @@ namespace Bionessori.Services {
                 // Добавляет новую заявку в список заявок со статусом "Новая".
                 await db.QueryAsync($"INSERT INTO Requests VALUES ('{request.Number}', {request.Count}, '{request.Measure}', " +
                     $"'Новая', '{request.MaterialGroup}', '{materialJson}')");
-
-                return "Заявка успешно создана.";
             }
         }
 
@@ -83,12 +81,10 @@ namespace Bionessori.Services {
         /// Метод реализует удаление заявки на потребности в закупках.
         /// </summary>
         /// <returns></returns>
-        public async Task<string> Delete(string number) {
+        public async Task Delete(string number) {
             using (var db = new SqlConnection(_connectionString)) {
                 try {
                     await db.QueryAsync<string>($"DELETE Requests WHERE number = '{number}'");
-
-                    return "Заявка удалена.";
                 }
                 catch(Exception ex) {
                     throw new Exception(ex.Message);
@@ -101,7 +97,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<string> Edit(Request request) {
+        public async Task Edit(Request request) {
             var materialJson = JsonSerializer.Serialize(request.Material);
 
             try {
@@ -113,8 +109,6 @@ namespace Bionessori.Services {
                         $"status = '{request.Status}'," +
                         $"material_group = '{request.MaterialGroup}'," +
                         $"material = '{materialJson}'");
-
-                    return "Заявка изменена.";
                 }
             }
             catch(Exception ex) {

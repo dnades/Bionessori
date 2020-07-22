@@ -90,7 +90,7 @@ table .state {
   border-bottom: 2px solid #dee2e6; }
 
 .tbl {
-  height: 100vh;
+  height: 450px;
   overflow-y: scroll; }
 
 .tbl-item .card-id {
@@ -241,3 +241,16 @@ table thead th {
 
 .block-add-list {
   margin: 0 auto; }
+
+.mega_box_menu {
+  display: none; }
+
+.menu_link_man:hover .mega_box_menu {
+  display: block;
+  position: relative; }
+
+.menu_link_man {
+  list-style-type: none; }
+
+ul li {
+  list-style-type: none; }
