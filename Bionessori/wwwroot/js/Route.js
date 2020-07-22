@@ -4,11 +4,7 @@ var main = new Vue({
 	el: '#main',
 	created() {
 		RoleBase.initRole();	
-
-		$('.popover-dismiss').popover({
-			trigger: 'focus'
-		})
-
+		
 		//$("#dropdownMenuButton").hover(function () {
 		//	console.log("hover");
 		//	$("div.dropdown-menu").removeClass("dropdown-menu");

@@ -1,0 +1,198 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
+	<div id="front_office" class="main-block-card">
+		<div>
+			<div class="col-lg-12">
+				<div class="row block-main-info">
+					<div class="btn-block-main mb-3 col-lg-12">
+						<!-- Левая секция кнопок -->
+						<div class="btn-left-block">
+							<div class="btns">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+										<li class="breadcrumb-item active" aria-current="page">Мой профиль</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+
+						<!-- Правая секция кнопок -->
+						<div class="btn-right-block">
+							@*<button type="button" id="id-manage-personal" class="btn-item btn btn-default">Создать направление</button>*@
+							@*<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Завести карту</button>*@
+
+							@*<div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="errorPatient">
+									<strong>Произошла ошибка.</strong><br /> Пациент не найден.
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>*@
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция создания записи. -->
+		@*<div class="row">
+				<div class="col-lg-12">
+					<h3>Запись к врачу</h3>
+				</div>
+			</div>*@
+
+		<div class="row mb-3">
+			<div class="container block-registry">
+				@*<div class="item-set-registry">
+						<label>&nbsp;</label>
+						<button class="form-control-sm btn-add-registry btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Создать направление</button>
+					</div>*@
+			</div>
+		</div>
+
+		@*<div class="row">
+				<div class="col-lg-12">
+					<h3>Формирование новой записи</h3>
+				</div>
+			</div>*@
+
+		@*<div class="row block-add-list mb-3">
+				<div class="form-group create-list">
+					<label for="#id-select-list-number" class="form-control-sm">№ карты пациента</label>
+					<input disabled type="text" id="id-select-list-number" class="form-control-sm"/>
+				</div>
+				&nbsp;
+				<div class="form-group create-list">
+					<label for="#id-select-doctor" class="form-control-sm">Врач</label>
+					<select id="id-select-doctor" class="form-control-sm" v-on:change="">
+						<option>-</option>
+						<option v-for="el in aEmployees"></option>
+					</select>
+				</div>
+				&nbsp;
+				<div class="form-group create-list">
+					<label for="#id-select-spec" class="form-control-sm">Специализация</label>
+					<select id="id-select-spec" class="form-control-sm" v-on:change="">
+						<option>-</option>
+						<option v-for=""></option>
+					</select>
+				</div>
+				&nbsp;
+				<div class="form-group create-list">
+					<label for="#id-select-date" class="form-control-sm">Дата приема</label>
+					<select id="id-select-date" class="form-control-sm" v-on:change="">
+						<option>-</option>
+						<option v-for=""></option>
+					</select>
+				</div>
+			</div>*@
+
+		<!-- Секция с таблицей списка направлений. -->
+		@*<div class="row">
+			<div class="col-lg-12">
+				<h3>Список направлений</h3>
+			</div>
+		</div>*@
+
+		@*<div class="tbl">
+			<table id="id-request-list-table" class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">
+							<input type="checkbox">
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								№ записи
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								Дата приема
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								№ карты пациента
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								Врач
+							</button>
+						</th>
+
+						<th class="text-center" scope="col"></th>
+						<th class="text-center" scope="col"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="tbl-item tbl-row-click" v-for="" v-on:dblclick="">
+						<th class="text-center" scope="col">
+							<input type="checkbox">
+						</th>
+
+						<td class="text-center req-id">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center state">
+							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_reception" v-on:click="">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+							</button>
+						</td>
+
+						<td class="text-center state">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-reception-modal" v-on:click="">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>*@
+	</div>
+
+	<script src="~/js/Route.js"></script>
+	<script src="~/js/FrontOffice.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

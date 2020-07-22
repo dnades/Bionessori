@@ -142,6 +142,18 @@ namespace Bionessori.Controllers {
         /// </summary>
         [Route("route-direction")]
         public IActionResult RouteDirection() {
+            ViewData["Title"] = "Ведение объектов регистратуры - Направления";
+
+            return View();
+        }
+
+        /// <summary>
+        /// Метод переходит на страницу личного кабинета.
+        /// </summary>
+        [Route("route-front-office")]
+        public IActionResult RouteFrontOffice() {
+            ViewData["Title"] = "Мой профиль";
+
             return View();
         }
     }
