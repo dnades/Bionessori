@@ -136,5 +136,13 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        /// <summary>
+        /// Метод переходит на страницу направлений.
+        /// </summary>
+        [Route("route-direction")]
+        public IActionResult RouteDirection() {
+            return View();
+        }
     }
 }

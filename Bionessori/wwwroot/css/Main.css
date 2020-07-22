@@ -89,6 +89,10 @@ table .state {
   vertical-align: middle;
   border-bottom: 2px solid #dee2e6; }
 
+.tbl {
+  height: 100vh;
+  overflow-y: scroll; }
+
 .tbl-item .card-id {
   display: none; }
 

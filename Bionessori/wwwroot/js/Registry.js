@@ -8,7 +8,7 @@ var registry = new Vue({
 		this.loadEmployees();
 		this.loadReceptions();
 
-		localStorage["selectCard"] ? this.selectCard = localStorage["selectCard"] : "";
+		localStorage["editCard"] ? this.editCard = localStorage["editCard"] : "";
 	},
 	data: {
 		visibleGroup: false,
@@ -25,7 +25,7 @@ var registry = new Vue({
 		selectSpec: "",
 		selectDate: "",
 		aReceptions: [],
-		selectCard: "",
+		editCard: "",
 		deleteReception: null
 	},
 	methods: {
@@ -204,7 +204,7 @@ var registry = new Vue({
 		onRouteEditReception(event) {			
 			let receptionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
 			localStorage["receptionId"] = +receptionId;
-			localStorage["selectCard"] = $(event.target).parent().parent().parent()[0].textContent.split(" ")[5];
+			localStorage["editCard"] = $(event.target).parent().parent().parent()[0].textContent.split(" ")[5];
 			window.location.href = "https://localhost:44312/edit-reception";
 		},
 
@@ -230,19 +230,21 @@ var registry = new Vue({
 			}
 		},
 
+		// Функция получает запись, которую нужно удалить.
 		onAfterDeleteReception(event) {
 			let receptionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
 			this.deleteReception = receptionId;
 		},
 
 		// Функция удаляет запись.
-		onDeleteReception(event) {
+		onDeleteReception() {
 			let sUrl = "https://localhost:44312/api/data/registry/delete-reception?id=".concat(this.deleteReception);
 
 			try {
 				axios.delete(sUrl)
 					.then((response) => {
 						console.log(response.data);
+						this.loadReceptions();
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка удаления записи", XMLHttpRequest.response.data);
@@ -251,6 +253,11 @@ var registry = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		// Функция переходит на страницу направлений.
+		onRouteDirection(event) {
+			main.onRouteMatched(event);
 		}
 	}
 });

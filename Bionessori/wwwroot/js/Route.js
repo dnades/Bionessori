@@ -1,6 +1,5 @@
 ﻿"use strict";
 
-// Распределение роутов веб-приложения.
 var main = new Vue({
 	el: '#main',
 	created() {
@@ -46,6 +45,10 @@ var main = new Vue({
 
 				case "route_reception":
 					window.location.href = "https://localhost:44312/add-registry";
+					break;
+
+				case "route_direction":
+					window.location.href = "https://localhost:44312/route-direction";
 					break;
 			}
 		}

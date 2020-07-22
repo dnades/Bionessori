@@ -120,50 +120,52 @@
 					</div>
 
 					<div class="modal-body">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="text-center" scope="col">Код</th>
-									<th class="text-center" scope="col">Материал</th>
-									<th class="text-center" scope="col">Группа</th>
-									<th class="text-center" scope="col">Ед.Изм.</th>
-									<th class="text-center" scope="col">Количество</th>
-									<th class="text-center" scope="col">Номер склада</th>
-								</tr>
-							</thead>
+						<div class="tbl">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="text-center" scope="col">Код</th>
+										<th class="text-center" scope="col">Материал</th>
+										<th class="text-center" scope="col">Группа</th>
+										<th class="text-center" scope="col">Ед.Изм.</th>
+										<th class="text-center" scope="col">Количество</th>
+										<th class="text-center" scope="col">Номер склада</th>
+									</tr>
+								</thead>
 
-							<tbody>
-								<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteMaterial">
-									<td class="text-center req-id">
-										<span>{{el.id}}</span>
-									</td>
+								<tbody>
+									<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteMaterial">
+										<td class="text-center req-id">
+											<span>{{el.id}}</span>
+										</td>
 
-									<td class="text-center">
-										<textarea id="id" class="form-control form-control-modal not-edit">{{el.code}}</textarea>
-									</td>
+										<td class="text-center">
+											<textarea id="id" class="form-control form-control-modal not-edit">{{el.code}}</textarea>
+										</td>
 
-									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.material}}</textarea>
-									</td>
+										<td class="text-center">
+											<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.material}}</textarea>
+										</td>
 
-									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.materialGroup}}</textarea>
-									</td>
+										<td class="text-center">
+											<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.materialGroup}}</textarea>
+										</td>
 
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
-									</td>
+										<td class="text-center">
+											<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
+										</td>
 
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
-									</td>
+										<td class="text-center">
+											<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
+										</td>
 
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.werehouseNumber}}</textarea>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+										<td class="text-center">
+											<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.werehouseNumber}}</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 
 					<div class="modal-footer">

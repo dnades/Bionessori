@@ -55,9 +55,9 @@ namespace Bionessori.Services {
 
             try {
                 using (var db = new SqlConnection(_connectionString)) {
-                    await db.QueryAsync($"INSERT INTO dbo.Receptions (date, number_reception, employee_id, card_number) " +
+                    var oReception = await db.QueryAsync($"INSERT INTO dbo.Receptions (date, number_reception, employee_id, card_number) " +
                         $"VALUES ('{patient.TimeProcRecommend}', {sNum}, {userId}, '{patient.CardNumber}')");
-                }
+                }                
             }
             catch(Exception ex) {
                 throw new Exception(ex.Message.ToString());
