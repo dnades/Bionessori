@@ -11,6 +11,8 @@ namespace Bionessori.Models {
 
         public string FullName { get; set; }    // ФИО сотрудника.
 
+        public string Login { get; set; }   // Логин сотрудника в системе.
+
         public string Position { get; set; }    // Специализация или должноть сотрудника.
 
         public string Address { get; set; } // Адрес сотрудника.

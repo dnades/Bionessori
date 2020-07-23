@@ -2,39 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bionessori.Core.Interfaces;
+using Bionessori.Models;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Bionessori.Controllers {
-    [Route("api/[controller]")]
-    [ApiController]
+    /// <summary>
+    /// Контроллер описывает работу с личным кабинетом.
+    /// </summary>
+    [ApiController, Route("api/front-office")]
     public class FrontOfficeController : ControllerBase {
-        // GET: api/<FrontOfficeController>
-        [HttpGet]
-        public IEnumerable<string> Get() {
-            return new string[] { "value1", "value2" };
+        IFrontOffice _office;
+
+        public FrontOfficeController(IFrontOffice office) {
+            _office = office;
         }
 
-        // GET api/<FrontOfficeController>/5
-        [HttpGet("{id}")]
-        public string Get(int id) {
-            return "value";
-        }
+        /// <summary>
+        /// Метод получает информацию сотрудника.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        [HttpPost, Route("get-employee-info")]
+        public async Task<IActionResult> GetEmployeeInfo(Employee employee) {
+            try {
+                if (string.IsNullOrEmpty(employee.Login)) {
+                    throw new ArgumentNullException();
+                }
 
-        // POST api/<FrontOfficeController>
-        [HttpPost]
-        public void Post([FromBody] string value) {
-        }
+                // Получает данные сотрудника.
+                var oEmployee = await _office.GetEmployeeInfo(employee.Login);
 
-        // PUT api/<FrontOfficeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value) {
-        }
-
-        // DELETE api/<FrontOfficeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id) {
+                return Ok(oEmployee);
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException($"Логин не передан {ex.Message}");
+            }
         }
     }
 }

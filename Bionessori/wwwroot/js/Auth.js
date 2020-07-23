@@ -8,7 +8,11 @@ var app = new Vue({
 		if (localStorage["user"]) {
 			$(".state-log").hide();
 			$(".state").show();
+			this.userName = JSON.parse(localStorage["user"]).username;
 		}
+	},
+	data: {
+		userName: ""
 	},
 	methods: {		
 		// Функция отправляет данные регистрации на Back-end.
@@ -109,6 +113,11 @@ var app = new Vue({
 
 					console.log("Ошибка авторизации пользователя.", XMLHttpRequest.response.data);
 				});
+		},
+
+		// Функция переходит в личный кабинет.
+		onRouteFrontOffice() {
+			window.location.href = "https://localhost:44312/route-front-office";
 		}
 	}
 });

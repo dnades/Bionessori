@@ -438,3 +438,11 @@ ul li {
         }
     }
 }
+
+// В том числе для логина выпадающего меню.
+hr {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}

@@ -55,48 +55,52 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row" v-for="el in aEmployeeInfo">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="form-control-sm">Логин:</label>
+					<label class="form-control-sm"><strong>Логин:</strong> {{el.login}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Возраст:</label>
+					<label class="form-control-sm"><strong>ФИО:</strong> {{el.fullName}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Дата рождения:</label>
+					<label class="form-control-sm"><strong>Возраст:</strong> {{el.age}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Контактный номер:</label>
+					<label class="form-control-sm"><strong>Дата рождения:</strong> {{el.dateBirth}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Специализация:</label>
+					<label class="form-control-sm"><strong>Контактный номер:</strong> {{el.number == null ? 'нет' : el.number}}</label>
+				</div>
+
+				<div class="form-group">
+					<label class="form-control-sm"><strong>Специализация:</strong> {{el.position}}</label>
 				</div>
 			</div>
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="form-control-sm">Опыт работы:</label>
+					<label class="form-control-sm"><strong>Опыт работы:</strong> нет</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Серия и № паспорта:</label>
+					<label class="form-control-sm"><strong>Серия и № паспорта:</strong> {{el.pasportNumber == null ? 'нет' : el.pasportNumber}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">№ учреждения:</label>
+					<label class="form-control-sm"><strong>№ учреждения:</strong> {{el.numberSeatWork == 0 ? 'нет' : el.numberSeatWork}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Адрес работы:</label>
+					<label class="form-control-sm"><strong>Адрес работы:</strong> {{el.address}}</label>
 				</div>
 
 				<div class="form-group">
-					<label class="form-control-sm">Таб.Номер:</label>
+					<label class="form-control-sm"><strong>Таб.Номер:</strong> {{el.tabNumber}}</label>
 				</div>
 			</div>
 		</div>
