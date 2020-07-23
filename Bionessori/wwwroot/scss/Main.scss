@@ -30,6 +30,7 @@ $noneId: none;
 body {
     background: #FDFFFF;
     color: #676767;
+    overflow-x: hidden;
 }
 
 .navbar {
@@ -139,6 +140,12 @@ table {
         background: #FDFFFF;
         font-weight: 900 !important;
         vertical-align: middle !important;
+    }
+
+    tr {
+        &:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
     }
 
     .state {
@@ -383,20 +390,51 @@ table {
     margin: 0 auto;
 }
 
-// Выпадающе меню
-.mega_box_menu {
-    display: none;
-}
-
-.menu_link_man:hover .mega_box_menu {
-    display: block;
-    position: relative;
-}
-
 .menu_link_man {
     list-style-type: none;
 }
 
 ul li {
     list-style-type: none;
+
+    /*&:hover {
+        cursor: pointer;
+        color: cornflowerblue;
+    }*/
+}
+
+// Выпадающее меню.
+.drop-down {
+    position: relative;
+
+    &:hover .drop-menu {
+        visibility: visible;
+        background-color: white;
+        box-shadow: 0px 0px 5px 0px #C1C1C1;
+        cursor: pointer;
+        color: cornflowerblue;
+
+        span {
+            color: #676767;
+        }
+    }
+
+    .drop-menu {
+        position: absolute;
+        background-color: transparent;
+        padding: 0 10px;
+        border-radius: 8px;
+        visibility: hidden;
+        transition: .3s;
+        right: 2px;
+
+        span {
+            color: transparent;
+
+            &:hover {
+                cursor: pointer;
+                color: cornflowerblue;
+            }
+        }
+    }
 }

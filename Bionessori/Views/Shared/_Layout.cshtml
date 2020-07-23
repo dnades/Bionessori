@@ -52,29 +52,58 @@
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#login-modal">Войти</button>
 
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
-						
-						<nav class="navigation">
-							<div class="container">
-								<ul class="menu">
-									<li class="menu_link_man">
-										@*<a class="menu_link" href="./product.html">Man</a>*@
-										<div class="dropdown">
-											<button type="button" class="btn-item btn btn-default state" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
-										</div>
-										<div class="mega_box_menu">
-											<div class="mega_menu">
-												<div class="mega_block_left mega_block">
-													<ul class="sub_menu_manwoman">
-														<li><a href="@Url.Action("RouteFrontOffice", "Route")">Мой профиль</a> </li>
-														<li><a href="#">Выйти</a> </li>
-													</ul>
+
+						@*<button type="button" class="btn-item btn btn-default state" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>*@
+
+						@*<nav class="navigation">
+								<div class="container">
+									<ul class="menu">
+										<li class="menu_link_man">
+											<div class="dropdown">
+
+											</div>
+											<div class="mega_box_menu">
+												<div class="mega_menu">
+													<div class="mega_block_left mega_block">
+														<ul class="sub_menu_manwoman">
+															<li><a href="@Url.Action("RouteFrontOffice", "Route")">Мой профиль</a> </li>
+															<li><a href="#">Справка</a> </li>
+															<li><a href="#">Выйти</a> </li>
+														</ul>
+													</div>
 												</div>
 											</div>
-										</div>
+										</li>
+									</ul>
+								</div>
+							</nav>*@
+
+						<!-- Выпадающее меню. -->
+						<div class="drop-down">
+							<button type="button" class="btn-item btn btn-default state" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+							</button>
+							<div class="drop-menu">
+								<ul>
+									@*<li><a href="@Url.Action("RouteFrontOffice", "Route")">Мой&nbsp;профиль</a></li>
+		<li><a href="#">Справка</a></li>
+		<li><a href="#">Выйти</a></li>*@
+
+									<li>
+										<span>Мой&nbsp;профиль</span>
+									</li>
+
+									<li>
+										<span>Справка</span>
+									</li>
+
+									<li>
+										<span>Выйти</span>
 									</li>
 								</ul>
 							</div>
-						</nav>
+						</div>
+
 					</div>
 
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -90,7 +119,7 @@
 				&copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
 			</div>
 		</footer>
-		
+
 		<!-- Модальное окно авторизации. -->
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
 			<div id="signin-modal" class="modal-dialog" role="document">
