@@ -17,7 +17,16 @@ var main = new Vue({
 				axios.post(sUrl, { Login: JSON.parse(localStorage["user"]).username })
 					.then((response) => {
 						this.aEmployeeInfo = response.data;
-						console.log("Информация о сотруднике", response.data);
+
+						// Форматирует дату рождения.
+						let temp = new Date(this.aEmployeeInfo[0].dateBirth).toLocaleDateString();
+						this.aEmployeeInfo[0].dateBirth = temp;
+
+						// Форматирует дату найма.
+						let temp1 = new Date(this.aEmployeeInfo[0].startDateWork).toLocaleDateString();
+						this.aEmployeeInfo[0].startDateWork = temp1;
+
+						console.log("Информация о сотруднике", this.aEmployeeInfo);
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка получения информации о сотруднике", XMLHttpRequest.response.data);
