@@ -3,7 +3,9 @@ using Bionessori.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +33,35 @@ namespace Bionessori.Services {
 
                     return oEmployee;
                 }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Reception>> GetEmployeeReceptions(string fullName) {
+           try {
+                if (string.IsNullOrEmpty(fullName)) {
+                    throw new ArgumentNullException();
+                }
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@userName", fullName, DbType.String);
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oEmployeeReceptions = await db.QueryAsync<Reception>("dbo.sp_GetEmployeeReceptions",
+                        commandType: CommandType.StoredProcedure,
+                        param: parameters);
+
+                    return oEmployeeReceptions.AsEnumerable();
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Логин не передан", ex.Message.ToString()); 
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());

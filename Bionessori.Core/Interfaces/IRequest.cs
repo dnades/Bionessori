@@ -14,7 +14,7 @@ namespace Bionessori.Core.Interfaces {
         /// Метод получает список заявок.
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRequests(Request request);
+        Task<object> GetRequests();
 
         /// <summary>
         /// Метод создает новую заявку на потребности в закупках.

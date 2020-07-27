@@ -90,7 +90,7 @@ namespace Bionessori.Controllers {
         /// Метод получает список записей на прием.
         /// </summary>
         [HttpPost, Route("get-receptions")]
-        public async Task<IActionResult> GetReceptions() {
+        public async Task<IActionResult> GetReceptions([FromBody] Reception reception) {
             var oReceptions = await _registry.GetReceptions();
 
             return Ok(oReceptions);

@@ -8,7 +8,7 @@ var registry = new Vue({
 		this.loadEmployees();
 		this.loadReceptions();
 
-		localStorage["editCard"] ? this.editCard = localStorage["editCard"] : "";
+		localStorage["editCard"] ? this.editCard = localStorage["editCard"] : "";		
 	},
 	data: {
 		visibleGroup: false,
@@ -186,7 +186,7 @@ var registry = new Vue({
 			let sUrl = "https://localhost:44312/api/data/registry/get-receptions";
 
 			try {
-				axios.post(sUrl)
+				axios.post(sUrl, {})
 					.then((response) => {						
 						this.aReceptions = response.data;
 						console.log("Список записей", this.aReceptions);
@@ -258,6 +258,6 @@ var registry = new Vue({
 		// Функция переходит на страницу направлений.
 		onRouteDirection(event) {
 			main.onRouteMatched(event);
-		}
+		}		
 	}
 });

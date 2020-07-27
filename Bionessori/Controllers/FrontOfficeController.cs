@@ -39,5 +39,15 @@ namespace Bionessori.Controllers {
                 throw new ArgumentNullException($"Логин не передан {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Метод получает список записей на прием к конкретному врачу.
+        /// </summary>
+        [HttpPost, Route("employee-receptions")]
+        public async Task<IActionResult> GetEmployeeReceptions([FromBody] User user) {
+            var oEmployeeReceptions = await _office.GetEmployeeReceptions(user.Login);
+
+            return Ok(oEmployeeReceptions);
+        }
     }
 }

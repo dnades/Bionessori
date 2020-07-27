@@ -105,6 +105,7 @@ var app = new Vue({
 					$("#id-registry").prop("disabled", false);
 				
 					console.log("Пользователь успешно авторизован.", response);
+					window.location.reload();
 				})
 				.catch((XMLHttpRequest) => {
 					$(".btn-login").prop('disabled', false);
@@ -118,6 +119,12 @@ var app = new Vue({
 		// Функция переходит в личный кабинет.
 		onRouteFrontOffice() {
 			window.location.href = "https://localhost:44312/route-front-office";
-		}
+		},
+
+		// Функция выходит из личного кабинета.
+		onLogOut() {
+			localStorage.removeItem("user");
+			window.location.reload();
+		}		
 	}
 });

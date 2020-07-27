@@ -108,7 +108,7 @@
 		<!-- Секция таблицы с расписанием ближайших записей. -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h3>Расписание ближайших записей на прием</h3>
+				<h3>Ваши ближайшие записи на прием</h3>
 			</div>
 		</div>
 
@@ -137,44 +137,34 @@
 								№ карты пациента
 							</button>
 						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Врач
-							</button>
-						</th>
-
+					
 						@*<th class="text-center" scope="col"></th>
 						<th class="text-center" scope="col"></th>*@
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr class="tbl-item tbl-row-click" v-for="" v-on:dblclick="">
+					<tr class="tbl-item tbl-row-click" v-for="el in aEmployeeReceptions" v-on:dblclick="">
 						<th class="text-center" scope="col">
 							<input type="checkbox">
 						</th>
 
 						<td class="text-center req-id">
-							<span>{{}}</span>
+							<span>{{el.id}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.numberReception}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.date}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.cardNumber}}</span>
 						</td>
-
-						<td class="text-center">
-							<span>{{}}</span>
-						</td>
-
+						
 						@*<td class="text-center state">
 							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_reception" v-on:click="">
 								<i class="fa fa-pencil" aria-hidden="true"></i>

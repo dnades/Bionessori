@@ -22,8 +22,8 @@ namespace Bionessori.Controllers {
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost, Route("get-requests")]
-        public async Task<IActionResult> GetRequests([FromBody] Request request) {
-            var oRequests = await _request.GetRequests(request);
+        public async Task<IActionResult> GetRequests() {
+            var oRequests = await _request.GetRequests();
 
             return Ok(oRequests);
         }

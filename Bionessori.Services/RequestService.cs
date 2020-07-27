@@ -30,7 +30,7 @@ namespace Bionessori.Services {
         /// Метод получает список заявок на потребности.
         /// </summary>
         /// <returns></returns>
-        public async Task<object> GetRequests(Request request) {
+        public async Task<object> GetRequests() {
             // Вызывает процедуру для выборки списка заявок.
             using (var db = new SqlConnection(_connectionString)) {
                 var oRequests = await db.QueryAsync("sp_GetRequests");
