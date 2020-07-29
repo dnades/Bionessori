@@ -29,7 +29,7 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<string> Create(User user);
+        Task Create(User user);
 
         /// <summary>
         /// Метод выбирает пароль пользователя из БД.

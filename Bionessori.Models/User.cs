@@ -15,6 +15,6 @@ namespace Bionessori.Models {
 
         public string Number { get; set; } 
 
-        public string Password { get; set; }
+        public string Password { get; set; }        
     }
 }

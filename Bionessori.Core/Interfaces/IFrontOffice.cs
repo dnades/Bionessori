@@ -20,5 +20,12 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns>Коллекция записей.</returns>
         Task<IEnumerable<Reception>> GetEmployeeReceptions(string fullName);
+
+        /// <summary>
+        /// Метод добавляет информацию сотрудника.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        Task AddEmployeeInfo(Employee employee);
     }
 }

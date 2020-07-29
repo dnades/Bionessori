@@ -36,5 +36,7 @@ namespace Bionessori.Models {
         public int DepartmentId { get; set; }   // Уникальный номер отделения, в котором работает сотрудник.
 
         public int UserId { get; set; } // Id пользователя системы, под которым сидит сотрудник.
+
+        public string SeatType { get; set; }    // Поликлиника или стационар.
     }
 }

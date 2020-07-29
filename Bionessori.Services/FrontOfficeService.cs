@@ -1,4 +1,5 @@
-﻿using Bionessori.Core.Interfaces;
+﻿using Bionessori.Core.Extensions;
+using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
 using System;
@@ -40,11 +41,11 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод реализует 
+        /// Метод реализует получение записей сотрудника.
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<Reception>> GetEmployeeReceptions(string fullName) {
-           try {
+            try {
                 if (string.IsNullOrEmpty(fullName)) {
                     throw new ArgumentNullException();
                 }
@@ -61,10 +62,40 @@ namespace Bionessori.Services {
                 }
             }
             catch (ArgumentNullException ex) {
-                throw new ArgumentNullException("Логин не передан", ex.Message.ToString()); 
+                throw new ArgumentNullException("Логин не передан", ex.Message.ToString());
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует добавление информации сотрудника.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public async Task AddEmployeeInfo(Employee employee) {
+            string seatType = "";    // Тип места работы сотрудника.
+
+           try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Записывает тип места работы сотрудника в таблицу сотрудников (поликлиника или стационар).
+                    switch (employee.SeatType) {
+                        case "Поликлиника":
+                            seatType = SeatTypeExtension.Поликлиника.ToString();
+                            break;
+
+                        case "Стационар":
+                            seatType = SeatTypeExtension.Стационар.ToString();
+                            break;
+                    }
+
+                    // Добавляет информацию о сотруднике.
+                    await db.QueryAsync($"INSERT INTO dbo.Employees (full_name, position, address, post_code, contact_number, tab_number, date_birth, number_passport, age, number_seat_work, seat_type) VALUES ('{employee.FullName}', '{employee.Position}', '{employee.Address}', '{employee.PostCode}', '{employee.Number}', '{employee.TabNumber}', '{employee.DateBirth}', '{employee.PasportNumber}', {employee.Age}, '{employee.NumberSeatWork}', '{seatType}')");
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception("Неизвестная ошибка", ex);
             }
         }
     }
