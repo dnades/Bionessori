@@ -139,5 +139,29 @@ namespace Bionessori.Services {
                 return userId;
             }
         }
+
+        /// <summary>
+        /// Метод удаляет записи на прием из ЛК.
+        /// TODO: Доработать случай множественного удаления.
+        /// </summary>
+        /// <param name="reception"></param>
+        /// <returns></returns>
+        public async Task DeleteReception(Reception reception) {
+            try {
+                if (Convert.ToInt32(reception.Id) == 0) {
+                    throw new ArgumentNullException();
+                }
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    await db.QueryAsync($"DELETE FROM dbo.Receptions WHERE id = {reception.Id}");
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Id не передан", ex);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

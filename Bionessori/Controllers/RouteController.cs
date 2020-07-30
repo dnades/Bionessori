@@ -21,6 +21,12 @@ namespace Bionessori.Controllers {
             return View();
         }
 
+        // Метод возвращает на главную страницу.
+        [Route("index")]
+        public IActionResult RouteIndex() {
+            return View("Index");
+        }
+
         // Метод перенаправляет на страницу со списком карт пациентов.       
         [Route("route/card")]
         public IActionResult RouteCard() {

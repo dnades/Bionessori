@@ -15,7 +15,9 @@ var main = new Vue({
 	data: {
 		aEmployeeInfo: [],
 		aEmployeeReceptions: [],
-		errorPatient: true
+		errorPatient: true,
+		checkReception: true,
+		aSelectedReception: []
 	},
 	methods: {
 		// Функция подгружает информацию о сотруднике в личный кабинет.
@@ -79,6 +81,29 @@ var main = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка создания расписания", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+		
+		// Функция удаляет записи на прием.
+		onDeleteReceptionEmployee() {
+			let aItems = main.aSelectedReception;
+			console.log(aItems);
+
+			let sUrl = "https://localhost:44312/api/front-office/delete-reception";
+
+			try {
+				axios.post(sUrl, {
+					Id: aItems[0]	// TODO: переделать на множественное удаление.
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка удаления записи", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

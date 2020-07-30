@@ -35,5 +35,13 @@ namespace Bionessori.Core.Interfaces {
         /// <returns></returns>
 
         Task AddSchedule(Schedule schedule);
+
+        /// <summary>        
+        /// Метод удаляет записи на прием из ЛК.
+        /// /// TODO: Доработать случай множественного удаления.
+        /// </summary>
+        /// <param name="reception"></param>
+        /// <returns></returns>
+        Task DeleteReception(Reception reception);
     }
 }

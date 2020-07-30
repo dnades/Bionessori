@@ -143,8 +143,9 @@
 
 									<!-- Секция таблицы с расписанием ближайших записей. -->
 									<div class="row">
-										<div class="col-lg-12">
+										<div class="col-lg-12 block-receptions-lists mb-1">
 											<h3>Ваши ближайшие записи на прием</h3>
+											<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" value="create_card" v-show="checkReception" v-on:click="onDeleteReceptionEmployee">Отменить</button>
 										</div>
 									</div>
 
@@ -194,7 +195,7 @@
 											<tbody>
 												<tr class="tbl-item tbl-row-click" v-for="el in aEmployeeReceptions" v-on:dblclick="">
 													<th class="text-center" scope="col">
-														<input type="checkbox">
+														<input type="checkbox" v-bind:value="el.id" v-model="aSelectedReception">
 													</th>
 
 													<td class="text-center req-id">

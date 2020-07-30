@@ -59,5 +59,16 @@ namespace Bionessori.Controllers {
 
             return Ok("Новое расписание успешно создано");
         }
+
+        /// <summary>
+        /// Метод удаляет записи на прием из ЛК.
+        /// TODO: Доработать случай множественного удаления.
+        /// </summary>
+        [HttpPost, Route("delete-reception")]
+        public async Task<IActionResult> DeleteReception(Reception reception) {
+            await _office.DeleteReception(reception);
+
+            return Ok("Удаление прошло успешно");
+        }
     }
 }
