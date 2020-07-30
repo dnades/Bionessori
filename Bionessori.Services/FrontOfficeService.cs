@@ -91,11 +91,52 @@ namespace Bionessori.Services {
                     }
 
                     // Добавляет информацию о сотруднике.
-                    await db.QueryAsync($"INSERT INTO dbo.Employees (full_name, position, address, post_code, contact_number, tab_number, date_birth, number_passport, age, number_seat_work, seat_type) VALUES ('{employee.FullName}', '{employee.Position}', '{employee.Address}', '{employee.PostCode}', '{employee.Number}', '{employee.TabNumber}', '{employee.DateBirth}', '{employee.PasportNumber}', {employee.Age}, '{employee.NumberSeatWork}', '{seatType}')");
+                    await db.QueryAsync($"INSERT INTO dbo.Employees (full_name, position, address, post_code, contact_number, tab_number, date_birth, number_passport, age, number_seat_work, seat_type) " +
+                        $"VALUES ('{employee.FullName}', '{employee.Position}', '{employee.Address}', '{employee.PostCode}', '{employee.Number}', '{employee.TabNumber}', '{employee.DateBirth}', '{employee.PasportNumber}', {employee.Age}, '{employee.NumberSeatWork}', '{seatType}')");
                 }
             }
             catch (Exception ex) {
                 throw new Exception("Неизвестная ошибка", ex);
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует добавление нового расписания.
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
+        public async Task AddSchedule(Schedule schedule) {
+            try {
+                if (string.IsNullOrEmpty(schedule.EmployeeName)) {
+                    throw new ArgumentNullException();
+                }
+
+                schedule.Status = "Работает";
+                int employeeId = await GetUserIds(schedule.EmployeeName);
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    await db.QueryAsync($"INSERT INTO dbo.Schedules (date_start, employee_id, status) VALUES ('{schedule.DateSchedule}', {employeeId}, '{schedule.Status}')");
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Логин не передан", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Получает id юзера по его имени.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<int> GetUserIds(string login) {
+            using (var db = new SqlConnection(_connectionString)) {
+                var result = await db.QueryAsync<string>($"SELECT id FROM u0772479_admin.Users WHERE login = '{login}'");
+                int userId = Convert.ToInt32(result.FirstOrDefault());
+
+                return userId;
             }
         }
     }

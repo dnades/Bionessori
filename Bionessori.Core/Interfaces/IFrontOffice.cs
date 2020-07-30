@@ -27,5 +27,13 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="employee"></param>
         /// <returns></returns>
         Task AddEmployeeInfo(Employee employee);
+
+        /// <summary>
+        /// Метод добавляет новое расписание.
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
+
+        Task AddSchedule(Schedule schedule);
     }
 }

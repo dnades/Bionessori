@@ -14,7 +14,8 @@ var main = new Vue({
 	},
 	data: {
 		aEmployeeInfo: [],
-		aEmployeeReceptions: []
+		aEmployeeReceptions: [],
+		errorPatient: true
 	},
 	methods: {
 		// Функция подгружает информацию о сотруднике в личный кабинет.
@@ -57,6 +58,27 @@ var main = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка получения записей сотрудника", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция создает новое расписание.
+		onCreateSchedule() {
+			let sUrl = "https://localhost:44312/api/front-office/add-schedule";
+
+			try {
+				axios.post(sUrl, {
+					EmployeeName: JSON.parse(localStorage["user"]).username,
+					DateSchedule: new Date($("#id-date").val()).toLocaleString()
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка создания расписания", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

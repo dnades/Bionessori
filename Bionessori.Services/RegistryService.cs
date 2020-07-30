@@ -65,7 +65,7 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Получает id юзера по его имени.
+        /// Получает id сотрудника по его имени.
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>

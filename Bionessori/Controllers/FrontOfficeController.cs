@@ -49,5 +49,15 @@ namespace Bionessori.Controllers {
 
             return Ok(oEmployeeReceptions);
         }
+
+        /// <summary>
+        /// Метод добавляет новое расписание сотрудника.
+        /// </summary>
+        [HttpPost, Route("add-schedule")]
+        public async Task<IActionResult> AddSchedule([FromBody] Schedule schedule) {
+            await _office.AddSchedule(schedule);
+
+            return Ok("Новое расписание успешно создано");
+        }
     }
 }
