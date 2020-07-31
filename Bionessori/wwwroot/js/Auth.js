@@ -124,6 +124,7 @@ var app = new Vue({
 		// Функция выходит из личного кабинета.
 		onLogOut() {
 			localStorage.removeItem("user");
+			localStorage.removeItem("roles");
 			window.location.href = "https://localhost:44312/index";
 		}		
 	}

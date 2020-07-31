@@ -250,11 +250,7 @@ table thead th {
   list-style-type: none; }
 
 ul li {
-  list-style-type: none;
-  /*&:hover {
-        cursor: pointer;
-        color: cornflowerblue;
-    }*/ }
+  list-style-type: none; }
 
 .drop-down {
   position: relative; }
