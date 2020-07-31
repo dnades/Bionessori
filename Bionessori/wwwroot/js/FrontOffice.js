@@ -4,12 +4,13 @@ var main = new Vue({
 	el: '#front_office',
 	created() {
 		this.loadEmployeeInfo();
+		//this.loadEmployeeReceptions();
 
 		// Если у пользователя есть роль для просмотра своих записей.
 		if (JSON.parse(localStorage["user"]).role.length &&
 			JSON.parse(localStorage["user"]).role.includes("main_doctor_ambulator_card") ||
 			JSON.parse(localStorage["user"]).role.includes("admin")) {
-			this.loadEmployeeReceptions();
+			this.loadEmployeeReceptions();	// Подгружает список записей на прием.
 		}
 	},
 	data: {
@@ -17,7 +18,9 @@ var main = new Vue({
 		aEmployeeReceptions: [],
 		errorPatient: true,
 		checkReception: true,
-		aSelectedReception: []
+		aSelectedReception: [],
+		visibleEmployeeInfo: true,
+		visibleDataEmployee: true
 	},
 	methods: {
 		// Функция подгружает информацию о сотруднике в личный кабинет.
@@ -40,6 +43,7 @@ var main = new Vue({
 						console.log("Информация о сотруднике", this.aEmployeeInfo);
 					})
 					.catch((XMLHttpRequest) => {
+						this.visibleEmployeeInfo = false;
 						console.log("Ошибка получения информации о сотруднике", XMLHttpRequest.response.data);
 					})
 			}
@@ -57,8 +61,11 @@ var main = new Vue({
 					.then((response) => {
 						this.aEmployeeReceptions = response.data;
 						console.log("Записи сотрудника", this.aEmployeeReceptions);
+
+						!main.aEmployeeReceptions.length ? this.visibleDataEmployee = false : this.visibleDataEmployee = true;
 					})
-					.catch((XMLHttpRequest) => {
+					.catch((XMLHttpRequest) => {					
+						this.visibleDataEmployee = false;
 						console.log("Ошибка получения записей сотрудника", XMLHttpRequest.response.data);
 					})
 			}
