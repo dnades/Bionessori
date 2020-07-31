@@ -26,7 +26,7 @@ var registry = new Vue({
 		selectDate: "",
 		aReceptions: [],
 		editCard: "",
-		deleteReception: null		
+		deleteReception: null
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -258,6 +258,31 @@ var registry = new Vue({
 		// Функция переходит на страницу направлений.
 		onRouteDirection(event) {
 			main.onRouteMatched(event);
-		}		
+		},
+
+		// Функция находит запись по ее id.
+		onSearchReception() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-reception";
+			let iId = +$(".input-search").val();
+
+			if (iId == "") {
+				this.loadReceptions();
+				return;
+			}				
+
+			try {
+				axios.post(sUrl, { Id: iId })
+					.then((response) => {
+						console.log(response.data);
+						this.aReceptions = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения записи", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		}
 	}
 });

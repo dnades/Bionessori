@@ -124,5 +124,15 @@ namespace Bionessori.Controllers {
                 throw new ArgumentException($"Id не передан {ex.Message}");
             }            
         }
+
+        /// <summary>
+        /// Метод выбирает запись на прием.
+        /// </summary>
+        [HttpPost, Route("get-reception")]
+        public async Task<IActionResult> GetReception([FromBody] Reception reception) {
+            var oReception = await _registry.GetReception(reception.Id);
+
+            return Ok(oReception);
+        }
     }
 }

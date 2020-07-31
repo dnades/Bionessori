@@ -233,5 +233,30 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Метод находит конкретную запись на прием.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Reception>> GetReception(int id) {
+            try {
+                if (Convert.ToInt32(id) == 0) {
+                    throw new ArgumentNullException();
+                }
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oReception = await db.QueryAsync<Reception>($"SELECT * FROM dbo.Receptions WHERE id = {id}");
+
+                    return oReception.AsEnumerable();
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Id не передан", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

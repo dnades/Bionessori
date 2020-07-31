@@ -83,5 +83,12 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="reception"></param>
         /// <returns></returns>
         Task DeleteReception(int id);
+
+        /// <summary>
+        /// Метод находит конкретную запись на прием.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Reception>> GetReception(int id);
     }
 }
