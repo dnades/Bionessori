@@ -292,5 +292,34 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Метод создает направление.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public async Task CreateDirection(Direction direction) {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Получает id карты пациента по его имени.
+                    var objCard = await db.QueryAsync<string>($"SELECT card_number FROM dbo.PatientCards " +
+                        $"WHERE full_name = '{direction.PatientName}'");
+
+                    // Получает id места направления по его названию.
+                    var objDirect = await db.QueryAsync<int>($"SELECT id FROM dbo.SeatDirections " +
+                        $"WHERE name_direction = '{direction.SeatDirection}'");
+
+                    // Генерит номер направления.
+                    string generateNumberDirect = RandomDataService.GenerateRandomNumber();
+
+                    // Сохраняет новое направление.
+                    await db.QueryAsync($"INSERT INTO dbo.Directions (card_number, number_direction, seat_direction_id) " +
+                        $"VALUES ({objCard.FirstOrDefault()}, {generateNumberDirect}, {objDirect.FirstOrDefault()})");
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

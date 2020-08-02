@@ -102,5 +102,11 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<string>> GetPatientNames();
+
+        /// <summary>
+        /// Метод создает направление.
+        /// </summary>
+        /// <returns></returns>
+        Task CreateDirection(Direction direction);
     }
 }

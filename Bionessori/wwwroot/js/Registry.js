@@ -31,6 +31,7 @@ var registry = new Vue({
 		deleteReception: null,
 		aSeatDirections: [],
 		selectSeatDirection: "",
+		selectPatient: "",
 		aPatientNames: []
 	},
 	methods: {
@@ -327,6 +328,29 @@ var registry = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка получения списка имен пациентов", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция создает направление.
+		onCreateDirection() {
+			let sUrl = "https://localhost:44312/api/data/registry/create-direction";
+			let sPatient = $("#id-select-number-val").val();
+			let sDirection = $("#id-select-doctor-val").val();
+
+			try {
+				axios.post(sUrl, {
+					PatientName: sPatient,
+					SeatDirection: sDirection
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка создания направления", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

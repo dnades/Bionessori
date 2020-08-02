@@ -146,13 +146,35 @@ namespace Bionessori.Controllers {
         }
 
         /// <summary>
-        /// Метод получат имена пациентов.
+        /// Метод получает имена пациентов.
         /// </summary>
         [HttpPost, Route("get-patient-names")]
         public async Task<IActionResult> GetPatientNames() {
             var oNames = await _registry.GetPatientNames();
 
             return Ok(oNames);
+        }
+
+        /// <summary>
+        /// Метод создает направление.
+        /// </summary>
+        [HttpPost, Route("create-direction")]
+        public async Task<IActionResult> CreateDirection([FromBody] Direction direction) {
+            try {
+                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection))) {
+                    throw new ArgumentNullException();
+                }
+
+                await _registry.CreateDirection(direction);
+
+                return Ok("Направление успешно создано.");
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Входные параметры не заполнены", ex);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }            
         }
     }
 }
