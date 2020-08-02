@@ -12,16 +12,16 @@ var main = new Vue({
 			switch (sRoute) {
 				// Переходит на страницу карт пациентов.
 				case "card":
-					window.location.href = "https://localhost:44312/route/card";
+					window.location.href = "https://localhost:44312/card";
 					break;		
 
 				case "create_card":
-					window.location.href = "https://localhost:44312/route/create-card";
+					window.location.href = "https://localhost:44312/create-card";
 					break;
 					
 				// Переходит на страницу ведения MRP
 				case "mrp":
-					window.location.href = "https://localhost:44312/route/mrp";
+					window.location.href = "https://localhost:44312/mrp";
 					break;
 
 				// Переходит на страницу списка заявок на потребности MRP.
@@ -36,11 +36,11 @@ var main = new Vue({
 
 				// Переходит к созданию заявки.
 				case "create_request":
-					window.location.href = "https://localhost:44312/route/create-request";
+					window.location.href = "https://localhost:44312/create-request";
 					break;
 
 				case "registry":
-					window.location.href = "https://localhost:44312/route/route-registry";
+					window.location.href = "https://localhost:44312/registry";
 					break;
 
 				case "route_reception":
@@ -48,7 +48,11 @@ var main = new Vue({
 					break;
 
 				case "route_direction":
-					window.location.href = "https://localhost:44312/route-direction";
+					window.location.href = "https://localhost:44312/direction";
+					break;
+
+				case "create_direction":
+					window.location.href = "https://localhost:44312/create-direction";
 					break;
 			}
 		}

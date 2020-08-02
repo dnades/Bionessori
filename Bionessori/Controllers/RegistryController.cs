@@ -134,5 +134,25 @@ namespace Bionessori.Controllers {
 
             return Ok(oReception);
         }
+
+        /// <summary>
+        /// Метод получает названия мест направлений пациентов.
+        /// </summary>
+        [HttpPost, Route("get-seat-directions")]
+        public async Task<IActionResult> GetSeatDirections() {
+            var oDirectNames = await _registry.GetSeatDirections();
+
+            return Ok(oDirectNames);
+        }
+
+        /// <summary>
+        /// Метод получат имена пациентов.
+        /// </summary>
+        [HttpPost, Route("get-patient-names")]
+        public async Task<IActionResult> GetPatientNames() {
+            var oNames = await _registry.GetPatientNames();
+
+            return Ok(oNames);
+        }
     }
 }

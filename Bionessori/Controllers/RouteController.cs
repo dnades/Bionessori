@@ -28,7 +28,7 @@ namespace Bionessori.Controllers {
         }
 
         // Метод перенаправляет на страницу со списком карт пациентов.       
-        [Route("route/card")]
+        [Route("card")]
         public IActionResult RouteCard() {
             ViewData["Title"] = "Электронные медицинские карты пациентов - Список карт пациентов";
             
@@ -36,7 +36,7 @@ namespace Bionessori.Controllers {
         }
 
         // Метод переходит на страницу администратора.
-        [Route("route/admin")]
+        [Route("admin")]
         public IActionResult RouteAdmin() {
             ViewData["Title"] = "Панель администратора";
 
@@ -44,7 +44,7 @@ namespace Bionessori.Controllers {
         }
 
         // Метод переходит на страницу MRP.
-        [Route("route/mrp")]
+        [Route("mrp")]
         public IActionResult RouteMRP() {
             ViewData["Title"] = "Планирование потребностей в материалах";
 
@@ -68,7 +68,7 @@ namespace Bionessori.Controllers {
         }
 
         // Переходит к созданию новой заявки на потребности в материалах.
-        [Route("route/create-request")]
+        [Route("create-request")]
         public IActionResult CreateRequest() {
             ViewData["Title"] = "Планирование потребностей в материалах - Создание новой заявки";
 
@@ -76,7 +76,7 @@ namespace Bionessori.Controllers {
         }
 
         // Переходит на страницу создания карты пациента.
-        [Route("route/create-card")]
+        [Route("create-card")]
         public IActionResult RouteCreateCard() {
             ViewData["Title"] = "Ведение электронных карт пациентов - Создание новой карты пациента";
 
@@ -84,7 +84,7 @@ namespace Bionessori.Controllers {
         }
 
         // Переходит на страницу просмотра карты пациента.
-        [Route("route/get-card")]
+        [Route("get-card")]
         public IActionResult RouteGetCard() {
             ViewData["Title"] = "Ведение электронных карт пациентов - Просмотр карты пациента";
 
@@ -92,7 +92,7 @@ namespace Bionessori.Controllers {
         }
 
         // Переходит на страницу редактирования карты пациента.
-        [Route("route/edit-card")]
+        [Route("edit-card")]
         public IActionResult RouteEditCard() {
             ViewData["Title"] = "Ведение электронных карт пациентов - Редактирование карты пациента";
 
@@ -116,7 +116,7 @@ namespace Bionessori.Controllers {
         }
 
         // Метод переходит на страницу регистратуры.
-        [Route("route/route-registry")]
+        [Route("registry")]
         public IActionResult RouteRegistry() {
             ViewData["Title"] = "Ведение объектов регистратуры";
 
@@ -146,7 +146,7 @@ namespace Bionessori.Controllers {
         /// <summary>
         /// Метод переходит на страницу направлений.
         /// </summary>
-        [Route("route-direction")]
+        [Route("direction")]
         public IActionResult RouteDirection() {
             ViewData["Title"] = "Ведение объектов регистратуры - Направления";
 
@@ -156,9 +156,19 @@ namespace Bionessori.Controllers {
         /// <summary>
         /// Метод переходит на страницу личного кабинета.
         /// </summary>
-        [Route("route-front-office")]
+        [Route("front-office")]
         public IActionResult RouteFrontOffice() {
             ViewData["Title"] = "Мой профиль";
+
+            return View();
+        }
+
+        /// <summary>
+        /// Метод переходит на страницу создания направления.
+        /// </summary>
+        [Route("create-direction")]
+        public IActionResult RouteCreateDirection() {
+            ViewData["Title"] = "Ведение объектов регистратуры - Создание направления";
 
             return View();
         }

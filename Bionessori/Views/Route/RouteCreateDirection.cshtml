@@ -1,0 +1,141 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
+	<div id="registry" class="main-block-card">
+		<div>
+			<div class="col-lg-12">
+				<div class="row block-main-info">
+					<div class="btn-block-main mb-3 col-lg-12">
+						<!-- Левая секция кнопок -->
+						<div class="btn-left-block">
+							<div class="btns">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+										<li class="breadcrumb-item">
+											<a href="@Url.Action("RouteRegistry", "Route")">Регистратура</a>
+										</li>
+										
+										<li class="breadcrumb-item">
+											<a href="@Url.Action("RouteDirection", "Route")">Направления</a>
+										</li>
+
+										<li class="breadcrumb-item active" aria-current="page">Создание направления</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+
+						<!-- Правая секция кнопок -->
+						<div class="btn-right-block">							
+							@*<div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="errorPatient">
+								<strong>Произошла ошибка.</strong><br /> Пациент не найден.
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>*@
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция формирования направления. -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Формирование нового направления</h3>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="container block-registry">
+				<div class="item-set-registry">
+					<label>Выбор пациента</label>
+					<select>
+						<option></option>
+						<option v-for="el in aPatientNames">{{el}}</option>
+					</select>
+				</div>
+				&nbsp;
+				<div class="item-set-registry">
+					<label>Выбор места направления</label>
+					<select v-model="selectSeatDirection">
+						<option></option>
+						<option v-for="el in aSeatDirections">{{el}}</option>
+					</select>
+				</div>
+			</div>
+		</div>		
+
+		<!-- Секция с таблицей нового направления. -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Подтверждение нового направления</h3>
+			</div>
+		</div>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="" v-on:click="">
+							Пациент
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="" v-on:click="">
+							Место направления
+						</button>
+					</th>
+					
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="" v-on:click="">
+							Сохранение
+						</button>
+					</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr id="tbl-item-edit" class="tbl-item" v-for="">
+					<td class="text-center req-id">
+					</td>
+
+					<td class="text-center">
+						<input disabled type="text" id="id-select-number-val" class="form-control-sm" />
+					</td>
+
+					<td class="text-center">
+						<input disabled type="text" id="id-select-doctor-val" class="form-control-sm" />
+					</td>					
+
+					<td class="text-center">
+						<button type="button" class="btn-item-small btn btn-default" v-on:click="">Создать направление</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="~/js/Route.js"></script>
+	<script src="~/js/Registry.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

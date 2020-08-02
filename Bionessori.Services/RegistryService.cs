@@ -258,5 +258,39 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Метод выбирает название мест направлений пациентов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<string>> GetSeatDirections() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oDirectNames = await db.QueryAsync<string>("SELECT name_direction FROM dbo.SeatDirections");
+
+                    return oDirectNames;
+                }
+            }
+            catch (Exception ex) {
+                throw new ArgumentException(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает имена пациентов.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<string>> GetPatientNames() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oNames = await db.QueryAsync<string>("SELECT full_name AS fullName FROM dbo.PatientCards");
+
+                    return oNames;
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

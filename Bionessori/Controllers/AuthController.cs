@@ -59,10 +59,10 @@ namespace Bionessori.Controllers {
                 };
                 await _user.NotificationCheckIn(notification);
 
-                return Ok("Пользователь успешно зарегистрирован.");
+                return Ok("Пользователь успешно зарегистрирован");
             }
             catch(ArgumentNullException ex) {
-                throw new ArgumentNullException("Входные параметры не заполнены.", ex.Message.ToString());
+                throw new ArgumentNullException("Входные параметры не заполнены", ex.Message.ToString());
             }
         }
 
@@ -75,7 +75,7 @@ namespace Bionessori.Controllers {
         [HttpPost, Route("signin")]
         public async Task<IActionResult> SignIn([FromBody] User user) {
             if (string.IsNullOrEmpty(user.Login) || string.IsNullOrEmpty(user.Password)) {
-                throw new ArgumentException("Параметры не могут быть пустыми.");
+                throw new ArgumentException("Параметры не могут быть пустыми");
             }
 
             // Хэширует пароль для сравнения.
@@ -86,7 +86,7 @@ namespace Bionessori.Controllers {
 
             // Если пароль не совпадает с тем что в БД.
             if (!getIdentityPassword) {
-                throw new ArgumentException("Пароль не верен.");
+                throw new ArgumentException("Пароль не верен");
             }
 
             var isUser = await _user.GetIdentity(user.Login);
@@ -114,7 +114,7 @@ namespace Bionessori.Controllers {
                 return Ok(response);
             }
 
-            throw new ArgumentNullException("Пользователь не найден.");
+            throw new ArgumentNullException("Пользователь не найден");
         }        
     }
 }

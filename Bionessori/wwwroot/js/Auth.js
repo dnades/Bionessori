@@ -82,7 +82,7 @@ var app = new Vue({
 
 					// Если зашел админ.
 					//if (localStorage["roles"].includes("admin")) {
-					//	//window.location.href = "https://localhost:44312/route/admin";
+					//	//window.location.href = "https://localhost:44312/admin";
 					//}
 
 					$(".state-log").hide();
@@ -118,7 +118,7 @@ var app = new Vue({
 
 		// Функция переходит в личный кабинет.
 		onRouteFrontOffice() {
-			window.location.href = "https://localhost:44312/route-front-office";
+			window.location.href = "https://localhost:44312/front-office";
 		},
 
 		// Функция выходит из личного кабинета.

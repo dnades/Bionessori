@@ -24,7 +24,7 @@ namespace Bionessori.Core.Interfaces {
         Task Call(PatientCard patient);
 
         /// <summary>
-        /// Метод получает номера картпациентов.
+        /// Метод получает номера карт пациентов.
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
@@ -90,5 +90,17 @@ namespace Bionessori.Core.Interfaces {
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IEnumerable<Reception>> GetReception(int id);
+
+        /// <summary>
+        /// Метод получает названия мест направлений пациентов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<string>> GetSeatDirections();
+
+        /// <summary>
+        /// Метод получает имена пациентов.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<string>> GetPatientNames();
     }
 }

@@ -7,6 +7,8 @@ var registry = new Vue({
 		this.onGetEmployee();
 		this.loadEmployees();
 		this.loadReceptions();
+		this.loadSeatDirections();
+		this.loadPatientNames();
 
 		localStorage["editCard"] ? this.editCard = localStorage["editCard"] : "";		
 	},
@@ -26,7 +28,10 @@ var registry = new Vue({
 		selectDate: "",
 		aReceptions: [],
 		editCard: "",
-		deleteReception: null
+		deleteReception: null,
+		aSeatDirections: [],
+		selectSeatDirection: "",
+		aPatientNames: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -265,6 +270,7 @@ var registry = new Vue({
 			let sUrl = "https://localhost:44312/api/data/registry/get-reception";
 			let iId = +$(".input-search").val();
 
+			// Если нет id, значит нужно подгрузить все записи в таблицу.
 			if (iId == "") {
 				this.loadReceptions();
 				return;
@@ -278,6 +284,49 @@ var registry = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка получения записи", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция переходит к созданию направления.
+		onRouteCreateDirection(e) {
+			main.onRouteMatched(e);
+		},
+
+		// Функция получает список мест направлений.
+		loadSeatDirections() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-seat-directions";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aSeatDirections = response.data;
+						console.log("Места направлений", this.aSeatDirections);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения мест направлений", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция подгружает список карт пациентов.
+		loadPatientNames() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-patient-names";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aPatientNames = response.data;
+						console.log("Список имен пациентов", this.aPatientNames);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения списка имен пациентов", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

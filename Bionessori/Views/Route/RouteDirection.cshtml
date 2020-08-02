@@ -39,7 +39,7 @@
 
 						<!-- Правая секция кнопок -->
 						<div class="btn-right-block">
-							<button type="button" id="id-manage-personal" class="btn-item btn btn-default">Создать направление</button>
+							<button type="button" id="id-manage-personal" class="btn-item btn btn-default" value="create_direction" v-on:click="onRouteCreateDirection">Создать направление</button>
 							@*<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Завести карту</button>*@
 
 							@*<div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="errorPatient">
@@ -124,13 +124,7 @@
 
 						<th class="text-center" scope="col">
 							<button class="btn btn-link" value="card_number" v-on:click="">
-								№ записи
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Дата приема
+								№ направления
 							</button>
 						</th>
 
@@ -143,6 +137,12 @@
 						<th class="text-center" scope="col">
 							<button class="btn btn-link">
 								Врач
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								Место направления
 							</button>
 						</th>
 
