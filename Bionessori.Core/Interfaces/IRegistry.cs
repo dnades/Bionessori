@@ -108,5 +108,25 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task CreateDirection(Direction direction);
+
+        /// <summary>
+        /// Метод редактирует направление.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task EditDirection(int id);
+
+        /// <summary>
+        /// Метод удаляет направление.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteDirection(int id);
+
+        /// <summary>
+        /// Метод выбирает список направлений.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<dynamic>> GetDirections();
     }
 }

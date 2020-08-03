@@ -115,78 +115,64 @@
 		</div>
 
 		<div class="tbl">
-			<table id="id-request-list-table" class="table table-bordered">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">
-							<input type="checkbox">
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="">
-								№ направления
+							<button class="btn btn-link" value="" v-on:click="">
+								Пациент
 							</button>
 						</th>
 
 						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								№ карты пациента
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Врач
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
+							<button class="btn btn-link" value="" v-on:click="">
 								Место направления
 							</button>
 						</th>
 
-						<th class="text-center" scope="col"></th>
-						<th class="text-center" scope="col"></th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								Тип направления
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								Статус направления
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								Специалист
+							</button>
+						</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr class="tbl-item tbl-row-click" v-for="" v-on:dblclick="">
-						<th class="text-center" scope="col">
-							<input type="checkbox">
-						</th>
-
+					<tr id="tbl-item tbl-row-click" class="tbl-item" v-for="el in aDirections">
 						<td class="text-center req-id">
-							<span>{{}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.fullName == null || '' ? 'нет': el.fullName}}</span>
+						</td>
+
+						<td class="text-center">							
+							<span>{{el.nameDirection == '' ? 'нет' : el.nameDirection}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.directionType == '' ? 'нет' : el.directionType}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
+							<span>{{el.directionStatus == '' ? 'нет' : el.directionStatus}}</span>
 						</td>
 
 						<td class="text-center">
-							<span>{{}}</span>
-						</td>
-
-						<td class="text-center state">
-							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_reception" v-on:click="">
-								<i class="fa fa-pencil" aria-hidden="true"></i>
-							</button>
-						</td>
-
-						<td class="text-center state">
-							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-reception-modal" v-on:click="">
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
-							</button>
+							<span>{{el.employeeName == null || '' ? 'нет' : el.employeeName}}</span>
 						</td>
 					</tr>
 				</tbody>

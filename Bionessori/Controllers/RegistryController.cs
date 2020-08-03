@@ -176,5 +176,16 @@ namespace Bionessori.Controllers {
                 throw new Exception(ex.Message.ToString());
             }            
         }
+
+        /// <summary>
+        /// Метод получает список направлений.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("get-directions")]
+        public async Task<IActionResult> GetDirections() {
+            var oDirections = await _registry.GetDirections();
+
+            return Ok(oDirections);
+        }
     }
 }

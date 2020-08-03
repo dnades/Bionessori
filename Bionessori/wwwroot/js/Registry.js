@@ -9,6 +9,7 @@ var registry = new Vue({
 		this.loadReceptions();
 		this.loadSeatDirections();
 		this.loadPatientNames();
+		this.loadDirections();
 
 		localStorage["editCard"] ? this.editCard = localStorage["editCard"] : "";		
 	},
@@ -32,7 +33,8 @@ var registry = new Vue({
 		aSeatDirections: [],
 		selectSeatDirection: "",
 		selectPatient: "",
-		aPatientNames: []
+		aPatientNames: [],
+		aDirections: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -351,6 +353,25 @@ var registry = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка создания направления", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает список направлений.
+		loadDirections() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-directions";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aDirections = response.data;
+						console.log("Список направлений", this.aDirections);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения списка направлений", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

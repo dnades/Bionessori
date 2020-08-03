@@ -321,5 +321,30 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        public Task EditDirection(int id) {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteDirection(int id) {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод выбирает список направлений.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<dynamic>> GetDirections() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oDirections = await db.QueryAsync("dbo.sp_GetDirections");
+
+                    return oDirections;
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

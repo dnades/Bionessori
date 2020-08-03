@@ -30,7 +30,7 @@
 										<li class="breadcrumb-item">
 											<a href="@Url.Action("RouteRegistry", "Route")">Регистратура</a>
 										</li>
-										
+
 										<li class="breadcrumb-item">
 											<a href="@Url.Action("RouteDirection", "Route")">Направления</a>
 										</li>
@@ -42,13 +42,18 @@
 						</div>
 
 						<!-- Правая секция кнопок -->
-						<div class="btn-right-block">							
+						<div class="btn-right-block">
 							@*<div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="errorPatient">
-								<strong>Произошла ошибка.</strong><br /> Пациент не найден.
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>*@
+			<strong>Произошла ошибка.</strong><br /> Пациент не найден.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>*@
+							@*<button type="button" class="btn-item-small btn btn-default" v-on:click="onCreateDirection">Удалить</button>
+
+							<button type="button" class="btn-item-small btn btn-default" v-on:click="onCreateDirection">Изменить</button>*@
+
+							<button type="button" class="btn-item-small btn btn-default" v-on:click="onCreateDirection">Сохранить</button>
 						</div>
 					</div>
 				</div>
@@ -80,7 +85,7 @@
 					</select>
 				</div>
 			</div>
-		</div>		
+		</div>
 
 		<!-- Секция с таблицей нового направления. -->
 		<div class="row">
@@ -103,30 +108,50 @@
 							Место направления
 						</button>
 					</th>
-					
+
 					<th class="text-center" scope="col">
 						<button class="btn btn-link" value="" v-on:click="">
-							Сохранение
+							Тип направления
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="" v-on:click="">
+							Статус направления
+						</button>
+					</th>
+
+					<th class="text-center" scope="col">
+						<button class="btn btn-link" value="" v-on:click="">
+							Специалист
 						</button>
 					</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<tr id="tbl-item-edit" class="tbl-item" v-for="">
+				<tr id="tbl-item tbl-row-click" class="tbl-item" v-for="">
 					<td class="text-center req-id">
 					</td>
 
-					<td class="text-center">
-						<input disabled type="text" id="id-select-number-val" class="form-control-sm" v-bind:value="selectPatient" />
+					<td class="text-center">						
+						<span id="id-select-number-val" class="form-control-sm">{{selectPatient}}</span>
+					</td>
+
+					<td class="text-center">						
+						<span id="id-select-doctor-val" class="form-control-sm">{{selectSeatDirection}}</span>
 					</td>
 
 					<td class="text-center">
-						<input disabled type="text" id="id-select-doctor-val" class="form-control-sm" v-bind:value="selectSeatDirection" />
-					</td>					
+						<span id="id-select-doctor-val" class="form-control-sm"></span>
+					</td>
 
 					<td class="text-center">
-						<button type="button" class="btn-item-small btn btn-default" v-on:click="onCreateDirection">Создать направление</button>
+						<span id="id-select-doctor-val" class="form-control-sm"></span>
+					</td>
+
+					<td class="text-center">
+						<span id="id-select-doctor-val" class="form-control-sm"></span>
 					</td>
 				</tr>
 			</tbody>
