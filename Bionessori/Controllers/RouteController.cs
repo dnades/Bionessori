@@ -172,5 +172,15 @@ namespace Bionessori.Controllers {
 
             return View();
         }
+
+        /// <summary>
+        /// Метод переходит на страницу редактирования направления.
+        /// </summary>
+        [Route("edit-direction")]
+        public IActionResult RouteEditDirection() {
+            ViewData["Title"] = "Ведение объектов регистратуры - Редактирование направления";
+
+            return View();
+        }
     }
 }

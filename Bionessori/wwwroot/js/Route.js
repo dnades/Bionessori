@@ -54,6 +54,10 @@ var main = new Vue({
 				case "create_direction":
 					window.location.href = "https://localhost:44312/create-direction";
 					break;
+
+				case "edit_direction":
+					window.location.href = "https://localhost:44312/edit-direction";
+					break;					
 			}
 		}
 	}

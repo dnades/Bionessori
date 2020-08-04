@@ -114,7 +114,7 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task EditDirection(int id);
+        Task EditDirection(Direction direction);
 
         /// <summary>
         /// Метод удаляет направление.

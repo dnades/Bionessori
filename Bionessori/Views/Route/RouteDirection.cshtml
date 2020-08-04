@@ -147,19 +147,23 @@
 								Специалист
 							</button>
 						</th>
+
+						<th class="text-center" scope="col"></th>
+						<th class="text-center" scope="col"></th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr id="tbl-item tbl-row-click" class="tbl-item" v-for="el in aDirections">
 						<td class="text-center req-id">
+							{{el.id}}
 						</td>
 
 						<td class="text-center">
 							<span>{{el.fullName == null || '' ? 'нет': el.fullName}}</span>
 						</td>
 
-						<td class="text-center">							
+						<td class="text-center">
 							<span>{{el.nameDirection == '' ? 'нет' : el.nameDirection}}</span>
 						</td>
 
@@ -173,6 +177,18 @@
 
 						<td class="text-center">
 							<span>{{el.employeeName == null || '' ? 'нет' : el.employeeName}}</span>
+						</td>
+
+						<td class="text-center state">
+							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_direction" v-on:click="onRouteEditDirection">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+							</button>
+						</td>
+
+						<td class="text-center state">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-reception-modal" v-on:click="onAfterDeleteDirection">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</button>
 						</td>
 					</tr>
 				</tbody>

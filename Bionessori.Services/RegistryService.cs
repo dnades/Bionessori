@@ -325,8 +325,41 @@ namespace Bionessori.Services {
             }
         }
 
-        public Task EditDirection(int id) {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод редактирует направление.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns>Статус редактирования.</returns>
+        public async Task EditDirection(Direction direction) {
+            try {                
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Получает id карты пациента по его имени.
+                    var objCard = await db.QueryAsync<string>($"SELECT card_number FROM dbo.PatientCards " +
+                        $"WHERE full_name = '{direction.PatientName}'");
+
+                    // Получает id места направления по его названию.
+                    var objDirect = await db.QueryAsync<int>($"SELECT id FROM dbo.SeatDirections " +
+                        $"WHERE name_direction = '{direction.SeatDirection}'");
+
+                    // Находит Id сотрудника по его имени.
+                    int employeeId = await GetUserIds(direction.EmployeeName);
+                    
+                    // Редактирует направление.
+                    await db.QueryAsync($"UPDATE dbo.Directions SET " +
+                        $"card_number = '{objCard.FirstOrDefault()}'," +
+                        $"seat_direction_id = '{objDirect.FirstOrDefault()}'," +
+                        $"direction_type = '{direction.Type}'," +
+                        $"direction_status = '{direction.Status}'," +
+                        $"employee_id = {employeeId} " +
+                        $"WHERE id = {direction.Id}");
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Входные параметры не заполнены", ex);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         public Task DeleteDirection(int id) {

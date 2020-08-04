@@ -373,6 +373,54 @@ var registry = new Vue({
 			}
 		},
 
+		// Функция редактирует направление.
+		onEditDirection() {
+			let sUrl = "https://localhost:44312/api/data/registry/edit-direction";
+			let sPatient = $("#id-select-number-val").text();
+			let sDirection = $("#id-select-doctor-val").text();
+			let sDirectionType = $("#id-select-type").text();
+			let sDirectionStatus = $("#id-select-status").text();
+			let sDirectionEmployee = $("#id-select-employee").text();
+
+			try {
+				axios.post(sUrl, {
+					Id: localStorage["editDirectId"],
+					PatientName: sPatient,
+					SeatDirection: sDirection,
+					Type: sDirectionType,
+					Status: sDirectionStatus,
+					EmployeeName: sDirectionEmployee
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка редактирования направления", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция удаляет направление.
+		onDeleteDirection() {
+			let sUrl = "https://localhost:44312/api/data/registry/delete-direction";
+			
+			try {
+				axios.delete(sUrl)
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка удаления направления", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
 		// Функция получает типы направлений.
 		loadDirections() {
 			let sUrl = "https://localhost:44312/api/data/registry/get-directions";
@@ -428,6 +476,18 @@ var registry = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		// Переход на страницу редактирования направления.
+		onRouteEditDirection(e) {
+			// Получает id направления, которое нужно редактировать.
+			let directId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
+			localStorage["editDirectId"] = directId;
+			main.onRouteMatched(e);
+		},
+
+		onAfterDeleteDirection() {
+
 		}
 	}
 });

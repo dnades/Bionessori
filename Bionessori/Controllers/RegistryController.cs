@@ -161,13 +161,13 @@ namespace Bionessori.Controllers {
         [HttpPost, Route("create-direction")]
         public async Task<IActionResult> CreateDirection([FromBody] Direction direction) {
             try {
-                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection))) {
+                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection) || (string.IsNullOrEmpty(direction.NumberDirection)) || (string.IsNullOrEmpty(direction.SeatDirection)) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
                     throw new ArgumentNullException();
                 }
 
                 await _registry.CreateDirection(direction);
 
-                return Ok("Направление успешно создано.");
+                return Ok("Направление успешно создано");
             }
             catch (ArgumentNullException ex) {
                 throw new ArgumentNullException("Входные параметры не заполнены", ex);
@@ -208,6 +208,28 @@ namespace Bionessori.Controllers {
             var oStatuses = await _registry.GetDirectionsStatus();
 
             return Ok(oStatuses);
+        }
+
+        /// <summary>
+        /// Метод редактирует направление.
+        /// </summary>
+        [HttpPost, Route("edit-direction")]
+        public async Task<IActionResult> EditDirection([FromBody] Direction direction) {            
+            try {
+                if (string.IsNullOrEmpty(direction.PatientName) || (Convert.ToInt32(direction.Id) == 0) || (string.IsNullOrEmpty(direction.SeatDirection) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
+                    throw new ArgumentNullException();
+                }
+
+                await _registry.EditDirection(direction);
+
+                return Ok("Направление успешно изменено");
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Входные параметры не заполнены", ex);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }                        
         }
     }
 }
