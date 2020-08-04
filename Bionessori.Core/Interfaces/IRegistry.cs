@@ -128,5 +128,17 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<dynamic>> GetDirections();
+
+        /// <summary>
+        /// Метод получает список типов
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<string>> GetDirectionsType();
+
+        /// <summary>
+        /// Метод получает список статусов направлений.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<string>> GetDirectionsStatus();
     }
 }

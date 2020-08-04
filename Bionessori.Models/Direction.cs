@@ -14,5 +14,11 @@ namespace Bionessori.Models {
         public string NumberDirection { get; set; } // Номер направления.
 
         public string SeatDirection { get; set; }    // Id названия направления.
+
+        public string Type { get; set; }    // Тип направления.
+
+        public string Status { get; set; }  // Статус направления.
+
+        public string EmployeeName { get; set; }    // Специалист.
     }
 }

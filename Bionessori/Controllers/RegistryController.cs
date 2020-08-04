@@ -187,5 +187,27 @@ namespace Bionessori.Controllers {
 
             return Ok(oDirections);
         }
+
+        /// <summary>
+        /// Метод получает типы направлений.
+        /// </summary>
+        /// <returns>Список типов.</returns>
+        [HttpPost, Route("get-types")]
+        public async Task<IActionResult> GetDirectionsType() {
+            var oTypes = await _registry.GetDirectionsType();
+
+            return Ok(oTypes);
+        }
+
+        /// <summary>
+        /// Метод получает типы статусов.
+        /// </summary>
+        /// <returns>Список статусов.</returns>
+        [HttpPost, Route("get-statuses")]
+        public async Task<IActionResult> GetDirectionsStatus() {
+            var oStatuses = await _registry.GetDirectionsStatus();
+
+            return Ok(oStatuses);
+        }
     }
 }

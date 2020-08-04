@@ -309,12 +309,15 @@ namespace Bionessori.Services {
                     var objDirect = await db.QueryAsync<int>($"SELECT id FROM dbo.SeatDirections " +
                         $"WHERE name_direction = '{direction.SeatDirection}'");
 
+                    // Находит Id сотрудника по его имени.
+                    int employeeId = await GetUserIds(direction.EmployeeName);
+
                     // Генерит номер направления.
                     string generateNumberDirect = RandomDataService.GenerateRandomNumber();
 
                     // Сохраняет новое направление.
-                    await db.QueryAsync($"INSERT INTO dbo.Directions (card_number, number_direction, seat_direction_id) " +
-                        $"VALUES ({objCard.FirstOrDefault()}, {generateNumberDirect}, {objDirect.FirstOrDefault()})");
+                    await db.QueryAsync($"INSERT INTO dbo.Directions (card_number, number_direction, seat_direction_id, direction_type, direction_status, employee_id) " +
+                        $"VALUES ({objCard.FirstOrDefault()}, {generateNumberDirect}, {objDirect.FirstOrDefault()}, '{direction.Type}', '{direction.Status}', {employeeId})");
                 }
             }
             catch (Exception ex) {
@@ -340,6 +343,40 @@ namespace Bionessori.Services {
                     var oDirections = await db.QueryAsync("dbo.sp_GetDirections");
 
                     return oDirections;
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает типы направлений.
+        /// </summary>
+        /// <returns>Список с типами.</returns>
+        public async Task<IEnumerable<string>> GetDirectionsType() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oTypes = await db.QueryAsync<string>("sp_GetDirectionsType");
+
+                    return oTypes;
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает статусы направлений.
+        /// </summary>
+        /// <returns>Список статусов.</returns>
+        public async Task<IEnumerable<string>> GetDirectionsStatus() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var oStatuses = await db.QueryAsync<string>("sp_GetDirectionsStatus");
+
+                    return oStatuses;
                 }
             }
             catch (Exception ex) {

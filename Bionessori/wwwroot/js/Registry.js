@@ -10,6 +10,8 @@ var registry = new Vue({
 		this.loadSeatDirections();
 		this.loadPatientNames();
 		this.loadDirections();
+		this.loadDirectionsType();
+		this.loadDirectionsStatus();
 
 		localStorage["editCard"] ? this.editCard = localStorage["editCard"] : "";		
 	},
@@ -34,7 +36,12 @@ var registry = new Vue({
 		selectSeatDirection: "",
 		selectPatient: "",
 		aPatientNames: [],
-		aDirections: []
+		aDirections: [],
+		directionType: "",
+		directionStatus: "",
+		selectedEmployee: "",
+		aTypes: [],
+		aStatuses: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -340,13 +347,19 @@ var registry = new Vue({
 		// Функция создает направление.
 		onCreateDirection() {
 			let sUrl = "https://localhost:44312/api/data/registry/create-direction";
-			let sPatient = $("#id-select-number-val").val();
-			let sDirection = $("#id-select-doctor-val").val();
+			let sPatient = $("#id-select-number-val").text();
+			let sDirection = $("#id-select-doctor-val").text();
+			let sDirectionType = $("#id-select-type").text();
+			let sDirectionStatus = $("#id-select-status").text();
+			let sDirectionEmployee = $("#id-select-employee").text();
 
 			try {
 				axios.post(sUrl, {
 					PatientName: sPatient,
-					SeatDirection: sDirection
+					SeatDirection: sDirection,
+					Type: sDirectionType,
+					Status: sDirectionStatus,
+					EmployeeName: sDirectionEmployee
 				})
 					.then((response) => {
 						console.log(response.data);
@@ -360,7 +373,7 @@ var registry = new Vue({
 			}
 		},
 
-		// Функция получает список направлений.
+		// Функция получает типы направлений.
 		loadDirections() {
 			let sUrl = "https://localhost:44312/api/data/registry/get-directions";
 
@@ -372,6 +385,44 @@ var registry = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка получения списка направлений", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает типы направлений.
+		loadDirectionsType() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-types";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aTypes = response.data;
+						console.log("Типы направлений", this.aTypes);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения типов направлений", XMLHttpRequest.response.data);
+					})
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает статусы направлений.
+		loadDirectionsStatus() {
+			let sUrl = "https://localhost:44312/api/data/registry/get-statuses";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aStatuses = response.data;
+						console.log("Статусы направлений", this.aStatuses);
+					})
+					.catch((XMLHttpRequest) => {
+						console.log("Ошибка получения статусов направлений", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {

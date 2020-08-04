@@ -70,7 +70,7 @@
 		<div class="row mb-3">
 			<div class="container block-registry">
 				<div class="item-set-registry">
-					<label>Выбор пациента</label>
+					<label>Пациента</label>
 					<select v-model="selectPatient">
 						<option></option>
 						<option v-for="el in aPatientNames">{{el}}</option>
@@ -78,10 +78,34 @@
 				</div>
 				&nbsp;
 				<div class="item-set-registry">
-					<label>Выбор места направления</label>
+					<label>Места направления</label>
 					<select v-model="selectSeatDirection">
 						<option></option>
 						<option v-for="el in aSeatDirections">{{el}}</option>
+					</select>
+				</div>
+				&nbsp;
+				<div class="item-set-registry">
+					<label>Тип направления</label>
+					<select v-model="directionType">
+						<option></option>
+						<option v-for="el in aTypes">{{el}}</option>
+					</select>
+				</div>
+				&nbsp;
+				<div class="item-set-registry">
+					<label>Статус</label>
+					<select v-model="directionStatus">
+						<option></option>
+						<option v-for="el in aStatuses">{{el}}</option>
+					</select>
+				</div>
+				&nbsp;
+				<div class="item-set-registry">
+					<label>Специалиста</label>
+					<select v-model="selectedEmployee">
+						<option></option>
+						<option v-for="el in aEmployees">{{el.fullName}}</option>
 					</select>
 				</div>
 			</div>
@@ -143,15 +167,15 @@
 					</td>
 
 					<td class="text-center">
-						<span id="id-select-doctor-val" class="form-control-sm"></span>
+						<span id="id-select-type" class="form-control-sm">{{directionType}}</span>
 					</td>
 
 					<td class="text-center">
-						<span id="id-select-doctor-val" class="form-control-sm"></span>
+						<span id="id-select-status" class="form-control-sm">{{directionStatus}}</span>
 					</td>
 
 					<td class="text-center">
-						<span id="id-select-doctor-val" class="form-control-sm"></span>
+						<span id="id-select-employee" class="form-control-sm">{{selectedEmployee}}</span>
 					</td>
 				</tr>
 			</tbody>
