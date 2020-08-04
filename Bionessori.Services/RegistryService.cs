@@ -362,8 +362,21 @@ namespace Bionessori.Services {
             }
         }
 
-        public Task DeleteDirection(int id) {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод удаляет направление.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task DeleteDirection(int id) {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Удаляет направление.
+                    await db.QueryAsync($"DELETE dbo.Directions WHERE id = {id}");
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         /// <summary>

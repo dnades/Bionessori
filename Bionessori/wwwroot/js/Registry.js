@@ -404,8 +404,10 @@ var registry = new Vue({
 		},
 
 		// Функция удаляет направление.
-		onDeleteDirection() {
-			let sUrl = "https://localhost:44312/api/data/registry/delete-direction";
+		onDeleteDirection() {		
+			// Получает id направления, которое нужно удалить.
+			let directId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
+			let sUrl = "https://localhost:44312/api/data/registry/delete-direction?id=".concat(directId);
 			
 			try {
 				axios.delete(sUrl)
@@ -484,10 +486,6 @@ var registry = new Vue({
 			let directId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
 			localStorage["editDirectId"] = directId;
 			main.onRouteMatched(e);
-		},
-
-		onAfterDeleteDirection() {
-
 		}
 	}
 });

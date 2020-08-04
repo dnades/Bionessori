@@ -231,5 +231,15 @@ namespace Bionessori.Controllers {
                 throw new Exception(ex.Message.ToString());
             }                        
         }
+
+        /// <summary>
+        /// Метод удаляет направление.
+        /// </summary>
+        [HttpDelete, Route("delete-direction")]
+        public async Task<IActionResult> DeleteDirection(int id) {
+            await _registry.DeleteDirection(id);
+
+            return Ok("Направление успешно удалено");
+        }
     }
 }
