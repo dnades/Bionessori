@@ -66,8 +66,13 @@ body {
 }
 
 .context {
-    margin-left: 5%;
-    margin-right: 5%;
+    //margin-left: 5%;
+    //margin-right: 5%;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
 }
 
 .btn-item {
@@ -93,7 +98,7 @@ body {
 
     .btn-left-block {
         .left-btn {
-            margin-right: 5px;
+            //margin-right: 5px;
         }
     }
 
@@ -510,4 +515,12 @@ hr {
 .block-receptions-lists {
     display: flex;
     justify-content: space-between;
+}
+
+.title {
+    color: #004A4A;
+    background: #EAF4F4;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
 }

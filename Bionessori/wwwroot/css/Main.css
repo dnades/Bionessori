@@ -9,9 +9,9 @@
 .container {
   max-width: 100%; }
 
-.context {
-  margin-left: 5%;
-  margin-right: 5%; }
+.btns {
+  display: flex;
+  flex-direction: column; }
 
 .btn-item {
   background: white;
@@ -30,8 +30,6 @@
 .btn-block-main {
   display: flex;
   justify-content: space-between; }
-  .btn-block-main .btn-left-block .left-btn {
-    margin-right: 5px; }
   .btn-block-main .block-content {
     margin-left: 2%;
     margin-right: 2%; }
@@ -315,3 +313,10 @@ hr {
 .block-receptions-lists {
   display: flex;
   justify-content: space-between; }
+
+.title {
+  color: #004A4A;
+  background: #EAF4F4;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px; }
