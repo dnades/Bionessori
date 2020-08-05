@@ -37,9 +37,9 @@
 
 						<button type="button" class="btn-item btn btn-default btn-create-card" value="route_direction" v-on:click="onRouteDirection">Направления</button>
 
-						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Отмена записи</button>
+						<button type="button" class="btn-item btn btn-default btn-create-card" v-show="aSelectedReceptions.length" v-on:click="">Отмена записи</button>
 
-						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Перенос записи</button>
+						<button type="button" class="btn-item btn btn-default btn-create-card" v-show="aSelectedReceptions.length" v-on:click="">Перенос записи</button>
 
 						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Выгрузить в Excel</button>
 
@@ -95,7 +95,7 @@
 					<tbody>
 						<tr class="tbl-item tbl-row-click" v-for="el in aReceptions" v-on:dblclick="">
 							<th class="text-center" scope="col">
-								<input type="checkbox">
+								<input type="checkbox" v-bind:value="el.id" v-model="aSelectedReceptions" v-on:change="onChecked">
 							</th>
 
 							<td class="text-center req-id">

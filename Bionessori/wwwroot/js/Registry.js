@@ -41,7 +41,8 @@ var registry = new Vue({
 		directionStatus: "",
 		selectedEmployee: "",
 		aTypes: [],
-		aStatuses: []
+		aStatuses: [],
+		aSelectedReceptions: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -486,6 +487,11 @@ var registry = new Vue({
 			let directId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
 			localStorage["editDirectId"] = directId;
 			main.onRouteMatched(e);
+		},
+
+		// При нажатии на checkbox записи.
+		onChecked() {
+			console.log(this.aSelectedReceptions);
 		}
 	}
 });
