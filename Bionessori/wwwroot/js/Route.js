@@ -57,7 +57,11 @@ var main = new Vue({
 
 				case "edit_direction":
 					window.location.href = "https://localhost:44312/edit-direction";
-					break;					
+					break;			
+
+				case "view_nomenclature":
+					window.location.href = "https://localhost:44312/view-nomenclature";
+					break;	
 			}
 		}
 	}

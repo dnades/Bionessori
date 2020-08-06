@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bionessori.Controllers {
     /// <summary>
-    /// Контроллер описывает работу складов.
+    /// Контроллер описывает работу номенклатуры.
     /// </summary>
     [ApiController, Route("api/werehouse/material")]
     public class WerehouseController : ControllerBase {

@@ -123,9 +123,7 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод переходит на страницу записи пациента на прием к врачу.
-        /// </summary>
+        // Метод переходит на страницу записи пациента на прием к врачу.
         [Route("add-registry")]
         public IActionResult AddRegistry() {
             ViewData["Title"] = "Ведение объектов регистратуры - Запись пациента на прием";
@@ -133,9 +131,7 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод переходит на страницу редактирования записи.
-        /// </summary>
+        // Метод переходит на страницу редактирования записи.
         [Route("edit-reception")]
         public IActionResult EditReception() {
             ViewData["Title"] = "Ведение объектов регистратуры - Редактирование записи пациента на прием";
@@ -143,9 +139,7 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод переходит на страницу направлений.
-        /// </summary>
+        // Метод переходит на страницу направлений.
         [Route("direction")]
         public IActionResult RouteDirection() {
             ViewData["Title"] = "Ведение объектов регистратуры - Направления";
@@ -153,9 +147,7 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод переходит на страницу личного кабинета.
-        /// </summary>
+        // Метод переходит на страницу личного кабинета.
         [Route("front-office")]
         public IActionResult RouteFrontOffice() {
             ViewData["Title"] = "Мой профиль";
@@ -163,9 +155,7 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод переходит на страницу создания направления.
-        /// </summary>
+        // Метод переходит на страницу создания направления.
         [Route("create-direction")]
         public IActionResult RouteCreateDirection() {
             ViewData["Title"] = "Ведение объектов регистратуры - Создание направления";
@@ -173,13 +163,19 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод переходит на страницу редактирования направления.
-        /// </summary>
+        // Метод переходит на страницу редактирования направления.
         [Route("edit-direction")]
         public IActionResult RouteEditDirection() {
             ViewData["Title"] = "Ведение объектов регистратуры - Редактирование направления";
 
+            return View();
+        }
+
+        /// <summary>
+        /// Метод переходит на страницу номенклатуры.
+        /// </summary>
+        [Route("view-nomenclature")]
+        public IActionResult RouteNomenclature() {
             return View();
         }
     }
