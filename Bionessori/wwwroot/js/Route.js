@@ -61,7 +61,11 @@ var main = new Vue({
 
 				case "view_nomenclature":
 					window.location.href = "https://localhost:44312/view-nomenclature";
-					break;	
+					break; 
+
+				case "view_purchases":
+					window.location.href = "https://localhost:44312/view-manage-purchases";
+					break; 
 			}
 		}
 	}
