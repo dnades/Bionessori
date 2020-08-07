@@ -52,7 +52,7 @@
 					<tr>
 						<th class="text-center" scope="col">
 							<button class="btn btn-link">
-								Код
+								Артикул
 							</button>
 						</th>
 
@@ -64,7 +64,7 @@
 
 						<th class="text-center" scope="col">
 							<button class="btn btn-link" value="group" v-on:click="sortedMaterial">
-								Группа
+								Группа материалов
 							</button>
 						</th>
 
@@ -79,6 +79,42 @@
 								Количество
 							</button>
 						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								№ склада
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								Цена
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								Сумма
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								Поставщик
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								%
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link">
+								НДС
+							</button>
+						</th>
 					</tr>
 				</thead>
 
@@ -89,7 +125,7 @@
 						</td>
 
 						<td class="text-center">
-							<span>{{el.code}}</span>
+							<span>{{el.vendorCode}}</span>
 						</td>
 
 						<td class="text-center">
@@ -106,6 +142,30 @@
 
 						<td class="text-center">
 							<span>{{el.count}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.werehouseNumber}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.price}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.totalSum}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.providerName}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.percentage}}%</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.vat}}%</span>
 						</td>
 					</tr>
 				</tbody>

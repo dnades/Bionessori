@@ -21,7 +21,7 @@ var main_mrp = new Vue({
 		// Еслим список материалов к заявке уже добавляли, то запишет их в массив.
 		if (localStorage["addedMaterials"]) {
 			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
-			console.log("Материалы заявки.", this.aAddedMaterials);
+			console.log("Материалы заявки", this.aAddedMaterials);
 		}
 	},
 	data: {
@@ -49,10 +49,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl)
 					.then((response) => {
 						this.aMaterials = response.data;
-						console.log("Список материалов на складах.", this.aMaterials);
+						console.log("Список материалов на складах", this.aMaterials);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка материалов.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка материалов", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -72,10 +72,10 @@ var main_mrp = new Vue({
 						// Парсит объект заявки с материалами.
 						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
 
-						console.log("Список заявок.", this.aRequests);
+						console.log("Список заявок", this.aRequests);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка заявок.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка заявок", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -193,10 +193,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aWerehousesNames = response.data;
-						console.log("Список названий складов.", this.aWerehousesNames);
+						console.log("Список названий складов", this.aWerehousesNames);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения названий складов.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения названий складов", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -212,10 +212,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aMaterialsGroups = response.data;
-						console.log("Список групп.", this.aMaterialsGroups);
+						console.log("Список групп", this.aMaterialsGroups);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка групп.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка групп", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -231,10 +231,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aDistinctMaterials = response.data;
-						console.log("Список материалов без дублей.", this.aDistinctMaterials);
+						console.log("Список материалов без дублей", this.aDistinctMaterials);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка материалов без дублей.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка материалов без дублей", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -250,10 +250,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aMeasures = response.data;
-						console.log("Список ед.изм.", this.aMeasures);
+						console.log("Список ед.изм", this.aMeasures);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения ед.изм.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения ед.изм", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -282,12 +282,12 @@ var main_mrp = new Vue({
 			try {
 				axios.post(sUrl, oRequest)
 					.then((response) => {
-						console.log("Заявка на потребность успешно создана.", response);
+						console.log("Заявка на потребность успешно создана", response);
 						//$('#success-create-request-modal').modal('toggle');
 						window.location.href = "https://localhost:44312/view/request";
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка создания заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -330,7 +330,7 @@ var main_mrp = new Vue({
 				window.location.href = "https://localhost:44312/edit-request";
 			}
 			else {
-				alert("Статус заявки не позволяет редактировать.");
+				alert("Статус заявки не позволяет редактировать");
 			}
 		},
 
