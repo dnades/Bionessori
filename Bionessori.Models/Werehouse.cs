@@ -17,6 +17,8 @@ namespace Bionessori.Models {
 
         public int Count { get; set; }
 
+        public int Reserve { get; set; }    // В резерве.
+
         public string VendorCode { get; set; }  // Артикул материала.
 
         public string WerehouseNumber { get; set; }    // Номер склада.

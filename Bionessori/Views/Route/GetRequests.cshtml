@@ -41,7 +41,7 @@
 			<div class="btn-right-block">
 				<button type="button" class="btn-item btn btn-default btn-create-req" v-on:click="onExportExcelRequests">Выгрузить в Excel</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-req" data-toggle="modal" data-target="#create-card-modal">Отправить в закупки</button>
+				<button type="button" class="btn-item btn btn-default btn-create-req" v-show="selectedRequests.length">Отправить в закупки</button>
 
 				<button type="button" class="btn-item btn btn-default btn-create-req" value="create_request" v-on:click="onRouteCreateRequest">Создать новую заявку</button>
 			</div>
@@ -56,6 +56,12 @@
 					<tr>
 						<th class="text-center" scope="col">
 							<input type="checkbox" name="a" value="1934">
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
+								Статус
+							</button>
 						</th>
 
 						<th class="text-center" scope="col">
@@ -76,12 +82,6 @@
 							</button>
 						</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
-								Статус
-							</button>
-						</th>
-
 						<th class="text-center" scope="col"></th>
 						<th class="text-center" scope="col"></th>
 					</tr>
@@ -90,8 +90,26 @@
 				<tbody>
 					<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="onGetRequest">
 						<th class="text-center" scope="col">
-							<input type="checkbox" name="a" value="1934">
+							<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
 						</th>
+
+						<td class="text-center">
+							<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">
+								{{el.status}}
+							</span>
+
+							<span id="id-status-req" class="badge badge-pill badge-info" v-show="el.status == 'В работе'">
+								{{el.status}}
+							</span>
+
+							<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Ожидает подтверждения удаления'">
+								{{el.status}}
+							</span>
+
+							<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Выполнена'">
+								{{el.status}}
+							</span>
+						</td>
 
 						<td class="text-center">
 							<span>{{el.number}}</span>
@@ -103,10 +121,6 @@
 
 						<td class="text-center">
 							<span>{{el.measure}}</span>
-						</td>
-
-						<td class="text-center">
-							<span>{{el.status}}</span>
 						</td>
 
 						<td class="text-center state">

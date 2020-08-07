@@ -12,7 +12,7 @@ var main_mrp = new Vue({
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
-
+		
 		if (localStorage["selectRequest"]) {
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
 			console.log("Выбранная заявка", this.aSelectRequest);
@@ -22,7 +22,11 @@ var main_mrp = new Vue({
 		if (localStorage["addedMaterials"]) {
 			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
 			console.log("Материалы заявки", this.aAddedMaterials);
-		}
+		}		
+
+		//if ($("#id-status-req").text() == "Новая") {
+		//	$("#id-status-req").addClass("badge badge-pill badge-success");
+		//}
 	},
 	data: {
 		aMaterials: [],
@@ -38,7 +42,8 @@ var main_mrp = new Vue({
 		visibleGroup: false,
 		visibleMaterial: false,
 		visibleMeasure: false,
-		werehouseNum: false
+		werehouseNum: false,
+		selectedRequests: []
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -72,7 +77,7 @@ var main_mrp = new Vue({
 						// Парсит объект заявки с материалами.
 						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
 
-						console.log("Список заявок", this.aRequests);
+						console.log("Список заявок", this.aRequests);						
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка получения списка заявок", XMLHttpRequest.response.data);
@@ -460,5 +465,9 @@ var main_mrp = new Vue({
 				return buf;
 			}
 		},
+
+		onCheckedReq() {
+			console.log(this.selectedRequests);
+		}
 	}
 });

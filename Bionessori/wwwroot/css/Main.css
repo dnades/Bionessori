@@ -97,6 +97,9 @@ table .state {
   height: 450px;
   overflow-y: scroll; }
 
+.tbl-item td {
+  vertical-align: middle; }
+
 .tbl-item .card-id {
   display: none; }
 

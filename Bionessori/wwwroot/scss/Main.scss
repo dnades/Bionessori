@@ -204,6 +204,10 @@ table {
 }
 
 .tbl-item {
+    td {
+        vertical-align: middle;
+    }
+
     .card-id {
         display: $noneId;
     }
