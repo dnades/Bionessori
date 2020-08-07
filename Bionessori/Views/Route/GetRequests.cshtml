@@ -93,6 +93,10 @@
 							<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
 						</th>
 
+						<td class="text-center req-id">
+							<span>{{el.id}}</span>
+						</td>
+
 						<td class="text-center">
 							<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">
 								{{el.status}}

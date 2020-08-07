@@ -85,5 +85,15 @@ namespace Bionessori.Controllers {
 
             return Ok(oMaterialsGroup);
         }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "Новая".
+        /// </summary>
+        [HttpGet, Route("count-status-new")]
+        public async Task<IActionResult> GetCountStatusNewRequests() {
+            var iRequests = await _werehouse.GetCountNewRequests();
+            
+            return Ok(iRequests);
+        }
     }
 }

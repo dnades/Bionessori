@@ -9,6 +9,7 @@ var main_mrp = new Vue({
 		this.loadGroupsMaterials();
 		this.loadDistinctMaterials();
 		this.loadMeasures();
+		this.getCountRequestStatusNew();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
@@ -23,10 +24,6 @@ var main_mrp = new Vue({
 			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
 			console.log("Материалы заявки", this.aAddedMaterials);
 		}		
-
-		//if ($("#id-status-req").text() == "Новая") {
-		//	$("#id-status-req").addClass("badge badge-pill badge-success");
-		//}
 	},
 	data: {
 		aMaterials: [],
@@ -43,7 +40,8 @@ var main_mrp = new Vue({
 		visibleMaterial: false,
 		visibleMeasure: false,
 		werehouseNum: false,
-		selectedRequests: []
+		selectedRequests: [],
+		countNewRequests: null
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -94,7 +92,7 @@ var main_mrp = new Vue({
 			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[1];
 
 			// Находит заявку, на которую нажали.
-			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
 
 			this.aRequests[0].material.forEach(el => {
 				this.aAddedMaterials.push(el);
@@ -468,6 +466,25 @@ var main_mrp = new Vue({
 
 		onCheckedReq() {
 			console.log(this.selectedRequests);
+		},
+
+		// Функция получает кол-во заявок со статусом "Новая".
+		getCountRequestStatusNew() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-status-new";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во заявок со статусом Новая: ", response.data);
+						this.countNewRequests = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения кол-ва заявок со статусом Новая", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });
