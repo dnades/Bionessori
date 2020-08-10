@@ -95,5 +95,15 @@ namespace Bionessori.Controllers {
             
             return Ok(iRequests);
         }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        [HttpGet, Route("count-status-work")]
+        public async Task<IActionResult> GetCountStatusWorkRequests() {
+            var iRequests = await _werehouse.GetCountRequestInWork();
+
+            return Ok(iRequests);
+        }
     }
 }

@@ -52,5 +52,23 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
         Task<int> GetCountNewRequests();
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountRequestInWork();
+
+        /// <summary>
+        /// Метод получает кол-во материалов, которые нуждаются в пополнении.
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountRefillMaterials();
+
+        /// <summary>
+        /// Метод получает кол-во материалов, которые нуждаются в сопоставлении.
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountMappingMaterials();
     }
 }

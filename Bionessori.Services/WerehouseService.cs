@@ -111,7 +111,7 @@ namespace Bionessori.Services {
         public async Task<int> GetCountNewRequests() {
             try {
                 using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>("SELECT COUNT (*) FROM dbo.Requests " +
+                    var iRequests = await db.QueryAsync<int>("SELECT COUNT(*) FROM dbo.Requests " +
                         "WHERE status = 'Новая'");
 
                     return iRequests.FirstOrDefault();
@@ -120,6 +120,27 @@ namespace Bionessori.Services {
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
             }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public async Task<int> GetCountRequestInWork() {
+            using (var db = new SqlConnection(_connectionString)) {
+                var iRequests = await db.QueryAsync<int>("SELECT COUNT(*) FROM dbo.Requests " +
+                    $"WHERE status = 'В работе'");
+
+                return iRequests.FirstOrDefault();
+            }
+        }
+
+        public Task<int> GetCountRefillMaterials() {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetCountMappingMaterials() {
+            throw new NotImplementedException();
         }
     }
 }
