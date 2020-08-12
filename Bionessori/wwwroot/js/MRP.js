@@ -294,10 +294,15 @@ var main_mrp = new Vue({
 				axios.post(sUrl, oRequest)
 					.then((response) => {
 						console.log("Заявка на потребность успешно создана", response);
-						//$('#success-create-request-modal').modal('toggle');
-						window.location.href = "https://localhost:44312/view/request";
+
+						setTimeout(function () {							
+							window.location.href = "https://localhost:44312/view/request";
+						}, 3000);				
+
+						swal("Создание заявки", "Заявка на потребность успешно создана.", "success");				
 					})
 					.catch((XMLHttpRequest) => {
+						swal("Ошибка", "Ошибка создания заявки на потребность.", "error");
 						throw new Error("Ошибка создания заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
@@ -315,7 +320,24 @@ var main_mrp = new Vue({
 
 		// Функция добавляет материал к заявке.
 		onAddMaterialRequest() {
-			this.aAddedMaterials.push($("#id-select-material").val());
+			let item = $("#id-select-material").val();
+
+			// Если материал еще не добавлен к заявке, то добавит, иначе не добавит и дублей не будет.
+			if (this.aAddedMaterials.length) {
+				this.aAddedMaterials.forEach(el => {
+					if (el !== item) {
+						this.aAddedMaterials.push(item);
+					}
+					else {
+						swal("Внимание", "Вы пытаетесь добавить к заявке материал, который уже добавлен.", "error");
+						return;
+					}
+				});
+			}
+			else {	// Если к заявке еще не добавляли ни одного материала.
+				this.aAddedMaterials.push(item);
+			}
+			console.log(this.aAddedMaterials);
 		},
 
 		// Функция переходит к редактированию заявки.
@@ -328,7 +350,7 @@ var main_mrp = new Vue({
 			// На всякий случай чистит массив материалов заявки.
 			this.aAddedMaterials = [];
 
-			if (reqStatus == "Новая" || reqStatus == "В работе") {
+			if (reqStatus === "Новая" || reqStatus === "В работе") {
 				// Находит заявку, на которую нажали.
 				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
 
@@ -341,7 +363,8 @@ var main_mrp = new Vue({
 				window.location.href = "https://localhost:44312/edit-request";
 			}
 			else {
-				alert("Статус заявки не позволяет редактировать");
+				swal("Внимание", "Статус заявки не позволяет редактировать.", "info");
+
 			}
 		},
 
@@ -396,11 +419,17 @@ var main_mrp = new Vue({
 
 			try {
 				axios.post(sUrl, oRequest)
-					.then((response) => {
+					.then((response) => {						
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/view/request";
+						}, 3000);
+
+						swal("Редактирование заявки", "Заявка на потребность успешно изменена.", "success");
 						console.log("Заявка на потребность успешно изменена", response);
-						window.location.href = "https://localhost:44312/view/request";
+						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {
+						swal("Ошибка", "Ошибка изменения заявки на потребность.", "error");
 						throw new Error("Ошибка изменения заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
@@ -426,9 +455,12 @@ var main_mrp = new Vue({
 				axios.put(sUrl)
 					.then((response) => {
 						console.log("Заявка на потребность успешно удалена", response);
+						swal("Удаление заявки", "Заявка на потребность успешно удалена", "success");
+						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);
+						swal("Ошибка", "Ошибка удаления заявки на потребность", "error");
+						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);						
 					});
 			}
 			catch (ex) {
