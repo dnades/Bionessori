@@ -109,9 +109,19 @@ namespace Bionessori.Controllers {
         /// <summary>
         /// Метод получает кол-во материалов, требующих пополнения.
         /// </summary>
-        [HttpGet, Route("count-refill-count")]
+        [HttpGet, Route("count-refill-materials")]
         public async Task<IActionResult> GetCountRefillMaterials() {
             var iMaterials = await _werehouse.GetCountRefillMaterials();
+
+            return Ok(iMaterials);
+        }
+
+        /// <summary>
+        /// Метод получает кол-во материалов, требующих сопоставления.
+        /// </summary>
+        [HttpGet, Route("count-mapping-materials")]
+        public async Task<IActionResult> GetCountMappingMaterials() {
+            var iMaterials = await _werehouse.GetCountMappingMaterials();
 
             return Ok(iMaterials);
         }

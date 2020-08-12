@@ -67,14 +67,11 @@ namespace Bionessori.Services {
                 }
 
                 request.Number = generateNumber;
-               
-                // Переделать на другую структуру хранения!!!                              
+                                     
                 string materialjson = JsonSerializer.Serialize<Request>(request);
-                //Request jparse = JsonSerializer.Deserialize<Request>(materialjson);
 
-                // Добавляет новую заявку в список заявок со статусом "Новая".
                 await db.QueryAsync($"INSERT INTO dbo.Requests (number, status, count, measure, material_group, material) " +
-                    $"VALUES ({request.Number}, 'Новая', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
+                    $"VALUES ({request.Number}, '{request.Status}', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
             }
         }
 

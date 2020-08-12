@@ -37,7 +37,7 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> Create([FromBody] Request request) {
             await _request.Create(request);
 
-            return Ok("Заявка на потребность успешно создана.");
+            return Ok("Заявка на потребность успешно создана");
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> SaveChangeRequest([FromBody] Request request) {
             await _request.Edit(request);
 
-            return Ok("Заявка успешно изменена.");
+            return Ok("Заявка успешно изменена");
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> DeleteRequest([FromBody] Request request) {
             await _request.Delete(request.Number);
 
-            return Ok("Заявка успешно удалена.");
+            return Ok("Заявка успешно удалена");
         }
     }
 }

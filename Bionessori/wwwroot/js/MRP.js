@@ -10,6 +10,8 @@ var main_mrp = new Vue({
 		this.loadDistinctMaterials();
 		this.loadMeasures();
 		this.getCountRequestStatusNew();
+		this.getCountRequestStatusWork();
+		this.getCountMaterialsRefill();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
@@ -43,7 +45,8 @@ var main_mrp = new Vue({
 		selectedRequests: [],
 		countNewRequests: null,
 		countRequestsInWork: null,
-		countRefillMaterials: null
+		countRefillMaterials: null,
+		countMappingMaterials: null
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -510,7 +513,7 @@ var main_mrp = new Vue({
 
 		// Функция получает кол-во материалов, требующих пополнения.
 		getCountMaterialsRefill() {
-			let sUrl = "https://localhost:44312/api/werehouse/material/count-refill-count";
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-refill-materials";
 
 			try {
 				axios.get(sUrl)
@@ -520,6 +523,25 @@ var main_mrp = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка получения материалов, требующих пополнения", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во материалов, требующих сопоставления.
+		getCountMaterialsMapping() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-mapping-materials";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во материалов, требующих сопоставления: ", response.data);
+						this.countMappingMaterials = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения материалов, требующих сопоставления", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
