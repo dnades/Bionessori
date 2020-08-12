@@ -330,9 +330,9 @@ var main_mrp = new Vue({
 
 			if (reqStatus == "Новая" || reqStatus == "В работе") {
 				// Находит заявку, на которую нажали.
-				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
 
-				this.aRequests[0].material.forEach(el => {
+				this.aRequests[0].material.Material.forEach(el => {
 					this.aAddedMaterials.push(el);
 				});
 
@@ -413,19 +413,17 @@ var main_mrp = new Vue({
 			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
 
 			// Находит заявку, на которую нажали.
-			let temp = this.aRequests.filter(el => el.number == reqId);
+			let temp = this.aRequests.filter(el => el.id == reqId);
 			this.aSelectRequest = temp;
 		},
 
 		// Функция удаляет заявку.
 		onDeleteRequest() {
-			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request";
-			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[3];
+			let reqId = +$(event.target).parent().parent()[0].textContent.split(" ")[3];
+			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request?number=".concat(reqId);
 
 			try {
-				axios.post(sUrl, {
-					Number: reqId
-				})
+				axios.put(sUrl)
 					.then((response) => {
 						console.log("Заявка на потребность успешно удалена", response);
 					})

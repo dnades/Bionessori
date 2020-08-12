@@ -54,7 +54,7 @@
 						<div class="row-1">
 							<label for="#id-select-group">Группа</label>
 							<select id="id-select-group" class="form-control-sm form-card" v-show="!visibleGroup" v-on:change="onChangeGroup">
-								@*<option></option>*@
+								<option></option>
 								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
 							</select>
 							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название группы" v-show="visibleGroup" />
@@ -64,7 +64,7 @@
 
 							<label for="#id-select-material">Материал</label>
 							<select id="id-select-material" class="form-control-sm form-card" v-show="!visibleMaterial">
-								@*<option></option>*@
+								<option></option>
 								<option v-for="el in aDistinctMaterials">{{el}}</option>
 							</select>
 							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название материала" v-show="visibleMaterial" />

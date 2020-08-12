@@ -49,7 +49,7 @@ namespace Bionessori.Services {
         public async Task Create(Request request) {
             using (var db = new SqlConnection(_connectionString)) {
                 string typeParam = "request";
-                int generateNumber;
+                int generateNumber = 0;
 
                 // Генерит рандомный номер заявки.
                 int RandomGenerate() {
@@ -70,8 +70,9 @@ namespace Bionessori.Services {
                                      
                 string materialjson = JsonSerializer.Serialize<Request>(request);
 
+                // Создает новую заявку всегда в статусе "Новая".
                 await db.QueryAsync($"INSERT INTO dbo.Requests (number, status, count, measure, material_group, material) " +
-                    $"VALUES ({request.Number}, '{request.Status}', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
+                    $"VALUES ({request.Number}, 'Новая', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
             }
         }
 
@@ -82,7 +83,14 @@ namespace Bionessori.Services {
         public async Task Delete(int number) {
             using (var db = new SqlConnection(_connectionString)) {
                 try {
-                    await db.QueryAsync<string>($"DELETE dbo.Requests WHERE number = '{number}'");
+                    if (number == 0) {
+                        throw new ArgumentNullException();
+                    }
+
+                    await db.QueryAsync($"DELETE dbo.Requests WHERE number = {number}");
+                }
+                catch (ArgumentNullException ex) {
+                    throw new ArgumentNullException("Не указан номер заявки", ex.Message.ToString());
                 }
                 catch(Exception ex) {
                     throw new Exception(ex.Message);
@@ -95,10 +103,10 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task Edit(Request request) {
-            var materialJson = JsonSerializer.Serialize(request.Material);
-
+        public async Task Edit(Request request) {            
             try {
+                var materialJson = JsonSerializer.Serialize<Request>(request);
+
                 using (var db = new SqlConnection(_connectionString)) {                    
                     // Сохраняет изменения заявки.
                     await db.QueryAsync($"UPDATE dbo.Requests SET " +

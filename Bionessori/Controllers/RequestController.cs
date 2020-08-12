@@ -54,9 +54,9 @@ namespace Bionessori.Controllers {
         /// <summary>
         /// Метод удаляет заявку.
         /// </summary>
-        [HttpPost, Route("delete-request")]
-        public async Task<IActionResult> DeleteRequest([FromBody] Request request) {
-            await _request.Delete(request.Number);
+        [HttpPut, Route("delete-request")]
+        public async Task<IActionResult> DeleteRequest([FromQuery] int number) {
+            await _request.Delete(number);
 
             return Ok("Заявка успешно удалена");
         }
