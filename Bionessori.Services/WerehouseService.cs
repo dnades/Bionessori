@@ -145,7 +145,7 @@ namespace Bionessori.Services {
         /// <summary>
         /// Метод получает кол-во материалов, которые требуют пополнения.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Кол-во материалов.</returns>
         public async Task<int> GetCountRefillMaterials() {
             try {
                 int iMaterials = 0; // Кол-во материалов.
@@ -173,7 +173,7 @@ namespace Bionessori.Services {
         /// <summary>
         /// Метод получает кол-во материалов, которые требуют сопоставления.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Кол-во материалов.</returns>
         public async Task<int> GetCountMappingMaterials() {
             int iMaterials = 0; // Кол-во материалов.
 
@@ -190,6 +190,24 @@ namespace Bionessori.Services {
                 }
 
                 return iMaterials;
+            }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок, требующих подтверждения удаления.
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public async Task<int> GetCountAcceptDeleteRequests() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var iRequests = await db.QueryAsync<int>("SELECT COUNT(*) FROM dbo.Requests " +
+                        $"WHERE status = 'Требует подтверждения удаления'");
+
+                    return iRequests.FirstOrDefault();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
             }
         }
     }

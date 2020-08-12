@@ -70,5 +70,11 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<int> GetCountMappingMaterials();
+
+        /// <summary>
+        /// Метод получает кол-во заявок, требующих подтверждения удаления.
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountAcceptDeleteRequests();
     }
 }

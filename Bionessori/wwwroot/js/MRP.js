@@ -12,6 +12,8 @@ var main_mrp = new Vue({
 		this.getCountRequestStatusNew();
 		this.getCountRequestStatusWork();
 		this.getCountMaterialsRefill();
+		this.getCountMaterialsMapping();
+		this.getCountAcceptDeleteRequests();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
@@ -46,7 +48,8 @@ var main_mrp = new Vue({
 		countNewRequests: null,
 		countRequestsInWork: null,
 		countRefillMaterials: null,
-		countMappingMaterials: null
+		countMappingMaterials: null,
+		countAcceptDeleteReq: null
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -542,6 +545,25 @@ var main_mrp = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка получения материалов, требующих сопоставления", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во заявок, требующих подтверждения.
+		getCountAcceptDeleteRequests() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-accept-delete-request";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во заявок, требующих подтверждения удаления: ", response.data);
+						this.countAcceptDeleteReq = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения заявок, требующих подтверждения удаления", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {

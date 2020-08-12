@@ -125,5 +125,15 @@ namespace Bionessori.Controllers {
 
             return Ok(iMaterials);
         }
+
+        /// <summary>
+        /// Метод получает кол-во заявок, требующих подтверждения удаления.
+        /// </summary>
+        [HttpGet, Route("count-accept-delete-request")]
+        public async Task<IActionResult> GetCountAcceptDeleteRequest() {
+            var iRequests = await _werehouse.GetCountAcceptDeleteRequests();
+            
+            return Ok(iRequests);
+        }
     }
 }
