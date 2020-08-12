@@ -313,7 +313,10 @@ namespace Bionessori.Services {
                     int employeeId = await GetUserIds(direction.EmployeeName);
 
                     // Генерит номер направления.
-                    string generateNumberDirect = RandomDataService.GenerateRandomNumber();
+                    int RandomGenerate() {
+                        return RandomDataService.GenerateRandomNumber();
+                    }
+                    int generateNumberDirect = RandomGenerate();
 
                     // Сохраняет новое направление.
                     await db.QueryAsync($"INSERT INTO dbo.Directions (card_number, number_direction, seat_direction_id, direction_type, direction_status, employee_id) " +

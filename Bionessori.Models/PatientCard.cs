@@ -10,7 +10,7 @@ namespace Bionessori.Models {
     public class PatientCard {
         public int Id { get; set; }
 
-        public string CardNumber { get; set; } // Номер карты пациента.
+        public int CardNumber { get; set; } // Номер карты пациента.
 
         public string FullName { get; set; }    // ФИО пациента.
 

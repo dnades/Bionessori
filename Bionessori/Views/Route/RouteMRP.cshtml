@@ -48,7 +48,7 @@
 					<div class="card border-danger">
 						<div class="card-body text-danger">
 							<h5 class="card-title">Количество материалов, требующих пополнения.</h5>
-							<p class="card-text">11 материалов требуют пополнения.</p>
+							<p class="card-text">Количество материалов, которые требуют пополнения: {{countRefillMaterials !== null ? countRefillMaterials : 'нет'}}</p>
 							<a href="#"><small class="text-muted">Просмотреть список</small></a>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 					<div class="card border-info">
 						<div class="card-body text-info">
 							<h5 class="card-title">Заявок со статусом «В работе».</h5>
-							<p class="card-text">11 заявок со статусом «В работе».</p>
+							<p class="card-text">Заявок со статусом «В работе»: {{countRequestsInWork !== null ? countRequestsInWork : 'нет'}}</p>
 							<a href="#"><small class="text-muted">Просмотреть список</small></a>
 						</div>
 					</div>

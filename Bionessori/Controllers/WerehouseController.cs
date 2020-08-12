@@ -105,5 +105,15 @@ namespace Bionessori.Controllers {
 
             return Ok(iRequests);
         }
+
+        /// <summary>
+        /// Метод получает кол-во материалов, требующих пополнения.
+        /// </summary>
+        [HttpGet, Route("count-refill-count")]
+        public async Task<IActionResult> GetCountRefillMaterials() {
+            var iMaterials = await _werehouse.GetCountRefillMaterials();
+
+            return Ok(iMaterials);
+        }
     }
 }

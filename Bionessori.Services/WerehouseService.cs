@@ -1,16 +1,18 @@
 ﻿using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bionessori.Services {
@@ -127,18 +129,52 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
         public async Task<int> GetCountRequestInWork() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var iRequests = await db.QueryAsync<int>("SELECT COUNT(*) FROM dbo.Requests " +
-                    $"WHERE status = 'В работе'");
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var iRequests = await db.QueryAsync<int>("SELECT COUNT(*) FROM dbo.Requests " +
+                        $"WHERE status = 'В работе'");
 
-                return iRequests.FirstOrDefault();
+                    return iRequests.FirstOrDefault();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
             }
         }
 
-        public Task<int> GetCountRefillMaterials() {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод получает кол-во материалов, которые требуют пополнения.
+        /// </summary>
+        /// <returns></returns>
+        // TODO: переделать структуру хранения материалов в базе!!!
+        public async Task<int> GetCountRefillMaterials() {
+            try {
+                int iMaterials = 0; // Кол-во материалов.
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    IEnumerable<dynamic> aMaterials = await db.QueryAsync("SELECT * FROM dbo.Requests " +
+                        $"WHERE status = 'Требует пополнения'");                    
+
+                    // Обрабатывает результат выборки и десериализует в объект.
+                    foreach (var el in aMaterials) {
+                        var materials = el as IDictionary<string, dynamic>;
+                        var oMaterials = materials["material"];
+                        Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
+                        iMaterials = parseMaterial.Material.Count();
+                    }
+
+                    return iMaterials;
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
+        /// <summary>
+        /// Метод получает кол-во материалов, которые требуют сопоставления.
+        /// </summary>
+        /// <returns></returns>
         public Task<int> GetCountMappingMaterials() {
             throw new NotImplementedException();
         }

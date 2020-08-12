@@ -28,30 +28,28 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<string> Create(PatientCard patientCard) {
             string typeParam = "card";
-            string generateNumber = "";
+            int generateNumber;
 
-            // Генерит рандомный номер карты.
-            Task<string> taskGenerate = new Task<string>(() => RandomDataService.GenerateRandomNumber());
-            taskGenerate.Start();
+            // Генерит рандомный номер заявки.
+            int RandomGenerate() {
+                return RandomDataService.GenerateRandomNumber();
+            }
 
-            // Ждет результат задачи.
-            generateNumber = taskGenerate.Result;            
+            generateNumber = RandomGenerate();
 
             // Проверяет существует ли уже такая карта.
             var resultCheck = await CheckingCard(typeParam, patientCard.CardNumber);
 
             // Если такая карта уже существует, то повторно пойдет генерить номер карты.
             if (Convert.ToBoolean(resultCheck)) {
-                Task<string> repeatTask = new Task<string>(() => RandomDataService.GenerateRandomNumber());
-                repeatTask.Start();
-                generateNumber = repeatTask.Result;
+                generateNumber = RandomGenerate();
             }
 
             patientCard.CardNumber = generateNumber;
 
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
-                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.String);
+                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
                 parameters.Add("@fullName", patientCard.FullName, DbType.String);
                 parameters.Add("@dateOfBirth", patientCard.DateOfBirth, DbType.DateTime);
                 parameters.Add("@address", patientCard.Address, DbType.String);
@@ -93,7 +91,7 @@ namespace Bionessori.Services {
                     param: parameters);
             }
 
-            return "Новая карта пациента успешно создана.";
+            return "Новая карта пациента успешно создана";
         }
 
         /// <summary>
@@ -106,7 +104,7 @@ namespace Bionessori.Services {
                 await db.QueryAsync<PatientCard>($"DELETE FROM PatientCards WHERE id = {patientCard.Id}");
             }
 
-            return "Карта пациента успешно удалена.";
+            return "Карта пациента успешно удалена";
         }
 
         /// <summary>
@@ -117,7 +115,7 @@ namespace Bionessori.Services {
         public async Task<string> Edit(PatientCard patientCard) {
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
-                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.String);
+                parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
                 parameters.Add("@fullName", patientCard.FullName, DbType.String);
                 parameters.Add("@dateOfBirth", patientCard.DateOfBirth, DbType.DateTime);
                 parameters.Add("@address", patientCard.Address, DbType.String);
@@ -159,7 +157,7 @@ namespace Bionessori.Services {
                     param: parameters);
             }
 
-            return "Карта пациента успешно изменена.";
+            return "Карта пациента успешно изменена";
         }
 
         /// <summary>
@@ -192,7 +190,7 @@ namespace Bionessori.Services {
         /// <param name="typeParam"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<string> CheckingCard(string typeParam, string param) {
+        public async Task<string> CheckingCard(string typeParam, int param) {
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@type_param", typeParam, DbType.String);

@@ -13,9 +13,9 @@ namespace Bionessori.Services {
         /// Метод реализует генерацию рандомного номера.
         /// </summary>
         /// <returns></returns>
-        public static string GenerateRandomNumber() {
+        public static int GenerateRandomNumber() {
             Random r = new Random();
-            string numberReq = r.Next(1, 99999).ToString();
+            int numberReq = r.Next(1, 99999);
 
             return numberReq;
         }

@@ -41,7 +41,9 @@ var main_mrp = new Vue({
 		visibleMeasure: false,
 		werehouseNum: false,
 		selectedRequests: [],
-		countNewRequests: null
+		countNewRequests: null,
+		countRequestsInWork: null,
+		countRefillMaterials: null
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -359,7 +361,7 @@ var main_mrp = new Vue({
 			}
 		},
 
-		// Функция удаляет материал из заявки (удаления на бэке не произодет, если изменения в заявке не были сохранены).
+		// Функция удаляет материал из заявки (удаления на бэке не произойдет, если изменения в заявке не были сохранены).
 		onDeleteMaterialRequest(event) {
 			let elem = $(event.target).parent().parent().parent()[0].textContent.split(" × ")[0];
 
@@ -475,11 +477,49 @@ var main_mrp = new Vue({
 			try {
 				axios.get(sUrl)
 					.then((response) => {
-						console.log("Кол-во заявок со статусом Новая: ", response.data);
+						console.log("Кол-во заявок со статусом - Новая: ", response.data);
 						this.countNewRequests = response.data;
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения кол-ва заявок со статусом Новая", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения кол-ва заявок со статусом - Новая", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во заявок со статусом "В работе".
+		getCountRequestStatusWork() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-status-work";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во заявок со статусом - В работе: ", response.data);
+						this.countRequestsInWork = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения кол-ва заявок со статусом - В работе", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во материалов, требующих пополнения.
+		getCountMaterialsRefill() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-refill-count";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во материалов, требующих пополнения: ", response.data);
+						this.countRefillMaterials = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения материалов, требующих пополнения", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {

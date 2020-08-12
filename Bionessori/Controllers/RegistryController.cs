@@ -161,7 +161,7 @@ namespace Bionessori.Controllers {
         [HttpPost, Route("create-direction")]
         public async Task<IActionResult> CreateDirection([FromBody] Direction direction) {
             try {
-                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection) || (string.IsNullOrEmpty(direction.NumberDirection)) || (string.IsNullOrEmpty(direction.SeatDirection)) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
+                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection) || (Convert.ToInt32(direction.NumberDirection) == 0) || (string.IsNullOrEmpty(direction.SeatDirection)) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
                     throw new ArgumentNullException();
                 }
 

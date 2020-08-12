@@ -10,15 +10,15 @@ namespace Bionessori.Models {
     public class Request {
         public int Id { get; set; }
 
-        public string Number { get; set; }  // Номер заявки.
+        public int Number { get; set; }  // Номер заявки.
 
-        public int Count { get; set; }
+        public int Count { get; set; }  // Кол-во материала.
 
         public string Measure { get; set; } // Ед.Изм.
 
         public string Status { get; set; }  // Статус заявки.
 
-        public List<object> Material { get; set; }    // Название материала.
+        public IEnumerable<string> Material { get; set; }    // Список материалов.
 
         public string MaterialGroup { get; set; }   // Группа, к которой относится материал.
     }

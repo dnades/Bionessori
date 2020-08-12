@@ -11,7 +11,7 @@ namespace Bionessori.Models {
 
         public string PatientName { get; set; }  // Пациент.
 
-        public string NumberDirection { get; set; } // Номер направления.
+        public int NumberDirection { get; set; } // Номер направления.
 
         public string SeatDirection { get; set; }    // Id названия направления.
 
