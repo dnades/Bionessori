@@ -41,189 +41,255 @@
 			</div>
 		</div>
 
-		<!-- Секция просмотра карты пациента. -->
-		<div>
-			<div class="col-lg-12">
-				<div class="row block-main-info">
-					<div class="btn-block-main mb-3 col-lg-12">
-						<!-- Левая секция кнопок -->
-						<div class="btn-left-block">
-							<div class="btns">
+		<!-- Секция табов.-->
+		<div class="mr-2">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#main-info">Общие сведения</a>
+				</li>
 
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#contacts">Контакты</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#payments">Лечение и оплата</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#medical-card">Медицинская карта</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#documents">Документы</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#contract">Договор</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#scrins">Снимки</a>
+				</li>
+			</ul>
+
+			<!-- Тело табов. -->
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="main-info">
+					<div class="col-lg-12">
+						<div class="row block-main-info">
+							<!-- Секция редактирования карты пациента. -->
+							<div>
+								<div class="col-lg-12">
+									<div class="row block-main-info">
+										<div class="btn-block-main mb-3 col-lg-12">
+											<!-- Левая секция кнопок -->
+											<div class="btn-left-block">
+												<div class="btns">
+
+												</div>
+											</div>
+
+											<!-- Правая секция кнопок -->
+											<div class="btn-right-block">
+												<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Отменить</button>
+
+												<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="onSaveEditChange">Сохранить</button>
+											</div>
+										</div>
+
+										<div class="mt-3 column-1">
+											<div class="row-1" v-for="el in aSelectCard">
+												<label for="#id-family">ФИО</label>
+												<input id="id-family" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.fullName" />
+
+												<label for="#id-address">Адрес</label>
+												<input id="id-address" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.address" />
+
+												<label for="#id-category">Категория</label>
+												<select id="id-category" class="form-control-sm form-card mb-3">
+													<option v-bind:value="el.category">Обычный</option>
+												</select>
+
+												<label for="#id-word">Место работы</label>
+												<input id="id-word" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.seatWork" />
+
+												<label for="#id-position">Должность</label>
+												<input id="id-position" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.position" />
+
+												<label for="#id-tab">Таб.№</label>
+												<input id="id-tab" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.tabNum" />
+
+												<label for="#id-insurance-company">Страховая компания</label>
+												<select id="id-insurance-company" class="form-control-sm form-card mb-3">
+													<option v-bind:value="el.insuranceCompany">ООО "Хлебный порошок"</option>
+												</select>
+
+												<label for="#id-policy">Полис</label>
+												<input id="id-policy" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.policy" />
+
+												<label for="#id-do">Обслуж.до</label>
+												<input id="id-do" type="text" class="form-control-sm form-card" v-show="!visibleDo" v-bind:value="el.dateTo" />
+												<input id="id-do-new" type="date" class="form-control-sm form-card" v-show="visibleDo" v-bind:value="el.dateTo" />
+												<div class="checkbox-date">
+													<input type="checkbox" id="id-check-do" class="form-control-sm" name="change-date-do" v-on:click="visibleDo=!visibleDo"><span class="ml-1">Изменить дату обслуживания</span>
+												</div>
+
+												<!-- Табличка для документов. -->
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th class="text-center" scope="col">
+																<button class="btn btn-link" value="" v-on:click="">
+																	Документ
+																</button>
+															</th>
+
+															<th class="text-center" scope="col">
+																<button class="btn btn-link">
+																	Серия и номер
+																</button>
+															</th>
+
+															<th class="text-center" scope="col">
+																<button class="btn btn-link">
+																	Кем выдан
+																</button>
+															</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														<tr class="tbl-item tbl-row-click">
+															<td class="text-center">
+																<span>документ</span>
+															</td>
+
+															<td class="text-center">
+																<span>серия и номер тест</span>
+															</td>
+
+															<td class="text-center">
+																<span>выдан тестом</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+
+												<input id="id-photo" type="file" class="form-control-sm form-card mb-3" />
+												<!-- Сюда будет вставляться фото пациента. -->
+
+												<label for="#id-comment">Комментарии</label>
+												<textarea id="id-comment" rows="10" v-bind:value="el.comment"></textarea>
+											</div>
+										</div>
+
+										<div class="mt-3 column-2">
+											<div class="row-2" v-for="el in aSelectCard">
+												<label for="#id-date-year">Дата рождения</label>
+												<input id="id-date-year" type="text" class="form-control-sm form-card" v-show="!visibleYear" v-bind:value="el.dateOfBirth" />
+												<input id="id-date-year-new" type="date" class="form-control-sm form-card" v-show="visibleYear" v-bind:value="el.dateOfBirth" />
+												<div class="checkbox-date">
+													<input type="checkbox" id="id-check-year" class="form-control-sm" name="change-date-year" v-on:click="visibleYear=!visibleYear"><span class="ml-1">Изменить дату рождения</span>
+												</div>
+
+												<label for="#id-number">Телефон</label>
+												<input id="id-number" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.number" />
+
+												<label for="#id-email">Email</label>
+												<input id="id-email-address" type="email" class="form-control-sm form-card mb-3" v-bind:value="el.email" />
+
+												<label for="#id-indicator">Сигнальная информация</label>
+												<textarea id="id-indicator" rows="10" v-bind:value="el.indicator"></textarea>
+
+												<label for="#id-blood-group">Группа крови</label>
+												<select id="id-blood-group" class="form-control-sm form-card mb-3">
+													<option v-bind:value="el.bloodGroup">IV</option>
+												</select>
+
+												<label for="#id-vich">ВИЧ</label>
+												<select id="id-vich" class="form-control-sm form-card mb-3">
+													<option v-bind:value="el.isVich">-</option>
+												</select>
+
+												<label for="#id-hb">HB</label>
+												<select id="id-hb" class="form-control-sm form-card mb-3">
+													<option v-bind:value="el.isHb">-</option>
+												</select>
+
+												<label for="#id-rw">RW</label>
+												<select id="id-rw" class="form-control-sm form-card mb-3">
+													<option v-bind:value="el.isRw">-</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="mt-3 column-3">
+											<div class="row-3" v-for="el in aSelectCard">
+												<label for="#id-index">Индекс</label>
+												<input id="id-index" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.index" />
+
+												<label for="#id-city">Город</label>
+												<input id="id-city" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.city" />
+
+												<label for="#id-district">Район</label>
+												<input id="id-district" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.district" />
+
+												<label for="#id-region">Область</label>
+												<input id="id-region" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.region" />
+
+												<label for="#id-form-pay">Форма оплаты</label>
+												<input id="id-form-pay" type="text" class="form-control-sm  form-card mb-3" v-bind:value="el.formPay" />
+
+												<label for="#id-plan">Тариф</label>
+												<input id="id-plan" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.plan" />
+
+												<label for="#id-registry">Зарегистрирован</label>
+												<input id="id-date-registry" type="text" class="form-control-sm form-card" v-show="!visibleReg" v-bind:value="el.registry" />
+												<input id="id-date-registry-new" type="date" class="form-control-sm form-card" v-show="visibleReg" v-bind:value="el.registry" />
+												<div class="checkbox-date">
+													<input type="checkbox" id="id-check-reg" class="form-control-sm" name="change-date-registry" v-on:click="visibleReg=!visibleReg"><span class="ml-1">Изменить дату регистрации</span>
+												</div>
+
+												<label for="#id-change">Изменен</label>
+												<input id="id-change" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.whoChange" />
+
+												<label for="#id-operator">Оператор</label>
+												<input id="id-operator" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.operator" />
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<!-- Правая секция кнопок -->
-						<div class="btn-right-block">
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Отменить</button>
-
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onSaveEditChange">Сохранить изменения</button>
-						</div>
-					</div>
-
-					<div class="mt-3 column-1">
-						<div class="row-1" v-for="el in aSelectCard">
-							<label for="#id-family">ФИО</label>
-							<input id="id-family" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.fullName" />
-
-							<label for="#id-address">Адрес</label>
-							<input id="id-address" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.address" />
-
-							<label for="#id-category">Категория</label>
-							<select id="id-category" class="form-control-sm form-card mb-3">
-								<option v-bind:value="el.category">Обычный</option>
-							</select>
-
-							<label for="#id-word">Место работы</label>
-							<input id="id-word" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.seatWork" />
-
-							<label for="#id-position">Должность</label>
-							<input id="id-position" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.position" />
-
-							<label for="#id-tab">Таб.№</label>
-							<input id="id-tab" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.tabNum" />
-
-							<label for="#id-insurance-company">Страховая компания</label>
-							<select id="id-insurance-company" class="form-control-sm form-card mb-3">
-								<option v-bind:value="el.insuranceCompany">ООО "Хлебный порошок"</option>
-							</select>
-
-							<label for="#id-policy">Полис</label>
-							<input id="id-policy" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.policy" />
-
-							<label for="#id-do">Обслуж.до</label>
-							<input id="id-do" type="text" class="form-control-sm form-card" v-show="!visibleDo" v-bind:value="el.dateTo" />
-							<input id="id-do-new" type="date" class="form-control-sm form-card" v-show="visibleDo" v-bind:value="el.dateTo" />
-							<div class="checkbox-date">
-								<input type="checkbox" id="id-check-do" class="form-control-sm" name="change-date-do" v-on:click="visibleDo=!visibleDo"><span class="ml-1">Изменить дату обслуживания</span>
-							</div>
-
-							<!-- Табличка для документов. -->
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th class="text-center" scope="col">
-											<button class="btn btn-link" value="" v-on:click="">
-												Документ
-											</button>
-										</th>
-
-										<th class="text-center" scope="col">
-											<button class="btn btn-link">
-												Серия и номер
-											</button>
-										</th>
-
-										<th class="text-center" scope="col">
-											<button class="btn btn-link">
-												Кем выдан
-											</button>
-										</th>
-									</tr>
-								</thead>
-
-								<tbody>
-									<tr class="tbl-item tbl-row-click">
-										<td class="text-center">
-											<span>документ</span>
-										</td>
-
-										<td class="text-center">
-											<span>серия и номер тест</span>
-										</td>
-
-										<td class="text-center">
-											<span>выдан тестом</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-
-							<input id="id-photo" type="file" class="form-control-sm form-card mb-3" />
-							<!-- Сюда будет вставляться фото пациента. -->
-
-							<label for="#id-comment">Комментарии</label>
-							<textarea id="id-comment" rows="10" v-bind:value="el.comment"></textarea>
-						</div>
-					</div>
-
-					<div class="mt-3 column-2">
-						<div class="row-2" v-for="el in aSelectCard">
-							<label for="#id-date-year">Дата рождения</label>
-							<input id="id-date-year" type="text" class="form-control-sm form-card" v-show="!visibleYear" v-bind:value="el.dateOfBirth" />
-							<input id="id-date-year-new" type="date" class="form-control-sm form-card" v-show="visibleYear" v-bind:value="el.dateOfBirth" />
-							<div class="checkbox-date">
-								<input type="checkbox" id="id-check-year" class="form-control-sm" name="change-date-year" v-on:click="visibleYear=!visibleYear"><span class="ml-1">Изменить дату рождения</span>
-							</div>
-
-							<label for="#id-number">Телефон</label>
-							<input id="id-number" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.number" />
-
-							<label for="#id-email">Email</label>
-							<input id="id-email-address" type="email" class="form-control-sm form-card mb-3" v-bind:value="el.email" />
-
-							<label for="#id-indicator">Сигнальная информация</label>
-							<textarea id="id-indicator" rows="10" v-bind:value="el.indicator"></textarea>
-
-							<label for="#id-blood-group">Группа крови</label>
-							<select id="id-blood-group" class="form-control-sm form-card mb-3">
-								<option v-bind:value="el.bloodGroup">IV</option>
-							</select>
-
-							<label for="#id-vich">ВИЧ</label>
-							<select id="id-vich" class="form-control-sm form-card mb-3">
-								<option v-bind:value="el.isVich">-</option>
-							</select>
-
-							<label for="#id-hb">HB</label>
-							<select id="id-hb" class="form-control-sm form-card mb-3">
-								<option v-bind:value="el.isHb">-</option>
-							</select>
-
-							<label for="#id-rw">RW</label>
-							<select id="id-rw" class="form-control-sm form-card mb-3">
-								<option v-bind:value="el.isRw">-</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="mt-3 column-3">
-						<div class="row-3" v-for="el in aSelectCard">
-							<label for="#id-index">Индекс</label>
-							<input id="id-index" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.index" />
-
-							<label for="#id-city">Город</label>
-							<input id="id-city" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.city" />
-
-							<label for="#id-district">Район</label>
-							<input id="id-district" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.district" />
-
-							<label for="#id-region">Область</label>
-							<input id="id-region" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.region" />
-
-							<label for="#id-form-pay">Форма оплаты</label>
-							<input id="id-form-pay" type="text" class="form-control-sm  form-card mb-3" v-bind:value="el.formPay" />
-
-							<label for="#id-plan">Тариф</label>
-							<input id="id-plan" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.plan" />
-
-							<label for="#id-registry">Зарегистрирован</label>
-							<input id="id-date-registry" type="text" class="form-control-sm form-card" v-show="!visibleReg" v-bind:value="el.registry" />
-							<input id="id-date-registry-new" type="date" class="form-control-sm form-card" v-show="visibleReg" v-bind:value="el.registry" />
-							<div class="checkbox-date">
-								<input type="checkbox" id="id-check-reg" class="form-control-sm" name="change-date-registry" v-on:click="visibleReg=!visibleReg"><span class="ml-1">Изменить дату регистрации</span>
-							</div>
-
-							<label for="#id-change">Изменен</label>
-							<input id="id-change" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.whoChange" />
-
-							<label for="#id-operator">Оператор</label>
-							<input id="id-operator" type="text" class="form-control-sm form-card mb-3" v-bind:value="el.operator" />
 						</div>
 					</div>
 				</div>
+
+				<div class="tab-pane fade" id="contacts">
+					Контакты
+				</div>
+
+				<div class="tab-pane fade" id="payments">
+					Лечение и оплата
+				</div>
+
+				<div class="tab-pane fade" id="medical-card">
+					Медицинская карта
+				</div>
+
+				<div class="tab-pane fade" id="documents">
+					Документы
+				</div>
+
+				<div class="tab-pane fade" id="contract">
+					Договор
+				</div>
+
+				<div class="tab-pane fade" id="scrins">
+					Снимки
+				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 
 	<script src="~/js/Card.js"></script>

@@ -22,8 +22,8 @@ namespace Bionessori.Controllers {
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost, Route("get-requests")]
-        public async Task<IActionResult> GetRequests([FromBody] Request request) {
-            var oRequests = await _request.GetRequests(request);
+        public async Task<IActionResult> GetRequests() {
+            var oRequests = await _request.GetRequests();
 
             return Ok(oRequests);
         }
@@ -37,7 +37,7 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> Create([FromBody] Request request) {
             await _request.Create(request);
 
-            return Ok("Заявка на потребность успешно создана.");
+            return Ok("Заявка на потребность успешно создана");
         }
 
         /// <summary>
@@ -48,17 +48,17 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> SaveChangeRequest([FromBody] Request request) {
             await _request.Edit(request);
 
-            return Ok("Заявка успешно изменена.");
+            return Ok("Заявка успешно изменена");
         }
 
         /// <summary>
         /// Метод удаляет заявку.
         /// </summary>
-        [HttpPost, Route("delete-request")]
-        public async Task<IActionResult> DeleteRequest([FromBody] Request request) {
-            await _request.Delete(request.Number);
+        [HttpPut, Route("delete-request")]
+        public async Task<IActionResult> DeleteRequest([FromQuery] int number) {
+            await _request.Delete(number);
 
-            return Ok("Заявка успешно удалена.");
+            return Ok("Заявка успешно удалена");
         }
     }
 }

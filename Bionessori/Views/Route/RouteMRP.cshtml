@@ -33,145 +33,73 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-card" data-toggle="modal" data-target="#create-card-modal">Управление складами</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Отчеты</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Перейти к мониторингу количества запасов</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Номенклатура</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Перейти к заявкам потребностей</button>
+				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Перейти к заявкам</button>
 			</div>
 		</div>
 
-		<div class="block-tables">
-			<!-- Секция с левой таблицей со списком заявок. -->
-			<div class="mr-2">
-				
-			</div>
-
-			<!-- Секция с правой таблицей со списком материалов складов. -->
-			<div>
-			
-			</div>
-		</div>
-
-		<!-- Секция модального окна подробнее о заявке. -->
-		<div class="modal fade" id="details-request-modal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content" v-for="el in concreteRequest">
-					<div class="modal-header">
-						<h5 class="modal-title" id="requestModalLabel">Детали заявки № {{el.number}}</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+		<!-- Секция со статистикой. -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card-deck">
+					<div class="card border-danger">
+						<div class="card-body text-danger">
+							<h5 class="card-title">Количество материалов, требующих пополнения.</h5>
+							<p class="card-text">Количество материалов, которые требуют пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
+							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+						</div>
 					</div>
 
-					<div class="modal-body">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="text-center" scope="col">№ заявки</th>
-									<th class="text-center" scope="col">Количество</th>
-									<th class="text-center" scope="col">Ед.Изм.</th>
-									<th class="text-center" scope="col">Статус</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteRequest">
-									<td class="text-center req-id">
-										<span>{{el.id}}</span>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id" class="form-control form-control-modal not-edit">{{el.number}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.status}}</textarea>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="card border-success">
+						<div class="card-body text-success">
+							<h5 class="card-title">Заявок со статусом «Новая».</h5>
+							<p class="card-text"> Заявок со статусом «Новая»: {{countNewRequests !== null ? countNewRequests : '0'}}</p>
+							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+						</div>
 					</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					<div class="card border-info">
+						<div class="card-body text-info">
+							<h5 class="card-title">Заявок со статусом «В работе».</h5>
+							<p class="card-text">Заявок со статусом «В работе»: {{countRequestsInWork !== null ? countRequestsInWork : '0'}}</p>
+							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- Секция модального окна подробнее о материале. -->
-		<div class="modal fade" id="details-material-modal" tabindex="-1" role="dialog" aria-labelledby="materialModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content" v-for="el in concreteMaterial">
-					<div class="modal-header">
-						<h5 class="modal-title" id="materialModalLabel">Детали материала с кодом {{el.code}}</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+		<div class="row mt-3">
+			<div class="col-lg-12">
+				<div class="card-deck">
+					<div class="card border-warning">
+						<div class="card-body text-warning">
+							<h5 class="card-title">Заявок со статусом «Ожидает подтверждения удаления».</h5>
+							<p class="card-text">Заявок ожидающих подтверждения удаления: {{countAcceptDeleteReq !== null ? countAcceptDeleteReq : '0'}}</p>
+							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+						</div>
 					</div>
 
-					<div class="modal-body">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="text-center" scope="col">Код</th>
-									<th class="text-center" scope="col">Материал</th>
-									<th class="text-center" scope="col">Группа</th>
-									<th class="text-center" scope="col">Ед.Изм.</th>
-									<th class="text-center" scope="col">Количество</th>
-									<th class="text-center" scope="col">Номер склада</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr id="tbl-item-edit" class="tbl-item" v-for="el in concreteMaterial">
-									<td class="text-center req-id">
-										<span>{{el.id}}</span>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id" class="form-control form-control-modal not-edit">{{el.code}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-card-number" class="form-control form-control-modal not-edit">{{el.material}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-name" class="form-control form-control-modal not-edit">{{el.materialGroup}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.measure}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.count}}</textarea>
-									</td>
-
-									<td class="text-center">
-										<textarea id="id-date-of-birth" class="form-control form-control-modal not-edit">{{el.werehouseNumber}}</textarea>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="card border-primary">
+						<div class="card-body text-primary">
+							<h5 class="card-title">Количество материалов, требующих сопоставления.</h5>
+							<p class="card-text">Количество материалов, требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
+							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+						</div>
 					</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+
+					<div class="card empty-card">
+						<div class="card-body">
+
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 
 	<script src="~/js/MRP.js"></script>

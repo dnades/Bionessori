@@ -1,16 +1,19 @@
-﻿using Bionessori.Core.Interfaces;
+﻿using Bionessori.Core.Constants;
+using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bionessori.Services {
@@ -45,7 +48,7 @@ namespace Bionessori.Services {
             using (var db = new SqlConnection(_connectionString)) {
                 var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
 
-                return oNames.ToList(); 
+                return oNames; 
             }
         }
 
@@ -57,7 +60,7 @@ namespace Bionessori.Services {
             using (var db = new SqlConnection(_connectionString)) {
                 var oGroups = await db.QueryAsync("sp_GetGroupNames");
 
-                return oGroups.ToList();
+                return oGroups;
             }
         }
 
@@ -69,7 +72,7 @@ namespace Bionessori.Services {
             using (var db = new SqlConnection(_connectionString)) {
                 var oMeasures = await db.QueryAsync("sp_GetMeasures");
 
-                return oMeasures.ToList();
+                return oMeasures;
             }
         }
 
@@ -81,7 +84,7 @@ namespace Bionessori.Services {
             using (var db = new SqlConnection(_connectionString)) {
                 var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
 
-                return oDistinctMaterials.ToList();
+                return oDistinctMaterials;
             }
         }
 
@@ -90,7 +93,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="group"></param>
         /// <returns></returns>
-        public async Task<List<string>> GetMaterialsGroup(string group) {
+        public async Task<IEnumerable<string>> GetMaterialsGroup(string group) {
             using (var db = new SqlConnection(_connectionString)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@group", group, DbType.String);
@@ -100,7 +103,112 @@ namespace Bionessori.Services {
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
 
-                return oMaterialsGroup.ToList();
+                return oMaterialsGroup;
+            }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "Новая".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public async Task<int> GetCountNewRequests() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
+                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEW}'");
+
+                    return iRequests.FirstOrDefault();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public async Task<int> GetCountRequestInWork() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
+                        $"WHERE status = '{RequestStatus.REQ_STATUS_IN_WORK}'");
+
+                    return iRequests.FirstOrDefault();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во материалов, которые требуют пополнения.
+        /// </summary>
+        /// <returns>Кол-во материалов.</returns>
+        public async Task<int> GetCountRefillMaterials() {
+            try {
+                int iMaterials = 0; // Кол-во материалов.
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
+                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_REFILL}'");                    
+
+                    // Обрабатывает результат выборки и десериализует в объект.
+                    foreach (var el in aMaterials) {
+                        var materials = el as IDictionary<string, dynamic>;
+                        var oMaterials = materials["material"];
+                        Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
+                        iMaterials = parseMaterial.Material.Count();
+                    }
+
+                    return iMaterials;
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во материалов, которые требуют сопоставления.
+        /// </summary>
+        /// <returns>Кол-во материалов.</returns>
+        public async Task<int> GetCountMappingMaterials() {
+            int iMaterials = 0; // Кол-во материалов.
+
+            using (var db = new SqlConnection(_connectionString)) {
+                IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
+                    $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_MAPPING}'");
+
+                // Обрабатывает результат выборки и десериализует в объект.
+                foreach (var el in aMaterials) {
+                    var materials = el as IDictionary<string, dynamic>;
+                    var oMaterials = materials["material"];
+                    Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
+                    iMaterials = parseMaterial.Material.Count();
+                }
+
+                return iMaterials;
+            }
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок, требующих подтверждения удаления.
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public async Task<int> GetCountAcceptDeleteRequests() {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
+                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE}'");
+
+                    return iRequests.FirstOrDefault();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
             }
         }
     }

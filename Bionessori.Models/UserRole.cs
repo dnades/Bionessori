@@ -11,8 +11,6 @@ namespace Bionessori.Models {
 
         public string UserName { get; set; }
 
-        public int UserId { get; set; }
-
         public string Role { get; set; } 
     }
 }

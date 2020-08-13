@@ -1,0 +1,165 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div id="main"></div>
+	<div id="registry">
+		<div class="row">
+			<div class="container">
+				<!-- Главная секция кнопок -->
+				<div class="btn-block-main">
+					<!-- Левая секция кнопок -->
+					<div class="btn-left-block">
+						<div class="btns">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+									<li class="breadcrumb-item active" aria-current="page">Регистратура</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+
+					<!-- Правая секция кнопок -->
+					<div class="btn-right-block">
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Рецепты</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="route_direction" v-on:click="onRouteDirection">Направления</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" v-show="aSelectedReceptions.length" v-on:click="">Отмена записи</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" v-show="aSelectedReceptions.length" v-on:click="">Перенос записи</button>
+
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Выгрузить в Excel</button>
+						
+						<button type="button" class="btn-item btn btn-default btn-create-card" value="route_reception" v-on:click="onRouteReception">Создать запись</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция с таблицей со списком записей на приемы. -->
+		<div class="mr-2">
+			<h3>Список записей на приемы</h3>
+			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchReception" placeholder="Поиск по номеру записи на прием">
+			<div class="tbl">
+				<table id="id-request-list-table" class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">
+								<input type="checkbox">
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number" v-on:click="">
+									№ записи
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Дата приема
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									№ карты пациента
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Врач
+								</button>
+							</th>
+
+							<th class="text-center" scope="col"></th>
+							<th class="text-center" scope="col"></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr class="tbl-item tbl-row-click" v-for="el in aReceptions" v-on:dblclick="">
+							<th class="text-center" scope="col">
+								<input type="checkbox" v-bind:value="el.id" v-model="aSelectedReceptions" v-on:change="onChecked">
+							</th>
+
+							<td class="text-center req-id">
+								<span>{{el.id}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.numberReception}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.date}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.cardNumber}}</span>
+							</td>
+
+							<td class="text-center">
+								<span>{{el.fullName}}</span>
+							</td>
+
+							<td class="text-center state">
+								<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_reception" v-on:click="onRouteEditReception">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+								</button>
+							</td>
+
+							<td class="text-center state">
+								<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-reception-modal" v-on:click="onAfterDeleteReception">
+									<i class="fa fa-trash-o" aria-hidden="true"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Секция модального окна удаления записи. -->
+		<div class="modal fade" id="delete-reception-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+			<div id="modal-delete" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="el in concreteReception">
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteModalLabel">Удаление записи № {{el.numberReception}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<span>Вы действительно хотите удалить запись: № {{el.numberReception}}?</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onDeleteReception">Удалить запись</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/js/Route.js"></script>
+	<script src="~/js/Registry.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

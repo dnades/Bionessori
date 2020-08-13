@@ -10,12 +10,12 @@ namespace Bionessori.Services {
     /// </summary>
     public class RandomDataService {      
         /// <summary>
-        /// Метод реализует генерацию рандомного номера карты пациента.
+        /// Метод реализует генерацию рандомного номера.
         /// </summary>
         /// <returns></returns>
-        public static string GenerateRandomNumber() {
+        public static int GenerateRandomNumber() {
             Random r = new Random();
-            string numberReq = r.Next(1, 99999).ToString();
+            int numberReq = r.Next(1, 99999);
 
             return numberReq;
         }

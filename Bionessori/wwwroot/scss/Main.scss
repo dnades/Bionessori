@@ -2,6 +2,7 @@
 $widthModal: max-content !important;
 $widthBtnsCard: auto !important;
 $noneId: none;
+$emptyCard: none;   // Для пустой карты.
 
 @mixin Lbl {
     width: 300px;
@@ -17,10 +18,44 @@ $noneId: none;
     flex-direction: column;
 }
 
+@mixin btnItemSmall {
+    background: white;
+    border-radius: 10px;
+    border-color: #66BFE0;
+    color: #66BFE0;
+    font-size: 13px;
+    margin-top: 5px;
+    border-width: 2px;
+}
+
+// Убирает пробелы у заголовков типа col-lg-12, col-lg-6
+@mixin NotSpace {
+    padding-right: inherit;
+    padding-left: inherit;
+}
+
+// Горизонтальный поиск пациента.
+@mixin horizontalSearch {
+    display: flex;
+    align-items: center;
+}
+
+// Элементы горизонтального поиска пациента.
+@mixin elemHorizontalSearch {
+    display: flex;
+    flex-direction: column;
+}
+
+// Кнопка создания записи.
+@mixin btnAddReception {
+    height: 50px;
+    margin: 0 auto;
+}
+
 body {
-    //color: white;
     background: #FDFFFF;
     color: #676767;
+    overflow-x: hidden;
 }
 
 .navbar {
@@ -32,15 +67,18 @@ body {
 }
 
 .context {
-    margin-left: 5%;
-    margin-right: 5%;
-    //box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    //margin-left: 5%;
+    //margin-right: 5%;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
 }
 
 .btn-item {
     background: white;
     border-radius: 10px;
-    /* background: #66BFE0; */
     border-color: #66BFE0;
     color: #66BFE0;
     font-size: 13px;
@@ -49,7 +87,6 @@ body {
     border-width: 2px;
 
     &:hover {
-        //background: black !important;
         background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
         transition: all 0.21s ease;
         color: white;
@@ -62,7 +99,7 @@ body {
 
     .btn-left-block {
         .left-btn {
-            margin-right: 5px;
+            //margin-right: 5px;
         }
     }
 
@@ -83,6 +120,10 @@ body {
         width: $widthBtnsCard;
     }
 
+    .btn-nomenclature {
+        width: $widthBtnsCard;
+    }
+
     .export-excel {
         width: $widthBtnsCard;
     }
@@ -100,6 +141,16 @@ body {
     }
 }
 
+.btn-item-small {
+    @include btnItemSmall;
+
+    &:hover {
+        background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
+        transition: all 0.21s ease;
+        color: white;
+    }
+}
+
 .advantages {
     display: flex;
     justify-content: space-around;
@@ -110,7 +161,6 @@ body {
 table {
     thead {
         th {
-            //background-color: white !important;
             background-color: #66BFE0 !important;
 
             .btn-link {
@@ -119,30 +169,21 @@ table {
             }
         }
     }
-    //border: 2px solid azure !important;
-    //color: azure !important;
-    td {
-        //border: 2px solid azure !important;
-    }
-
-    tr {
-        //border: 2px solid azure !important;
-    }
 
     th {
-        //border: 2px solid azure !important;
         background: #FDFFFF;
         font-weight: 900 !important;
         vertical-align: middle !important;
     }
 
-    .state {
-        vertical-align: middle;
+    tr {
+        &:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
     }
 
-    .btn-link {
-        //color: azure !important;
-        //font-weight: 900;
+    .state {
+        vertical-align: middle;
     }
 }
 
@@ -155,13 +196,20 @@ table {
     border-bottom: 2px solid #dee2e6;
 }
 
+// Для высоты таблиц.
+.tbl {
+    //height: 100vh;
+    height: 400px;
+    overflow-y: scroll;
+}
+
 .tbl-item {
-    .card-id {
-        display: $noneId;
+    td {
+        vertical-align: middle;
     }
 
-    &:hover {
-        //box-shadow: 0 0 10px #000000 !important;
+    .card-id {
+        display: $noneId;
     }
 
     .user-id {
@@ -213,6 +261,10 @@ table {
 }
 
 #checkin-modall {
+    width: $widthModal;
+}
+
+#id-feedback-modall {
     width: $widthModal;
 }
 
@@ -291,58 +343,22 @@ table {
     width: 300px;
 }
 
-.form-card {
-    //width: 300px;
-    //line-height: 2;
-    //height: 20px;
-}
-
-.column-1 {
-    //display: flex;
-    //margin-right: 10%;
-    label {
-        //@include Lbl;
-    }
-}
-
-.column-2 {
-    label {
-        //@include Lbl;
-    }
-}
-
-.column-3 {
-    label {
-        //@include Lbl;
-    }
-}
-
 .block-main-info {
     display: flex;
     justify-content: space-around;
 
     .row-1 {
-        //@include shadow;
         @include flexDirCol;
     }
 
     .row-2 {
         @include flexDirCol;
         width: 300px;
-        //@include shadow;
     }
 
     .row-3 {
         @include flexDirCol;
-        //@include shadow;
     }
-    /*.card {
-        padding: 5%;
-    }*/
-}
-
-.main-block-card {
-    //background: #FDFFFC;    
 }
 
 .checkbox-date {
@@ -376,7 +392,148 @@ table {
     }
 }
 
-#success-create-request {
-    //width: $widthModal;
-    //display: flex!important;
+// Создание записи на прием.
+.block-registry {
+    display: flex;
+    align-items: center;
+    //justify-content: center;
+
+    .item-set-registry {
+        display: flex;
+        flex-direction: column;
+
+        .control-set {
+            width: 300px;
+            height: 50px;
+        }
+
+        .control-set-date {
+            width: 200px;
+            height: 50px;
+        }
+    }
+
+    .btn-add-registry {
+        height: 50px;
+        margin: 0 auto;
+    }
+}
+
+.create-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.block-add-list {
+    margin: 0 auto;
+}
+
+.menu_link_man {
+    list-style-type: none;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+// Выпадающее меню.
+.drop-down {
+    position: relative;
+
+    &:hover .drop-menu {
+        visibility: visible;
+        background-color: white;
+        box-shadow: 0px 0px 5px 0px #C1C1C1;
+        cursor: pointer;
+        color: cornflowerblue;
+
+        span {
+            color: #676767;
+        }
+    }
+
+    .drop-menu {
+        position: absolute;
+        background-color: transparent;
+        padding: 0 10px;
+        border-radius: 8px;
+        visibility: hidden;
+        transition: .3s;
+        right: 2px;
+
+        span {
+            color: transparent;
+
+            &:hover {
+                cursor: pointer;
+                color: cornflowerblue;
+            }
+        }
+    }
+}
+
+// В том числе для логина выпадающего меню.
+hr {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.block-create-schedule {
+    .patient-search {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-input {
+        background: white;
+        border-radius: 10px;
+        border-color: #66BFE0;
+        color: #66BFE0;
+        font-size: 13px;
+        width: auto;
+        border-width: 2px;
+
+        &:hover {
+            background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
+            transition: all 0.21s ease;
+            color: white;
+        }
+    }
+}
+
+// Создание записи на прием в ЛК.
+.block-reception {
+    @include horizontalSearch;
+
+    .item-set-reception {
+        @include elemHorizontalSearch;
+    }
+
+    .btn-add-reception {
+        @include btnAddReception;
+    }
+
+    .input-heigth {
+        width: 300px;
+        height: 50px;
+    }
+}
+
+.block-receptions-lists {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    color: #004A4A;
+    background: #EAF4F4;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.empty-card {
+    border: $emptyCard;
 }

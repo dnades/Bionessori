@@ -1,6 +1,7 @@
 ﻿body {
   background: #FDFFFF;
-  color: #676767; }
+  color: #676767;
+  overflow-x: hidden; }
 
 .navbar {
   background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0); }
@@ -8,14 +9,13 @@
 .container {
   max-width: 100%; }
 
-.context {
-  margin-left: 5%;
-  margin-right: 5%; }
+.btns {
+  display: flex;
+  flex-direction: column; }
 
 .btn-item {
   background: white;
   border-radius: 10px;
-  /* background: #66BFE0; */
   border-color: #66BFE0;
   color: #66BFE0;
   font-size: 13px;
@@ -30,8 +30,6 @@
 .btn-block-main {
   display: flex;
   justify-content: space-between; }
-  .btn-block-main .btn-left-block .left-btn {
-    margin-right: 5px; }
   .btn-block-main .block-content {
     margin-left: 2%;
     margin-right: 2%; }
@@ -41,6 +39,8 @@
     width: auto !important; }
   .btn-block-main .btn-create-req {
     width: auto !important; }
+  .btn-block-main .btn-nomenclature {
+    width: auto !important; }
   .btn-block-main .export-excel {
     width: auto !important; }
   .btn-block-main .export-word {
@@ -49,6 +49,19 @@
     width: auto !important; }
   .btn-block-main .export-pdf {
     width: auto !important; }
+
+.btn-item-small {
+  background: white;
+  border-radius: 10px;
+  border-color: #66BFE0;
+  color: #66BFE0;
+  font-size: 13px;
+  margin-top: 5px;
+  border-width: 2px; }
+  .btn-item-small:hover {
+    background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
+    transition: all 0.21s ease;
+    color: white; }
 
 .advantages {
   display: flex;
@@ -67,6 +80,9 @@ table th {
   font-weight: 900 !important;
   vertical-align: middle !important; }
 
+table tr:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+
 table .state {
   vertical-align: middle; }
 
@@ -76,6 +92,13 @@ table .state {
 .table thead th {
   vertical-align: middle;
   border-bottom: 2px solid #dee2e6; }
+
+.tbl {
+  height: 400px;
+  overflow-y: scroll; }
+
+.tbl-item td {
+  vertical-align: middle; }
 
 .tbl-item .card-id {
   display: none; }
@@ -110,6 +133,9 @@ table .state {
   width: max-content !important; }
 
 #checkin-modall {
+  width: max-content !important; }
+
+#id-feedback-modall {
   width: max-content !important; }
 
 .btn-right-block {
@@ -169,10 +195,7 @@ table thead th {
 
 .block-main-info {
   display: flex;
-  justify-content: space-around;
-  /*.card {
-        padding: 5%;
-    }*/ }
+  justify-content: space-around; }
   .block-main-info .row-1 {
     display: flex;
     flex-direction: column; }
@@ -202,3 +225,106 @@ table thead th {
       cursor: pointer; }
     .list-group .list-group-item .close:hover {
       cursor: pointer; }
+
+.block-registry {
+  display: flex;
+  align-items: center; }
+  .block-registry .item-set-registry {
+    display: flex;
+    flex-direction: column; }
+    .block-registry .item-set-registry .control-set {
+      width: 300px;
+      height: 50px; }
+    .block-registry .item-set-registry .control-set-date {
+      width: 200px;
+      height: 50px; }
+  .block-registry .btn-add-registry {
+    height: 50px;
+    margin: 0 auto; }
+
+.create-list {
+  display: flex;
+  flex-direction: column; }
+
+.block-add-list {
+  margin: 0 auto; }
+
+.menu_link_man {
+  list-style-type: none; }
+
+ul li {
+  list-style-type: none; }
+
+.drop-down {
+  position: relative; }
+  .drop-down:hover .drop-menu {
+    visibility: visible;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px #C1C1C1;
+    cursor: pointer;
+    color: cornflowerblue; }
+    .drop-down:hover .drop-menu span {
+      color: #676767; }
+  .drop-down .drop-menu {
+    position: absolute;
+    background-color: transparent;
+    padding: 0 10px;
+    border-radius: 8px;
+    visibility: hidden;
+    transition: .3s;
+    right: 2px; }
+    .drop-down .drop-menu span {
+      color: transparent; }
+      .drop-down .drop-menu span:hover {
+        cursor: pointer;
+        color: cornflowerblue; }
+
+hr {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); }
+
+.block-create-schedule .patient-search {
+  display: flex;
+  align-items: center; }
+
+.block-create-schedule .btn-input {
+  background: white;
+  border-radius: 10px;
+  border-color: #66BFE0;
+  color: #66BFE0;
+  font-size: 13px;
+  width: auto;
+  border-width: 2px; }
+  .block-create-schedule .btn-input:hover {
+    background-image: linear-gradient(to bottom, #66bfe0, #65c2e1, #65c5e1, #65c8e1, #65cbe1, #65cbe1, #65cbe1, #65cbe1, #65c8e1, #65c5e1, #65c2e1, #66bfe0);
+    transition: all 0.21s ease;
+    color: white; }
+
+.block-reception {
+  display: flex;
+  align-items: center; }
+  .block-reception .item-set-reception {
+    display: flex;
+    flex-direction: column; }
+  .block-reception .btn-add-reception {
+    height: 50px;
+    margin: 0 auto; }
+  .block-reception .input-heigth {
+    width: 300px;
+    height: 50px; }
+
+.block-receptions-lists {
+  display: flex;
+  justify-content: space-between; }
+
+.title {
+  color: #004A4A;
+  background: #EAF4F4;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px; }
+
+.empty-card {
+  border: none; }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bionessori.Controllers {
     /// <summary>
-    /// Контроллер описывает работу складов.
+    /// Контроллер описывает работу номенклатуры.
     /// </summary>
     [ApiController, Route("api/werehouse/material")]
     public class WerehouseController : ControllerBase {
@@ -84,6 +84,56 @@ namespace Bionessori.Controllers {
             var oMaterialsGroup = await _werehouse.GetMaterialsGroup(group);
 
             return Ok(oMaterialsGroup);
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "Новая".
+        /// </summary>
+        [HttpGet, Route("count-status-new")]
+        public async Task<IActionResult> GetCountStatusNewRequests() {
+            var iRequests = await _werehouse.GetCountNewRequests();
+            
+            return Ok(iRequests);
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        [HttpGet, Route("count-status-work")]
+        public async Task<IActionResult> GetCountStatusWorkRequests() {
+            var iRequests = await _werehouse.GetCountRequestInWork();
+
+            return Ok(iRequests);
+        }
+
+        /// <summary>
+        /// Метод получает кол-во материалов, требующих пополнения.
+        /// </summary>
+        [HttpGet, Route("count-refill-materials")]
+        public async Task<IActionResult> GetCountRefillMaterials() {
+            var iMaterials = await _werehouse.GetCountRefillMaterials();
+
+            return Ok(iMaterials);
+        }
+
+        /// <summary>
+        /// Метод получает кол-во материалов, требующих сопоставления.
+        /// </summary>
+        [HttpGet, Route("count-mapping-materials")]
+        public async Task<IActionResult> GetCountMappingMaterials() {
+            var iMaterials = await _werehouse.GetCountMappingMaterials();
+
+            return Ok(iMaterials);
+        }
+
+        /// <summary>
+        /// Метод получает кол-во заявок, требующих подтверждения удаления.
+        /// </summary>
+        [HttpGet, Route("count-accept-delete-request")]
+        public async Task<IActionResult> GetCountAcceptDeleteRequest() {
+            var iRequests = await _werehouse.GetCountAcceptDeleteRequests();
+            
+            return Ok(iRequests);
         }
     }
 }

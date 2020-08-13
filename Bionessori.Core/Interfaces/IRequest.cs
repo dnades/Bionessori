@@ -14,26 +14,26 @@ namespace Bionessori.Core.Interfaces {
         /// Метод получает список заявок.
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRequests(Request request);
+        Task<object> GetRequests();
 
         /// <summary>
         /// Метод создает новую заявку на потребности в закупках.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<string> Create(Request werehouse);
+        Task Create(Request werehouse);
 
         /// <summary>
         /// Метод удаляет заявку на потребности в закупках.
         /// </summary>
         /// <returns></returns>
-        Task<string> Delete(string number);
+        Task Delete(int number);
 
         /// <summary>
         /// Метод изменяет существующую заявку на потребности в закупках.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<string> Edit(Request request);
+        Task Edit(Request request);
     }
 }

@@ -8,7 +8,7 @@
 	<link href="~/css/Footer.css" rel="stylesheet" />
 	<link href="~/css/Main.css" rel="stylesheet" />
 	<link href="~/css/Header.css" rel="stylesheet" />
-	<link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />	
+	<link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />
 </head>
 <body>
 	<script src="https://unpkg.com/vue"></script>
@@ -17,6 +17,7 @@
 	<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<div class="mask">
 		<div class="loader">
@@ -49,13 +50,29 @@
 					</div>
 
 					<div class="log_check">
-						@*<button type="button" class="btn-item btn btn-default" data-toggle="modal" data-target="#admin" v-on:click="onRouteMatched" value="admin">Личный кабинет</button>*@
-
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#login-modal">Войти</button>
 
 						<button type="button" class="btn-item btn btn-default state-log" data-toggle="modal" data-target="#checkin-modal">Регистрация</button>
 
-						<button type="button" class="btn-item btn btn-default state"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
+						<!-- Выпадающее меню. -->
+						<div class="drop-down">
+							<button type="button" class="btn-item btn btn-default state" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+							</button>
+							<div class="drop-menu">
+								<span class="mb-1" v-on:click="onRouteFrontOffice"><strong>{{userName}}</strong></span>
+								<ul>
+									<li>
+										<span>Справка</span>
+									</li>
+
+									<li v-on:click="onLogOut">
+										<span>Выйти</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+
 					</div>
 
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -68,7 +85,7 @@
 
 		<footer class="footer text-center">
 			<div class="container">
-				&copy; 2020 - <strong>Bionessori</strong> - <span>Все права защищены.</span>
+				&copy; 2020 <strong>Bionessori</strong> - <span>Все права защищены.</span>
 			</div>
 		</footer>
 
@@ -143,7 +160,7 @@
 		</div>
 	</div>
 
-	<script src="~/js/RoleMethods.js"></script>	
+	<script src="~/js/RoleMethods.js"></script>
 	<script src="~/js/Auth.js"></script>
 	<script src="~/js/CommonMethods.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>

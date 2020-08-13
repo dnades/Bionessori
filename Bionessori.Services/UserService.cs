@@ -1,4 +1,5 @@
-﻿using Bionessori.Core.Interfaces;
+﻿using Bionessori.Core.Extensions;
+using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace Bionessori.Services {
     /// </summary>
     public class UserService : IUserRepository {
         string _connectionString = null;
-
+        
         public UserService(string conn) {
             _connectionString = conn;
         }
@@ -69,21 +70,24 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public async Task<string> Create(User user) {
-            using (var db = new SqlConnection(_connectionString)) {
-                var parameters = new DynamicParameters();
-                parameters.Add("@login", user.Login, DbType.String);
-                parameters.Add("@email", user.Email, DbType.String);
-                parameters.Add("@number", user.Number, DbType.String);
-                parameters.Add("@password", user.Password, DbType.String);
+        public async Task Create(User user) {
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    var parameters = new DynamicParameters();                                        
+                    parameters.Add("@login", user.Login, DbType.String);
+                    parameters.Add("@email", user.Email, DbType.String);
+                    parameters.Add("@number", user.Number, DbType.String);
+                    parameters.Add("@password", user.Password, DbType.String);
 
-                // Вызывает процедуру добавление нового пользователя в БД.
-                var oCards = await db.QueryAsync<User>("sp_CreateUser",
-                    commandType: CommandType.StoredProcedure,
-                    param: parameters);
+                    // Вызывает процедуру добавление нового пользователя в БД.
+                    await db.QueryAsync<User>("sp_CreateUser",
+                        commandType: CommandType.StoredProcedure,
+                        param: parameters);                                        
+                }
             }
-
-            return "Пользователь успешно добавлен.";
+            catch (Exception ex) {
+                throw new Exception("Неизвестная ошибка", ex);
+            }
         }
 
         /// <summary>
@@ -155,6 +159,30 @@ namespace Bionessori.Services {
                     param: param);
 
                 return isMemberRole.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Метод реализует оповещение о регистрации нового пользователя в системе.
+        /// </summary>
+        /// <param name="notification"></param>
+        /// <returns></returns>
+        public async Task NotificationCheckIn(Notification notification) {
+            var parameters = new DynamicParameters();
+            parameters.Add("@message", notification.Message, DbType.String);
+            parameters.Add("@category", notification.Category, DbType.String);
+            parameters.Add("@module", notification.Module, DbType.String);
+
+            try {
+                using (var db = new SqlConnection(_connectionString)) {
+                    // Вызывает процедуру добавления оповещения о регистрации нового пользователя.
+                    await db.QueryAsync("dbo.sp_SendNotification",
+                        commandType: CommandType.StoredProcedure,
+                        param: parameters);
+                }
+            }
+            catch(ArgumentException ex) {
+                throw new ArgumentException("Ошибка оповещения о регистрации пользователя.", ex.Message.ToString());
             }
         }
     }

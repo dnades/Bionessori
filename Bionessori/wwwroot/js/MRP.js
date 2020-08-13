@@ -9,10 +9,15 @@ var main_mrp = new Vue({
 		this.loadGroupsMaterials();
 		this.loadDistinctMaterials();
 		this.loadMeasures();
+		this.getCountRequestStatusNew();
+		this.getCountRequestStatusWork();
+		this.getCountMaterialsRefill();
+		this.getCountMaterialsMapping();
+		this.getCountAcceptDeleteRequests();
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
-
+		
 		if (localStorage["selectRequest"]) {
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
 			console.log("Выбранная заявка", this.aSelectRequest);
@@ -21,8 +26,8 @@ var main_mrp = new Vue({
 		// Еслим список материалов к заявке уже добавляли, то запишет их в массив.
 		if (localStorage["addedMaterials"]) {
 			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
-			console.log("Материалы заявки.", this.aAddedMaterials);
-		}
+			console.log("Материалы заявки", this.aAddedMaterials);
+		}		
 	},
 	data: {
 		aMaterials: [],
@@ -38,7 +43,13 @@ var main_mrp = new Vue({
 		visibleGroup: false,
 		visibleMaterial: false,
 		visibleMeasure: false,
-		werehouseNum: false
+		werehouseNum: false,
+		selectedRequests: [],
+		countNewRequests: null,
+		countRequestsInWork: null,
+		countRefillMaterials: null,
+		countMappingMaterials: null,
+		countAcceptDeleteReq: null
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -49,10 +60,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl)
 					.then((response) => {
 						this.aMaterials = response.data;
-						console.log("Список материалов на складах.", this.aMaterials);
+						console.log("Список материалов на складах", this.aMaterials);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка материалов.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка материалов", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -72,10 +83,10 @@ var main_mrp = new Vue({
 						// Парсит объект заявки с материалами.
 						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
 
-						console.log("Список заявок.", this.aRequests);
+						console.log("Список заявок", this.aRequests);						
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка заявок.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка заявок", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -89,7 +100,7 @@ var main_mrp = new Vue({
 			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[1];
 
 			// Находит заявку, на которую нажали.
-			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+			localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
 
 			this.aRequests[0].material.forEach(el => {
 				this.aAddedMaterials.push(el);
@@ -193,10 +204,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aWerehousesNames = response.data;
-						console.log("Список названий складов.", this.aWerehousesNames);
+						console.log("Список названий складов", this.aWerehousesNames);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения названий складов.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения названий складов", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -212,10 +223,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aMaterialsGroups = response.data;
-						console.log("Список групп.", this.aMaterialsGroups);
+						console.log("Список групп", this.aMaterialsGroups);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка групп.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка групп", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -231,10 +242,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aDistinctMaterials = response.data;
-						console.log("Список материалов без дублей.", this.aDistinctMaterials);
+						console.log("Список материалов без дублей", this.aDistinctMaterials);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка материалов без дублей.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения списка материалов без дублей", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -250,10 +261,10 @@ var main_mrp = new Vue({
 				axios.post(sUrl, {})
 					.then((response) => {
 						this.aMeasures = response.data;
-						console.log("Список ед.изм.", this.aMeasures);
+						console.log("Список ед.изм", this.aMeasures);
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения ед.изм.", XMLHttpRequest.response.data);
+						throw new Error("Ошибка получения ед.изм", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -282,12 +293,17 @@ var main_mrp = new Vue({
 			try {
 				axios.post(sUrl, oRequest)
 					.then((response) => {
-						console.log("Заявка на потребность успешно создана.", response);
-						//$('#success-create-request-modal').modal('toggle');
-						window.location.href = "https://localhost:44312/view/request";
+						console.log("Заявка на потребность успешно создана", response);
+
+						setTimeout(function () {							
+							window.location.href = "https://localhost:44312/view/request";
+						}, 3000);				
+
+						swal("Создание заявки", "Заявка на потребность успешно создана.", "success");				
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка создания заявки на потребность.", XMLHttpRequest.response.data);
+						swal("Ошибка", "Ошибка создания заявки на потребность.", "error");
+						throw new Error("Ошибка создания заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -304,7 +320,24 @@ var main_mrp = new Vue({
 
 		// Функция добавляет материал к заявке.
 		onAddMaterialRequest() {
-			this.aAddedMaterials.push($("#id-select-material").val());
+			let item = $("#id-select-material").val();
+
+			// Если материал еще не добавлен к заявке, то добавит, иначе не добавит и дублей не будет.
+			if (this.aAddedMaterials.length) {
+				this.aAddedMaterials.forEach(el => {
+					if (el !== item) {
+						this.aAddedMaterials.push(item);
+					}
+					else {
+						swal("Внимание", "Вы пытаетесь добавить к заявке материал, который уже добавлен.", "error");
+						return;
+					}
+				});
+			}
+			else {	// Если к заявке еще не добавляли ни одного материала.
+				this.aAddedMaterials.push(item);
+			}
+			console.log(this.aAddedMaterials);
 		},
 
 		// Функция переходит к редактированию заявки.
@@ -317,11 +350,11 @@ var main_mrp = new Vue({
 			// На всякий случай чистит массив материалов заявки.
 			this.aAddedMaterials = [];
 
-			if (reqStatus == "Новая" || reqStatus == "В работе") {
+			if (reqStatus === "Новая" || reqStatus === "В работе") {
 				// Находит заявку, на которую нажали.
-				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.number == reqId));
+				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
 
-				this.aRequests[0].material.forEach(el => {
+				this.aRequests[0].material.Material.forEach(el => {
 					this.aAddedMaterials.push(el);
 				});
 
@@ -330,7 +363,8 @@ var main_mrp = new Vue({
 				window.location.href = "https://localhost:44312/edit-request";
 			}
 			else {
-				alert("Статус заявки не позволяет редактировать.");
+				swal("Внимание", "Статус заявки не позволяет редактировать.", "info");
+
 			}
 		},
 
@@ -356,7 +390,7 @@ var main_mrp = new Vue({
 			}
 		},
 
-		// Функция удаляет материал из заявки (удаления на бэке не произодет, если изменения в заявке не были сохранены).
+		// Функция удаляет материал из заявки (удаления на бэке не произойдет, если изменения в заявке не были сохранены).
 		onDeleteMaterialRequest(event) {
 			let elem = $(event.target).parent().parent().parent()[0].textContent.split(" × ")[0];
 
@@ -385,11 +419,17 @@ var main_mrp = new Vue({
 
 			try {
 				axios.post(sUrl, oRequest)
-					.then((response) => {
+					.then((response) => {						
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/view/request";
+						}, 3000);
+
+						swal("Редактирование заявки", "Заявка на потребность успешно изменена.", "success");
 						console.log("Заявка на потребность успешно изменена", response);
-						window.location.href = "https://localhost:44312/view/request";
+						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {
+						swal("Ошибка", "Ошибка изменения заявки на потребность.", "error");
 						throw new Error("Ошибка изменения заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
@@ -402,24 +442,25 @@ var main_mrp = new Vue({
 			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
 
 			// Находит заявку, на которую нажали.
-			let temp = this.aRequests.filter(el => el.number == reqId);
+			let temp = this.aRequests.filter(el => el.id == reqId);
 			this.aSelectRequest = temp;
 		},
 
 		// Функция удаляет заявку.
 		onDeleteRequest() {
-			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request";
-			let reqId = $(event.target).parent().parent()[0].textContent.split(" ")[3];
+			let reqId = +$(event.target).parent().parent()[0].textContent.split(" ")[3];
+			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request?number=".concat(reqId);
 
 			try {
-				axios.post(sUrl, {
-					Number: reqId
-				})
+				axios.put(sUrl)
 					.then((response) => {
 						console.log("Заявка на потребность успешно удалена", response);
+						swal("Удаление заявки", "Заявка на потребность успешно удалена", "success");
+						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);
+						swal("Ошибка", "Ошибка удаления заявки на потребность", "error");
+						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);						
 					});
 			}
 			catch (ex) {
@@ -449,7 +490,7 @@ var main_mrp = new Vue({
 			let wb = XLSX.utils.table_to_book(document.getElementById('id-material-list-table'), { sheet: "Список материалов" });
 			let wbout = XLSX.write(wb, { bookType: 'xls', bookSST: true, type: 'binary' });
 
-			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список заявок.xls');
+			saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Список материалов.xls');
 
 			function s2ab(s) {
 				let buf = new ArrayBuffer(s.length);
@@ -460,5 +501,104 @@ var main_mrp = new Vue({
 				return buf;
 			}
 		},
+
+		onCheckedReq() {
+			console.log(this.selectedRequests);
+		},
+
+		// Функция получает кол-во заявок со статусом "Новая".
+		getCountRequestStatusNew() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-status-new";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во заявок со статусом - Новая: ", response.data);
+						this.countNewRequests = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения кол-ва заявок со статусом - Новая", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во заявок со статусом "В работе".
+		getCountRequestStatusWork() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-status-work";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во заявок со статусом - В работе: ", response.data);
+						this.countRequestsInWork = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения кол-ва заявок со статусом - В работе", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во материалов, требующих пополнения.
+		getCountMaterialsRefill() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-refill-materials";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во материалов, требующих пополнения: ", response.data);
+						this.countRefillMaterials = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения материалов, требующих пополнения", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во материалов, требующих сопоставления.
+		getCountMaterialsMapping() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-mapping-materials";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во материалов, требующих сопоставления: ", response.data);
+						this.countMappingMaterials = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения материалов, требующих сопоставления", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция получает кол-во заявок, требующих подтверждения.
+		getCountAcceptDeleteRequests() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/count-accept-delete-request";
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log("Кол-во заявок, требующих подтверждения удаления: ", response.data);
+						this.countAcceptDeleteReq = response.data;
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения заявок, требующих подтверждения удаления", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		}
 	}
 });

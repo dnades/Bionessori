@@ -29,7 +29,7 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<string> Create(User user);
+        Task Create(User user);
 
         /// <summary>
         /// Метод выбирает пароль пользователя из БД.
@@ -50,5 +50,12 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <returns></returns>
         Task<List<string>> TakeUserRole(string login);
+
+        /// <summary>
+        /// Метод оповещает о регистрации нового пользователя в системе.
+        /// </summary>
+        /// <param name="notification"></param>
+        /// <returns></returns>
+        Task NotificationCheckIn(Notification notification);
     }
 }

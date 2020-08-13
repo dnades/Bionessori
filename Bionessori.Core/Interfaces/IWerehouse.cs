@@ -45,6 +45,36 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="group"></param>
         /// <returns></returns>
-        Task<List<string>> GetMaterialsGroup(string group);
+        Task<IEnumerable<string>> GetMaterialsGroup(string group);
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "Новая".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        Task<int> GetCountNewRequests();
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountRequestInWork();
+
+        /// <summary>
+        /// Метод получает кол-во материалов, которые нуждаются в пополнении.
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountRefillMaterials();
+
+        /// <summary>
+        /// Метод получает кол-во материалов, которые нуждаются в сопоставлении.
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountMappingMaterials();
+
+        /// <summary>
+        /// Метод получает кол-во заявок, требующих подтверждения удаления.
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetCountAcceptDeleteRequests();
     }
 }

@@ -56,7 +56,7 @@ var list_card = new Vue({
 			// Записывает выделенную карту в массив.
 			localStorage["selectCard"] = JSON.stringify(this.aCards.filter(el => el.cardNumber == cardNumber));
 
-			window.location.href = "https://localhost:44312/route/edit-card";
+			window.location.href = "https://localhost:44312/edit-card";
 		},
 
 		// Функция удаляет карту пациента.
@@ -383,7 +383,7 @@ var list_card = new Vue({
 			//let tempProc = new Date(el.timeProcRecommend).toLocaleDateString();
 			//el.timeProcRecommend = tempProc;
 
-			window.location.href = "https://localhost:44312/route/get-card";
+			window.location.href = "https://localhost:44312/get-card";
 		}
 	},
 });

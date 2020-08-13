@@ -17,8 +17,20 @@ namespace Bionessori.Models {
 
         public int Count { get; set; }
 
-        public string Code { get; set; }    // Код материала.
+        public int Reserve { get; set; }    // В резерве.
+
+        public string VendorCode { get; set; }  // Артикул материала.
 
         public string WerehouseNumber { get; set; }    // Номер склада.
+
+        public double Price { get; set; }  // Цена.
+
+        public double TotalSum { get; set; }   // Сумма.
+
+        public string ProviderName { get; set; } // Наименование поставщика.
+
+        public double Percentage { get; set; }  // Процент скидки.
+
+        public double VAT { get; set; } // НДС.
     }
 }

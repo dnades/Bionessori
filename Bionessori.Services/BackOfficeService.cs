@@ -35,12 +35,37 @@ namespace Bionessori.Services {
         /// Метод назначает роли пользователю.
         /// </summary>
         ///// <returns></returns>
-        public async Task<string> GiveRole(UserRole role) { 
+        public async Task GiveRole(UserRole role) { 
+            try {
+                if (string.IsNullOrEmpty(role.UserName)) {
+                    throw new ArgumentNullException();
+                }
+
+                int userId = await GetUserIds(role.UserName);
+
+                using (var db = new SqlConnection(_connectionString)) {
+                    await db.ExecuteAsync($"INSERT INTO u0772479_admin.UserRoles (user_id, role) VALUES ({userId}, '{role.Role}')");
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Входные параметры не заполнены", ex);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Получает id юзера по его имени.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<int> GetUserIds(string login) {
             using (var db = new SqlConnection(_connectionString)) {
-                await db.ExecuteAsync($"INSERT INTO UserRoles VALUES " +
-                    $"({role.UserId}, '{role.UserName}', '{role.Role}')");
-                
-                return "Роль успешно назначена.";
+                var result = await db.QueryAsync<string>($"SELECT id FROM u0772479_admin.Users WHERE login = '{login}'");
+                int userId = Convert.ToInt32(result.FirstOrDefault());
+
+                return userId;
             }
         }
     }

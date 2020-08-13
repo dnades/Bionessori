@@ -8,7 +8,11 @@ var app = new Vue({
 		if (localStorage["user"]) {
 			$(".state-log").hide();
 			$(".state").show();
+			this.userName = JSON.parse(localStorage["user"]).username;
 		}
+	},
+	data: {
+		userName: ""
 	},
 	methods: {		
 		// Функция отправляет данные регистрации на Back-end.
@@ -78,7 +82,7 @@ var app = new Vue({
 
 					// Если зашел админ.
 					//if (localStorage["roles"].includes("admin")) {
-					//	//window.location.href = "https://localhost:44312/route/admin";
+					//	//window.location.href = "https://localhost:44312/admin";
 					//}
 
 					$(".state-log").hide();
@@ -93,7 +97,7 @@ var app = new Vue({
 					$("#id-manage-shop").prop("disabled", false);
 					$("#id-finance").prop("disabled", false);
 					$("#id-anketa").prop("disabled", false);
-					$("#id-manage-warehouse").prop("disabled", false);
+					$("#id-nomenclature").prop("disabled", false);
 					$("#id-quick-help").prop("disabled", false);
 					$("#id-eating-service").prop("disabled", false);
 					$("#id-indicator-service").prop("disabled", false);
@@ -101,6 +105,7 @@ var app = new Vue({
 					$("#id-registry").prop("disabled", false);
 				
 					console.log("Пользователь успешно авторизован.", response);
+					window.location.reload();
 				})
 				.catch((XMLHttpRequest) => {
 					$(".btn-login").prop('disabled', false);
@@ -109,6 +114,18 @@ var app = new Vue({
 
 					console.log("Ошибка авторизации пользователя.", XMLHttpRequest.response.data);
 				});
-		}
+		},
+
+		// Функция переходит в личный кабинет.
+		onRouteFrontOffice() {
+			window.location.href = "https://localhost:44312/front-office";
+		},
+
+		// Функция выходит из личного кабинета.
+		onLogOut() {
+			localStorage.removeItem("user");
+			localStorage.removeItem("roles");
+			window.location.href = "https://localhost:44312/index";
+		}		
 	}
 });
