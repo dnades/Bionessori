@@ -89,7 +89,7 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IEnumerable<Reception>> GetReception(int id);
+        Task<Reception> GetReception(int id);
 
         /// <summary>
         /// Метод получает названия мест направлений пациентов.

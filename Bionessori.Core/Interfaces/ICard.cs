@@ -15,28 +15,28 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
-        Task<List<PatientCard>> Take();
+        Task<IEnumerable<PatientCard>> Take();
 
         /// <summary>
         /// Метод редактирует карту пациента.
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        Task<string> Edit(PatientCard patientCard);
+        Task Edit(PatientCard patientCard);
 
         /// <summary>
         /// Метод удаляет карту пациента.
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        Task<string> Delete(PatientCard patientCard);
+        Task Delete(int id);
 
         /// <summary>
         /// Метод создаетновую карту пациента.
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        Task<string> Create(PatientCard patientCard);
+        Task Create(PatientCard patientCard);
 
         /// <summary>
         /// Метод проверяет существование карты пациента.
@@ -50,6 +50,6 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        Task<List<PatientCard>> GetCard(PatientCard patientCard);
+        Task<PatientCard> GetCard(PatientCard patientCard);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Bionessori.Core.Interfaces;
+﻿using Bionessori.Core.Constants;
+using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
 using Newtonsoft.Json.Linq;
@@ -14,7 +15,6 @@ using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
-//using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bionessori.Services {
@@ -23,7 +23,7 @@ namespace Bionessori.Services {
     /// </summary>
     public class RequestService : IRequest {
         string _connectionString = null;
-
+        
         public RequestService(string strConn) {
             _connectionString = strConn;
         }
@@ -72,7 +72,7 @@ namespace Bionessori.Services {
 
                 // Создает новую заявку всегда в статусе "Новая".
                 await db.QueryAsync($"INSERT INTO dbo.Requests (number, status, count, measure, material_group, material) " +
-                    $"VALUES ({request.Number}, 'Новая', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
+                    $"VALUES ({request.Number}, '{RequestStatus.REQ_STATUS_NEW}', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
             }
         }
 

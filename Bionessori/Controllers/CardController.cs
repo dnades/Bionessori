@@ -47,11 +47,11 @@ namespace Bionessori.Controllers {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        [HttpPost, Route("delete-card")]
-        public async Task<IActionResult> Delete([FromBody] PatientCard patientCard) {
-            await _card.Delete(patientCard);
+        [HttpPut, Route("delete-card")]
+        public async Task<IActionResult> Delete([FromQuery] int id) {
+            await _card.Delete(id);
 
-            return Ok("Карта пациента успешно удалена.");
+            return Ok("Карта пациента успешно удалена");
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Bionessori.Controllers {
         public async Task<IActionResult> Create([FromBody] PatientCard patientCard) {
             await _card.Create(patientCard);
 
-            return Ok("Новая карта пациента успешно создана.");
+            return Ok("Новая карта пациента успешно создана");
         }
 
         /// <summary>

@@ -45,7 +45,7 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="group"></param>
         /// <returns></returns>
-        Task<List<string>> GetMaterialsGroup(string group);
+        Task<IEnumerable<string>> GetMaterialsGroup(string group);
 
         /// <summary>
         /// Метод получает кол-во заявок со статусом "Новая".

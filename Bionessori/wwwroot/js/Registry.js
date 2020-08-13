@@ -32,6 +32,7 @@ var registry = new Vue({
 		aReceptions: [],
 		editCard: "",
 		deleteReception: null,
+		deleteDirection: null,
 		aSeatDirections: [],
 		selectSeatDirection: "",
 		selectPatient: "",
@@ -42,7 +43,9 @@ var registry = new Vue({
 		selectedEmployee: "",
 		aTypes: [],
 		aStatuses: [],
-		aSelectedReceptions: []
+		aSelectedReceptions: [],
+		concreteDirection: [],
+		concreteReception: []
 	},
 	methods: {
 		// Функция передает роут в точку распределения роутов.
@@ -235,10 +238,17 @@ var registry = new Vue({
 					Id: localStorage["receptionId"]
 				})
 					.then((response) => {
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/registry";
+							this.loadReceptions();
+						}, 3000);
+
 						console.log(response.data);
+						swal("Редактирование записи", "Запись успешно изменена.", "success");	
 					})
 					.catch((XMLHttpRequest) => {
-						console.log("Ошибка создания записи", XMLHttpRequest.response.data);
+						swal("Ошибка", "Ошибка редактирования записи.", "error");	
+						console.log("Ошибка редактирования записи", XMLHttpRequest.response.data);
 					})
 			}
 			catch (ex) {
@@ -249,7 +259,15 @@ var registry = new Vue({
 		// Функция получает запись, которую нужно удалить.
 		onAfterDeleteReception(event) {
 			let receptionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
+			this.concreteReception = this.aReceptions.filter(el => el.id == receptionId);
 			this.deleteReception = receptionId;
+		},
+
+		// Функция получает направление, которое нужно удалить.
+		onAfterDeleteDirection() {
+			let directionId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
+			this.concreteDirection = this.aDirections.filter(el => el.id == directionId);
+			this.deleteDirection = directionId;
 		},
 
 		// Функция удаляет запись.
@@ -259,10 +277,16 @@ var registry = new Vue({
 			try {
 				axios.delete(sUrl)
 					.then((response) => {
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/registry";
+							this.loadReceptions();
+						}, 3000);
+
 						console.log(response.data);
-						this.loadReceptions();
+						swal("Удаление записи", "Запись успешно удалена.", "success");						
 					})
 					.catch((XMLHttpRequest) => {
+						swal("Ошибка", "Ошибка удаления записи.", "error");						
 						console.log("Ошибка удаления записи", XMLHttpRequest.response.data);
 					})
 			}
@@ -363,6 +387,11 @@ var registry = new Vue({
 					EmployeeName: sDirectionEmployee
 				})
 					.then((response) => {
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/direction";
+						}, 3000);	
+
+						swal("Создание направления", "Направление успешно создано.", "success");
 						console.log(response.data);
 					})
 					.catch((XMLHttpRequest) => {
@@ -393,9 +422,16 @@ var registry = new Vue({
 					EmployeeName: sDirectionEmployee
 				})
 					.then((response) => {
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/direction";
+							this.loadDirections();
+						}, 3000);
+
 						console.log(response.data);
+						swal("Редактирование направления", "Направление успешно изменено.", "success");	
 					})
 					.catch((XMLHttpRequest) => {
+						swal("Ошибка", "Ошибка редактирования направления.", "success");	
 						console.log("Ошибка редактирования направления", XMLHttpRequest.response.data);
 					})
 			}
@@ -407,13 +443,18 @@ var registry = new Vue({
 		// Функция удаляет направление.
 		onDeleteDirection() {		
 			// Получает id направления, которое нужно удалить.
-			let directId = +$(event.target).parent().parent().parent()[0].textContent.split(" ")[0];
-			let sUrl = "https://localhost:44312/api/data/registry/delete-direction?id=".concat(directId);
+			let sUrl = "https://localhost:44312/api/data/registry/delete-direction?id=".concat(this.deleteDirection);
 			
 			try {
 				axios.delete(sUrl)
 					.then((response) => {
+						setTimeout(function () {
+							window.location.href = "https://localhost:44312/direction";
+							this.loadDirections();
+						}, 3000);
+
 						console.log(response.data);
+						swal("Удаление направления", "Направление успешно удалено.", "success");						
 					})
 					.catch((XMLHttpRequest) => {
 						console.log("Ошибка удаления направления", XMLHttpRequest.response.data);

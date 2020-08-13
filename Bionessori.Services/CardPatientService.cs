@@ -26,7 +26,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<string> Create(PatientCard patientCard) {
+        public async Task Create(PatientCard patientCard) {
             string typeParam = "card";
             int generateNumber;
 
@@ -90,8 +90,6 @@ namespace Bionessori.Services {
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
             }
-
-            return "Новая карта пациента успешно создана";
         }
 
         /// <summary>
@@ -99,12 +97,23 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<string> Delete(PatientCard patientCard) {
-            using (var db = new SqlConnection(_conStr)) {
-                await db.QueryAsync<PatientCard>($"DELETE FROM PatientCards WHERE id = {patientCard.Id}");
-            }
+        public async Task Delete(int id) {
+            try {
+                if (id == 0) {
+                    throw new ArgumentNullException();
+                }
 
-            return "Карта пациента успешно удалена";
+                // Удаляет карту пациента.
+                using (var db = new SqlConnection(_conStr)) {
+                    await db.QueryAsync<PatientCard>($"DELETE FROM dbo.PatientCards WHERE id = {id}");
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Id заявки не передан", ex.Message);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         /// <summary>
@@ -112,7 +121,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<string> Edit(PatientCard patientCard) {
+        public async Task Edit(PatientCard patientCard) {
             using (var db = new SqlConnection(_conStr)) {
                 var parameters = new DynamicParameters();
                 parameters.Add("@cardNumber", patientCard.CardNumber, DbType.Int32);
@@ -156,8 +165,6 @@ namespace Bionessori.Services {
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
             }
-
-            return "Карта пациента успешно изменена";
         }
 
         /// <summary>
@@ -165,18 +172,18 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patient"></param>
         /// <returns></returns>
-        public async Task<List<PatientCard>> Take() {
-            var parameters = new DynamicParameters();
-            parameters.Add("@param", "", DbType.String);
-
+        public async Task<IEnumerable<PatientCard>> Take() {            
             try {
+                var parameters = new DynamicParameters();
+                parameters.Add("@param", "", DbType.String);
+
                 using (var db = new SqlConnection(_conStr)) {
                     // Вызывает процедуру для получения списка карт пациентов.
                     var oCards = await db.QueryAsync<PatientCard>("sp_GetAllCards",
                         commandType: CommandType.StoredProcedure,
                         param: parameters);
 
-                    return oCards.ToList();
+                    return oCards;
                 }
             }
             catch(Exception ex) {
@@ -209,11 +216,11 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="patientCard"></param>
         /// <returns></returns>
-        public async Task<List<PatientCard>> GetCard(PatientCard patientCard) {
+        public async Task<PatientCard> GetCard(PatientCard patientCard) {
             using (var db = new SqlConnection(_conStr)) {
                 var oCard = await db.QueryAsync<PatientCard>($"SELECT * FROM PatientCards WHERE card_number = '{patientCard.CardNumber}'");
 
-                return oCard.ToList();
+                return oCard.FirstOrDefault();
             }
         }
     }

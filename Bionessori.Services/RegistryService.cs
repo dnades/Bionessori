@@ -116,7 +116,7 @@ namespace Bionessori.Services {
             parameters.Add("@fullName", fullName, DbType.String);
 
             using (var db = new SqlConnection(_connectionString)) {
-                // Процедура получает список расписаний врача.s
+                // Процедура получает список расписаний врача.
                 var oSchedules = await db.QueryAsync<string>("dbo.sp_GetSchedules",
                     commandType: CommandType.StoredProcedure,
                     param: parameters);
@@ -199,7 +199,6 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task EditReception(Reception reception) {
             try {
-                // Проверка входных параметров.
                 if (string.IsNullOrEmpty(reception.Date)) {
                     throw new ArgumentNullException();
                 }
@@ -239,7 +238,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Reception>> GetReception(int id) {
+        public async Task<Reception> GetReception(int id) {
             try {
                 if (Convert.ToInt32(id) == 0) {
                     throw new ArgumentNullException();
@@ -248,7 +247,7 @@ namespace Bionessori.Services {
                 using (var db = new SqlConnection(_connectionString)) {
                     var oReception = await db.QueryAsync<Reception>($"SELECT * FROM dbo.Receptions WHERE id = {id}");
 
-                    return oReception.AsEnumerable();
+                    return oReception.FirstOrDefault();
                 }
             }
             catch (ArgumentNullException ex) {

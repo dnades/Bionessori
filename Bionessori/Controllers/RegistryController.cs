@@ -110,7 +110,7 @@ namespace Bionessori.Controllers {
         /// Метод удаляет запись.
         /// </summary>
         [HttpDelete, Route("delete-reception")]
-        public async Task<IActionResult> DeleteReception(int id) {
+        public async Task<IActionResult> DeleteReception([FromQuery] int id) {
             try {
                 if (id == 0) {
                     throw new ArgumentException();
@@ -161,7 +161,7 @@ namespace Bionessori.Controllers {
         [HttpPost, Route("create-direction")]
         public async Task<IActionResult> CreateDirection([FromBody] Direction direction) {
             try {
-                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection) || (Convert.ToInt32(direction.NumberDirection) == 0) || (string.IsNullOrEmpty(direction.SeatDirection)) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
+                if (string.IsNullOrEmpty(direction.PatientName) || (string.IsNullOrEmpty(direction.SeatDirection) || (string.IsNullOrEmpty(direction.SeatDirection)) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
                     throw new ArgumentNullException();
                 }
 
