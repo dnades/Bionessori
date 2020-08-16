@@ -8,16 +8,17 @@ using Microsoft.Extensions.Logging;
 using Bionessori.Models;
 using Bionessori.Core;
 using Bionessori.Core.Interfaces;
+using System.Security.Policy;
 
 namespace Bionessori.Controllers {
     /// <summary>
     /// Контроллер описывает работу с роутами ERP-системы.
     /// </summary>
-    public class RouteController : Controller {   
+    public class RouteController : Controller {
         // Метод перенаправляет на главную страницу ведения объектов.
         public IActionResult Index() {
             ViewData["Title"] = "Ведение объектов";
-            
+
             return View();
         }
 
@@ -31,7 +32,7 @@ namespace Bionessori.Controllers {
         [Route("card")]
         public IActionResult RouteCard() {
             ViewData["Title"] = "Электронные медицинские карты пациентов - Список карт пациентов";
-            
+
             return View();
         }
 
@@ -184,6 +185,20 @@ namespace Bionessori.Controllers {
         public IActionResult RouteManagePurchases() {
             ViewData["Title"] = "Ведение объектов управления закупками";
 
+            return View();
+        }
+
+        // Метод переходит на страницу, на которую подгружаются разные шаблоны структур таблиц.
+        [Route("dynamic-structure-data")]
+        public IActionResult RouteDynamicStructureData(string type) {
+            switch (type) {
+                // Если нужно получить новые заявки.
+                case "new_req":
+                    ViewData["Title"] = "Планирование потребностей в материалах - Список новых заявок";
+                    ViewData["Data"] = "Новые заявки";
+
+                    return View("_PartialNewRequests");
+            }
             return View();
         }
     }

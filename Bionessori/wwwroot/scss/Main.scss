@@ -537,3 +537,10 @@ hr {
 .empty-card {
     border: $emptyCard;
 }
+
+.dynamic-link {
+    &:hover {
+        cursor: pointer !important;
+        text-decoration: underline !important;
+    }
+}

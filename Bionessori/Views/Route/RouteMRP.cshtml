@@ -49,7 +49,7 @@
 						<div class="card-body text-danger">
 							<h5 class="card-title">Количество материалов, требующих пополнения.</h5>
 							<p class="card-text">Количество материалов, которые требуют пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
 						</div>
 					</div>
 
@@ -57,7 +57,7 @@
 						<div class="card-body text-success">
 							<h5 class="card-title">Заявок со статусом «Новая».</h5>
 							<p class="card-text"> Заявок со статусом «Новая»: {{countNewRequests !== null ? countNewRequests : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="new_req" })" class="text-muted"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 
@@ -65,7 +65,7 @@
 						<div class="card-body text-info">
 							<h5 class="card-title">Заявок со статусом «В работе».</h5>
 							<p class="card-text">Заявок со статусом «В работе»: {{countRequestsInWork !== null ? countRequestsInWork : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 						<div class="card-body text-warning">
 							<h5 class="card-title">Заявок со статусом «Ожидает подтверждения удаления».</h5>
 							<p class="card-text">Заявок ожидающих подтверждения удаления: {{countAcceptDeleteReq !== null ? countAcceptDeleteReq : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
 						</div>
 					</div>
 
@@ -87,10 +87,9 @@
 						<div class="card-body text-primary">
 							<h5 class="card-title">Количество материалов, требующих сопоставления.</h5>
 							<p class="card-text">Количество материалов, требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
 						</div>
 					</div>
-
 
 					<div class="card empty-card">
 						<div class="card-body">

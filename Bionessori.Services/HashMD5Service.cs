@@ -8,9 +8,7 @@ namespace Bionessori.Services {
     /// <summary>
     /// Сервис хэширования паролей в MD5.
     /// </summary>
-    public class HashMD5Service {
-        public HashMD5Service() { }
-
+    public sealed class HashMD5Service {
         public static async Task<string> HashPassword(string password) {
             string getHashPassword = await GetHash(password);
 

@@ -3,6 +3,7 @@
 var main_mrp = new Vue({
 	el: '#main_mrp',
 	created() {
+		this.onInit();
 		this.loadMaterials();
 		this.loadRequests();
 		this.loadNameWerehouses();
@@ -49,9 +50,55 @@ var main_mrp = new Vue({
 		countRequestsInWork: null,
 		countRefillMaterials: null,
 		countMappingMaterials: null,
-		countAcceptDeleteReq: null
+		countAcceptDeleteReq: null,
+		aNewRequests: []
 	},
 	methods: {
+		onInit() {
+			console.log("oninit");
+
+			if (localStorage["dynamicParam"]) {
+				let sParam = localStorage["dynamicParam"];
+				console.log("dynamicParam", sParam);
+
+				switch (sParam) {
+					// Получить новые заявки.
+					case "new_req":
+						var sUrl = "https://localhost:44312/api/template/get-new-requests";
+
+						try {
+							axios.get(sUrl)
+								.then((response) => {
+									this.aNewRequests = response.data;
+									console.log("Список новых заявок", this.aNewRequests);
+								})
+								.catch((XMLHttpRequest) => {
+									throw new Error("Ошибка получения списка новых заявок", XMLHttpRequest.response.data);
+								});
+						}
+						catch (ex) {
+							throw new Error(ex);
+						}
+						break;
+
+					// Получить заявки в работе.
+					case "inwork_req":
+						break;
+
+					// Получить заявки ожидающих подтверждения удаления.
+					case "accept_del_req":
+						break;
+
+					// Получить материалы для пополнения.
+					case "ref_mat":
+						break;
+
+					// Получить материалы для сопоставления.
+					case "mapp_mat":
+						break;
+				}
+			}			
+		},
 		// Функция загружает список материалов.
 		loadMaterials() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
@@ -598,6 +645,33 @@ var main_mrp = new Vue({
 			}
 			catch (ex) {
 				throw new Error(ex);
+			}
+		},
+
+		// Функция переходит на страницу динамических таблиц.
+		onRouteDynamicData(e) {
+			let sParam = e.target.value;
+
+			switch (sParam) {
+				// Получить новые заявки.
+				case "new_req":					
+					break;
+
+				// Получить заявки в работе.
+				case "inwork_req":
+					break;
+
+				// Получить заявки ожидающих подтверждения удаления.
+				case "accept_del_req":
+					break;
+
+				// Получить материалы для пополнения.
+				case "ref_mat":
+					break;
+
+				// Получить материалы для сопоставления.
+				case "mapp_mat":
+					break;
 			}
 		}
 	}

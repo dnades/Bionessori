@@ -13,7 +13,7 @@ namespace Bionessori.Controllers {
     /// </summary>
     [ApiController, Route("api/werehouse/material")]
     public class WerehouseController : ControllerBase {
-        IWerehouse _werehouse;
+        IWerehouse _werehouse;        
 
         public WerehouseController(IWerehouse werehouse) {
             _werehouse = werehouse;
@@ -134,6 +134,6 @@ namespace Bionessori.Controllers {
             var iRequests = await _werehouse.GetCountAcceptDeleteRequests();
             
             return Ok(iRequests);
-        }
+        }        
     }
 }

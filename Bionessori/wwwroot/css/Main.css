@@ -328,3 +328,7 @@ hr {
 
 .empty-card {
   border: none; }
+
+.dynamic-link:hover {
+  cursor: pointer !important;
+  text-decoration: underline !important; }

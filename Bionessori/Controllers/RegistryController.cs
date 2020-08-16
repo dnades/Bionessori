@@ -120,9 +120,9 @@ namespace Bionessori.Controllers {
 
                 return Ok("Запись успешно удалена");
             }
-            catch(ArgumentException ex) {
+            catch (ArgumentException ex) {
                 throw new ArgumentException($"Id не передан {ex.Message}");
-            }            
+            }
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Bionessori.Controllers {
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
-            }            
+            }
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace Bionessori.Controllers {
         /// Метод редактирует направление.
         /// </summary>
         [HttpPost, Route("edit-direction")]
-        public async Task<IActionResult> EditDirection([FromBody] Direction direction) {            
+        public async Task<IActionResult> EditDirection([FromBody] Direction direction) {
             try {
                 if (string.IsNullOrEmpty(direction.PatientName) || (Convert.ToInt32(direction.Id) == 0) || (string.IsNullOrEmpty(direction.SeatDirection) || (string.IsNullOrEmpty(direction.Type)) || (string.IsNullOrEmpty(direction.Status)))) {
                     throw new ArgumentNullException();
@@ -229,7 +229,7 @@ namespace Bionessori.Controllers {
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
-            }                        
+            }
         }
 
         /// <summary>
@@ -240,6 +240,6 @@ namespace Bionessori.Controllers {
             await _registry.DeleteDirection(id);
 
             return Ok("Направление успешно удалено");
-        }
+        }        
     }
 }
