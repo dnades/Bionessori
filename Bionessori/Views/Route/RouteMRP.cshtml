@@ -49,7 +49,7 @@
 						<div class="card-body text-danger">
 							<h5 class="card-title">Количество материалов, требующих пополнения.</h5>
 							<p class="card-text">Количество материалов, которые требуют пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
 						</div>
 					</div>
 
@@ -65,7 +65,7 @@
 						<div class="card-body text-info">
 							<h5 class="card-title">Заявок со статусом «В работе».</h5>
 							<p class="card-text">Заявок со статусом «В работе»: {{countRequestsInWork !== null ? countRequestsInWork : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="inwork_req" })" class="text-muted"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 						<div class="card-body text-warning">
 							<h5 class="card-title">Заявок со статусом «Ожидает подтверждения удаления».</h5>
 							<p class="card-text">Заявок ожидающих подтверждения удаления: {{countAcceptDeleteReq !== null ? countAcceptDeleteReq : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
 						</div>
 					</div>
 
@@ -87,7 +87,7 @@
 						<div class="card-body text-primary">
 							<h5 class="card-title">Количество материалов, требующих сопоставления.</h5>
 							<p class="card-text">Количество материалов, требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="onRouteDynamicData">Просмотреть список</small>
+							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
 						</div>
 					</div>
 

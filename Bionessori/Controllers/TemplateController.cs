@@ -25,9 +25,20 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpGet, Route("get-new-requests")]
         public async Task<IActionResult> GetDataNewRequests() {
-            BaseTemplate _template = new DynamicDataTemplateService(_db);
-            var oRequests = await _template.GetDynamicDataNewRequests();
+            BaseTemplate template = new DynamicDataTemplateService(_db);
+            var oRequests = await template.GetDynamicDataNewRequests();
 
+            return Ok(oRequests);
+        }
+
+        /// <summary>
+        /// Метод получает список заявок в работе.
+        /// </summary>
+        [HttpGet, Route("get-inwork-requests")]
+        public async Task<IActionResult> GetDataInWorkRequests() {
+            BaseTemplate template = new DynamicDataTemplateService(_db);
+            var oRequests = await template.GetDynamicDataWorkRequests();
+            
             return Ok(oRequests);
         }
     }

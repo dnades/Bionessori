@@ -198,6 +198,13 @@ namespace Bionessori.Controllers {
                     ViewData["Data"] = "Новые заявки";
 
                     return View("_PartialNewRequests");
+
+                // Если нужно получить заявки в работе.
+                case "inwork_req":
+                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок в работе";
+                    ViewData["Data"] = "Заявки в работе";
+
+                    return View("_PartialInWorkRequests");
             }
             return View();
         }

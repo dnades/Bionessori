@@ -39,8 +39,17 @@ namespace Bionessori.Core {
             throw new NotImplementedException();
         }
 
-        public override Task<IEnumerable> GetDynamicDataWorkRequests() {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод получает список заявок в работе.
+        /// </summary>
+        /// <returns></returns>
+        public async override Task<IEnumerable> GetDynamicDataWorkRequests() {
+            try {
+                return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_IN_WORK).ToListAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         public override Task<IEnumerable> GetDynamicDataAcceptDeleteRequests() {
