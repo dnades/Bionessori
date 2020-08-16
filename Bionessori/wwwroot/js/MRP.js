@@ -52,7 +52,8 @@ var main_mrp = new Vue({
 		countMappingMaterials: null,
 		countAcceptDeleteReq: null,
 		aNewRequests: [],
-		aInWorkRequests: []
+		aInWorkRequests: [],
+		aAcceptDeleteRequests: []
 	},
 	methods: {
 		onInit() {
@@ -103,6 +104,21 @@ var main_mrp = new Vue({
 
 					// Получить заявки ожидающих подтверждения удаления.
 					case "accept_del_req":
+						var sUrlAcceptDeleteReq = "https://localhost:44312/api/template/get-accept-delete-requests";
+
+						try {
+							axios.get(sUrlAcceptDeleteReq)
+								.then((response) => {
+									this.aAcceptDeleteRequests = response.data;
+									console.log("Список заявок ожидающие подтверждения удаления", this.aAcceptDeleteRequests);
+								})
+								.catch((XMLHttpRequest) => {
+									throw new Error("Ошибка получения заявок ожидающих подтверждения удаления", XMLHttpRequest.response.data);
+								});
+						}
+						catch (ex) {
+							throw new Error(ex);
+						}
 						break;
 
 					// Получить материалы для пополнения.

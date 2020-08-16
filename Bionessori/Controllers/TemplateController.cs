@@ -41,5 +41,16 @@ namespace Bionessori.Controllers {
             
             return Ok(oRequests);
         }
+
+        /// <summary>
+        /// Метод получает заявки, которые ожидают подтверждения удаления.
+        /// </summary>
+        [HttpGet, Route("get-accept-delete-requests")]
+        public async Task<IActionResult> GetAcceptDeleteRequests() {
+            BaseTemplate template = new DynamicDataTemplateService(_db);
+            var oRequests = await template.GetDynamicDataAcceptDeleteRequests();
+
+            return Ok(oRequests);
+        }
     }
 }

@@ -79,7 +79,7 @@
 						<div class="card-body text-warning">
 							<h5 class="card-title">Заявок со статусом «Ожидает подтверждения удаления».</h5>
 							<p class="card-text">Заявок ожидающих подтверждения удаления: {{countAcceptDeleteReq !== null ? countAcceptDeleteReq : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="accept_del_req" })" class="text-muted"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 

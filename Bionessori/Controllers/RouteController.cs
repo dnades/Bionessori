@@ -205,6 +205,13 @@ namespace Bionessori.Controllers {
                     ViewData["Data"] = "Заявки в работе";
 
                     return View("_PartialInWorkRequests");
+
+                // Если нужно получить заявки ожидающие подтверждения удаления.
+                case "accept_del_req":
+                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок ожидающих подтверждения удаления";
+                    ViewData["Data"] = "Заявки ожидающие подтверждения удаления";
+
+                    return View("_PartialAcceptDeleteRequests");
             }
             return View();
         }

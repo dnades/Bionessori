@@ -52,8 +52,12 @@ namespace Bionessori.Core {
             }
         }
 
-        public override Task<IEnumerable> GetDynamicDataAcceptDeleteRequests() {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод получает заявки ожидающие подтверждения удаления.
+        /// </summary>
+        /// <returns></returns>
+        public async override Task<IEnumerable> GetDynamicDataAcceptDeleteRequests() {
+            return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE).ToListAsync();
         }
 
         public override Task<IEnumerable<Werehouse>> GetDynamicDataMappingMaterials() {
