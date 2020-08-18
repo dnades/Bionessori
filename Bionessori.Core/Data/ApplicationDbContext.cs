@@ -8,6 +8,8 @@ namespace Bionessori.Core.Data {
     public class ApplicationDbContext : DbContext {
         public DbSet<Request> Requests { get; set; }
 
+        public DbSet<Werehouse> Werehouses { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
             //Database.EnsureCreated();
@@ -19,7 +21,11 @@ namespace Bionessori.Core.Data {
 
             modelBuilder.Entity<MultepleContextTable>()
                 .HasOne(sc => sc.Request)
-                .WithMany(s => s.MultepleContextTables);            
+                .WithMany(s => s.MultepleContextTables);
+
+            modelBuilder.Entity<MultepleContextTable>()
+                .HasOne(sc => sc.Werehouse)
+                .WithMany(s => s.MultepleContextTables);
         }
     }
 }

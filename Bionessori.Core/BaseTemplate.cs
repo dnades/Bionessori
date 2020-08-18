@@ -33,7 +33,7 @@ namespace Bionessori.Core {
         /// Метод получает материалы требующие пополнения.
         /// </summary>
         /// <returns></returns>
-        public abstract Task<IEnumerable<Werehouse>> GetDynamicDataRefillMaterials();
+        public abstract Task<IEnumerable> GetDynamicDataRefillMaterials();
 
         /// <summary>
         /// Метод получает материалы требующие сопоставления.

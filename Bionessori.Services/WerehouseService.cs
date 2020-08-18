@@ -155,7 +155,7 @@ namespace Bionessori.Services {
                     IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
                         $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_REFILL}'");                    
 
-                    // Обрабатывает результат выборки и десериализует в объект.
+                    // Обрабатывает результат выборки и десериализует объект.
                     foreach (var el in aMaterials) {
                         var materials = el as IDictionary<string, dynamic>;
                         var oMaterials = materials["material"];

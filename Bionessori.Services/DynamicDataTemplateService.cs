@@ -2,6 +2,7 @@
 using Bionessori.Core.Data;
 using Bionessori.Models;
 using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -10,6 +11,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
+using Bionessori.Core.Interfaces;
 
 namespace Bionessori.Core {
     /// <summary>
@@ -35,8 +39,29 @@ namespace Bionessori.Core {
             }
         }
 
-        public override Task<IEnumerable<Werehouse>> GetDynamicDataRefillMaterials() {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод получает материалы, которые нужно пополнить.
+        /// </summary>
+        /// <returns>Список материалов.</returns>
+        public async override Task<IEnumerable> GetDynamicDataRefillMaterials() {
+            // Получает материалы заявки.
+            var oMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).Select(s => s.Material).ToListAsync();
+            List<string> aMaterials = new List<string>();   // Коллекция со строками материалов.
+            List<Werehouse> aFindResult = new List<Werehouse>(); // Коллекция c результатами найденных материалов на складах.
+
+            for (int i = 0; i < oMaterials.Count; i++) {
+                // Приводит к нужному виду.
+                JObject jsonObject = JObject.Parse(oMaterials[i]);
+                var jArray = (JArray)jsonObject["Material"];
+                aMaterials.Add(jArray.Values().ToList()[i].ToString());
+
+                // Находит объекты материалов по их наименованию.
+                var oFindMaterials = await (from m in _db.Werehouses
+                                           where m.Material == aMaterials[i]
+                                           select m).ToListAsync();
+                aFindResult.Add(oFindMaterials[i]);
+            }
+            return aFindResult;
         }
 
         /// <summary>
