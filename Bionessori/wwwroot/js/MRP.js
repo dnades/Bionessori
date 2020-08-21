@@ -18,7 +18,7 @@ var main_mrp = new Vue({
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
-		
+
 		if (localStorage["selectRequest"]) {
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
 			console.log("Выбранная заявка", this.aSelectRequest);
@@ -28,7 +28,7 @@ var main_mrp = new Vue({
 		if (localStorage["addedMaterials"]) {
 			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
 			console.log("Материалы заявки", this.aAddedMaterials);
-		}		
+		}
 	},
 	data: {
 		aMaterials: [],
@@ -53,12 +53,17 @@ var main_mrp = new Vue({
 		countAcceptDeleteReq: null,
 		aNewRequests: [],
 		aInWorkRequests: [],
-		aAcceptDeleteRequests: []
+		aAcceptDeleteRequests: [],
+		aRefillMaterials: []
 	},
 	methods: {
 		onInit() {
 			console.log("oninit");
+			this.onGetDynamicData();
+		},
 
+		// Функция получает динамические данные определенной структуры.
+		onGetDynamicData() {
 			if (localStorage["dynamicParam"]) {
 				let sParam = localStorage["dynamicParam"];
 				console.log("dynamicParam", sParam);
@@ -123,13 +128,28 @@ var main_mrp = new Vue({
 
 					// Получить материалы для пополнения.
 					case "ref_mat":
+						var sUrlRefill = "https://localhost:44312/api/template/get-refill-materials";
+
+						try {
+							axios.post(sUrlRefill, {})
+								.then((response) => {
+									this.aRefillMaterials = response.data;
+									console.log("Материалы для пополнения", this.aRefillMaterials);
+								})
+								.catch((XMLHttpRequest) => {
+									throw new Error("Ошибка получения материалов для пополнения", XMLHttpRequest.response.data);
+								});
+						}
+						catch (ex) {
+							throw new Error(ex);
+						}
 						break;
 
 					// Получить материалы для сопоставления.
 					case "mapp_mat":
 						break;
 				}
-			}			
+			}
 		},
 		// Функция загружает список материалов.
 		loadMaterials() {
@@ -162,7 +182,7 @@ var main_mrp = new Vue({
 						// Парсит объект заявки с материалами.
 						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
 
-						console.log("Список заявок", this.aRequests);						
+						console.log("Список заявок", this.aRequests);
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка получения списка заявок", XMLHttpRequest.response.data);
@@ -368,17 +388,18 @@ var main_mrp = new Vue({
 			};
 
 			let sUrl = "https://localhost:44312/api/werehouse/request/create-request";
+			//let sUrl = "https://localhost:44312/api/werehouse/request/create-test";
 
 			try {
 				axios.post(sUrl, oRequest)
 					.then((response) => {
 						console.log("Заявка на потребность успешно создана", response);
 
-						setTimeout(function () {							
+						setTimeout(function () {
 							window.location.href = "https://localhost:44312/view/request";
-						}, 3000);				
+						}, 3000);
 
-						swal("Создание заявки", "Заявка на потребность успешно создана.", "success");				
+						swal("Создание заявки", "Заявка на потребность успешно создана.", "success");
 					})
 					.catch((XMLHttpRequest) => {
 						swal("Ошибка", "Ошибка создания заявки на потребность.", "error");
@@ -498,7 +519,7 @@ var main_mrp = new Vue({
 
 			try {
 				axios.post(sUrl, oRequest)
-					.then((response) => {						
+					.then((response) => {
 						setTimeout(function () {
 							window.location.href = "https://localhost:44312/view/request";
 						}, 3000);
@@ -539,7 +560,7 @@ var main_mrp = new Vue({
 					})
 					.catch((XMLHttpRequest) => {
 						swal("Ошибка", "Ошибка удаления заявки на потребность", "error");
-						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);						
+						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {

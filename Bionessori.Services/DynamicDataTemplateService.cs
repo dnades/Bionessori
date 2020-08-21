@@ -43,25 +43,41 @@ namespace Bionessori.Core {
         /// Метод получает материалы, которые нужно пополнить.
         /// </summary>
         /// <returns>Список материалов.</returns>
-        public async override Task<IEnumerable> GetDynamicDataRefillMaterials() {
+        public async override Task<IEnumerable<Werehouse>> GetDynamicDataRefillMaterials() {
             // Получает материалы заявки.
-            var oMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).Select(s => s.Material).ToListAsync();
-            List<string> aMaterials = new List<string>();   // Коллекция со строками материалов.
-            List<Werehouse> aFindResult = new List<Werehouse>(); // Коллекция c результатами найденных материалов на складах.
+            //var oMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).Select(m => m.Material).ToListAsync();
 
-            for (int i = 0; i < oMaterials.Count; i++) {
-                // Приводит к нужному виду.
-                JObject jsonObject = JObject.Parse(oMaterials[i]);
-                var jArray = (JArray)jsonObject["Material"];
-                aMaterials.Add(jArray.Values().ToList()[i].ToString());
+            //List<string> aMaterials = new List<string>();   // Коллекция со строками материалов.
+            //JObject jsonObject = JObject.Parse(oMaterials[0]);
+            //var jArray = (JArray)jsonObject["Material"];
+            //var res = jArray.Values().ToList()[0].ToString();
+            //List<Werehouse> aFindResult = await _db.Werehouses.Where(m => m.Material.Equals(res)).ToListAsync();
 
-                // Находит объекты материалов по их наименованию.
-                var oFindMaterials = await (from m in _db.Werehouses
-                                           where m.Material == aMaterials[i]
-                                           select m).ToListAsync();
-                aFindResult.Add(oFindMaterials[i]);
-            }
-            return aFindResult;
+
+
+            //var materials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).ToListAsync();
+
+            //for (int i = 0; i <= oMaterials.Count; i++) {
+            //    // Парсит объект из строки.
+            //    JObject jsonObject = JObject.Parse(oMaterials[i]);
+            //    var jArray = (JArray)jsonObject["Material"];
+
+            //    if (aMaterials.Count <= jArray.Count) {
+            //        // Получает наименования материалов в виде строки.
+            //        aMaterials.Add(jArray.Values().ToList()[i].ToString());
+
+            //        // Находит объекты материалов по их наименованию.
+            //        //var oFindMaterials = await (from m in _db.Werehouses
+            //        //                            where m.Material.Equals(aMaterials[i])
+            //        //                            select m).ToListAsync();
+            //        //var oFindMaterials = await (from m in _db.Werehouses
+            //        var oFindMaterials = await _db.Werehouses.Where(m => m.Material.Equals("Латексные опудренные")).ToListAsync();
+            //        //var oFindMaterials = _db.Werehouses.ToListAsync();
+            //        aFindResult.Add(oFindMaterials[i]);
+            //    }               
+            //}
+
+            return null;
         }
 
         /// <summary>

@@ -1,31 +1,24 @@
-﻿using Bionessori.Core.Constants;
-using Bionessori.Core.Interfaces;
+﻿using Bionessori.Core;
+using Bionessori.Core.Data;
 using Bionessori.Models;
-using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Bionessori.Services {
     /// <summary>
     /// Сервис реализует методы по работы с заявками.
     /// </summary>
-    public class RequestService : IRequest {
-        string _connectionString = null;
-        
-        public RequestService(string strConn) {
-            _connectionString = strConn;
+    public class RequestService : BaseRequest {
+        ApplicationDbContext _db;
+        public RequestService(ApplicationDbContext db) {
+            _db = db;
         }
 
         /// <summary>
@@ -34,46 +27,12 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async Task<object> GetRequests() {
             // Вызывает процедуру для выборки списка заявок.
-            using (var db = new SqlConnection(_connectionString)) {
-                var oRequests = await db.QueryAsync("sp_GetRequests");
-                
-                return oRequests.ToList();
-            }
-        }
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    var oRequests = await db.QueryAsync("sp_GetRequests");
 
-        /// <summary>
-        /// Метод реализует создание новой заявки на потребности в закупках.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task Create(Request request) {
-            using (var db = new SqlConnection(_connectionString)) {
-                string typeParam = "request";
-                int generateNumber = 0;
-
-                // Генерит рандомный номер заявки.
-                int RandomGenerate() {
-                    return RandomDataService.GenerateRandomNumber();
-                }                
-                
-                generateNumber = RandomGenerate();
-
-                // Проверяет существует ли уже такая заявка.
-                var resultCheck = await CheckingRequest(typeParam, request.Number);
-
-                // Если такая заявка уже существует, то повторно пойдет генерить номер заявки.
-                if (Convert.ToBoolean(resultCheck)) {
-                    generateNumber = RandomGenerate();
-                }
-
-                request.Number = generateNumber;
-                                     
-                string materialjson = JsonSerializer.Serialize<Request>(request);
-
-                // Создает новую заявку всегда в статусе "Новая".
-                await db.QueryAsync($"INSERT INTO dbo.Requests (number, status, count, measure, material_group, material) " +
-                    $"VALUES ({request.Number}, '{RequestStatus.REQ_STATUS_NEW}', {request.Count}, '{request.Measure}', '{request.MaterialGroup}', '{materialjson}')");
-            }
+            //    return oRequests.ToList();
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -81,21 +40,22 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async Task Delete(int number) {
-            using (var db = new SqlConnection(_connectionString)) {
-                try {
-                    if (number == 0) {
-                        throw new ArgumentNullException();
-                    }
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    try {
+            //        if (number == 0) {
+            //            throw new ArgumentNullException();
+            //        }
 
-                    await db.QueryAsync($"DELETE dbo.Requests WHERE number = {number}");
-                }
-                catch (ArgumentNullException ex) {
-                    throw new ArgumentNullException("Не указан номер заявки", ex.Message.ToString());
-                }
-                catch(Exception ex) {
-                    throw new Exception(ex.Message);
-                }
-            }                
+            //        await db.QueryAsync($"DELETE dbo.Requests WHERE number = {number}");
+            //    }
+            //    catch (ArgumentNullException ex) {
+            //        throw new ArgumentNullException("Не указан номер заявки", ex.Message.ToString());
+            //    }
+            //    catch(Exception ex) {
+            //        throw new Exception(ex.Message);
+            //    }
+            //}            
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -103,23 +63,24 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task Edit(Request request) {            
-            try {
-                var materialJson = JsonSerializer.Serialize<Request>(request);
+        public async Task Edit(Request request) {
+            //try {
+            //    var materialJson = JsonSerializer.Serialize<Request>(request);
 
-                using (var db = new SqlConnection(_connectionString)) {                    
-                    // Сохраняет изменения заявки.
-                    await db.QueryAsync($"UPDATE dbo.Requests SET " +
-                        $"count = {request.Count}," +
-                        $"measure = '{request.Measure}'," +
-                        $"status = '{request.Status}'," +
-                        $"material_group = '{request.MaterialGroup}'," +
-                        $"material = '{materialJson}'");
-                }
-            }
-            catch(Exception ex) {
-                throw new Exception(ex.Message);
-            }
+            //    using (var db = new SqlConnection(_connectionString)) {                    
+            //        // Сохраняет изменения заявки.
+            //        await db.QueryAsync($"UPDATE dbo.Requests SET " +
+            //            $"count = {request.Count}," +
+            //            $"measure = '{request.Measure}'," +
+            //            $"status = '{request.Status}'," +
+            //            $"material_group = '{request.MaterialGroup}'," +
+            //            $"material = '{materialJson}'");
+            //    }
+            //}
+            //catch(Exception ex) {
+            //    throw new Exception(ex.Message);
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -128,18 +89,86 @@ namespace Bionessori.Services {
         /// <param name="typeParam"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<string> CheckingRequest(string typeParam, int param) {
-            using (var db = new SqlConnection(_connectionString)) {
-                var parameters = new DynamicParameters();
-                parameters.Add("@type_param", typeParam, DbType.String);
-                parameters.Add("@param", param, DbType.String);
-
-                var checkCard = await db.QueryAsync<string>("dbo.sp_Checking",
-                    commandType: CommandType.StoredProcedure,
-                    param: parameters);
-
-                return checkCard.ToArray()[0];
+        public async Task<string> CheckingRequest(string typeParam, int param) {           
+            try {
+                object checkRequest = null;
+                if (typeParam == "request") {
+                    checkRequest = await _db.Requests.Where(r => r.Number == param).FirstOrDefaultAsync();
+                }                
+                return (checkRequest == null ? false : true).ToString();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
             }
         }
-    }
+
+        /// <summary>
+        /// Метод создает новую заявку.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async override Task CreateRequest(object request) {
+            try {
+                string typeParam = "request";
+                int generateNumber = 0;
+                var objParse = JsonSerializer.Serialize(request);
+                JObject jsonObject = JObject.Parse(objParse);
+
+                // Выбирает материалы.
+                var aMaterials = (JArray)jsonObject["Material"];
+                var aMaterialValues = aMaterials.Values().ToList();
+                //var jsonParse = JsonSerializer.Deserialize<Request>(objParse);     
+
+                // Выбирает группы.
+                //var aGroups = (JArray)jsonObject["MaterialGroup"];
+                //var aMaterialGroups = aGroups.Values().ToList();
+                var sGroup = jsonObject["MaterialGroup"].ToString();
+
+                var iCount = jsonObject["Count"].ToString();
+                //var count = (JArray)jsonObject["Count"];
+                //var getCount = count.Values().FirstOrDefault(); 
+
+                var sMeasure = jsonObject["Measure"].ToString();
+                //var sMeasure = (JArray)jsonObject["Measure"];
+                //var getMeasure = sMeasure.Values().ToList();
+
+                //var sStatus = jsonObject["Status"].ToString();
+                //var sStatus = (JArray)jsonObject["Status"];
+                //var getStatus = sStatus.Values().FirstOrDefault();
+                
+                // Генерит рандомный номер заявки.
+                int RandomGenerate() {
+                    return RandomDataService.GenerateRandomNumber();
+                }
+
+                generateNumber = RandomGenerate();
+                
+                // Проверяет, существует ли уже такая заявка.
+                var resultCheck = await CheckingRequest(typeParam, generateNumber);
+
+                // Если такая заявка уже существует, то повторно пойдет генерить номер заявки.
+                if (Convert.ToBoolean(resultCheck)) {
+                    generateNumber = RandomGenerate();
+                }
+
+                Request reqObject = new Request() {
+                    MaterialGroup = sGroup,
+                    Count = Convert.ToInt32(iCount),
+                    Measure = sMeasure,
+                    Number = generateNumber
+                };
+
+                // Перебор материалов.
+                foreach (var el in aMaterialValues) {
+                    // Добавляет текущий материал в объект заявки.
+                    reqObject.Material = el.ToString();
+                    await _db.Requests.AddAsync(reqObject);
+                    await _db.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+    }    
 }

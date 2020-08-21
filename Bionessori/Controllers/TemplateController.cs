@@ -56,7 +56,7 @@ namespace Bionessori.Controllers {
         /// <summary>
         /// Метод получает материалы, которые нужно пополнить.
         /// </summary>
-        [HttpGet, Route("get-refill-materials")]
+        [HttpPost, Route("get-refill-materials")]
         public async Task<IActionResult> GetRefillMaterials() {
             BaseTemplate template = new DynamicDataTemplateService(_db);
             var oMaterials = await template.GetDynamicDataRefillMaterials();

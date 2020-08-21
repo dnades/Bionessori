@@ -1,20 +1,28 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Bionessori.Core;
+using Bionessori.Core.Data;
 using Bionessori.Core.Interfaces;
 using Bionessori.Models;
+using Bionessori.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Bionessori.Controllers {
     [ApiController, Route("api/werehouse/request")]
     public class RequestController : ControllerBase {
-        IRequest _request;
+        ApplicationDbContext _db;
 
-        public RequestController(IRequest request) {
-            _request = request;
+        public RequestController(ApplicationDbContext db) {
+            _db = db;
         }
         /// <summary>
         /// Метод получает список заявок на потребности.
@@ -23,9 +31,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-requests")]
         public async Task<IActionResult> GetRequests() {
-            var oRequests = await _request.GetRequests();
+            //var oRequests = await _request.GetRequests();
 
-            return Ok(oRequests);
+            return Ok();
         }
 
         /// <summary>
@@ -34,11 +42,17 @@ namespace Bionessori.Controllers {
         /// <param name="werehouse"></param>
         /// <returns></returns>
         [HttpPost, Route("create-request")]
-        public async Task<IActionResult> Create([FromBody] Request request) {
-            await _request.Create(request);
+        public async Task<IActionResult> Create([FromBody] object request) {
+            BaseRequest baseRequest = new RequestService(_db);
+            await baseRequest.CreateRequest(request);
 
             return Ok("Заявка на потребность успешно создана");
         }
+
+        //[HttpPost, Route("create-test")]
+        //public async Task<IActionResult> CreateTest([FromBody] object request) {            
+        //    return Ok();
+        //}        
 
         /// <summary>
         /// Метод сохраняет изменения в заявке.
@@ -46,7 +60,7 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("save-change-request")]
         public async Task<IActionResult> SaveChangeRequest([FromBody] Request request) {
-            await _request.Edit(request);
+            //await _request.Edit(request);
 
             return Ok("Заявка успешно изменена");
         }
@@ -56,9 +70,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpPut, Route("delete-request")]
         public async Task<IActionResult> DeleteRequest([FromQuery] int number) {
-            await _request.Delete(number);
+            //await _request.Delete(number);
 
             return Ok("Заявка успешно удалена");
-        }
-    }
+        }        
+    }      
 }

@@ -148,27 +148,28 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns>Кол-во материалов.</returns>
         public async Task<int> GetCountRefillMaterials() {
-            try {
-                int iMaterials = 0; // Кол-во материалов.
+            //try {
+            //    int iMaterials = 0; // Кол-во материалов.
 
-                using (var db = new SqlConnection(_connectionString)) {
-                    IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_REFILL}'");                    
+            //    using (var db = new SqlConnection(_connectionString)) {
+            //        IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
+            //            $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_REFILL}'");                    
 
-                    // Обрабатывает результат выборки и десериализует объект.
-                    foreach (var el in aMaterials) {
-                        var materials = el as IDictionary<string, dynamic>;
-                        var oMaterials = materials["material"];
-                        Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
-                        iMaterials = parseMaterial.Material.Count();
-                    }
+            //        // Обрабатывает результат выборки и десериализует объект.
+            //        foreach (var el in aMaterials) {
+            //            var materials = el as IDictionary<string, dynamic>;
+            //            var oMaterials = materials["material"];
+            //            Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
+            //            iMaterials = parseMaterial.Material.Count();
+            //        }
 
-                    return iMaterials;
-                }
-            }
-            catch (Exception ex) {
-                throw new Exception(ex.Message.ToString());
-            }
+            //        return iMaterials;
+            //    }
+            //}
+            //catch (Exception ex) {
+            //    throw new Exception(ex.Message.ToString());
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -178,20 +179,21 @@ namespace Bionessori.Services {
         public async Task<int> GetCountMappingMaterials() {
             int iMaterials = 0; // Кол-во материалов.
 
-            using (var db = new SqlConnection(_connectionString)) {
-                IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
-                    $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_MAPPING}'");
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
+            //        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_MAPPING}'");
 
-                // Обрабатывает результат выборки и десериализует в объект.
-                foreach (var el in aMaterials) {
-                    var materials = el as IDictionary<string, dynamic>;
-                    var oMaterials = materials["material"];
-                    Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
-                    iMaterials = parseMaterial.Material.Count();
-                }
+            //    // Обрабатывает результат выборки и десериализует в объект.
+            //    foreach (var el in aMaterials) {
+            //        var materials = el as IDictionary<string, dynamic>;
+            //        var oMaterials = materials["material"];
+            //        Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
+            //        iMaterials = parseMaterial.Material.Count();
+            //    }
 
-                return iMaterials;
-            }
+            //    return iMaterials;
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>

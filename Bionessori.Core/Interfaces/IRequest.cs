@@ -21,7 +21,7 @@ namespace Bionessori.Core.Interfaces {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task Create(Request werehouse);
+        Task Create(Request request);
 
         /// <summary>
         /// Метод удаляет заявку на потребности в закупках.

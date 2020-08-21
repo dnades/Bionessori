@@ -10,6 +10,7 @@ using Bionessori.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,12 +36,11 @@ namespace Bionessori {
 
             services.AddTransient<IWerehouse, WerehouseService>(provider => new WerehouseService(connectionString));
 
-            services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
+            //services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
 
             services.AddTransient<IRegistry, RegistryService>(provider => new RegistryService(connectionString));
 
-            services.AddTransient<IFrontOffice, FrontOfficeService>(provider => new FrontOfficeService(connectionString));
-
+            services.AddTransient<IFrontOffice, FrontOfficeService>(provider => new FrontOfficeService(connectionString));            
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>

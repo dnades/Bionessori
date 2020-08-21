@@ -4,7 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Xml;
 
 namespace Bionessori.Models {
     /// <summary>
@@ -26,9 +29,8 @@ namespace Bionessori.Models {
         [Column("status")]
         public string Status { get; set; }  // Статус заявки.
 
-        //[NotMapped]
         [Column("material")]
-        public string Material { get; set; }    // Список материалов.
+        public string Material { get; set; }    // Список материалов. 
 
         [Column("material_group")]
         public string MaterialGroup { get; set; }   // Группа, к которой относится материал.
