@@ -10,6 +10,8 @@ namespace Bionessori.Core.Data {
 
         public DbSet<Werehouse> Werehouses { get; set; }
 
+        public DbSet<Provider> Providers { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
             //Database.EnsureCreated();
@@ -25,6 +27,10 @@ namespace Bionessori.Core.Data {
 
             modelBuilder.Entity<MultepleContextTable>()
                 .HasOne(sc => sc.Werehouse)
+                .WithMany(s => s.MultepleContextTables);
+
+            modelBuilder.Entity<MultepleContextTable>()
+                .HasOne(sc => sc.Provider)
                 .WithMany(s => s.MultepleContextTables);
         }
     }

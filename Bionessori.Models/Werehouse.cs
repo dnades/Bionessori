@@ -41,8 +41,8 @@ namespace Bionessori.Models {
         [Column("total_sum")]
         public decimal TotalSum { get; set; }   // Сумма.
 
-        [NotMapped, Column("provider_name")]
-        public string ProviderName { get; set; } // Наименование поставщика.
+        [NotMapped, Column("provider_id")]
+        public string ProviderId { get; set; } // Наименование поставщика.
 
         [Column("percentage")]
         public decimal Percentage { get; set; }  // Процент скидки.

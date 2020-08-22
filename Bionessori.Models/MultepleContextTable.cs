@@ -11,5 +11,8 @@ namespace Bionessori.Core.Data {
 
         public int WerehouseId { get; set; }
         public Werehouse Werehouse { get; set; }
+
+        public int ProviderId { get; set; }
+        public Provider Provider { get; set; }
     }
 }

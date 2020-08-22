@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
@@ -26,14 +27,8 @@ namespace Bionessori.Services {
         /// Метод получает список заявок на потребности.
         /// </summary>
         /// <returns></returns>
-        public async Task<object> GetRequests() {
-            // Вызывает процедуру для выборки списка заявок.
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    var oRequests = await db.QueryAsync("sp_GetRequests");
-
-            //    return oRequests.ToList();
-            //}
-            throw new NotImplementedException();
+        public async override Task<IEnumerable> GetRequests() {
+            return await _db.Requests.ToListAsync();
         }
 
         /// <summary>

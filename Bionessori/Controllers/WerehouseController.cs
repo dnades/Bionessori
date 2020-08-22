@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bionessori.Core;
+using Bionessori.Core.Data;
 using Bionessori.Core.Interfaces;
 using Bionessori.Models;
+using Bionessori.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +16,9 @@ namespace Bionessori.Controllers {
     /// </summary>
     [ApiController, Route("api/werehouse/material")]
     public class WerehouseController : ControllerBase {
-        IWerehouse _werehouse;        
-
-        public WerehouseController(IWerehouse werehouse) {
-            _werehouse = werehouse;
+        ApplicationDbContext _db;
+        public WerehouseController(ApplicationDbContext db) {
+            _db = db;
         }
 
         /// <summary>
@@ -24,10 +26,10 @@ namespace Bionessori.Controllers {
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("get-materials")]
-        public async Task<IActionResult> GetProducts() {
-            var oMaterials = await _werehouse.GetMaterials();
+        public async Task<IActionResult> GetMaterials() {
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
 
-            return Ok(oMaterials);
+            return Ok(await baseWerehouse.GetMaterials());
         }
 
         /// <summary>
@@ -36,9 +38,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-werehouses")]
         public async Task<IActionResult> GetNameWerehouses() { 
-            var oNames = await _werehouse.GetNameWerehouses();
+            //ar oNames = await _werehouse.GetNameWerehouses();
 
-            return Ok(oNames);
+            return Ok();
         }
 
         /// <summary>
@@ -47,9 +49,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-groups")]
         public async Task<IActionResult> GetGroupshouses() {
-            var oGroups = await _werehouse.GetGroupsWerehouses();
+            //var oGroups = await _werehouse.GetGroupsWerehouses();
 
-            return Ok(oGroups);
+            return Ok();
         }
 
         /// <summary>
@@ -58,9 +60,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-measures")]
         public async Task<IActionResult> GetMeasuresWerehouses() {
-            var oMeasures = await _werehouse.GetMeasuresWerehouses();
+            //var oMeasures = await _werehouse.GetMeasuresWerehouses();
 
-            return Ok(oMeasures);
+            return Ok();
         }
 
         /// <summary>
@@ -69,9 +71,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-distinct-materials")]
         public async Task<IActionResult> GetDistinctMaterials() {
-            var oDistinctMaterials = await _werehouse.GetDistinctMaterials();
+            //var oDistinctMaterials = await _werehouse.GetDistinctMaterials();
 
-            return Ok(oDistinctMaterials);
+            return Ok();
         }
 
         /// <summary>
@@ -81,9 +83,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpGet, Route("get-material-group")]
         public async Task<IActionResult> GetMaterialsGroup([FromQuery] string group) {
-            var oMaterialsGroup = await _werehouse.GetMaterialsGroup(group);
+            //var oMaterialsGroup = await _werehouse.GetMaterialsGroup(group);
 
-            return Ok(oMaterialsGroup);
+            return Ok();
         }
 
         /// <summary>
@@ -91,9 +93,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpGet, Route("count-status-new")]
         public async Task<IActionResult> GetCountStatusNewRequests() {
-            var iRequests = await _werehouse.GetCountNewRequests();
+            //var iRequests = await _werehouse.GetCountNewRequests();
             
-            return Ok(iRequests);
+            return Ok();
         }
 
         /// <summary>
@@ -101,9 +103,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpGet, Route("count-status-work")]
         public async Task<IActionResult> GetCountStatusWorkRequests() {
-            var iRequests = await _werehouse.GetCountRequestInWork();
+            //var iRequests = await _werehouse.GetCountRequestInWork();
 
-            return Ok(iRequests);
+            return Ok();
         }
 
         /// <summary>
@@ -111,9 +113,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpGet, Route("count-refill-materials")]
         public async Task<IActionResult> GetCountRefillMaterials() {
-            var iMaterials = await _werehouse.GetCountRefillMaterials();
+            //var iMaterials = await _werehouse.GetCountRefillMaterials();
 
-            return Ok(iMaterials);
+            return Ok();
         }
 
         /// <summary>
@@ -121,9 +123,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpGet, Route("count-mapping-materials")]
         public async Task<IActionResult> GetCountMappingMaterials() {
-            var iMaterials = await _werehouse.GetCountMappingMaterials();
+            //var iMaterials = await _werehouse.GetCountMappingMaterials();
 
-            return Ok(iMaterials);
+            return Ok();
         }
 
         /// <summary>
@@ -131,9 +133,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpGet, Route("count-accept-delete-request")]
         public async Task<IActionResult> GetCountAcceptDeleteRequest() {
-            var iRequests = await _werehouse.GetCountAcceptDeleteRequests();
+            //var iRequests = await _werehouse.GetCountAcceptDeleteRequests();
             
-            return Ok(iRequests);
+            return Ok();
         }        
     }
 }

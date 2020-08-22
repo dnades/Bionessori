@@ -34,7 +34,7 @@ namespace Bionessori {
 
             services.AddTransient<IBackOffice, BackOfficeService>(provider => new BackOfficeService(connectionString));
 
-            services.AddTransient<IWerehouse, WerehouseService>(provider => new WerehouseService(connectionString));
+            //services.AddTransient<IWerehouse, WerehouseService>(provider => new WerehouseService(connectionString));
 
             //services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
 

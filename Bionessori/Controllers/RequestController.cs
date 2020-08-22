@@ -31,9 +31,8 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-requests")]
         public async Task<IActionResult> GetRequests() {
-            //var oRequests = await _request.GetRequests();
-
-            return Ok();
+            BaseRequest baseRequest = new RequestService(_db);
+            return Ok(await baseRequest.GetRequests());
         }
 
         /// <summary>
@@ -47,12 +46,7 @@ namespace Bionessori.Controllers {
             await baseRequest.CreateRequest(request);
 
             return Ok("Заявка на потребность успешно создана");
-        }
-
-        //[HttpPost, Route("create-test")]
-        //public async Task<IActionResult> CreateTest([FromBody] object request) {            
-        //    return Ok();
-        //}        
+        }      
 
         /// <summary>
         /// Метод сохраняет изменения в заявке.

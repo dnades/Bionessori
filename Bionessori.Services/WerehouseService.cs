@@ -1,7 +1,11 @@
-﻿using Bionessori.Core.Constants;
+﻿using Bionessori.Core;
+using Bionessori.Core.Constants;
+using Bionessori.Core.Data;
 using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -20,24 +24,39 @@ namespace Bionessori.Services {
     /// <summary>
     /// Сервис реализует методы складов.
     /// </summary>
-    public class WerehouseService : IWerehouse {
-        string _connectionString = null;
+    public class WerehouseService : BaseWerehouse {
+        ApplicationDbContext _db;
 
-        public WerehouseService(string conStr) {
-            _connectionString = conStr;
+        public WerehouseService(ApplicationDbContext db) {
+            _db = db;
         }
 
         /// <summary>
         /// Метод получает список материалов со складов.
         /// </summary>
-        /// <returns></returns>
-        public async Task<List<Werehouse>> GetMaterials() {
-            using (var db = new SqlConnection(_connectionString)) {
-                // Вызывает процедуру для выбора списка материалов.
-                var oMaterials = await db.QueryAsync<Werehouse>("sp_GetMaterials");
+        /// <returns>Список материалов.</returns>
+        public async override Task<IEnumerable> GetMaterials() {
+            // Получает список материалов.
+            var oMaterials = await _db.Werehouses.Join(_db.Providers,
+                w => w.Id,
+                p => p.Id,
+                (w, p) => new {
+                    id = w.Id,
+                    material = w.Material,
+                    materialGroup = w.MaterialGroup,
+                    measure = w.Measure,
+                    count = w.Count,
+                    vendorCode = w.VendorCode,
+                    werehouseNumber = w.WerehouseNumber,
+                    price = w.Price,
+                    totalSum = w.TotalSum,
+                    reserve = w.Reserve,
+                    percentage = w.Percentage,
+                    vat = w.VAT,
+                    providerName = p.ProviderName
+                }).ToListAsync();   
 
-                return oMaterials.ToList();
-            }
+            return oMaterials;
         }
 
         /// <summary>
@@ -45,23 +64,25 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable> GetNameWerehouses() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
 
-                return oNames; 
-            }
+            //    return oNames; 
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Метод получает список групп материалов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetGroupsWerehouses() { 
-            using (var db = new SqlConnection(_connectionString)) {
-                var oGroups = await db.QueryAsync("sp_GetGroupNames");
+        public async Task<IEnumerable> GetGroupsWerehouses() {
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    var oGroups = await db.QueryAsync("sp_GetGroupNames");
 
-                return oGroups;
-            }
+            //    return oGroups;
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -69,11 +90,12 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable> GetMeasuresWerehouses() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var oMeasures = await db.QueryAsync("sp_GetMeasures");
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    var oMeasures = await db.QueryAsync("sp_GetMeasures");
 
-                return oMeasures;
-            }
+            //    return oMeasures;
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -81,11 +103,12 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable> GetDistinctMaterials() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
 
-                return oDistinctMaterials;
-            }
+            //    return oDistinctMaterials;
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -94,17 +117,18 @@ namespace Bionessori.Services {
         /// <param name="group"></param>
         /// <returns></returns>
         public async Task<IEnumerable<string>> GetMaterialsGroup(string group) {
-            using (var db = new SqlConnection(_connectionString)) {
-                var parameters = new DynamicParameters();
-                parameters.Add("@group", group, DbType.String);
+            //using (var db = new SqlConnection(_connectionString)) {
+            //    var parameters = new DynamicParameters();
+            //    parameters.Add("@group", group, DbType.String);
 
-                // Процедура выбирает все материалы группы.
-                var oMaterialsGroup = await db.QueryAsync<string>("dbo.sp_GetMaterialsGroup",
-                    commandType: CommandType.StoredProcedure,
-                    param: parameters);
+            //    // Процедура выбирает все материалы группы.
+            //    var oMaterialsGroup = await db.QueryAsync<string>("dbo.sp_GetMaterialsGroup",
+            //        commandType: CommandType.StoredProcedure,
+            //        param: parameters);
 
-                return oMaterialsGroup;
-            }
+            //    return oMaterialsGroup;
+            //}
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -113,12 +137,13 @@ namespace Bionessori.Services {
         /// <returns>Кол-во заявок.</returns>
         public async Task<int> GetCountNewRequests() {
             try {
-                using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEW}'");
+                //using (var db = new SqlConnection(_connectionString)) {
+                //    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
+                //        $"WHERE status = '{RequestStatus.REQ_STATUS_NEW}'");
 
-                    return iRequests.FirstOrDefault();
-                }
+                //    return iRequests.FirstOrDefault();
+                //}
+                throw new NotImplementedException();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -131,12 +156,13 @@ namespace Bionessori.Services {
         /// <returns>Кол-во заявок.</returns>
         public async Task<int> GetCountRequestInWork() {
             try {
-                using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_IN_WORK}'");
+                //using (var db = new SqlConnection(_connectionString)) {
+                //    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
+                //        $"WHERE status = '{RequestStatus.REQ_STATUS_IN_WORK}'");
 
-                    return iRequests.FirstOrDefault();
-                }
+                //    return iRequests.FirstOrDefault();
+                //}
+                throw new NotImplementedException();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -202,12 +228,13 @@ namespace Bionessori.Services {
         /// <returns>Кол-во заявок.</returns>
         public async Task<int> GetCountAcceptDeleteRequests() {
             try {
-                using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE}'");
+                //using (var db = new SqlConnection(_connectionString)) {
+                //    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
+                //        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE}'");
 
-                    return iRequests.FirstOrDefault();
-                }
+                //    return iRequests.FirstOrDefault();
+                //}
+                throw new NotImplementedException();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
