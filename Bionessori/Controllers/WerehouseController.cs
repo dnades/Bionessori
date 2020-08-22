@@ -37,10 +37,10 @@ namespace Bionessori.Controllers {
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("get-werehouses")]
-        public async Task<IActionResult> GetNameWerehouses() { 
-            //ar oNames = await _werehouse.GetNameWerehouses();
+        public async Task<IActionResult> GetNameWerehouses() {
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
 
-            return Ok();
+            return Ok(await baseWerehouse.GetNameWerehouses());
         }
 
         /// <summary>

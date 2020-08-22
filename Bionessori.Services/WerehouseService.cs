@@ -63,13 +63,8 @@ namespace Bionessori.Services {
         /// Метод получает список названий складов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetNameWerehouses() {
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
-
-            //    return oNames; 
-            //}
-            throw new NotImplementedException();
+        public async override Task<IEnumerable<string>> GetNameWerehouses() {
+            return await _db.Werehouses.Select(w => w.WerehouseNumber).Distinct().ToListAsync();
         }
 
         /// <summary>
