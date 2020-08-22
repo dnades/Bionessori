@@ -63,7 +63,8 @@ namespace Bionessori.Services {
         /// Метод получает список названий складов.
         /// </summary>
         /// <returns></returns>
-        public async override Task<IEnumerable<string>> GetNameWerehouses() {
+        public async override Task<IEnumerable> GetNameWerehouses() {
+            // Выбирает только уникальные.
             return await _db.Werehouses.Select(w => w.WerehouseNumber).Distinct().ToListAsync();
         }
 
@@ -71,13 +72,9 @@ namespace Bionessori.Services {
         /// Метод получает список групп материалов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetGroupsWerehouses() {
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    var oGroups = await db.QueryAsync("sp_GetGroupNames");
-
-            //    return oGroups;
-            //}
-            throw new NotImplementedException();
+        public async override Task<IEnumerable> GetGroupsWerehouses() {
+            // Выбирает только уникальные.
+            return await _db.Werehouses.Select(w => w.MaterialGroup).Distinct().ToListAsync();
         }
 
         /// <summary>

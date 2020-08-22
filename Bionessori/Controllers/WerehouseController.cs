@@ -16,7 +16,7 @@ namespace Bionessori.Controllers {
     /// </summary>
     [ApiController, Route("api/werehouse/material")]
     public class WerehouseController : ControllerBase {
-        ApplicationDbContext _db;
+        static ApplicationDbContext _db;
         public WerehouseController(ApplicationDbContext db) {
             _db = db;
         }
@@ -49,9 +49,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-groups")]
         public async Task<IActionResult> GetGroupshouses() {
-            //var oGroups = await _werehouse.GetGroupsWerehouses();
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
 
-            return Ok();
+            return Ok(await baseWerehouse.GetGroupsWerehouses());
         }
 
         /// <summary>

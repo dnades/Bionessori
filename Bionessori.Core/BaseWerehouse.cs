@@ -17,6 +17,12 @@ namespace Bionessori.Core {
         /// Метод получает названия складов.
         /// </summary>
         /// <returns>Список названий складов.</returns>
-        public abstract Task<IEnumerable<string>> GetNameWerehouses();
+        public abstract Task<IEnumerable> GetNameWerehouses();
+
+        /// <summary>
+        /// Метод выбирает названия групп.
+        /// </summary>
+        /// <returns>Список названий групп.</returns>
+        public abstract Task<IEnumerable> GetGroupsWerehouses();
     }
 }
