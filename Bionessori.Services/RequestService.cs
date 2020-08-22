@@ -1,4 +1,5 @@
 ﻿using Bionessori.Core;
+using Bionessori.Core.Constants;
 using Bionessori.Core.Data;
 using Bionessori.Models;
 using Microsoft.Data.SqlClient;
@@ -117,25 +118,20 @@ namespace Bionessori.Services {
                 // Выбирает материалы.
                 var aMaterials = (JArray)jsonObject["Material"];
                 var aMaterialValues = aMaterials.Values().ToList();
-                //var jsonParse = JsonSerializer.Deserialize<Request>(objParse);     
 
                 // Выбирает группы.
-                //var aGroups = (JArray)jsonObject["MaterialGroup"];
-                //var aMaterialGroups = aGroups.Values().ToList();
-                var sGroup = jsonObject["MaterialGroup"].ToString();
+                var aGroups = (JArray)jsonObject["MaterialGroup"];
+                var aMaterialGroups = aGroups.Values().ToList();
 
-                var iCount = jsonObject["Count"].ToString();
-                //var count = (JArray)jsonObject["Count"];
-                //var getCount = count.Values().FirstOrDefault(); 
+                // Выбирает кол-во.
+                var count = (JArray)jsonObject["Count"];
+                var aCount = count.Values().ToList();
 
-                var sMeasure = jsonObject["Measure"].ToString();
-                //var sMeasure = (JArray)jsonObject["Measure"];
-                //var getMeasure = sMeasure.Values().ToList();
+                // Выбирает ед.изм.
+                var sMeasures = (JArray)jsonObject["Measure"];
+                var aMeasures = sMeasures.Values().ToList();
+                //var sMeasure = jsonObject["Measure"].ToString();
 
-                //var sStatus = jsonObject["Status"].ToString();
-                //var sStatus = (JArray)jsonObject["Status"];
-                //var getStatus = sStatus.Values().FirstOrDefault();
-                
                 // Генерит рандомный номер заявки.
                 int RandomGenerate() {
                     return RandomDataService.GenerateRandomNumber();
@@ -151,20 +147,26 @@ namespace Bionessori.Services {
                     generateNumber = RandomGenerate();
                 }
 
-                Request reqObject = new Request() {
-                    MaterialGroup = sGroup,
-                    Count = Convert.ToInt32(iCount),
-                    Measure = sMeasure,
-                    Number = generateNumber
-                };
-
                 // Перебор материалов.
-                foreach (var el in aMaterialValues) {
-                    // Добавляет текущий материал в объект заявки.
-                    reqObject.Material = el.ToString();
-                    await _db.Requests.AddAsync(reqObject);
-                    await _db.SaveChangesAsync();
+                int i = 0;
+                foreach (var material in aMaterialValues) {
+                    Request reqObject = new Request() {
+                        Number = generateNumber,
+                        Status = RequestStatus.REQ_STATUS_NEW
+                    };
+
+                    // Итеративно дополняет объект заявки.
+                    reqObject.Material = material.ToString();
+                    reqObject.MaterialGroup = aMaterialGroups[i].ToString();
+                    reqObject.Count = Convert.ToInt32(aCount[i]);
+                    reqObject.Measure = aMeasures[i].ToString();
+
+                    // Итеративно сохраняет объект.
+                    await _db.Requests.AddRangeAsync(reqObject);
+                    i++;
                 }
+                // В итоге все добавленные объекты сохраняться разом. В БД каждая такая итерация сохранится новой строкой.
+                await _db.SaveChangesAsync();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());

@@ -54,7 +54,10 @@ var main_mrp = new Vue({
 		aNewRequests: [],
 		aInWorkRequests: [],
 		aAcceptDeleteRequests: [],
-		aRefillMaterials: []
+		aRefillMaterials: [],
+		aCountMaterials: [],
+		aMeasuresMaterials: [],
+		aGroups: []
 	},
 	methods: {
 		onInit() {
@@ -374,21 +377,15 @@ var main_mrp = new Vue({
 		// Функция создает новую заявку на потребность в материалах.
 		onCreateRequest() {
 			localStorage.removeItem("addedMaterials");
-			let sGroup = $("#id-select-group").val();
-			let nCount = +$("#id-select-count").val();
-			let sMeasure = $("#id-select-measure").val();
-			let sWerehouse = $("#id-select-werehouse").val();
 
 			let oRequest = {
 				Material: main_mrp.aAddedMaterials,
-				MaterialGroup: sGroup,
-				Measure: sMeasure,
-				Count: nCount,
-				WerehouseNumber: sWerehouse
+				MaterialGroup: main_mrp.aGroups,
+				Measure: main_mrp.aMeasuresMaterials,
+				Count: main_mrp.aCountMaterials
 			};
 
 			let sUrl = "https://localhost:44312/api/werehouse/request/create-request";
-			//let sUrl = "https://localhost:44312/api/werehouse/request/create-test";
 
 			try {
 				axios.post(sUrl, oRequest)
@@ -420,25 +417,34 @@ var main_mrp = new Vue({
 
 		// Функция добавляет материал к заявке.
 		onAddMaterialRequest() {
-			let item = $("#id-select-material").val();
+			let sMaterial = $("#id-select-material").val();
+			let sGroup = $("#id-select-group").val();
+			let sMeasure = $("#id-select-measure").val();
+			let iCount = +$("#id-select-count").val();
 
 			// Если материал еще не добавлен к заявке, то добавит, иначе не добавит и дублей не будет.
 			if (this.aAddedMaterials.length) {
 				this.aAddedMaterials.forEach(el => {
-					if (el !== item) {
-						this.aAddedMaterials.push(item);
+					if (el !== sMaterial) {
+						this.aAddedMaterials.push(sMaterial);
+						this.aGroups.push(sGroup);
+						this.aMeasuresMaterials.push(sMeasure);
+						this.aCountMaterials.push(iCount);
 					}
 					else {
-						swal("Внимание", "Вы пытаетесь добавить к заявке материал, который уже добавлен.", "error");
+						swal("Внимание", "Вы пытаетесь добавить к заявке материал, который уже добавлен. " +
+							"Материал «" + sMaterial + "» уже включен в заявку.", "error");
 						return;
 					}
 				});
 			}
 			else {	// Если к заявке еще не добавляли ни одного материала.
-				this.aAddedMaterials.push(item);
+				this.aAddedMaterials.push(sMaterial);
+				this.aGroups.push(sGroup);
+				this.aMeasuresMaterials.push(sMeasure);
+				this.aCountMaterials.push(iCount);
 			}
-			console.log(this.aAddedMaterials);
-		},
+		},		
 
 		// Функция переходит к редактированию заявки.
 		onRouteEditRequest(event) {
@@ -497,6 +503,7 @@ var main_mrp = new Vue({
 			// Оставляет в массиве лишь те материалы, которые не равны выбранному.
 			let temp = this.aAddedMaterials.filter(el => el !== elem);
 			this.aAddedMaterials = temp;
+			this.aGroups = temp;
 		},
 
 		// Функция сохраняет отредактированную заявку.

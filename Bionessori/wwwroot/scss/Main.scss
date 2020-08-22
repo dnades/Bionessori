@@ -349,15 +349,28 @@ table {
 
     .row-1 {
         @include flexDirCol;
+
+        h5 {
+            font-size: 16px;
+        }
     }
 
     .row-2 {
         @include flexDirCol;
         width: 300px;
+
+        h5 {
+            font-size: 16px;
+        }
     }
 
     .row-3 {
         @include flexDirCol;
+        width: 150px;
+
+        h5 {
+            font-size: 16px;
+        }
     }
 }
 
