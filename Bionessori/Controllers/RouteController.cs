@@ -219,6 +219,12 @@ namespace Bionessori.Controllers {
                     ViewData["Data"] = "Заявки материалов для пополнения";
 
                     return View("_PartialRefillMaterials");
+
+                case "mapp_mat":
+                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок с материалами требующих сопоставления";
+                    ViewData["Data"] = "Заявки материалов для сопоставления";
+
+                    return View("_PartialMappingMaterials");
             }
             return View();
         }

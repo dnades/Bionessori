@@ -117,9 +117,7 @@ namespace Bionessori.Services {
         /// <returns>Кол-во заявок.</returns>
         public async override Task<int> GetCountNewRequests() {
             try {
-                int countNewRequests = await _db.Requests.Where(c => c.Status == RequestStatus.REQ_STATUS_NEW).CountAsync();
-
-                return countNewRequests;
+                return await _db.Requests.Where(c => c.Status == RequestStatus.REQ_STATUS_NEW).CountAsync();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -147,9 +145,7 @@ namespace Bionessori.Services {
         /// <returns>Кол-во материалов.</returns>
         public async override Task<int> GetCountRefillMaterials() {
             try {
-                int countRefillMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).CountAsync();
-
-                return countRefillMaterials;
+                return await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).CountAsync(); 
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());

@@ -113,5 +113,15 @@ namespace Bionessori.Controllers {
 
             return Ok(oMaterials);
         }
+
+        /// <summary>
+        /// Метод получает материалы, которые нужно сопоставить.
+        /// </summary>
+        [HttpPost, Route("get-mapping-materials")]
+        public async Task<IActionResult> GetMappingMaterials() {
+            BaseRequest template = new RequestService(_db);
+
+            return Ok(await template.GetDynamicDataMappingMaterials());
+        }
     }      
 }

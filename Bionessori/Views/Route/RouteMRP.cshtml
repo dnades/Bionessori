@@ -87,7 +87,7 @@
 						<div class="card-body text-primary">
 							<h5 class="card-title">Заявок со статусом «Требует сопоставления».</h5>
 							<p class="card-text">Заявок требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="mapp_mat" })" class="text-muted"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 

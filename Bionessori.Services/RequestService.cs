@@ -216,11 +216,25 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async override Task<IEnumerable> GetDynamicDataAcceptDeleteRequests() {
-            return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE).ToListAsync();
+            try {
+                return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE).ToListAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
-        public override Task<IEnumerable> GetDynamicDataMappingMaterials() {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Метод полуает заявки со статусом требует сопоставления.
+        /// </summary>
+        /// <returns></returns>
+        public async override Task<IEnumerable> GetDynamicDataMappingMaterials() {
+            try {
+                return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_MAPPING).ToListAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
     }    
 }

@@ -57,7 +57,8 @@ var main_mrp = new Vue({
 		aRefillMaterials: [],
 		aCountMaterials: [],
 		aMeasuresMaterials: [],
-		aGroups: []
+		aGroups: [],
+		aMappingMaterials: []
 	},
 	methods: {
 		onInit() {
@@ -74,7 +75,7 @@ var main_mrp = new Vue({
 				switch (sParam) {
 					// Получить новые заявки.
 					case "new_req":
-						var sUrlNewReq = "https://localhost:44312/api/template/get-new-requests";
+						var sUrlNewReq = "https://localhost:44312/api/werehouse/request/get-new-requests";
 
 						try {
 							axios.get(sUrlNewReq)
@@ -93,7 +94,7 @@ var main_mrp = new Vue({
 
 					// Получить заявки в работе.
 					case "inwork_req":
-						var sUrlInWorkReq = "https://localhost:44312/api/template/get-inwork-requests";
+						var sUrlInWorkReq = "https://localhost:44312/api/werehouse/request/get-inwork-requests";
 
 						try {
 							axios.get(sUrlInWorkReq)
@@ -112,7 +113,7 @@ var main_mrp = new Vue({
 
 					// Получить заявки ожидающих подтверждения удаления.
 					case "accept_del_req":
-						var sUrlAcceptDeleteReq = "https://localhost:44312/api/template/get-accept-delete-requests";
+						var sUrlAcceptDeleteReq = "https://localhost:44312/api/werehouse/request/get-accept-delete-requests";
 
 						try {
 							axios.get(sUrlAcceptDeleteReq)
@@ -131,7 +132,7 @@ var main_mrp = new Vue({
 
 					// Получить материалы для пополнения.
 					case "ref_mat":
-						var sUrlRefill = "https://localhost:44312/api/template/get-refill-materials";
+						var sUrlRefill = "https://localhost:44312/api/werehouse/request/get-refill-materials";
 
 						try {
 							axios.post(sUrlRefill, {})
@@ -150,6 +151,21 @@ var main_mrp = new Vue({
 
 					// Получить материалы для сопоставления.
 					case "mapp_mat":
+						var sUrlMapp = "https://localhost:44312/api/werehouse/request/";
+
+						try {
+							axios.post(sUrlMapp, {})
+								.then((response) => {
+									this.aMappingMaterials = response.data;
+									console.log("Материалы для сопоставления", this.aMappingMaterials);
+								})
+								.catch((XMLHttpRequest) => {
+									throw new Error("Ошибка получения материалов для сопоставления", XMLHttpRequest.response.data);
+								});
+						}
+						catch (ex) {
+							throw new Error(ex);
+						}
 						break;
 				}
 			}
