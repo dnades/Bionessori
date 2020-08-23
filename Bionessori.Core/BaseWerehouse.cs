@@ -24,5 +24,11 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Список названий групп.</returns>
         public abstract Task<IEnumerable> GetGroupsWerehouses();
+
+        /// <summary>
+        /// Метод получает единицы измерения.
+        /// </summary>
+        /// <returns>Список с единицами измерения.</returns>
+        public abstract Task<IEnumerable> GetMeasuresWerehouses();
     }
 }

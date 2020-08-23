@@ -81,13 +81,8 @@ namespace Bionessori.Services {
         /// Метод получает список ед.изм.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetMeasuresWerehouses() {
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    var oMeasures = await db.QueryAsync("sp_GetMeasures");
-
-            //    return oMeasures;
-            //}
-            throw new NotImplementedException();
+        public async override Task<IEnumerable> GetMeasuresWerehouses() {
+            return await _db.Werehouses.Select(m => m.Measure).Distinct().ToListAsync();
         }
 
         /// <summary>
