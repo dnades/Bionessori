@@ -47,9 +47,9 @@
 				<div class="card-deck">
 					<div class="card border-danger">
 						<div class="card-body text-danger">
-							<h5 class="card-title">Количество материалов, требующих пополнения.</h5>
-							<p class="card-text">Количество материалов, которые требуют пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
-							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
+							<h5 class="card-title">Заявок со статусом «Требует пополнения».</h5>
+							<p class="card-text">Заявок требующих пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="ref_mat" })" class="text-muted"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 
@@ -85,8 +85,8 @@
 
 					<div class="card border-primary">
 						<div class="card-body text-primary">
-							<h5 class="card-title">Количество материалов, требующих сопоставления.</h5>
-							<p class="card-text">Количество материалов, требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
+							<h5 class="card-title">Заявок со статусом «Требует сопоставления».</h5>
+							<p class="card-text">Заявок требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
 							<small class="text-muted dynamic-link" value="new_req" v-on:click="">Просмотреть список</small>
 						</div>
 					</div>

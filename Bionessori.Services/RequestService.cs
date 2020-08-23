@@ -169,5 +169,58 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Метод получает список новых заявок.
+        /// </summary>
+        /// <returns></returns>
+        public async override Task<IEnumerable> GetDynamicDataNewRequests() {
+            try {
+                return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEW).ToListAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает заявки со статусом требует пополнения.
+        /// </summary>
+        /// <returns>Список материалов.</returns>
+        public async override Task<IEnumerable> GetDynamicDataRefillMaterials() {
+            try {
+                var oRefillMaterials = await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_REFILL).ToListAsync();
+
+                return oRefillMaterials;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает список заявок в работе.
+        /// </summary>
+        /// <returns></returns>
+        public async override Task<IEnumerable> GetDynamicDataWorkRequests() {
+            try {
+                return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_IN_WORK).ToListAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает заявки ожидающие подтверждения удаления.
+        /// </summary>
+        /// <returns></returns>
+        public async override Task<IEnumerable> GetDynamicDataAcceptDeleteRequests() {
+            return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE).ToListAsync();
+        }
+
+        public override Task<IEnumerable> GetDynamicDataMappingMaterials() {
+            throw new NotImplementedException();
+        }
     }    
 }

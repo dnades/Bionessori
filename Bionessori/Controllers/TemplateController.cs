@@ -14,54 +14,10 @@ namespace Bionessori.Controllers {
     [ApiController, Route("api/template")]
     public class TemplateController : ControllerBase {
         ApplicationDbContext _db;        
-
         public TemplateController(ApplicationDbContext db) {
             _db = db;
         }
 
-        /// <summary>
-        /// Метод получает список новых заявок.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet, Route("get-new-requests")]
-        public async Task<IActionResult> GetDataNewRequests() {
-            BaseTemplate template = new DynamicDataTemplateService(_db);
-            var oRequests = await template.GetDynamicDataNewRequests();
-
-            return Ok(oRequests);
-        }
-
-        /// <summary>
-        /// Метод получает список заявок в работе.
-        /// </summary>
-        [HttpGet, Route("get-inwork-requests")]
-        public async Task<IActionResult> GetDataInWorkRequests() {
-            BaseTemplate template = new DynamicDataTemplateService(_db);
-            var oRequests = await template.GetDynamicDataWorkRequests();
-            
-            return Ok(oRequests);
-        }
-
-        /// <summary>
-        /// Метод получает заявки, которые ожидают подтверждения удаления.
-        /// </summary>
-        [HttpGet, Route("get-accept-delete-requests")]
-        public async Task<IActionResult> GetAcceptDeleteRequests() {
-            BaseTemplate template = new DynamicDataTemplateService(_db);
-            var oRequests = await template.GetDynamicDataAcceptDeleteRequests();
-
-            return Ok(oRequests);
-        }
-
-        /// <summary>
-        /// Метод получает материалы, которые нужно пополнить.
-        /// </summary>
-        [HttpPost, Route("get-refill-materials")]
-        public async Task<IActionResult> GetRefillMaterials() {
-            BaseTemplate template = new DynamicDataTemplateService(_db);
-            var oMaterials = await template.GetDynamicDataRefillMaterials();
-
-            return Ok(oMaterials);
-        }
+        
     }
 }

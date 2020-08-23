@@ -212,6 +212,13 @@ namespace Bionessori.Controllers {
                     ViewData["Data"] = "Заявки ожидающие подтверждения удаления";
 
                     return View("_PartialAcceptDeleteRequests");
+
+                    // Если нужно получить заявки с материалами, которые необходимо пополнить.
+                case "ref_mat":
+                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок с материалами требующих пополнения";
+                    ViewData["Data"] = "Заявки материалов для пополнения";
+
+                    return View("_PartialRefillMaterials");
             }
             return View();
         }

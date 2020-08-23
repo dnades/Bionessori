@@ -67,6 +67,51 @@ namespace Bionessori.Controllers {
             //await _request.Delete(number);
 
             return Ok("Заявка успешно удалена");
-        }        
+        }
+
+        /// <summary>
+        /// Метод получает список новых заявок.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("get-new-requests")]
+        public async Task<IActionResult> GetDataNewRequests() {
+            BaseRequest template = new RequestService(_db);
+            var oRequests = await template.GetDynamicDataNewRequests();
+
+            return Ok(oRequests);
+        }
+
+        /// <summary>
+        /// Метод получает список заявок в работе.
+        /// </summary>
+        [HttpGet, Route("get-inwork-requests")]
+        public async Task<IActionResult> GetDataInWorkRequests() {
+            BaseRequest template = new RequestService(_db);
+            var oRequests = await template.GetDynamicDataWorkRequests();
+
+            return Ok(oRequests);
+        }
+
+        /// <summary>
+        /// Метод получает заявки, которые ожидают подтверждения удаления.
+        /// </summary>
+        [HttpGet, Route("get-accept-delete-requests")]
+        public async Task<IActionResult> GetAcceptDeleteRequests() {
+            BaseRequest template = new RequestService(_db);
+            var oRequests = await template.GetDynamicDataAcceptDeleteRequests();
+
+            return Ok(oRequests);
+        }
+
+        /// <summary>
+        /// Метод получает материалы, которые нужно пополнить.
+        /// </summary>
+        [HttpPost, Route("get-refill-materials")]
+        public async Task<IActionResult> GetRefillMaterials() {
+            BaseRequest template = new RequestService(_db);
+            var oMaterials = await template.GetDynamicDataRefillMaterials();
+
+            return Ok(oMaterials);
+        }
     }      
 }
