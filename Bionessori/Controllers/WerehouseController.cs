@@ -57,12 +57,12 @@ namespace Bionessori.Controllers {
         /// <summary>
         /// Метод получает список ед.изм.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список с единицами измерения.</returns>
         [HttpPost, Route("get-measures")]
         public async Task<IActionResult> GetMeasuresWerehouses() {
-            //var oMeasures = await _werehouse.GetMeasuresWerehouses();
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
 
-            return Ok();
+            return Ok(await baseWerehouse.GetMeasuresWerehouses());
         }
 
         /// <summary>
@@ -71,9 +71,9 @@ namespace Bionessori.Controllers {
         /// <returns></returns>
         [HttpPost, Route("get-distinct-materials")]
         public async Task<IActionResult> GetDistinctMaterials() {
-            //var oDistinctMaterials = await _werehouse.GetDistinctMaterials();
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
 
-            return Ok();
+            return Ok(await baseWerehouse.GetDistinctMaterials());
         }
 
         /// <summary>

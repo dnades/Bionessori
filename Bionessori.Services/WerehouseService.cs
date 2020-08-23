@@ -89,13 +89,8 @@ namespace Bionessori.Services {
         /// Метод получает список материалов без дубликатов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetDistinctMaterials() {
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
-
-            //    return oDistinctMaterials;
-            //}
-            throw new NotImplementedException();
+        public async override Task<IEnumerable> GetDistinctMaterials() {
+            return await _db.Werehouses.Select(m => m.Material).Distinct().ToListAsync();
         }
 
         /// <summary>

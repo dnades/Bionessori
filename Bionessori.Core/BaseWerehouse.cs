@@ -30,5 +30,11 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Список с единицами измерения.</returns>
         public abstract Task<IEnumerable> GetMeasuresWerehouses();
+
+        /// <summary>
+        /// Метод получает материалы без дубликатов.
+        /// </summary>
+        /// <returns>Список названий материалов без дубликатов.</returns>
+        public abstract Task<IEnumerable> GetDistinctMaterials();
     }
 }
