@@ -83,9 +83,9 @@ namespace Bionessori.Controllers {
         /// <returns>Материалы группы.</returns>
         [HttpGet, Route("get-material-group")]
         public async Task<IActionResult> GetMaterialsGroup([FromQuery] string group) {
-            //var oMaterialsGroup = await _werehouse.GetMaterialsGroup(group);
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
 
-            return Ok();
+            return Ok(await baseWerehouse.GetMaterialsGroup(group));
         }
 
         /// <summary>
@@ -93,9 +93,9 @@ namespace Bionessori.Controllers {
         /// </summary>
         [HttpGet, Route("count-status-new")]
         public async Task<IActionResult> GetCountStatusNewRequests() {
-            //var iRequests = await _werehouse.GetCountNewRequests();
+            BaseWerehouse baseWerehouse = new WerehouseService(_db);
             
-            return Ok();
+            return Ok(await baseWerehouse.GetCountNewRequests());
         }
 
         /// <summary>

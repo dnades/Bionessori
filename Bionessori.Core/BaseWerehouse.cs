@@ -42,5 +42,11 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Список материалов определенной группы.</returns>
         public abstract Task<IEnumerable> GetMaterialsGroup(string group);
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "Новая".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public abstract Task<int> GetCountNewRequests();
     }
 }

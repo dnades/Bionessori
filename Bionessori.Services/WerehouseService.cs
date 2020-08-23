@@ -94,10 +94,10 @@ namespace Bionessori.Services {
         }
 
         /// <summary>
-        /// Метод реализует выбору материалов группы.
+        /// Метод реализует выбор материалов группы.
         /// </summary>
         /// <param name="group"></param>
-        /// <returns></returns>
+        /// <returns>Материалы группы.</returns>
         public async override Task<IEnumerable> GetMaterialsGroup(string group) {
             return await _db.Werehouses.Where(m => m.MaterialGroup == group).Select(m => m.Material).ToListAsync();
         }
@@ -106,15 +106,9 @@ namespace Bionessori.Services {
         /// Метод получает кол-во заявок со статусом "Новая".
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
-        public async Task<int> GetCountNewRequests() {
+        public async override Task<int> GetCountNewRequests() {
             try {
-                //using (var db = new SqlConnection(_connectionString)) {
-                //    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                //        $"WHERE status = '{RequestStatus.REQ_STATUS_NEW}'");
-
-                //    return iRequests.FirstOrDefault();
-                //}
-                throw new NotImplementedException();
+                return await _db.Requests.Where(c => c.Status == RequestStatus.REQ_STATUS_NEW).CountAsync();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
