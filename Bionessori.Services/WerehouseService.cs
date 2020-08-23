@@ -26,7 +26,6 @@ namespace Bionessori.Services {
     /// </summary>
     public class WerehouseService : BaseWerehouse {
         ApplicationDbContext _db;
-
         public WerehouseService(ApplicationDbContext db) {
             _db = db;
         }
@@ -65,7 +64,9 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async override Task<IEnumerable> GetNameWerehouses() {
             // Выбирает только уникальные.
-            return await _db.Werehouses.Select(w => w.WerehouseNumber).Distinct().ToListAsync();
+            var oNamesWerehouse = await _db.Werehouses.Select(w => w.WerehouseNumber).Distinct().ToListAsync();
+
+            return oNamesWerehouse;
         }
 
         /// <summary>
@@ -74,7 +75,9 @@ namespace Bionessori.Services {
         /// <returns></returns>
         public async override Task<IEnumerable> GetGroupsWerehouses() {
             // Выбирает только уникальные.
-            return await _db.Werehouses.Select(w => w.MaterialGroup).Distinct().ToListAsync();
+            var oGroups = await _db.Werehouses.Select(w => w.MaterialGroup).Distinct().ToListAsync();
+
+            return oGroups;
         }
 
         /// <summary>
@@ -82,7 +85,9 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async override Task<IEnumerable> GetMeasuresWerehouses() {
-            return await _db.Werehouses.Select(m => m.Measure).Distinct().ToListAsync();
+            var oMeasures = await _db.Werehouses.Select(m => m.Measure).Distinct().ToListAsync();
+
+            return oMeasures;
         }
 
         /// <summary>
@@ -90,7 +95,9 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async override Task<IEnumerable> GetDistinctMaterials() {
-            return await _db.Werehouses.Select(m => m.Material).Distinct().ToListAsync();
+            var oDistinctMaterials = await _db.Werehouses.Select(m => m.Material).Distinct().ToListAsync();
+
+            return oDistinctMaterials;
         }
 
         /// <summary>
@@ -99,7 +106,9 @@ namespace Bionessori.Services {
         /// <param name="group"></param>
         /// <returns>Материалы группы.</returns>
         public async override Task<IEnumerable> GetMaterialsGroup(string group) {
-            return await _db.Werehouses.Where(m => m.MaterialGroup == group).Select(m => m.Material).ToListAsync();
+            var oMaterialGroups = await _db.Werehouses.Where(m => m.MaterialGroup == group).Select(m => m.Material).ToListAsync();
+
+            return oMaterialGroups;
         }
 
         /// <summary>
@@ -108,7 +117,9 @@ namespace Bionessori.Services {
         /// <returns>Кол-во заявок.</returns>
         public async override Task<int> GetCountNewRequests() {
             try {
-                return await _db.Requests.Where(c => c.Status == RequestStatus.REQ_STATUS_NEW).CountAsync();
+                int countNewRequests = await _db.Requests.Where(c => c.Status == RequestStatus.REQ_STATUS_NEW).CountAsync();
+
+                return countNewRequests;
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -119,15 +130,11 @@ namespace Bionessori.Services {
         /// Метод получает кол-во заявок со статусом "В работе".
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
-        public async Task<int> GetCountRequestInWork() {
+        public async override Task<int> GetCountRequestInWork() {
             try {
-                //using (var db = new SqlConnection(_connectionString)) {
-                //    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                //        $"WHERE status = '{RequestStatus.REQ_STATUS_IN_WORK}'");
+                int countInWorkReq = await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_IN_WORK).CountAsync();
 
-                //    return iRequests.FirstOrDefault();
-                //}
-                throw new NotImplementedException();
+                return countInWorkReq;
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -138,68 +145,41 @@ namespace Bionessori.Services {
         /// Метод получает кол-во материалов, которые требуют пополнения.
         /// </summary>
         /// <returns>Кол-во материалов.</returns>
-        public async Task<int> GetCountRefillMaterials() {
-            //try {
-            //    int iMaterials = 0; // Кол-во материалов.
+        public async override Task<int> GetCountRefillMaterials() {
+            try {
+                int countRefillMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).CountAsync();
 
-            //    using (var db = new SqlConnection(_connectionString)) {
-            //        IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
-            //            $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_REFILL}'");                    
-
-            //        // Обрабатывает результат выборки и десериализует объект.
-            //        foreach (var el in aMaterials) {
-            //            var materials = el as IDictionary<string, dynamic>;
-            //            var oMaterials = materials["material"];
-            //            Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
-            //            iMaterials = parseMaterial.Material.Count();
-            //        }
-
-            //        return iMaterials;
-            //    }
-            //}
-            //catch (Exception ex) {
-            //    throw new Exception(ex.Message.ToString());
-            //}
-            throw new NotImplementedException();
+                return countRefillMaterials;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         /// <summary>
         /// Метод получает кол-во материалов, которые требуют сопоставления.
         /// </summary>
         /// <returns>Кол-во материалов.</returns>
-        public async Task<int> GetCountMappingMaterials() {
-            int iMaterials = 0; // Кол-во материалов.
+        public async override Task<int> GetCountMappingMaterials() {
+            try {
+                int countMappMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_MAPPING).CountAsync();
 
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
-            //        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_MAPPING}'");
-
-            //    // Обрабатывает результат выборки и десериализует в объект.
-            //    foreach (var el in aMaterials) {
-            //        var materials = el as IDictionary<string, dynamic>;
-            //        var oMaterials = materials["material"];
-            //        Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
-            //        iMaterials = parseMaterial.Material.Count();
-            //    }
-
-            //    return iMaterials;
-            //}
-            throw new NotImplementedException();
+                return countMappMaterials;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         /// <summary>
         /// Метод получает кол-во заявок, требующих подтверждения удаления.
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
-        public async Task<int> GetCountAcceptDeleteRequests() {
+        public async override Task<int> GetCountAcceptDeleteRequests() {
             try {
-                //using (var db = new SqlConnection(_connectionString)) {
-                //    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                //        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE}'");
+                int countAcceptDeleteReq = await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE).CountAsync();
 
-                //    return iRequests.FirstOrDefault();
-                //}
-                throw new NotImplementedException();
+                return countAcceptDeleteReq;
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());

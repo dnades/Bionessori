@@ -28,7 +28,9 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async override Task<IEnumerable> GetRequests() {
-            return await _db.Requests.ToListAsync();
+            var oRequests = await _db.Requests.ToListAsync();
+
+            return oRequests;
         }
 
         /// <summary>

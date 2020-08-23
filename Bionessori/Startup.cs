@@ -34,10 +34,6 @@ namespace Bionessori {
 
             services.AddTransient<IBackOffice, BackOfficeService>(provider => new BackOfficeService(connectionString));
 
-            //services.AddTransient<IWerehouse, WerehouseService>(provider => new WerehouseService(connectionString));
-
-            //services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
-
             services.AddTransient<IRegistry, RegistryService>(provider => new RegistryService(connectionString));
 
             services.AddTransient<IFrontOffice, FrontOfficeService>(provider => new FrontOfficeService(connectionString));            
@@ -46,10 +42,6 @@ namespace Bionessori {
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
-                builder.WithOrigins("https://localhost:44350", "https://apihosting.ru/", "https://apihosting.ru").AllowAnyMethod().AllowAnyHeader();
-            }));
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
                 builder.WithOrigins("https://apihosting.online/", "https://apihosting.online").AllowAnyMethod().AllowAnyHeader();

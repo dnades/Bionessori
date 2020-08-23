@@ -48,5 +48,29 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
         public abstract Task<int> GetCountNewRequests();
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "В работе".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public abstract Task<int> GetCountRequestInWork();
+
+        /// <summary>
+        /// Метод получает кол-во материалов со статусом "Требует пополнения.".
+        /// </summary>
+        /// <returns>Кол-во материалов.</returns>
+        public abstract Task<int> GetCountRefillMaterials();
+
+        /// <summary>
+        /// Метод получает кол-во материалов со статусом "Требует сопоставления.".
+        /// </summary>
+        /// <returns>Кол-во материалов.</returns>
+        public abstract Task<int> GetCountMappingMaterials();
+
+        /// <summary>
+        /// Метод получает кол-во заявок со статусом "Ожидает подтверждения удаления".
+        /// </summary>
+        /// <returns>Кол-во заявок.</returns>
+        public abstract Task<int> GetCountAcceptDeleteRequests();
     }
 }
