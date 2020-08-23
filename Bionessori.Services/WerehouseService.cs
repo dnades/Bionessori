@@ -98,19 +98,8 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="group"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<string>> GetMaterialsGroup(string group) {
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    var parameters = new DynamicParameters();
-            //    parameters.Add("@group", group, DbType.String);
-
-            //    // Процедура выбирает все материалы группы.
-            //    var oMaterialsGroup = await db.QueryAsync<string>("dbo.sp_GetMaterialsGroup",
-            //        commandType: CommandType.StoredProcedure,
-            //        param: parameters);
-
-            //    return oMaterialsGroup;
-            //}
-            throw new NotImplementedException();
+        public async override Task<IEnumerable> GetMaterialsGroup(string group) {
+            return await _db.Werehouses.Where(m => m.MaterialGroup == group).Select(m => m.Material).ToListAsync();
         }
 
         /// <summary>

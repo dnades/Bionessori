@@ -36,5 +36,11 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Список названий материалов без дубликатов.</returns>
         public abstract Task<IEnumerable> GetDistinctMaterials();
+
+        /// <summary>
+        /// Метод выбирает материалы определенной группы.
+        /// </summary>
+        /// <returns>Список материалов определенной группы.</returns>
+        public abstract Task<IEnumerable> GetMaterialsGroup(string group);
     }
 }
