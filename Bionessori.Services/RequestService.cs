@@ -1,14 +1,19 @@
 ﻿using Bionessori.Core;
 using Bionessori.Core.Constants;
 using Bionessori.Core.Data;
+using Bionessori.Core.Extensions;
 using Bionessori.Models;
+using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -28,9 +33,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async override Task<IEnumerable> GetRequests() {
-            var oRequests = await _db.Requests.ToListAsync();
-
-            return oRequests;
+            return await _db.Requests.Select(r => new { r.Id, r.Status, r.Number }).Distinct().ToListAsync();
         }
 
         /// <summary>
@@ -61,24 +64,68 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task Edit(Request request) {
-            //try {
-            //    var materialJson = JsonSerializer.Serialize<Request>(request);
+        public async override Task Edit(object request) {
+            try {
+                var objParse = JsonSerializer.Serialize(request);
+                JObject jsonObject = JObject.Parse(objParse);
+                int reqNumber = int.Parse(jsonObject["Number"].ToString());   // Номер заявки.
+                string typeParam = "request";
 
-            //    using (var db = new SqlConnection(_connectionString)) {                    
-            //        // Сохраняет изменения заявки.
-            //        await db.QueryAsync($"UPDATE dbo.Requests SET " +
-            //            $"count = {request.Count}," +
-            //            $"measure = '{request.Measure}'," +
-            //            $"status = '{request.Status}'," +
-            //            $"material_group = '{request.MaterialGroup}'," +
-            //            $"material = '{materialJson}'");
-            //    }
-            //}
-            //catch(Exception ex) {
-            //    throw new Exception(ex.Message);
-            //}
-            throw new NotImplementedException();
+                // Выбирает материалы.
+                var aMaterials = (JArray)jsonObject["Material"];
+                var aMaterialValues = aMaterials.Values().ToList();
+
+                // Выбирает группы.
+                var aGroups = (JArray)jsonObject["MaterialGroup"];
+                var aMaterialGroups = aGroups.Values().ToList();
+
+                // Выбирает кол-во.
+                var count = (JArray)jsonObject["Count"];
+                var aCount = count.Values().ToList();
+
+                // Выбирает ед.изм.
+                var sMeasures = (JArray)jsonObject["Measure"];
+                var aMeasures = sMeasures.Values().ToList();
+
+                // Проверяет, существует ли уже такая заявка.
+                var resultCheck = await CheckingRequest(typeParam, reqNumber);
+
+                // Если такой заявки нет, то ругается.
+                if (!Convert.ToBoolean(resultCheck)) {
+                    throw new ArgumentException();
+                }
+
+                // Удаляет заявку перед ее пересозданием.
+                var oSelect = await _db.Requests.Where(r => r.Number == reqNumber).ToListAsync();
+                _db.RemoveRange(oSelect);
+                _db.SaveChanges();                
+
+                // Перебор материалов.
+                int i = 0;
+                aMaterialValues.ForEach(el => {
+                    Request reqObject = new Request() {
+                        Number = reqNumber,
+                        Status = RequestStatus.REQ_STATUS_NEW
+                    };
+
+                    // Итеративно дополняет объект заявки.
+                    reqObject.Material = el.ToString();
+                    reqObject.MaterialGroup = aMaterialGroups[i].ToString();
+                    reqObject.Count = Convert.ToInt32(aCount[i]);
+                    reqObject.Measure = aMeasures[i].ToString();
+
+                    // Итеративно сохраняет объект.
+                    _db.Requests.AddRange(reqObject);
+                    i++;
+                });                
+                await _db.SaveChangesAsync();
+            }
+            catch (ArgumentException ex) {
+                throw new ArgumentException("Такой заявки не существует", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
         }
 
         /// <summary>
@@ -231,6 +278,48 @@ namespace Bionessori.Services {
         public async override Task<IEnumerable> GetDynamicDataMappingMaterials() {
             try {
                 return await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_MAPPING).ToListAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод получает заявку для редактирования.
+        /// </summary>
+        /// <returns>Данные заявки.</returns>
+        public async override Task<object> GetRequestForEdit(int number) {
+            try {
+                if (number == 0) {
+                    throw new ArgumentNullException();
+                }
+                var oSelect = await _db.Requests.Where(r => r.Number == number).ToListAsync();
+                List<string> aMaterials = new List<string>();
+                List<string> aGroups = new List<string>();
+                List<int> aCounts = new List<int>();
+                List<string> aMeasures = new List<string>();
+
+                foreach (var el in oSelect) {
+                    aMaterials.Add(el.Material);
+                    aGroups.Add(el.MaterialGroup);
+                    aCounts.Add(el.Count);
+                    aMeasures.Add(el.Measure);
+                }
+
+                // Записывает данные заявки в анонимный объект.
+                var oRequestData = new { 
+                    id = oSelect[0].Id,
+                    numberRequest = oSelect[0].Number,  
+                    aMaterials, 
+                    aGroups, 
+                    aCounts, 
+                    aMeasures 
+                };                
+
+                return oRequestData;
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("№ заявки не передан", ex.Message.ToString());
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());

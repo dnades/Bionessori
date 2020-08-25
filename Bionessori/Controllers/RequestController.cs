@@ -52,9 +52,10 @@ namespace Bionessori.Controllers {
         /// Метод сохраняет изменения в заявке.
         /// </summary>
         /// <returns></returns>
-        [HttpPost, Route("save-change-request")]
-        public async Task<IActionResult> SaveChangeRequest([FromBody] Request request) {
-            //await _request.Edit(request);
+        [HttpPut, Route("save-change-request")]
+        public async Task<IActionResult> SaveChangeRequest([FromBody] object request) {
+            BaseRequest baseRequest = new RequestService(_db);
+            await baseRequest.Edit(request);
 
             return Ok("Заявка успешно изменена");
         }
@@ -122,6 +123,16 @@ namespace Bionessori.Controllers {
             BaseRequest template = new RequestService(_db);
 
             return Ok(await template.GetDynamicDataMappingMaterials());
+        }
+
+        /// <summary>
+        /// Метод получает заявку для редактирования.
+        /// </summary>
+        [HttpGet, Route("get-request")]
+        public async Task<IActionResult> GetEditRequest([FromQuery] int number) {
+            BaseRequest baseRequest = new RequestService(_db);
+            var res = await baseRequest.GetRequestForEdit(number);
+            return Ok(res);
         }
     }      
 }

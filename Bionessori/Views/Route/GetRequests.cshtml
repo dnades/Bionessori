@@ -71,25 +71,13 @@
 								</button>
 							</th>
 
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Количество
-								</button>
-							</th>
-
-							<th class="text-center" scope="col">
-								<button class="btn btn-link">
-									Ед.Изм.
-								</button>
-							</th>
-
 							<th class="text-center" scope="col"></th>
 							<th class="text-center" scope="col"></th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="onGetRequest">
+						<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="">
 							<th class="text-center" scope="col">
 								<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
 							</th>
@@ -120,16 +108,8 @@
 								<span>{{el.number}}</span>
 							</td>
 
-							<td class="text-center">
-								<span>{{el.count}}</span>
-							</td>
-
-							<td class="text-center">
-								<span>{{el.measure}}</span>
-							</td>
-
 							<td class="text-center state">
-								<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" value="edit_request" v-on:click="onRouteEditRequest">
+								<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" v-bind:value="el.id" v-on:click="onRouteEditRequest">
 									<i class="fa fa-pencil" aria-hidden="true"></i>
 								</button>
 							</td>

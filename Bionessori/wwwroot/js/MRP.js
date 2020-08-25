@@ -21,7 +21,20 @@ var main_mrp = new Vue({
 
 		if (localStorage["selectRequest"]) {
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
+
+			// Материалы выбранной заявки.
+			this.aEditMaterials = JSON.parse(localStorage["addedMaterials"]).aMaterials;
+
+			// Группы выбранной заявки.
+			this.aEditGroups = JSON.parse(localStorage["addedMaterials"]).aGroups;
+
+			// Кол-во материалов выбранной заявки.
+			this.aEditCounts = JSON.parse(localStorage["addedMaterials"]).aCounts;
+
+			// Ед.Изм. материалов выбранной заявки.
+			this.aEditMeasures = JSON.parse(localStorage["addedMaterials"]).aMeasures;
 			console.log("Выбранная заявка", this.aSelectRequest);
+			console.log("Выбранная заявка (полная)", JSON.parse(localStorage["addedMaterials"]));
 		}
 
 		// Еслим список материалов к заявке уже добавляли, то запишет их в массив.
@@ -58,7 +71,11 @@ var main_mrp = new Vue({
 		aCountMaterials: [],
 		aMeasuresMaterials: [],
 		aGroups: [],
-		aMappingMaterials: []
+		aMappingMaterials: [],
+		aEditMaterials: [],
+		aEditGroups: [],
+		aEditCounts: [],
+		aEditMeasures: []
 	},
 	methods: {
 		onInit() {
@@ -463,30 +480,41 @@ var main_mrp = new Vue({
 		},		
 
 		// Функция переходит к редактированию заявки.
-		onRouteEditRequest(event) {
+		onRouteEditRequest(e) {
 			// Очищает список материалов заявки.
 			localStorage.removeItem("addedMaterials");
-			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
-			let reqStatus = this.aRequests[0].status;
+			let reqId = e.currentTarget.value;	// Id нажатой заявки.
+			let reqStatus = this.aRequests.filter(el => el.id == reqId)[0].status;
 
 			// На всякий случай чистит массив материалов заявки.
 			this.aAddedMaterials = [];
 
 			if (reqStatus === "Новая" || reqStatus === "В работе") {
-				// Находит заявку, на которую нажали.
-				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
+				// № заявки для которой нужно получить все данные.
+				let numRequest = +this.aRequests.filter(el => el.id == reqId)[0].number;
 
-				this.aRequests[0].material.Material.forEach(el => {
-					this.aAddedMaterials.push(el);
-				});
+				let sUrl = "https://localhost:44312/api/werehouse/request/get-request?number=".concat(numRequest);
 
-				localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);
+				try {
+					axios.get(sUrl)
+						.then((response) => {
+							console.log("Выбранная заявка", response.data);
+							this.aAddedMaterials = response.data;
+							localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);
 
-				window.location.href = "https://localhost:44312/edit-request";
+							window.location.href = "https://localhost:44312/edit-request";
+						})
+						.catch((XMLHttpRequest) => {
+							throw new Error("Ошибка получения данных заявки", XMLHttpRequest.response.data);
+						});
+				}
+				catch (ex) {
+					throw new Error(ex);
+				}				
 			}
 			else {
 				swal("Внимание", "Статус заявки не позволяет редактировать.", "info");
-
+				return;
 			}
 		},
 
@@ -524,31 +552,26 @@ var main_mrp = new Vue({
 
 		// Функция сохраняет отредактированную заявку.
 		onSaveChangeRequest() {
-			let sGroup = $("#id-select-group").val();
-			let nCount = +$("#id-select-count").val();
-			let sMeasure = $("#id-select-measure").val();
-			let sWerehouse = $("#id-select-werehouse").val();
-
+			let reqNumber = +JSON.parse(localStorage["addedMaterials"]).numberRequest;	// Номер заявки.
 			let oRequest = {
-				Material: main_mrp.aAddedMaterials,
-				MaterialGroup: sGroup,
-				Measure: sMeasure,
-				Count: nCount,
-				WerehouseNumber: sWerehouse,
-				Status: this.aSelectRequest[0].status
+				Number: reqNumber,
+				Material: main_mrp.aEditMaterials,
+				MaterialGroup: main_mrp.aEditGroups,
+				Measure: main_mrp.aEditMeasures,
+				Count: main_mrp.aEditCounts
 			};
 
 			let sUrl = "https://localhost:44312/api/werehouse/request/save-change-request";
 
 			try {
-				axios.post(sUrl, oRequest)
+				axios.put(sUrl, oRequest)
 					.then((response) => {
 						setTimeout(function () {
 							window.location.href = "https://localhost:44312/view/request";
 						}, 3000);
 
-						swal("Редактирование заявки", "Заявка на потребность успешно изменена.", "success");
-						console.log("Заявка на потребность успешно изменена", response);
+						swal("Редактирование заявки", "Заявка №" + reqNumber + " успешно изменена.", "success");
+						console.log("Заявка №" + reqNumber + " успешно изменена", response);
 						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {

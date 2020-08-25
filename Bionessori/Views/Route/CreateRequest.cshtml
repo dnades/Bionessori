@@ -55,7 +55,7 @@
 							<label for="#id-select-group">Группа</label>
 							<select id="id-select-group" class="form-control-sm form-card" v-show="!visibleGroup" v-on:change="onChangeGroup">
 								<option></option>
-								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
+								<option v-for="el in aMaterialsGroups">{{el}}</option>
 							</select>
 							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название группы" v-show="visibleGroup" />
 							<div class="checkbox-date">
@@ -79,7 +79,7 @@
 							<label for="#id-select-measure">Ед.Изм.</label>
 							<select id="id-select-measure" class="form-control-sm form-card" v-show="!visibleMeasure">
 								<option></option>
-								<option v-for="el in aMeasures">{{el.measure}}</option>
+								<option v-for="el in aMeasures">{{el}}</option>
 							</select>
 							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название ед.изм." v-show="visibleMeasure" />
 							<div class="checkbox-date">

@@ -95,7 +95,8 @@ table .state {
 
 .tbl {
   height: 400px;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  width: max-content; }
 
 .tbl-item td {
   vertical-align: middle; }

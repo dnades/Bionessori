@@ -49,5 +49,18 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns></returns>
         public abstract Task<IEnumerable> GetDynamicDataMappingMaterials();
+
+        /// <summary>
+        /// Метод редактирует заявку.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public abstract Task Edit(object request);
+
+        /// <summary>
+        /// Метод получает заявку для редактирования.
+        /// </summary>
+        /// <returns>Данные заявки.</returns>
+        public abstract Task<object> GetRequestForEdit(int number);
     }
 }
