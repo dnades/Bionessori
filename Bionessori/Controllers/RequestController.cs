@@ -61,13 +61,14 @@ namespace Bionessori.Controllers {
         }
 
         /// <summary>
-        /// Метод удаляет заявку.
+        /// Метод помечает заявку для удаления.
         /// </summary>
-        [HttpPut, Route("delete-request")]
+        [HttpPut, Route("post-delete-request")]
         public async Task<IActionResult> DeleteRequest([FromQuery] int number) {
-            //await _request.Delete(number);
+            BaseRequest baseRequest = new RequestService(_db);
+            await baseRequest.PostDeleteRequest(number);
 
-            return Ok("Заявка успешно удалена");
+            return Ok("Заявка переведена в статус для удаления");
         }
 
         /// <summary>

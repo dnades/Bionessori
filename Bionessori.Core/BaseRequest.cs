@@ -62,5 +62,12 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Данные заявки.</returns>
         public abstract Task<object> GetRequestForEdit(int number);
+
+        /// <summary>
+        /// Метод помечает заявку для удаления.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public abstract Task PostDeleteRequest(int number);
     }
 }

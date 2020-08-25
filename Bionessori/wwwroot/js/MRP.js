@@ -211,12 +211,12 @@ var main_mrp = new Vue({
 			let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
 
 			try {
-				axios.post(sUrl, {})
+				axios.post(sUrl)
 					.then((response) => {
 						this.aRequests = response.data;
 
 						// Парсит объект заявки с материалами.
-						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
+						//this.aRequests.forEach(el => el.material = JSON.parse(el.material));
 
 						console.log("Список заявок", this.aRequests);
 					})
@@ -593,15 +593,15 @@ var main_mrp = new Vue({
 		},
 
 		// Функция удаляет заявку.
-		onDeleteRequest() {
-			let reqId = +$(event.target).parent().parent()[0].textContent.split(" ")[3];
-			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request?number=".concat(reqId);
+		onPostDeleteRequest() {
+			let reqNumber = +JSON.parse(localStorage["addedMaterials"]).numberRequest;	// Номер заявки.
+			let sUrl = "https://localhost:44312/api/werehouse/request/post-delete-request?number=".concat(reqNumber);
 
 			try {
 				axios.put(sUrl)
 					.then((response) => {
-						console.log("Заявка на потребность успешно удалена", response);
-						swal("Удаление заявки", "Заявка на потребность успешно удалена", "success");
+						console.log("Заявка № " + reqNumber + " переведена в статус «Требует подтверждения удаления».", response);
+						swal("Пометка заявки для удаления", "Заявка № " + reqNumber + "переведена в статус «Требует подтверждения удаления».", "success");
 						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {

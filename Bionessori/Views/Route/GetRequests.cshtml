@@ -95,7 +95,7 @@
 									{{el.status}}
 								</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Ожидает подтверждения удаления'">
+								<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Требует подтверждения удаления'">
 									{{el.status}}
 								</span>
 
@@ -115,7 +115,7 @@
 							</td>
 
 							<td class="text-center state">
-								<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal" v-on:click="onBeforeDeleteRequest">
+								<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal">
 									<i class="fa fa-trash-o" aria-hidden="true"></i>
 								</button>
 							</td>
@@ -125,23 +125,23 @@
 			</div>
 		</div>
 
-		<!-- Секция модального окна подтверждения удаления заявки. -->
+		<!-- Секция модального окна подтверждения перевода заявки в статус для удаления. -->
 		<div class="modal fade" id="delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
 			<div id="modal-delete" class="modal-dialog" role="document">
 				<div class="modal-content" v-for="el in aSelectRequest">
 					<div class="modal-header">
-						<h5 class="modal-title" id="deleteModalLabel">Удаление заявки № {{el.number}}</h5>
+						<h5 class="modal-title" id="deleteModalLabel">Пометка заявки №{{el.number}} на удаление</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 
 					<div class="modal-body">
-						<span>Вы действительно хотите удалить карту: № {{el.number}}?</span>
+						<span>Заявка №{{el.number}} будет переведена в статус «Требует подтверждения удаления».</span>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onDeleteRequest">Удалить заявку</button>
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onPostDeleteRequest">Удалить</button>
 						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 					</div>
 				</div>
@@ -153,14 +153,14 @@
 			<div id="modal-delete" class="modal-dialog" role="document">
 				<div class="modal-content" v-for="el in aSelectRequest">
 					<div class="modal-header">
-						<h5 class="modal-title" id="successModalLabel">Удаление карты пациента № {{el.number}}</h5>
+						<h5 class="modal-title" id="successModalLabel">Удаление карты пациента №{{el.number}}</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 
 					<div class="modal-body">
-						<span>Карта пациента №: {{el.number}} успешно удалена.</span>
+						<span>Карта пациента №{{el.number}} успешно удалена.</span>
 					</div>
 
 					<div class="modal-footer">

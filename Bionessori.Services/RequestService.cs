@@ -35,30 +35,7 @@ namespace Bionessori.Services {
         public async override Task<IEnumerable> GetRequests() {
             return await _db.Requests.Select(r => new { r.Id, r.Status, r.Number }).Distinct().ToListAsync();
         }
-
-        /// <summary>
-        /// Метод реализует удаление заявки на потребности в закупках.
-        /// </summary>
-        /// <returns></returns>
-        public async Task Delete(int number) {
-            //using (var db = new SqlConnection(_connectionString)) {
-            //    try {
-            //        if (number == 0) {
-            //            throw new ArgumentNullException();
-            //        }
-
-            //        await db.QueryAsync($"DELETE dbo.Requests WHERE number = {number}");
-            //    }
-            //    catch (ArgumentNullException ex) {
-            //        throw new ArgumentNullException("Не указан номер заявки", ex.Message.ToString());
-            //    }
-            //    catch(Exception ex) {
-            //        throw new Exception(ex.Message);
-            //    }
-            //}            
-            throw new NotImplementedException();
-        }
-
+        
         /// <summary>
         /// Метод реализует изменение существующей заявки на потребности в закупках.
         /// </summary>
@@ -320,6 +297,44 @@ namespace Bionessori.Services {
             }
             catch (ArgumentNullException ex) {
                 throw new ArgumentNullException("№ заявки не передан", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод переводит заявку в статус "Ожидает подтверждения удаления".
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public async override Task PostDeleteRequest(int number) {
+            try {
+                string typeParam = "request";
+                if (number == 0) {
+                    throw new ArgumentNullException();
+                }
+
+                // Проверяет, существует ли уже такая заявка.
+                var resultCheck = await CheckingRequest(typeParam, number);
+
+                // Если такой заявки нет, то ругается.
+                if (!Convert.ToBoolean(resultCheck)) {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                List<Request> oRequest = await _db.Requests.Where(r => r.Number == number).ToListAsync();
+                oRequest.ForEach(el => {
+                    el.Status = RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE;
+                });
+                _db.Requests.UpdateRange(oRequest);
+                _db.SaveChanges();
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("№ заявки не передан", ex.Message.ToString());
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                throw new ArgumentOutOfRangeException("Такой заявки не существует", ex.Message.ToString());
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
