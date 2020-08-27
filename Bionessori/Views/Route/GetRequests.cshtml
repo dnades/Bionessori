@@ -50,7 +50,10 @@
 		<!-- Секция с таблицей со списком заявок. -->
 		<div class="mr-2">
 			<h3>Список заявок</h3>
-			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
+			<div class="block-table-rows">
+				<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
+				<span class="ml-5">Количество строк: <strong>{{aRequests.length}}</strong></span>
+			</div>
 			<div class="tbl">
 				<table id="id-request-list-table" class="table table-bordered">
 					<thead>

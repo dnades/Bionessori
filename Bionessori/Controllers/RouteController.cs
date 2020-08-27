@@ -17,7 +17,7 @@ namespace Bionessori.Controllers {
     public class RouteController : Controller {
         // Метод перенаправляет на главную страницу ведения объектов.
         public IActionResult Index() {
-            ViewData["Title"] = "Главная страница - Ведение объектов";
+            //ViewData["Title"] = "Главная страница - Ведение объектов";
 
             return View();
         }

@@ -340,3 +340,7 @@ hr {
 .dynamic-link:hover {
   cursor: pointer !important;
   text-decoration: underline !important; }
+
+.block-table-rows {
+  display: flex;
+  align-items: center; }
