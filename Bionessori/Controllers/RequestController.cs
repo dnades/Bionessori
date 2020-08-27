@@ -20,7 +20,6 @@ namespace Bionessori.Controllers {
     [ApiController, Route("api/werehouse/request")]
     public class RequestController : ControllerBase {
         ApplicationDbContext _db;
-
         public RequestController(ApplicationDbContext db) {
             _db = db;
         }

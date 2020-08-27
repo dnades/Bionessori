@@ -75,7 +75,11 @@ var main_mrp = new Vue({
 		aEditMaterials: [],
 		aEditGroups: [],
 		aEditCounts: [],
-		aEditMeasures: []
+		aEditMeasures: [],
+		isStateGroup: null,
+		isStateMaterial: null,
+		isStateCount: null,
+		isStateMeasure: null
 	},
 	methods: {
 		onInit() {
@@ -454,6 +458,12 @@ var main_mrp = new Vue({
 			let sGroup = $("#id-select-group").val();
 			let sMeasure = $("#id-select-measure").val();
 			let iCount = +$("#id-select-count").val();
+	
+			//// Если не все поля заполнены, не дает добавить материал.
+			if (!this.isStateGroup || !this.isStateMaterial || !this.isStateCount || !this.isStateMeasure) {
+				swal("Внимание", "Для добавления материалов заявки необходимо заполнить все поля.", "error");
+				return;
+			}
 
 			// Если материал еще не добавлен к заявке, то добавит, иначе не добавит и дублей не будет.
 			if (this.aAddedMaterials.length) {
@@ -522,7 +532,6 @@ var main_mrp = new Vue({
 		onChangeGroup(event) {
 			console.log("change group", event.target.value);
 			let sGroup = event.target.value;
-
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-material-group?group=".concat(sGroup);
 
 			try {
@@ -539,7 +548,7 @@ var main_mrp = new Vue({
 				throw new Error(ex);
 			}
 		},
-
+		
 		// Функция удаляет материал из заявки (удаления на бэке не произойдет, если изменения в заявке не были сохранены).
 		onDeleteMaterialRequest(event) {
 			let elem = $(event.target).parent().parent().parent()[0].textContent.split(" × ")[0];
