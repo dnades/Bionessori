@@ -14,18 +14,14 @@ using System.Threading.Tasks;
 
 namespace Bionessori.Tests {
     [TestClass]
-    public class RequestControllerTests {        
+    public class RequestControllerTests {
         [TestMethod]
         public void GetRequestsTest() {
-            //var mock = new Mock<BaseRequest>();
-            //mock.Setup(r => r.GetRequests()).Returns(GetRequests());
-            //var action = new RequestService();
-            //var result = action.GetRequests().Result;
+            var mock = new Mock<ApplicationDbContext>();
+            //mock.Setup(r => r.Database);  
+            var controller = new RequestController(null);
+            var action = controller.GetRequests().Result;
             Console.WriteLine();
-        }
-
-        Task<IEnumerable> GetRequests() {
-            return null;
         }
     }
 }
