@@ -48,12 +48,9 @@
 		</div>
 
 		<!-- Секция с таблицей со списком заявок. -->
-		<div class="mr-2">
+		<div>
 			<h3>Список заявок</h3>
-			<div class="block-table-rows">
-				<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
-				<span class="ml-5">Количество строк: <strong>{{aRequests.length}}</strong></span>
-			</div>
+			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
 			<div class="tbl">
 				<table id="id-request-list-table" class="table table-bordered">
 					<thead>
@@ -126,6 +123,9 @@
 					</tbody>
 				</table>
 			</div>
+			<p>
+				<span class="ml-5">Количество строк: <strong>{{aRequests.length}}</strong></span>
+			</p>
 		</div>
 
 		<!-- Секция модального окна подтверждения перевода заявки в статус для удаления. -->

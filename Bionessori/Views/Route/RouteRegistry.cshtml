@@ -50,7 +50,7 @@
 		</div>
 
 		<!-- Секция с таблицей со списком записей на приемы. -->
-		<div class="mr-2">
+		<div>
 			<h3>Список записей на приемы</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchReception" placeholder="Поиск по номеру записи на прием">
 			<div class="tbl">
@@ -131,6 +131,9 @@
 					</tbody>
 				</table>
 			</div>
+			<p>
+				<span>Количество строк: <strong>{{aReceptions.length}}</strong></span>
+			</p>
 		</div>
 
 		<!-- Секция модального окна удаления записи. -->
