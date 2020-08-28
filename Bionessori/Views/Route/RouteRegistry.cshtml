@@ -102,20 +102,16 @@
 								<input type="checkbox" v-bind:value="el.id" v-model="aSelectedReceptions" v-on:change="onChecked">
 							</th>
 
+							<td class="text-center">
+								<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">{{el.status}}</span>
+
+								<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Подтверждена'">{{el.status}}</span>
+
+								<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Ожидает подтверждения удаления'">{{el.status}}</span>
+							</td>
+
 							<td class="text-center req-id">
 								<span>{{el.id}}</span>
-							</td>
-
-							<td class="text-center badge badge-pill badge-primary" v-show="el.status == 'Новая'">
-								<span>{{el.status}}</span>
-							</td>
-
-							<td class="text-center badge badge-pill badge-success" v-show="el.status == 'Подтверждена'">
-								<span>{{el.status}}</span>
-							</td>
-
-							<td class="text-center badge badge-pill badge-warning" v-show="el.status == 'Ожидает подтверждения удаления'">
-								<span>{{el.status}}</span>
 							</td>
 
 							<td class="text-center">

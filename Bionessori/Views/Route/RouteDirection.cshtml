@@ -56,7 +56,7 @@
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="" v-on:click="">
+							<button class="btn btn-link" value="direction_status" v-on:click="">
 								Статус
 							</button>
 						</th>
@@ -103,7 +103,11 @@
 						</td>
 
 						<td class="text-center">
-							<span>{{el.directionStatus == '' ? 'нет' : el.directionStatus}}</span>
+							<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.directionStatus == 'Новое'">{{el.directionStatus == '' ? 'нет' : el.directionStatus}}</span>
+
+							<span class="badge badge-pill badge-success" v-show="el.directionStatus == 'Подтверждена'">{{el.directionStatus == '' ? 'нет' : el.directionStatus}}</span>
+
+							<span class="badge badge-pill badge-warning" v-show="el.directionStatus == 'Ожидает подтверждения удаления'">{{el.directionStatus == '' ? 'нет' : el.directionStatus}}</span>
 						</td>
 
 						<td class="text-center">

@@ -74,6 +74,9 @@ table thead th {
   table thead th .btn-link {
     color: white;
     font-weight: 600; }
+  table thead th .link {
+    color: white;
+    font-weight: 600; }
 
 table th {
   background: #FDFFFF;
