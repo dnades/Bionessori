@@ -84,111 +84,110 @@ var main_mrp = new Vue({
 	methods: {
 		onInit() {
 			console.log("oninit");
-			this.onGetDynamicData();
+			let sParam = localStorage["dynamicParam"];
+			sParam !== null && sParam !== "" ? this.onGetDynamicData(sParam) : null;
 		},
 
 		// Функция получает динамические данные определенной структуры.
-		onGetDynamicData() {
-			if (localStorage["dynamicParam"]) {
-				let sParam = localStorage["dynamicParam"];
-				console.log("dynamicParam", sParam);
+		onGetDynamicData(sParam) {
+			localStorage["dynamicParam"] = sParam;
+			console.log("dynamicParam", sParam);
 
-				switch (sParam) {
-					// Получить новые заявки.
-					case "new_req":
-						var sUrlNewReq = "https://localhost:44312/api/werehouse/request/get-new-requests";
+			switch (sParam) {
+				// Получить новые заявки.
+				case "new_req":
+					var sUrlNewReq = "https://localhost:44312/api/werehouse/request/get-new-requests";
 
-						try {
-							axios.get(sUrlNewReq)
-								.then((response) => {
-									this.aNewRequests = response.data;
-									console.log("Список новых заявок", this.aNewRequests);
-								})
-								.catch((XMLHttpRequest) => {
-									throw new Error("Ошибка получения списка новых заявок", XMLHttpRequest.response.data);
-								});
-						}
-						catch (ex) {
-							throw new Error(ex);
-						}
-						break;
+					try {
+						axios.get(sUrlNewReq)
+							.then((response) => {
+								this.aNewRequests = response.data;
+								console.log("Список новых заявок", this.aNewRequests);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения списка новых заявок", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
 
-					// Получить заявки в работе.
-					case "inwork_req":
-						var sUrlInWorkReq = "https://localhost:44312/api/werehouse/request/get-inwork-requests";
+				// Получить заявки в работе.
+				case "inwork_req":
+					var sUrlInWorkReq = "https://localhost:44312/api/werehouse/request/get-inwork-requests";
 
-						try {
-							axios.get(sUrlInWorkReq)
-								.then((response) => {
-									this.aInWorkRequests = response.data;
-									console.log("Список заявок в работе", this.aInWorkRequests);
-								})
-								.catch((XMLHttpRequest) => {
-									throw new Error("Ошибка получения заявок в работе", XMLHttpRequest.response.data);
-								});
-						}
-						catch (ex) {
-							throw new Error(ex);
-						}
-						break;
+					try {
+						axios.get(sUrlInWorkReq)
+							.then((response) => {
+								this.aInWorkRequests = response.data;
+								console.log("Список заявок в работе", this.aInWorkRequests);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения заявок в работе", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
 
-					// Получить заявки ожидающих подтверждения удаления.
-					case "accept_del_req":
-						var sUrlAcceptDeleteReq = "https://localhost:44312/api/werehouse/request/get-accept-delete-requests";
+				// Получить заявки ожидающих подтверждения удаления.
+				case "accept_del_req":
+					var sUrlAcceptDeleteReq = "https://localhost:44312/api/werehouse/request/get-accept-delete-requests";
 
-						try {
-							axios.get(sUrlAcceptDeleteReq)
-								.then((response) => {
-									this.aAcceptDeleteRequests = response.data;
-									console.log("Список заявок ожидающие подтверждения удаления", this.aAcceptDeleteRequests);
-								})
-								.catch((XMLHttpRequest) => {
-									throw new Error("Ошибка получения заявок ожидающих подтверждения удаления", XMLHttpRequest.response.data);
-								});
-						}
-						catch (ex) {
-							throw new Error(ex);
-						}
-						break;
+					try {
+						axios.get(sUrlAcceptDeleteReq)
+							.then((response) => {
+								this.aAcceptDeleteRequests = response.data;
+								console.log("Список заявок ожидающие подтверждения удаления", this.aAcceptDeleteRequests);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения заявок ожидающих подтверждения удаления", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
 
-					// Получить материалы для пополнения.
-					case "ref_mat":
-						var sUrlRefill = "https://localhost:44312/api/werehouse/request/get-refill-materials";
+				// Получить материалы для пополнения.
+				case "ref_mat":
+					var sUrlRefill = "https://localhost:44312/api/werehouse/request/get-refill-materials";
 
-						try {
-							axios.post(sUrlRefill, {})
-								.then((response) => {
-									this.aRefillMaterials = response.data;
-									console.log("Материалы для пополнения", this.aRefillMaterials);
-								})
-								.catch((XMLHttpRequest) => {
-									throw new Error("Ошибка получения материалов для пополнения", XMLHttpRequest.response.data);
-								});
-						}
-						catch (ex) {
-							throw new Error(ex);
-						}
-						break;
+					try {
+						axios.post(sUrlRefill)
+							.then((response) => {
+								this.aRefillMaterials = response.data;
+								console.log("Материалы для пополнения", this.aRefillMaterials);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения материалов для пополнения", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
 
-					// Получить материалы для сопоставления.
-					case "mapp_mat":
-						var sUrlMapp = "https://localhost:44312/api/werehouse/request/";
+				// Получить материалы для сопоставления.
+				case "mapp_mat":
+					var sUrlMapp = "https://localhost:44312/api/werehouse/request/";
 
-						try {
-							axios.post(sUrlMapp, {})
-								.then((response) => {
-									this.aMappingMaterials = response.data;
-									console.log("Материалы для сопоставления", this.aMappingMaterials);
-								})
-								.catch((XMLHttpRequest) => {
-									throw new Error("Ошибка получения материалов для сопоставления", XMLHttpRequest.response.data);
-								});
-						}
-						catch (ex) {
-							throw new Error(ex);
-						}
-						break;
-				}
+					try {
+						axios.post(sUrlMapp)
+							.then((response) => {
+								this.aMappingMaterials = response.data;
+								console.log("Материалы для сопоставления", this.aMappingMaterials);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения материалов для сопоставления", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
 			}
 		},
 		// Функция загружает список материалов.
@@ -458,7 +457,7 @@ var main_mrp = new Vue({
 			let sGroup = $("#id-select-group").val();
 			let sMeasure = $("#id-select-measure").val();
 			let iCount = +$("#id-select-count").val();
-	
+
 			//// Если не все поля заполнены, не дает добавить материал.
 			if (!this.isStateGroup || !this.isStateMaterial || !this.isStateCount || !this.isStateMeasure) {
 				swal("Внимание", "Для добавления материалов заявки необходимо заполнить все поля.", "error");
@@ -487,7 +486,7 @@ var main_mrp = new Vue({
 				this.aMeasuresMaterials.push(sMeasure);
 				this.aCountMaterials.push(iCount);
 			}
-		},		
+		},
 
 		// Функция переходит к редактированию заявки.
 		onRouteEditRequest(e) {
@@ -520,7 +519,7 @@ var main_mrp = new Vue({
 				}
 				catch (ex) {
 					throw new Error(ex);
-				}				
+				}
 			}
 			else {
 				swal("Внимание", "Статус заявки не позволяет редактировать.", "info");
@@ -548,7 +547,7 @@ var main_mrp = new Vue({
 				throw new Error(ex);
 			}
 		},
-		
+
 		// Функция удаляет материал из заявки (удаления на бэке не произойдет, если изменения в заявке не были сохранены).
 		onDeleteMaterialRequest(event) {
 			let elem = $(event.target).parent().parent().parent()[0].textContent.split(" × ")[0];
