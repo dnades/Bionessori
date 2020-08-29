@@ -329,11 +329,6 @@ var main_mrp = new Vue({
 			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
 		},
 
-		// Функция перенаправляет роут к списку материалов MRP.
-		onRouteMaterial(event) {
-			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
-		},
-
 		// Функция получает список названий складов.
 		loadNameWerehouses() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-werehouses";

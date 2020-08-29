@@ -17,7 +17,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
 
-	<div id="main_mrp">
+	<div id="nomenclature">
 		<!-- Главная секция кнопок -->
 		<div class="btn-block-main mb-3">
 			<!-- Левая секция кнопок -->
@@ -39,14 +39,20 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-create-req" v-on:click="onExportExcelMaterials">Выгрузить в Excel</button>
+				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Справочники</button>
+
+				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Отчеты</button>
+
+				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Управление запасами</button>
+
+				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Добавить материал</button>
 			</div>
 		</div>
 
 		<!-- Секция с таблицей со списком материалов. -->
 		<div class="mr-2">
 			<h3>Список материалов на складах</h3>
-			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по названию или группе">
+			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск по названию или группе">
 			<table id="id-material-list-table" class="table table-bordered">
 				<thead>
 					<tr>
@@ -57,13 +63,13 @@
 						</th>
 
 						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="material" v-on:click="sortedMaterial">
+							<button class="btn btn-link" value="material" v-on:click="">
 								Материал
 							</button>
 						</th>
 
 						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="group" v-on:click="sortedMaterial">
+							<button class="btn btn-link" value="group" v-on:click="">
 								Группа материалов
 							</button>
 						</th>
@@ -180,10 +186,10 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>		
+		</div>
 	</div>
 
-	<script src="~/js/MRP.js"></script>
+	<script src="~/js/Nomenclature.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

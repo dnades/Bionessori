@@ -171,15 +171,7 @@ namespace Bionessori.Controllers {
 
             return View();
         }
-
-        // Метод переходит на страницу номенклатуры.
-        [Route("view-nomenclature")]
-        public IActionResult RouteNomenclature() {
-            ViewData["Title"] = "Ведение объектов номенклатуры";
-
-            return View();
-        }
-
+       
         // Метод переходит на страницу управления закупками.
         [Route("view-manage-purchases")]
         public IActionResult RouteManagePurchases() {

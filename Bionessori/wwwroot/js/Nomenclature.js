@@ -1,11 +1,31 @@
 ﻿"use strict";
 
-var nomenclature = new Vue({
-	el: "#nomenclature",
-	data: {
-
+var main = new Vue({
+	el: '#nomenclature',
+	created() {
+		this.loadMaterials();
 	},
-	mathods: {
-		
+	data: {
+		aMaterials: []
+	},
+	methods: {
+		// Функция загружает список материалов.
+		loadMaterials() {
+			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
+
+			try {
+				axios.post(sUrl)
+					.then((response) => {
+						this.aMaterials = response.data;
+						console.log("Список материалов на складах", this.aMaterials);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error("Ошибка получения списка материалов", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		}
 	}
 });
