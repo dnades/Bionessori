@@ -182,6 +182,7 @@ table {
     }
 
     tr {
+        // Тени при наведении на строку.
         &:hover {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
@@ -206,7 +207,7 @@ table {
     //height: 100vh;
     height: 400px;
     overflow-y: scroll;
-    width: max-content;
+    //width: min-content;
 }
 
 .tbl-item {
@@ -567,4 +568,5 @@ hr {
 .block-table-rows {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }

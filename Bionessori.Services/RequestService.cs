@@ -33,7 +33,8 @@ namespace Bionessori.Services {
         /// </summary>
         /// <returns></returns>
         public async override Task<IEnumerable> GetRequests() {
-            return await _db.Requests.Select(r => new { r.Id, r.Status, r.Number }).Distinct().ToListAsync();
+            var oRequests = await _db.Requests.Select(r => new { r.Id, r.Status, r.Number }).Distinct().ToListAsync();
+            return oRequests;
         }
         
         /// <summary>

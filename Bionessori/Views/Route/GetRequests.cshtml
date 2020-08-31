@@ -52,7 +52,7 @@
 			<h3>Список заявок</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
 			<div class="tbl">
-				<table id="id-request-list-table" class="table table-bordered">
+				<table id="id-request-list-table" class="table table-sm table-bordered">
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">
@@ -124,7 +124,7 @@
 				</table>
 			</div>
 			<p>
-				<span class="ml-5">Количество строк: <strong>{{aRequests.length}}</strong></span>
+				<span>Количество строк: <strong>{{aRequests.length}}</strong></span>
 			</p>
 		</div>
 

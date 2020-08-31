@@ -27,10 +27,6 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
 
-							<li class="breadcrumb-item active" aria-current="page">
-								<a href="@Url.Action("RouteMRP", "Route")">Планирование потребностей в материалах</a>
-							</li>
-
 							<li class="breadcrumb-item active" aria-current="page">Номенклатура</li>
 						</ol>
 					</nav>
@@ -39,154 +35,161 @@
 
 			<!-- Правая секция кнопок -->
 			<div class="btn-right-block">
-				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Справочники</button>
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Справочники</button>
 
-				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Отчеты</button>
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Отчеты</button>
 
-				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Управление запасами</button>
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Управление запасами</button>
 
-				<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Добавить материал</button>
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Добавить материал</button>
+
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Добавить поставщика</button>
 			</div>
 		</div>
 
 		<!-- Секция с таблицей со списком материалов. -->
-		<div class="mr-2">
-			<h3>Список материалов на складах</h3>
-			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск по названию или группе">
-			<table id="id-material-list-table" class="table table-bordered">
-				<thead>
-					<tr>
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Артикул
-							</button>
-						</th>
+			<div class="block-table-rows ml-1 mr-1">
+				<h3>Справочник материалов</h3>
+				<input class="form-control-sm input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск">
+			</div>
+			<div class="tbl">
+				<table id="id-material-list-table" class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Артикул
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="material" v-on:click="">
-								Материал
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="material" v-on:click="">
+									Материал
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="group" v-on:click="">
-								Группа материалов
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="group" v-on:click="">
+									Группа материалов
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Ед.Изм.
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Ед.Изм.
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Количество
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Количество
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Резерв
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Резерв
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								№ склада
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									№ склада
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Цена
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Цена
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Сумма
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Сумма
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								Поставщик
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									Поставщик
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								% скидки
-							</button>
-						</th>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									% скидки
+								</button>
+							</th>
 
-						<th class="text-center" scope="col">
-							<button class="btn btn-link">
-								НДС
-							</button>
-						</th>
-					</tr>
-				</thead>
+							<th class="text-center" scope="col">
+								<button class="btn btn-link">
+									НДС
+								</button>
+							</th>
+						</tr>
+					</thead>
 
-				<tbody>
-					<tr class="tbl-item tbl-row-click" v-for="el in aMaterials">
-						<td class="text-center req-id">
-							<span>{{el.id}}</span>
-						</td>
+					<tbody>
+						<tr class="tbl-item tbl-row-click" v-for="el in aMaterials">
+							<td class="text-center req-id">
+								<span>{{el.id}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.vendorCode}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.vendorCode}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.material}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.material}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.materialGroup}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.materialGroup}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.measure}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.measure}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.count}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.count}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.reserve}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.reserve}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.werehouseNumber}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.werehouseNumber}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.price}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.price}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.totalSum}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.totalSum}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.providerName}}</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.providerName}}</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.percentage}}%</span>
-						</td>
+							<td class="text-center">
+								<span>{{el.percentage}}%</span>
+							</td>
 
-						<td class="text-center">
-							<span>{{el.vat}}%</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+							<td class="text-center">
+								<span>{{el.vat}}%</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<span>
+			<span>Количество строк: <strong>{{aMaterials.length}}</strong></span>
+		</span>
 	</div>
 
 	<script src="~/js/Nomenclature.js"></script>

@@ -2,7 +2,7 @@
 
 var main_mrp = new Vue({
 	el: '#main_mrp',
-	created() {
+	mounted() {
 		this.onInit();
 		this.loadMaterials();
 		this.loadRequests();

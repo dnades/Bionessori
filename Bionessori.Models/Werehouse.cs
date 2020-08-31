@@ -14,17 +14,26 @@ namespace Bionessori.Models {
         [Key, Column("id")]
         public int Id { get; set; }
 
+        [Column("code")]
+        public string Code { get; set; }    // Код материала.
+
         [Column("material")]
         public string Material { get; set; }    // Материал склада.
 
         [Column("material_group")]
-        public string MaterialGroup { get; set; }
+        public string MaterialGroup { get; set; }   // Группа в которую входит материал.
 
         [Column("measure")]
         public string Measure { get; set; } // Ед.Изм.
 
         [Column("count")]
-        public int Count { get; set; }
+        public int Count { get; set; }  // Кол-во материала.
+
+        [Column("weight")]
+        public float Weight { get; set; }   // Вес материала.
+
+        [Column("weight_measurement")]
+        public string WeightMeasurement { get; set; }   // Ед.изм. веса.
 
         [Column("reserve")]
         public int Reserve { get; set; }    // В резерве.

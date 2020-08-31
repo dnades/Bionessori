@@ -98,8 +98,7 @@ table .state {
 
 .tbl {
   height: 400px;
-  overflow-y: scroll;
-  width: max-content; }
+  overflow-y: scroll; }
 
 .tbl-item td {
   vertical-align: middle; }
@@ -346,4 +345,5 @@ hr {
 
 .block-table-rows {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  justify-content: space-between; }
