@@ -347,3 +347,15 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-between; }
+
+.center-content {
+  display: flex;
+  align-items: center; }
+
+/*.weight-row {
+    display: flex;
+}
+
+.measurement-row {
+    display: flex;
+}*/

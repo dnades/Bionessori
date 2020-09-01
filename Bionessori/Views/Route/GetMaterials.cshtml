@@ -41,14 +41,14 @@
 
 				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Управление запасами</button>
 
-				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Добавить материал</button>
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="onRouteCreateNomenclature">Добавить номенклатуру</button>
 
 				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Добавить поставщика</button>
 			</div>
 		</div>
 
 		<!-- Секция с таблицей со списком материалов. -->
-			<div class="block-table-rows ml-1 mr-1">
+			<div class="block-table-rows">
 				<h3>Справочник материалов</h3>
 				<input class="form-control-sm input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск">
 			</div>

@@ -26,6 +26,10 @@ var main = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		onRouteCreateNomenclature() {
+			window.location.href = "https://localhost:44312/create-nomenclature";
 		}
 	}
 });

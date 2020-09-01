@@ -63,7 +63,7 @@ namespace Bionessori.Controllers {
         // Метод переходит на страницу со списком материалов.
         [Route("view/material")]
         public IActionResult GetMaterials() {
-            ViewData["Title"] = "Планирование потребностей в материалах - Список материалов на складах";
+            ViewData["Title"] = "Ведение объектов номенклатуры";
 
             return View();
         }
@@ -218,6 +218,16 @@ namespace Bionessori.Controllers {
 
                     return View("_PartialMappingMaterials");
             }
+            return View();
+        }
+
+        /// <summary>
+        /// Метод создает номенклатуру.
+        /// </summary>
+        [Route("create-nomenclature")]
+        public IActionResult CreateNomenclature() {
+            ViewData["Title"] = "Номенклатура - Создание номенклатуры";
+
             return View();
         }
     }

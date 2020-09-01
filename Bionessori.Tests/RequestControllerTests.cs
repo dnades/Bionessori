@@ -24,9 +24,7 @@ namespace Bionessori.Tests {
         /// </summary>
         [TestMethod]
         public void GetRequestsTest() {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "GetRequestsTestAsync")
-            .Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "GetRequestsTestAsync").Options;
             var context = new ApplicationDbContext(options);
 
             AddTestRequests(context);
