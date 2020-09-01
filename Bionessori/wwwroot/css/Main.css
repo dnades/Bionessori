@@ -352,10 +352,10 @@ hr {
   display: flex;
   align-items: center; }
 
-/*.weight-row {
-    display: flex;
-}
+.block-label {
+  display: flex;
+  align-items: center; }
 
-.measurement-row {
-    display: flex;
-}*/
+label[required=required]:after {
+  color: red;
+  content: " *"; }

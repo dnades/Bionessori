@@ -574,13 +574,17 @@ hr {
 .center-content {
     display: flex;
     align-items: center;
-    //flex-direction: column;
 }
 
-/*.weight-row {
+// Для надписей пояснения.
+.block-label {
     display: flex;
+    align-items: center;
+    //justify-content: center;
 }
 
-.measurement-row {
-    display: flex;
-}*/
+// Добавляет астериск
+label[required=required]:after {
+    color: red;
+    content: " *";
+}
