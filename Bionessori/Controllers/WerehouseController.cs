@@ -147,6 +147,29 @@ namespace Bionessori.Controllers {
             int countAcceptDelReqs = await baseWerehouse.GetCountAcceptDeleteRequests();
 
             return Ok(countAcceptDelReqs);
-        }        
+        }
+        
+        /// <summary>
+        /// Метод создает новую номенклатуру.
+        /// </summary>
+        [HttpPost, Route("create-nomenclature")]
+        public async Task<IActionResult> CreateNomenclature([FromBody] Werehouse werehouse) {
+            try {
+                if (string.IsNullOrEmpty(werehouse.Material) && string.IsNullOrEmpty(werehouse.MaterialGroup) && werehouse.VendorCode == 0) {
+                    throw new ArgumentNullException();
+                }
+
+                BaseWerehouse baseWerehouse = new WerehouseService(_db);
+                await baseWerehouse.CreateNomenclature(werehouse);
+
+                return Ok("Номенклатура успешно создана");
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Не все обязательные параметры заполнены", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

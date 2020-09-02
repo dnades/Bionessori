@@ -181,5 +181,33 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Метод создает новую номенклатуру.
+        /// </summary>
+        /// <param name="werehouse"></param>
+        /// <returns></returns>
+        public override async Task CreateNomenclature(Werehouse werehouse) {
+            try {
+                // Проверяет, есть ли материал с таким артикулом.
+                var sVendor = await _db.Werehouses.Where(v => v.VendorCode == werehouse.VendorCode).FirstOrDefaultAsync();
+
+                if (sVendor != null) {
+                    throw new ArgumentException();
+                }
+
+                // Генерит код материала.
+                werehouse.Code = Guid.NewGuid().ToString(); 
+
+                await _db.Werehouses.AddRangeAsync(werehouse);
+                await _db.SaveChangesAsync();
+            }
+            catch(ArgumentException ex) {
+                throw new ArgumentException("Материал с таким артикулом уже существует", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace Bionessori.Models {
         public int Count { get; set; }  // Кол-во материала.
 
         [Column("weight")]
-        public float Weight { get; set; }   // Вес материала.
+        public string Weight { get; set; }   // Вес материала.
 
         [Column("weight_measurement")]
         public string WeightMeasurement { get; set; }   // Ед.изм. веса.
@@ -54,10 +54,10 @@ namespace Bionessori.Models {
         public string ProviderId { get; set; } // Наименование поставщика.
 
         [Column("percentage")]
-        public decimal Percentage { get; set; }  // Процент скидки.
+        public string Percentage { get; set; }  // Процент скидки.
 
         [Column("vat")]
-        public decimal VAT { get; set; } // НДС.
+        public string VAT { get; set; } // НДС.
 
         public List<MultepleContextTable> MultepleContextTables { get; set; }
 

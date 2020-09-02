@@ -6,16 +6,13 @@ using System.Text;
 
 namespace Bionessori.Core.Data {
     public class ApplicationDbContext : DbContext {
-        public DbSet<Request> Requests { get; set; }
+        public DbSet<Request> Requests { get; set; }    // Таблица заявок.
 
-        public DbSet<Werehouse> Werehouses { get; set; }
+        public DbSet<Werehouse> Werehouses { get; set; }    // Таблица складов.
 
-        public DbSet<Provider> Providers { get; set; }
+        public DbSet<Provider> Providers { get; set; }  // Таблица поставщиков.
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) {
-            //Database.EnsureCreated();
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<MultepleContextTable>()

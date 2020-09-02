@@ -72,5 +72,12 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
         public abstract Task<int> GetCountAcceptDeleteRequests();
+
+        /// <summary>
+        /// Метод создает новую номенклатуру.
+        /// </summary>
+        /// <param name="werehouse"></param>
+        /// <returns></returns>
+        public abstract Task CreateNomenclature(Werehouse werehouse);
     }
 }

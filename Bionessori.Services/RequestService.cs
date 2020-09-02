@@ -187,7 +187,7 @@ namespace Bionessori.Services {
                     await _db.Requests.AddRangeAsync(reqObject);
                     i++;
                 }
-                // В итоге все добавленные объекты сохраняться разом. В БД каждая такая итерация сохранится новой строкой.
+                // В итоге все добавленные объекты сохранятся разом. В БД каждая такая итерация сохранится новой строкой.
                 await _db.SaveChangesAsync();
             }
             catch (Exception ex) {
