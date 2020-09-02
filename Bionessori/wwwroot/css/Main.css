@@ -359,3 +359,12 @@ hr {
 label[required=required]:after {
   color: red;
   content: " *"; }
+
+.disclaimer {
+  display: flex; }
+
+.block-disclaimer {
+  display: flex; }
+
+#id-nomenclature {
+  width: 300px; }

@@ -58,51 +58,53 @@
 						<a href="#" class="form-control-sm">Сопоставить материал</a><br />
 					</div>
 
-					<div>
-						<small class="text-muted">Пояснение</small>
+					<div class="disclaimer">
+						<small class="text-muted ml-3">Наименование материала.</small>
 					</div>
 				</div>
 
 				<div class="block-label">
 					<div>
 						<label for="id-group" class="form-control-sm">Группа</label><br />
-						<select id="id-group" class="form-control-sm mb-1">
-							<option></option>
-							<option>Какая то группа</option>
-						</select>
-						&nbsp;
-						<br />
-					</div>
-
-					<div>
-						<small class="text-muted ml-1">Пояснение</small>
+						<div class="block-disclaimer">
+							<select id="id-group" class="form-control-sm mb-1">
+								<option></option>
+								<option>Какая то группа</option>
+							</select>
+							<br />
+							<div class="disclaimer">
+								<small class="text-muted ml-3">Группа, в которую входит конкретный материал.</small>
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<div class="block-label">
 					<div>
 						<label for="id-articl" class="form-control-sm" required>Артикул</label><br />
-						<input id="id-articl" type="text" class="form-control-sm mb-1"><br />
-					</div>
-
-					<div>
-						<small class="text-muted ml-1">Пояснение</small>
+						<div class="block-disclaimer">
+							<input id="id-articl" type="text" class="form-control-sm mb-1"><br />
+							<div class="disclaimer">
+								<small class="text-muted ml-3">Уникальный номер материала. Заполняется вручную при создании материала.</small>
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<div class="block-label">
 					<div>
 						<label for="id-provider" class="form-control-sm" required>Поставщик</label><br />
-						<select id="id-provider" class="form-control-sm mb-1">
-							<option></option>
-							<option>ООО Ромашка</option>
-						</select>
+						<div class="block-disclaimer">
+							<select id="id-provider" class="form-control-sm mb-1">
+								<option></option>
+								<option>ООО Ромашка</option>
+							</select>
+							<div class="disclaimer">
+								<small class="text-muted ml-3">Наименование поставщика.</small>
+							</div>
+						</div>
 					</div>
-
-					<div>
-						<small class="text-muted ml-1">Пояснение</small>
-					</div>
-				</div>			
+				</div>
 			</div>
 
 			<!-- Второй столбец. -->
@@ -111,14 +113,15 @@
 					<div class="block-label">
 						<div>
 							<label for="id-measure" class="form-control-sm">Ед.Изм.</label><br />
-							<select id="id-measure" class="form-control-sm mb-1">
-								<option></option>
-								<option>Единица измерения</option>
-							</select>
-						</div>
-
-						<div>
-							<small class="text-muted ml-1">Пояснение</small>
+							<div class="block-disclaimer">
+								<select id="id-measure" class="form-control-sm mb-1">
+									<option></option>
+									<option>Единица измерения</option>
+								</select>
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Единица, в которой измеряется материал.</small>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -129,12 +132,13 @@
 							<div class="center-content">
 								<input type="checkbox" class="form-control-sm" /><span class="ml-1">Указать вес</span>
 							</div>
-							<input id="id-weight" type="number" class="form-control-sm mb-1" />
-						</div>
-
-						<div>
-							<small class="text-muted ml-1">Пояснение</small>
-						</div>
+							<div class="block-disclaimer">
+								<input id="id-weight" type="number" class="form-control-sm mb-1" />
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Вес материала.</small>
+								</div>
+							</div>
+						</div>						
 					</div>
 				</div>
 
@@ -144,12 +148,13 @@
 							<div class="center-content">
 								<input type="checkbox" class="form-control-sm" /><span class="ml-1">Указать объем</span>
 							</div>
-							<input id="id-weight-measurement" type="number" class="form-control-sm mb-1" />
-						</div>
-
-						<div>
-							<small class="text-muted ml-1">Пояснение</small>
-						</div>
+							<div class="block-disclaimer">
+								<input id="id-weight-measurement" type="number" class="form-control-sm mb-1" />
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Объем материала.</small>
+								</div>
+							</div>
+						</div>					
 					</div>
 				</div>
 
@@ -159,12 +164,13 @@
 							<div class="center-content">
 								<input type="checkbox" class="form-control-sm" /><span class="ml-1">Указать НДС</span>
 							</div>
-							<input id="id-vat" type="number" class="form-control-sm mb-1">
-						</div>
-
-						<div>
-							<small class="text-muted ml-1">Пояснение</small>
-						</div>
+							<div class="block-disclaimer">
+								<input id="id-vat" type="number" class="form-control-sm mb-1">
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Процентная ставка НДС (указывается в %). Может указываться при создании материала или измениться позже.</small>
+								</div>
+							</div>
+						</div>						
 					</div>
 				</div>
 			</div>
