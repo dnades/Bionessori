@@ -7,7 +7,9 @@ var main = new Vue({
 	},
 	data: {
 		aMaterials: [],
-		weight: false
+		weight: false,
+		weightMeasurement: false,
+		vat: false
 	},
 	methods: {
 		// Функция загружает список материалов.

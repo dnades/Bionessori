@@ -146,10 +146,10 @@
 					<div class="block-label">
 						<div>
 							<div class="center-content">
-								<input type="checkbox" class="form-control-sm" /><span class="ml-1">Указать объем</span>
+								<input type="checkbox" v-model="weightMeasurement" class="form-control-sm" /><span class="ml-1">Указать объем</span>
 							</div>
 							<div class="block-disclaimer">
-								<input id="id-weight-measurement" type="number" class="form-control-sm mb-1" />
+								<input id="id-weight-measurement" v-bind:disabled="!weightMeasurement" type="number" class="form-control-sm mb-1" />
 								<div class="disclaimer">
 									<small class="text-muted ml-3">Объем материала.</small>
 								</div>
@@ -162,10 +162,10 @@
 					<div class="block-label">
 						<div>
 							<div class="center-content">
-								<input type="checkbox" class="form-control-sm" /><span class="ml-1">Указать НДС</span>
+								<input type="checkbox" v-model="vat" class="form-control-sm" /><span class="ml-1">Указать НДС</span>
 							</div>
 							<div class="block-disclaimer">
-								<input id="id-vat" type="number" class="form-control-sm mb-1">
+								<input id="id-vat" v-bind:disabled="!vat" type="number" class="form-control-sm mb-1">
 								<div class="disclaimer">
 									<small class="text-muted ml-3">Процентная ставка НДС (указывается в %). Может указываться при создании материала или измениться позже.</small>
 								</div>
