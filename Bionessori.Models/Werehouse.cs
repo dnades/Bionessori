@@ -17,10 +17,10 @@ namespace Bionessori.Models {
         [Column("code")]
         public string Code { get; set; }    // Код материала.
 
-        [Column("material")]
+        [Required(ErrorMessage = "Не заполнен материал"), Column("material")]
         public string Material { get; set; }    // Материал склада.
 
-        [Column("material_group")]
+        [Required(ErrorMessage = "Не заполнена группа"), Column("material_group")]
         public string MaterialGroup { get; set; }   // Группа в которую входит материал.
 
         [Column("measure")]

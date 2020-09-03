@@ -6,7 +6,8 @@ var main = new Vue({
 		this.loadMaterials();
 	},
 	data: {
-		aMaterials: []
+		aMaterials: [],
+		weight: false
 	},
 	methods: {
 		// Функция загружает список материалов.
