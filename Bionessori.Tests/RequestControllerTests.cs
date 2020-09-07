@@ -46,9 +46,9 @@ namespace Bionessori.Tests {
         // Добавляет тестовые заявки со статусом "Новая".
         void AddTestRequestWithStatuses(ApplicationDbContext context) {
             var requests = new[] {
-                new Request { Id = 1, Material = "Test1", Status = RequestStatus.REQ_STATUS_NEW },
-                new Request { Id = 2, Material = "Test2", Status = RequestStatus.REQ_STATUS_NEW },
-                new Request { Id = 3, Material = "Test3", Status = RequestStatus.REQ_STATUS_NEW }
+                new Request { Id = 1, Material = "Test1", Status = RequestStatus.REQ_STATUS_NEW, Number = 8508 },
+                new Request { Id = 2, Material = "Test2", Status = RequestStatus.REQ_STATUS_NEW, Number = 1111 },
+                new Request { Id = 3, Material = "Test3", Status = RequestStatus.REQ_STATUS_NEW, Number = 1112 }
             };
             context.Requests.AddRange(requests);
             context.SaveChanges();
@@ -65,11 +65,11 @@ namespace Bionessori.Tests {
             var query = new GetRequestsQuery(context);
 
             // Изменяет статус на "В работе".
-            query.GetRequests().Where(s => s.Status.Equals(RequestStatus.REQ_STATUS_NEW)).ToList().ForEach(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
+            query.GetRequests().Where(s => s.Status.Equals(RequestStatus.REQ_STATUS_NEW)).Where(r => r.Number == 8508).ToList().ForEach(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
             context.UpdateRange(query.GetRequests());
             await context.SaveChangesAsync();
 
-            Assert.IsTrue(context.Requests.ToList().All(e => e.Status.Equals(RequestStatus.REQ_STATUS_IN_WORK)));
+            Assert.IsTrue(context.Requests.ToList().Any(e => e.Status.Equals(RequestStatus.REQ_STATUS_IN_WORK)));
         }
     }   
 }
