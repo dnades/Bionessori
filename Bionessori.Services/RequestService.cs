@@ -177,13 +177,13 @@ namespace Bionessori.Services {
                         Status = RequestStatus.REQ_STATUS_NEW
                     };
 
-                    // Итеративно дополняет объект заявки.
+                    // Итеративно создает объекты заявок.
                     reqObject.Material = material.ToString();
                     reqObject.MaterialGroup = aMaterialGroups[i].ToString();
                     reqObject.Count = Convert.ToInt32(aCount[i]);
                     reqObject.Measure = aMeasures[i].ToString();
 
-                    // Итеративно сохраняет объект.
+                    // Итеративно сохраняет объекты.
                     await _db.Requests.AddRangeAsync(reqObject);
                     i++;
                 }

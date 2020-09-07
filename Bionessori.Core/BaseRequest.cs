@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bionessori.Core {
+    // Базовый абстрактный класс, который описывает работу с заявками.
     public abstract class BaseRequest {
         /// <summary>
         /// Метод создает новую заявку.

@@ -1,5 +1,6 @@
 ﻿using Bionessori.Controllers;
 using Bionessori.Core;
+using Bionessori.Core.Constants;
 using Bionessori.Core.Data;
 using Bionessori.Models;
 using Bionessori.Services;
@@ -14,14 +15,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bionessori.Tests {
-    /// <summary>
-    /// Тесты для контроллера заявок.
-    /// </summary>
+    // Тесты для контроллера заявок.
     [TestClass]
     public class RequestControllerTests {
-        /// <summary>
-        /// Тест на получение заявок.
-        /// </summary>
+        // Тест на получение заявок.
         [TestMethod]
         public void GetRequestsTest() {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "GetRequestsTestAsync").Options;
@@ -35,6 +32,7 @@ namespace Bionessori.Tests {
             Assert.Equals(3, result.Count);
         }
 
+        // Добавляет тестовые заявки.
         void AddTestRequests(ApplicationDbContext context) {
             var requests = new[] {
                 new Request { Id = 1, Material = "Test1" },
@@ -43,6 +41,35 @@ namespace Bionessori.Tests {
             };
             context.Requests.AddRange(requests);
             context.SaveChanges();
+        }
+
+        // Добавляет тестовые заявки со статусом "Новая".
+        void AddTestRequestWithStatuses(ApplicationDbContext context) {
+            var requests = new[] {
+                new Request { Id = 1, Material = "Test1", Status = RequestStatus.REQ_STATUS_NEW },
+                new Request { Id = 2, Material = "Test2", Status = RequestStatus.REQ_STATUS_NEW },
+                new Request { Id = 3, Material = "Test3", Status = RequestStatus.REQ_STATUS_NEW }
+            };
+            context.Requests.AddRange(requests);
+            context.SaveChanges();
+        }
+
+        // Метод изменяет статус заявки, которая имеет статус "Новая" на "В работе" по ее номеру.
+        [TestMethod]
+        public async Task ChangeRequestStatusOnInWork() {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "ChangeRequestStatusOnInWork").Options;
+            var context = new ApplicationDbContext(options);
+
+            AddTestRequestWithStatuses(context);
+
+            var query = new GetRequestsQuery(context);
+
+            // Изменяет статус на "В работе".
+            query.GetRequests().Where(s => s.Status.Equals(RequestStatus.REQ_STATUS_NEW)).ToList().ForEach(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
+            context.UpdateRange(query.GetRequests());
+            await context.SaveChangesAsync();
+
+            Assert.IsTrue(context.Requests.ToList().All(e => e.Status.Equals(RequestStatus.REQ_STATUS_IN_WORK)));
         }
     }   
 }

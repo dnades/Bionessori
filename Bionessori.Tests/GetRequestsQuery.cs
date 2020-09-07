@@ -15,6 +15,10 @@ namespace Bionessori.Tests {
             _db = db;
         }
 
+        /// <summary>
+        /// Получет список заявок.
+        /// </summary>
+        /// <returns>Список заявок.</returns>
         public IList<Request> GetRequests() {
             return _db.Requests.ToList();
         }
