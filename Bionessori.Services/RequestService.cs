@@ -341,5 +341,51 @@ namespace Bionessori.Services {
                 throw new Exception(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        ///  Метод изменяет статус заявки по ее номеру на "В работе".
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public async override Task ChangeRequestStatusInWork(int number) {
+            string typeParam = "request";
+            if (number == 0) {
+                throw new ArgumentNullException();
+            }
+            try {
+                int reqNumber = await GetRequestById(number);  // Находит номер заявки по ее Id.
+
+                var resultCheck = await CheckingRequest(typeParam, reqNumber); // Есть ли такая заявка в базе.
+
+                // Если такая заявка не существует, то ругается.
+                if (!Convert.ToBoolean(resultCheck)) {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                // Изменяет статус заявки по ее номеру на "В работе".
+                await _db.Requests.Where(r => r.Number == reqNumber).ForEachAsync(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
+                _db.UpdateRange(_db.Requests);
+                await _db.SaveChangesAsync();
+            }
+            catch (ArgumentNullException ex) {
+                throw new ArgumentNullException("Номер заявки не заполнен", ex.Message.ToString());
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                throw new ArgumentOutOfRangeException("Такой заявки не существует", ex.Message.ToString());
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод находит заявку по ее Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Номер заявки.</returns>
+        async Task<int> GetRequestById(int id) {
+            Request oRequest = await _db.Requests.Where(r => r.Id == id).FirstOrDefaultAsync();
+            return oRequest.Number;
+        }
     }    
 }

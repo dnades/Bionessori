@@ -134,5 +134,16 @@ namespace Bionessori.Controllers {
             var res = await baseRequest.GetRequestForEdit(number);
             return Ok(res);
         }
+
+        /// <summary>
+        /// Метод изменяет статус на "В работе".
+        /// </summary>
+        [HttpGet, Route("change-status-inwork")]
+        public async Task<IActionResult> ChangeRequestStatusInWork([FromQuery] int number) {
+            BaseRequest baseRequest = new RequestService(_db);
+            await baseRequest.ChangeRequestStatusInWork(number);
+
+            return Ok("Статус заявки успешно изменен");
+        }
     }      
 }

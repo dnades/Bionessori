@@ -694,7 +694,7 @@ var main_mrp = new Vue({
 				throw new Error(ex);
 			}
 		},
-
+	
 		// Функция получает кол-во материалов, требующих пополнения.
 		getCountMaterialsRefill() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/count-refill-materials";
@@ -750,6 +750,29 @@ var main_mrp = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
-		}
+		},
+
+		// Функция отправляет заявку в отдел закупок.
+		onSendPurchases() {
+			let reqNumber = +main_mrp.selectedRequests;
+			let sUrl = "https://localhost:44312/api/werehouse/request/change-status-inwork?number=".concat(reqNumber);
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						this.loadRequests();
+						main_mrp.selectedRequests = [];	// Убирает чекбокс выбранной заявки.
+						console.log(response.data);
+						swal("Отправка заявки в отдел закупок", "Заявка успешно отправлена в отдел закупок.", "success");						
+					})
+					.catch((XMLHttpRequest) => {
+						swal("Отправка заявки в отдел закупок", "Ошибка отправки заявки в отдел закупок. Заявка не была отправлена.", "error");
+						throw new Error("Ошибка изменения статуса заявки", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
 	}
 });

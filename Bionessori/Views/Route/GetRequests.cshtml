@@ -41,7 +41,7 @@
 			<div class="btn-right-block">
 				<button type="button" class="btn-item btn btn-default btn-create-req" v-on:click="onExportExcelRequests">Выгрузить в Excel</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-req" v-show="selectedRequests.length">Отправить в закупки</button>
+				<button type="button" class="btn-item btn btn-default btn-create-req" v-show="selectedRequests.length" v-on:click="onSendPurchases">Отправить в закупки</button>
 
 				<button type="button" class="btn-item btn btn-default btn-create-req" value="create_request" v-on:click="onRouteCreateRequest">Создать новую заявку</button>
 			</div>

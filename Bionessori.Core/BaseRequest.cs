@@ -70,5 +70,12 @@ namespace Bionessori.Core {
         /// <param name="number"></param>
         /// <returns></returns>
         public abstract Task PostDeleteRequest(int number);
+
+        /// <summary>
+        /// Метод изменяет статус заявки по ее номеру на статус "В работе".
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public abstract Task ChangeRequestStatusInWork(int number); 
     }
 }
