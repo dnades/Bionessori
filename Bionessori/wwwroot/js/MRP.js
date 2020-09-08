@@ -218,9 +218,6 @@ var main_mrp = new Vue({
 					.then((response) => {
 						this.aRequests = response.data;
 
-						// Парсит объект заявки с материалами.
-						//this.aRequests.forEach(el => el.material = JSON.parse(el.material));
-
 						console.log("Список заявок", this.aRequests);
 					})
 					.catch((XMLHttpRequest) => {
