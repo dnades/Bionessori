@@ -766,6 +766,12 @@ var main_mrp = new Vue({
 						swal("Отправка заявки в отдел закупок", "Заявка успешно отправлена в отдел закупок.", "success");						
 					})
 					.catch((XMLHttpRequest) => {
+						main_mrp.selectedRequests = [];
+
+						if (XMLHttpRequest.response.status === 400) {
+							swal("Отправка заявки в отдел закупок", XMLHttpRequest.response.data.data.responseText, "error");
+							return;
+						}
 						swal("Отправка заявки в отдел закупок", "Ошибка отправки заявки в отдел закупок. Заявка не была отправлена.", "error");
 						throw new Error("Ошибка изменения статуса заявки", XMLHttpRequest.response.data);
 					});

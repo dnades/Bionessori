@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -347,32 +348,28 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public async override Task ChangeRequestStatusInWork(int number) {
-            string typeParam = "request";
+        public async override Task<object> ChangeRequestStatusInWork(int number) {
             if (number == 0) {
                 throw new ArgumentNullException();
             }
             try {
-                int reqNumber = await GetRequestById(number);  // Находит номер заявки по ее Id.
+                var reqNumber = await GetRequestById(number);  // Находит номер заявки по ее Id.
 
-                var resultCheck = await CheckingRequest(typeParam, reqNumber); // Есть ли такая заявка в базе.
-
-                // Если такая заявка не существует, то ругается.
-                if (!Convert.ToBoolean(resultCheck)) {
-                    throw new ArgumentOutOfRangeException();
+                // Если вернулся объект, значит заявка уже в работе. Иначе будет int.
+                Type type = reqNumber.GetType();                
+                if (type.Name.Equals("JsonResult")) {
+                    return reqNumber;
                 }
-
+                
                 // Изменяет статус заявки по ее номеру на "В работе".
-                await _db.Requests.Where(r => r.Number == reqNumber).ForEachAsync(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
+                await _db.Requests.Where(r => r.Number == (int)reqNumber).ForEachAsync(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
                 _db.UpdateRange(_db.Requests);
                 await _db.SaveChangesAsync();
+                return null;
             }
             catch (ArgumentNullException ex) {
                 throw new ArgumentNullException("Номер заявки не заполнен", ex.Message.ToString());
-            }
-            catch (ArgumentOutOfRangeException ex) {
-                throw new ArgumentOutOfRangeException("Такой заявки не существует", ex.Message.ToString());
-            }
+            }            
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
             }
@@ -383,9 +380,25 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Номер заявки.</returns>
-        async Task<int> GetRequestById(int id) {
-            Request oRequest = await _db.Requests.Where(r => r.Id == id).FirstOrDefaultAsync();
-            return oRequest.Number;
+        async Task<object> GetRequestById(int id) {
+            try {
+                Request oRequest = await _db.Requests.Where(r => r.Id == id).FirstOrDefaultAsync();
+
+                // Если заявка не найдена.
+                if (oRequest == null) {
+                    throw new ArgumentOutOfRangeException();
+                }                    
+
+                // Если заявка уже в работе, то не дает отправить в закупки.
+                if (oRequest.Status.Equals(RequestStatus.REQ_STATUS_IN_WORK)) {
+                    ErrorExtension error = new ErrorExtension();
+                    return error.ThrowErrorReqNotWork();
+                }
+                return oRequest.Number;
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                throw new ArgumentOutOfRangeException("Такой заявки не существует", ex.Message.ToString());
+            }
         }
     }    
 }

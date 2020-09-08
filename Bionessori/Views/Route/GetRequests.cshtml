@@ -48,127 +48,127 @@
 		</div>
 
 		<!-- Секция с таблицей со списком заявок. -->
-		<div>
+		<div _class="block-table-rows">
 			<h3>Список заявок</h3>
-			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchRequest" placeholder="Поиск по номеру или статусу заявки">
-			<div class="tbl">
-				<table id="id-request-list-table" class="table table-sm table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">
-								<input type="checkbox" name="a" value="1934">
-							</th>
+			<input class="form-control-sm input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск">
+		</div>		
+		<div class="tbl">
+			<table id="id-request-list-table" class="table table-sm table-bordered">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">
+							<input type="checkbox" name="a" value="1934">
+						</th>
 
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
-									Статус
-								</button>
-							</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="req_status" v-on:click="sortedRequeest">
+								Статус
+							</button>
+						</th>
 
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="card_number" v-on:click="sortedRequeest">
-									№ заявки
-								</button>
-							</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="sortedRequeest">
+								№ заявки
+							</button>
+						</th>
 
-							<th class="text-center" scope="col"></th>
-							<th class="text-center" scope="col"></th>
-						</tr>
-					</thead>
+						<th class="text-center" scope="col"></th>
+						<th class="text-center" scope="col"></th>
+					</tr>
+				</thead>
 
-					<tbody>
-						<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="">
-							<th class="text-center" scope="col">
-								<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
-							</th>
+				<tbody>
+					<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="">
+						<th class="text-center" scope="col">
+							<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
+						</th>
 
-							<td class="text-center req-id">
-								<span>{{el.id}}</span>
-							</td>
+						<td class="text-center req-id">
+							<span>{{el.id}}</span>
+						</td>
 
-							<td class="text-center">
-								<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">
-									{{el.status}}
-								</span>
+						<td class="text-center">
+							<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-info" v-show="el.status == 'В работе'">
-									{{el.status}}
-								</span>
+							<span id="id-status-req" class="badge badge-pill badge-info" v-show="el.status == 'В работе'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Требует подтверждения удаления'">
-									{{el.status}}
-								</span>
+							<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Требует подтверждения удаления'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Выполнена'">
-									{{el.status}}
-								</span>
-							</td>
+							<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Выполнена'">
+								{{el.status}}
+							</span>
+						</td>
 
-							<td class="text-center">
-								<span>{{el.number}}</span>
-							</td>
+						<td class="text-center">
+							<span>{{el.number}}</span>
+						</td>
 
-							<td class="text-center state">
-								<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" v-bind:value="el.id" v-on:click="onRouteEditRequest">
-									<i class="fa fa-pencil" aria-hidden="true"></i>
-								</button>
-							</td>
+						<td class="text-center state">
+							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" v-bind:value="el.id" v-on:click="onRouteEditRequest">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+							</button>
+						</td>
 
-							<td class="text-center state">
-								<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal">
-									<i class="fa fa-trash-o" aria-hidden="true"></i>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<p>
-				<span>Количество строк: <strong>{{aRequests.length}}</strong></span>
-			</p>
+						<td class="text-center state">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
+		<p>
+			<span>Количество строк: <strong>{{aRequests.length}}</strong></span>
+		</p>
+	</div>
 
-		<!-- Секция модального окна подтверждения перевода заявки в статус для удаления. -->
-		<div class="modal fade" id="delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-			<div id="modal-delete" class="modal-dialog" role="document">
-				<div class="modal-content" v-for="el in aSelectRequest">
-					<div class="modal-header">
-						<h5 class="modal-title" id="deleteModalLabel">Пометка заявки №{{el.number}} на удаление</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
+	<!-- Секция модального окна подтверждения перевода заявки в статус для удаления. -->
+	<div class="modal fade" id="delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div id="modal-delete" class="modal-dialog" role="document">
+			<div class="modal-content" v-for="el in aSelectRequest">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteModalLabel">Пометка заявки №{{el.number}} на удаление</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 
-					<div class="modal-body">
-						<span>Заявка №{{el.number}} будет переведена в статус «Требует подтверждения удаления».</span>
-					</div>
+				<div class="modal-body">
+					<span>Заявка №{{el.number}} будет переведена в статус «Требует подтверждения удаления».</span>
+				</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onPostDeleteRequest">Удалить</button>
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal" v-on:click="onPostDeleteRequest">Удалить</button>
+					<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Секция модального окна об успешном удалении заявки. -->
-		<div class="modal fade" id="success-delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-			<div id="modal-delete" class="modal-dialog" role="document">
-				<div class="modal-content" v-for="el in aSelectRequest">
-					<div class="modal-header">
-						<h5 class="modal-title" id="successModalLabel">Удаление карты пациента №{{el.number}}</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
+	<!-- Секция модального окна об успешном удалении заявки. -->
+	<div class="modal fade" id="success-delete-card-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+		<div id="modal-delete" class="modal-dialog" role="document">
+			<div class="modal-content" v-for="el in aSelectRequest">
+				<div class="modal-header">
+					<h5 class="modal-title" id="successModalLabel">Удаление карты пациента №{{el.number}}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 
-					<div class="modal-body">
-						<span>Карта пациента №{{el.number}} успешно удалена.</span>
-					</div>
+				<div class="modal-body">
+					<span>Карта пациента №{{el.number}} успешно удалена.</span>
+				</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
 				</div>
 			</div>
 		</div>

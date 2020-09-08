@@ -76,6 +76,6 @@ namespace Bionessori.Core {
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public abstract Task ChangeRequestStatusInWork(int number); 
+        public abstract Task<object> ChangeRequestStatusInWork(int number); 
     }
 }

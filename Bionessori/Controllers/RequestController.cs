@@ -141,7 +141,11 @@ namespace Bionessori.Controllers {
         [HttpGet, Route("change-status-inwork")]
         public async Task<IActionResult> ChangeRequestStatusInWork([FromQuery] int number) {
             BaseRequest baseRequest = new RequestService(_db);
-            await baseRequest.ChangeRequestStatusInWork(number);
+            var oResult = await baseRequest.ChangeRequestStatusInWork(number);
+
+            // Значит заявка уже в работе.
+            if (oResult != null)
+                return BadRequest(oResult);
 
             return Ok("Статус заявки успешно изменен");
         }
