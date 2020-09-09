@@ -15,7 +15,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
 
-	<div id="nomenclature">
+	<div id="purchases">
 		<div>
 			<div class="col-lg-12">
 				<div class="row block-main-info">
@@ -35,13 +35,11 @@
 
 						<!-- Правая секция кнопок -->
 						<div class="btn-right-block">
-							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">КП</button>
+							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="onRouteCommerceOffer">Перейти к КП</button>
 
 							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Отчеты</button>
 
 							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Печать</button>
-
-							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Подтвердить заявку</button>
 						</div>
 					</div>
 				</div>
@@ -134,8 +132,8 @@
 		</p>
 	</div>
 
-	<script src="~/js/Nomenclature.js"></script>
-	<script src="~/js/Route.js"></script>
+
+	<script src="~/js/Purchases.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

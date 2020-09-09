@@ -221,12 +221,18 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        /// <summary>
-        /// Метод создает номенклатуру.
-        /// </summary>
+        // Метод создает номенклатуру.
         [Route("create-nomenclature")]
         public IActionResult CreateNomenclature() {
             ViewData["Title"] = "Номенклатура - Создание номенклатуры";
+
+            return View();
+        }
+
+        // Метод переходит на страницу КП.
+        [Route("commerce-offer")]
+        public IActionResult CommerceOffer() {
+            ViewData["Title"] = "Управление закупками - КП (коммерческие предложения)";
 
             return View();
         }

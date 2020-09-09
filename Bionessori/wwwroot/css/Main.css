@@ -369,3 +369,6 @@ label[required=required]:after {
 
 #id-nomen-field {
   width: 300px; }
+
+input:focus {
+  background-color: #ffffe0; }

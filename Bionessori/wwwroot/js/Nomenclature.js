@@ -4,15 +4,12 @@ var main = new Vue({
 	el: '#nomenclature',
 	created() {
 		this.loadMaterials();
-		this.loadRequests();
 	},
 	data: {
 		aMaterials: [],
 		weight: false,
 		weightMeasurement: false,
-		vat: false,
-		aRequests: [],
-		selectedRequests: []
+		vat: false
 	},
 	methods: {
 		// Функция загружает список материалов.
@@ -33,30 +30,9 @@ var main = new Vue({
 				throw new Error(ex);
 			}
 		},
-
 		onRouteCreateNomenclature() {
 			window.location.href = "https://localhost:44312/create-nomenclature";
-		},
-
-		// Функция загружает список заявок на потребности.
-		loadRequests() {
-			let sUrl = "https://localhost:44312/api/purchase/get-requests";
-
-			try {
-				axios.get(sUrl)
-					.then((response) => {
-						this.aRequests = response.data;
-
-						console.log("Список заявок", this.aRequests);
-					})
-					.catch((XMLHttpRequest) => {
-						throw new Error("Ошибка получения списка заявок", XMLHttpRequest.response.data);
-					});
-			}
-			catch (ex) {
-				throw new Error(ex);
-			}
-		},
+		},		
 		onCheckedReq() {
 			console.log(this.selectedRequests);
 		}
