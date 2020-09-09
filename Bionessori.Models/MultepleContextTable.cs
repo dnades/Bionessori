@@ -14,5 +14,8 @@ namespace Bionessori.Core.Data {
 
         public int ProviderId { get; set; }
         public Provider Provider { get; set; }
+
+        public int OfferId { get; set; }
+        public CommerceOffer CommerceOffer { get; set; }
     }
 }

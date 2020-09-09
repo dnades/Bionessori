@@ -12,6 +12,8 @@ namespace Bionessori.Core.Data {
 
         public DbSet<Provider> Providers { get; set; }  // Таблица поставщиков.
 
+        public DbSet<CommerceOffer> CommerceOffers { get; set; }    // Таблица предложений поставщикам.
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -28,6 +30,10 @@ namespace Bionessori.Core.Data {
 
             modelBuilder.Entity<MultepleContextTable>()
                 .HasOne(sc => sc.Provider)
+                .WithMany(s => s.MultepleContextTables);
+
+            modelBuilder.Entity<MultepleContextTable>()
+                .HasOne(sc => sc.CommerceOffer)
                 .WithMany(s => s.MultepleContextTables);
         }
     }
