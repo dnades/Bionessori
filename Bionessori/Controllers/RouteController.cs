@@ -229,10 +229,18 @@ namespace Bionessori.Controllers {
             return View();
         }
 
-        // Метод переходит на страницу КП.
+        // Метод переходит на страницу коммерческих предложений.
         [Route("commerce-offer")]
         public IActionResult CommerceOffer() {
             ViewData["Title"] = "Управление закупками - КП (коммерческие предложения)";
+
+            return View();
+        }
+
+        // Метод создает коммерческое предложение поставщику.
+        [Route("create-commerce-offer")]
+        public IActionResult CreateCommerceOffer() {
+            ViewData["Title"] = "Управление закупками - Создание коммерческого предложения";
 
             return View();
         }

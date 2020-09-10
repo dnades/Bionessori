@@ -1,0 +1,196 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
+	<div id="purchases">
+		<div class="col-lg-12">
+			<div class="row block-main-info">
+				<div class="btn-block-main mb-3 col-lg-12">
+					<!-- Левая секция кнопок -->
+					<div class="btn-left-block">
+						<div class="btns">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+									<li class="breadcrumb-item"><a href="@Url.Action("RouteManagePurchases", "Route")">Управление закупками</a></li>
+
+									<li class="breadcrumb-item"><a href="@Url.Action("CommerceOffer", "Route")">Коммерческие предложения</a></li>
+
+									<li class="breadcrumb-item active" aria-current="page">Формирование коммерческого предложения</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+
+					<!-- Правая секция кнопок -->
+					<div class="btn-right-block">
+						<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">Сформировать</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция создания коммерческого предложения. -->
+		<div class="block-table-rows mb-3">
+			<h3>Коммерческое предложение (Создание)</h3>
+		</div>
+
+		<!-- Добавление в таблицу. -->
+		<div class="block-inputs mb-3">
+			<div class="block-inputs-item">
+				<label for="#id-inp-mat" required>Материал</label><br />
+				<select id="id-inp-mat" class="form-control-sm">
+					<option></option>
+					<option v-for="el in aDistinctMaterials">{{el}}</option>
+				</select>
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="#id-inp-group" required>Группа</label><br />
+				<select id="id-inp-group" class="form-control-sm">
+					<option></option>
+					<option v-for="el in aMaterialsGroups">{{el}}</option>
+				</select>
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="id-int-meas" required>Ед.Изм.</label><br />
+				<select id="id-inp-meas" class="form-control-sm">
+					<option></option>
+					<option v-for="el in aMeasures">{{el}}</option>
+				</select>
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="id-int-count" required>Количество</label><br />
+				<input id="id-int-count" type="number" class="form-control-sm" />
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="id-int-date" required>Дата поставки</label><br />
+				<input id="id-int-date" type="datetime-local" class="form-control-sm" />
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="id-int-max-sum">Макс.сумма</label><br />
+				<input id="id-int-max-sum" type="number" class="form-control-sm" />
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="#id-btn-add-to-table">&nbsp;</label>
+				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="">Удалить</button>
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="#id-btn-add-to-table">&nbsp;</label>
+				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="">Добавить</button>
+			</div>
+		</div>
+
+		<!-- Сама таблица. -->
+		<div class="tbl">
+			<table id="id-request-list-table" class="table table-sm table-bordered">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">
+							<input type="checkbox">
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="req_status" v-on:click="">
+								Материал
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								Группа
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								Ед.Изм.
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								Количество
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								Дата поставки
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								Максимальная сумма
+							</button>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="tbl-item tbl-row-click" _v-for="el in aRequests" v-on:dblclick="">
+						<th class="text-center" scope="col">
+							<input type="checkbox" _v-bind:value="el.id" _v-model="selectedRequests" _v-on:change="onCheckedReq">
+						</th>
+
+						<td class="text-center req-id">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span id="id-status-req" class="">
+								{{}}
+							</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{}}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="~/js/Purchases.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

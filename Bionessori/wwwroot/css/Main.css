@@ -372,3 +372,11 @@ label[required=required]:after {
 
 input:focus {
   background-color: #ffffe0; }
+
+.block-inputs {
+  display: flex;
+  align-items: center; }
+  .block-inputs .block-inputs-item {
+    margin: 0 5px; }
+  .block-inputs #id-btn-add-to-table {
+    margin-top: 0; }

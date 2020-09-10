@@ -605,3 +605,16 @@ label[required=required]:after {
 input:focus {
     background-color: #ffffe0;
 }
+
+.block-inputs {
+    display: flex;
+    align-items: center;
+
+    .block-inputs-item {
+        margin: 0 5px;
+    }
+
+    #id-btn-add-to-table {
+        margin-top: 0;
+    }
+}

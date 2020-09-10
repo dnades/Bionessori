@@ -190,6 +190,7 @@ var main_mrp = new Vue({
 					break;
 			}
 		},
+
 		// Функция загружает список материалов.
 		loadMaterials() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
