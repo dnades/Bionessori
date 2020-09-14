@@ -97,7 +97,7 @@
 
 			<div class="block-inputs-item">
 				<label for="#id-btn-add-to-table">&nbsp;</label>
-				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="">Добавить</button>
+				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="onAddedTableRow">Добавить</button>
 			</div>
 		</div>
 
@@ -106,9 +106,9 @@
 			<table id="id-request-list-table" class="table table-sm table-bordered">
 				<thead>
 					<tr>
-						<th class="text-center" scope="col">
+						@*<th class="text-center" scope="col">
 							<input type="checkbox">
-						</th>
+						</th>*@
 
 						<th class="text-center" scope="col">
 							<button class="btn btn-link" value="req_status" v-on:click="">
@@ -149,41 +149,39 @@
 				</thead>
 
 				<tbody>
-					<tr class="tbl-item tbl-row-click" _v-for="el in aRequests" v-on:dblclick="">
-						<th class="text-center" scope="col">
-							<input type="checkbox" _v-bind:value="el.id" _v-model="selectedRequests" _v-on:change="onCheckedReq">
-						</th>
+					<!--<tr class="tbl-item tbl-row-click" _v-for="el in aRequests" v-on:dblclick="">-->
+						@*<th class="text-center" scope="col">
+			<input type="checkbox" _v-bind:value="el.id" _v-model="selectedRequests" _v-on:change="onCheckedReq">
+		</th>*@
 
-						<td class="text-center req-id">
-							<span>{{}}</span>
+						@*<td class="text-center req-id" v-for="el in aMaterials">
+			<span>{{el}}</span>
+		</td>*@
+
+						<!--<td class="text-center" v-for="el in aMaterials">
+							<span>{{el}}</span>
 						</td>
 
-						<td class="text-center">
-							<span id="id-status-req" class="">
-								{{}}
-							</span>
+						<td class="text-center" v-for="el in aGroups">
+							<span>{{el}}</span>
 						</td>
 
-						<td class="text-center">
-							<span>{{}}</span>
+						<td class="text-center" v-for="el in aAddMeasures">
+							<span>{{el}}</span>
 						</td>
 
-						<td class="text-center">
-							<span>{{}}</span>
+						<td class="text-center" v-for="el in aCountMaterials">
+							<span>{{el}}</span>
 						</td>
 
-						<td class="text-center">
-							<span>{{}}</span>
+						<td class="text-center" v-for="el in aDates">
+							<span>{{el}}</span>
 						</td>
 
-						<td class="text-center">
-							<span>{{}}</span>
+						<td class="text-center" v-for="el in aSums">
+							<span>{{el}}</span>
 						</td>
-
-						<td class="text-center">
-							<span>{{}}</span>
-						</td>
-					</tr>
+					</tr>-->
 				</tbody>
 			</table>
 		</div>

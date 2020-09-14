@@ -8,20 +8,23 @@ var purchases = new Vue({
 		this.loadGroupsMaterials();
 		this.loadMeasures();
 	},
-	data: {		
-		aRequests: [],
-		aMaterials: [],
+	data: {
+		aRequests: [],		
 		aMaterialsGroups: [],
 		aDistinctMaterials: [],
 		selectedRequests: [],
 		aAddedMaterials: [],
-		aGroups: [],
-		aCountMaterials: [],
 		aMeasures: [],
-		aDates: [],
-		aSums: []
+		oTable: {
+			aMaterials: [],
+			aGroups: [],
+			aCountMaterials: [],
+			aAddMeasures: [],
+			aDates: [],
+			aSums: []
+		}
 	},
-	methods: {		
+	methods: {
 		// Функция загружает список заявок на потребности.
 		loadRequests() {
 			let sUrl = "https://localhost:44312/api/purchase/get-requests";
@@ -130,5 +133,48 @@ var purchases = new Vue({
 				throw new Error(ex);
 			}
 		},
+
+		// Функция добавляет строку в таблицу.
+		onAddedTableRow() {
+			let sMaterial = $("#id-inp-mat").val();	// Материал.
+			let sGroup = $("#id-inp-group").val();	// Группа.
+			let sMeasure = $("#id-inp-meas").val();	// Ед.Изм.
+			let iCount = +$("#id-int-count").val();	// Кол-во.
+			let sDate = $("#id-int-date").val();	// Дата поставки.
+			let iSum = +$("#id-int-max-sum").val();	// Максимальная сумма.			
+
+			this.errorEmptyRequiredRow(sMaterial, sGroup, sMeasure, iCount, sDate);
+			this.addDataArray(sMaterial, sGroup, sMeasure, iCount, sDate, iSum);
+			this.addTableRow();
+		},
+
+		// Валидация полей.
+		errorEmptyRequiredRow: function (material, group, measure, count, date) {
+			if (!material || !group || !measure || !count || !date)
+				swal("Ошибка", "Не все обязательные поля заполнены.", "error");
+		},
+
+		// Добавление данных.
+		addDataArray: function (material, group, measure, count, date, sum) {
+			purchases.oTable.aMaterials.push(material);
+			purchases.oTable.aGroups.push(group);
+			purchases.oTable.aAddMeasures.push(measure);
+			purchases.oTable.aCountMaterials.push(count);
+			purchases.oTable.aDates.push(date);
+			purchases.oTable.aSums.push(sum);
+		},
+
+		// Вставка данных в таблицу только на фронте.
+		addTableRow: function () {
+			let oTable = purchases.oTable;
+
+			$('#id-request-list-table').append(`<tr>
+			<td>${oTable.aMaterials[oTable.aMaterials.length - 1]}</td>
+			<td>${oTable.aGroups[oTable.aGroups.length - 1]}</td>
+			<td>${oTable.aAddMeasures[oTable.aAddMeasures.length - 1]}</td>
+			<td>${oTable.aCountMaterials[oTable.aCountMaterials.length - 1]}</td>
+			<td>${oTable.aDates[oTable.aDates.length - 1]}</td>
+			<td>${oTable.aSums[oTable.aSums.length - 1]}</td></tr>`);
+		}
 	}
 });

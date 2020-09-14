@@ -335,7 +335,8 @@ hr {
   background: #EAF4F4;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px; }
+  font-size: 14px;
+  text-transform: uppercase; }
 
 .empty-card {
   border: none; }
@@ -380,3 +381,6 @@ input:focus {
     margin: 0 5px; }
   .block-inputs #id-btn-add-to-table {
     margin-top: 0; }
+
+.text-item {
+  font-size: 14px; }
