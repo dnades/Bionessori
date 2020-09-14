@@ -2,7 +2,7 @@
 
 Task tracker: https://app.clickup.com/2553106/v/b/7-2553106-2
 
-Структура базы данныж: https://yadi.sk/i/klIy_-IRHb0n6Q
+Структура базы данных: https://yadi.sk/i/klIy_-IRHb0n6Q
 
 Описание бизнес-процессов функционала ERP-системы: https://yadi.sk/i/6o2x05YVLuQ8Sw
 
