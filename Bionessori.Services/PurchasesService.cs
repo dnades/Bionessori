@@ -45,7 +45,7 @@ namespace Bionessori.Services {
         /// </summary>
         /// <param name="offer"></param>
         /// <returns></returns>
-        public async override Task FormOffer(object offer) {
+        public async override Task FormOfferNoTemplate(object offer) {
             string typeParam = "request";
             int generateNumber = 0;
             try {
@@ -80,7 +80,8 @@ namespace Bionessori.Services {
                 int i = 0;
                 foreach (var material in aMaterialValues) {
                     CommerceOffer offerObject = new CommerceOffer() {
-                        OfferCode = generateNumber
+                        OfferCode = generateNumber,
+                        Status = CommerceOfferStatus.OFFER_STATUS_PREPARATION
                     };
 
                     // Итеративно создает объекты предложений.

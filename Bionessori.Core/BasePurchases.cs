@@ -20,6 +20,6 @@ namespace Bionessori.Core {
         /// </summary>
         /// <param name="offer"></param>
         /// <returns></returns>
-        public abstract Task FormOffer(object offer);
+        public abstract Task FormOfferNoTemplate(object offer);
     }
 }

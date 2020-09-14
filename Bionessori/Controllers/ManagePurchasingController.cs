@@ -33,9 +33,9 @@ namespace Bionessori.Controllers {
         /// Метод формирует новое коммерческое предложение.
         /// </summary>
         [HttpPost, Route("forms-offer")]
-        public async Task<IActionResult> FormOffer(object offer) {
+        public async Task<IActionResult> FormOfferNoTemplate(object offer) {
             BasePurchases basePurchases = new PurchasesService(_db);
-            await basePurchases.FormOffer(offer);
+            await basePurchases.FormOfferNoTemplate(offer);
 
             return Ok("Коммерческое предложение успешно создано");
         }
