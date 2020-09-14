@@ -27,9 +27,9 @@ namespace Bionessori.Models {
 
         [Column("date")]
         public string Date { get; set; }
-
+        
         [Column("max_sum")]
-        public decimal MaxSum { get; set; } // Максимальная сумма поставщику за материал.
+        public string MaxSum { get; set; } // Максимальная сумма поставщику за материал.
 
         [Column("status")]
         public string Status { get; set; }  // Статус предложения.

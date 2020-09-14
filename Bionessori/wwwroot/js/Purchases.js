@@ -150,8 +150,10 @@ var purchases = new Vue({
 
 		// Валидация полей.
 		errorEmptyRequiredRow: function (material, group, measure, count, date) {
-			if (!material || !group || !measure || !count || !date)
+			if (!material || !group || !measure || !count || !date) {
 				swal("Ошибка", "Не все обязательные поля заполнены.", "error");
+				return;
+			}				
 		},
 
 		// Добавление данных.
@@ -159,7 +161,7 @@ var purchases = new Vue({
 			purchases.oTable.aMaterials.push(material);
 			purchases.oTable.aGroups.push(group);
 			purchases.oTable.aAddMeasures.push(measure);
-			purchases.oTable.aCountMaterials.push(count);
+			purchases.oTable.aCountMaterials.push(+count);
 			purchases.oTable.aDates.push(date);
 			purchases.oTable.aSums.push(sum);
 		},
@@ -175,6 +177,27 @@ var purchases = new Vue({
 			<td>${oTable.aCountMaterials[oTable.aCountMaterials.length - 1]}</td>
 			<td>${oTable.aDates[oTable.aDates.length - 1]}</td>
 			<td>${oTable.aSums[oTable.aSums.length - 1]}</td></tr>`);
+		},
+
+		// Функция формирует новое коммерческое предложение.
+		onFormsOffer() {
+			let sUrl = "https://localhost:44312/api/purchase/forms-offer";
+			let oTable = purchases.oTable;
+
+			try {
+				axios.post(sUrl, oTable)
+					.then((response) => {
+						console.log(response.data);
+						swal("Создание коммерческого предложения", "Коммерческое предложение успешно создано.", "success");
+						setTimeout(function () { window.history.go(-1); }, 3000);
+					})
+					.catch((XMLHttpRequest) => {
+						throw new Error(XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
 		}
 	}
 });

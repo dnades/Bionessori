@@ -14,5 +14,12 @@ namespace Bionessori.Core {
         /// </summary>
         /// <returns></returns>
         public abstract Task<IEnumerable> GetRequests();
+
+        /// <summary>
+        /// Метод формирует новое коммерческое предложение поставщику.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <returns></returns>
+        public abstract Task FormOffer(object offer);
     }
 }
