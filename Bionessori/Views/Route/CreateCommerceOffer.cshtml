@@ -28,9 +28,9 @@
 
 									<li class="breadcrumb-item"><a href="@Url.Action("RouteManagePurchases", "Route")">Управление закупками</a></li>
 
-									<li class="breadcrumb-item"><a href="@Url.Action("CommerceOffer", "Route")">Коммерческие предложения</a></li>
+									<li class="breadcrumb-item"><a href="@Url.Action("CommerceOffer", "Route")">КП</a></li>
 
-									<li class="breadcrumb-item active" aria-current="page">Формирование коммерческого предложения</li>
+									<li class="breadcrumb-item active" aria-current="page">Формирование КП</li>
 								</ol>
 							</nav>
 						</div>
@@ -38,7 +38,17 @@
 
 					<!-- Правая секция кнопок -->
 					<div class="btn-right-block">
-						<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="onFormsOffer">Сформировать</button>
+						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">
+							Импорт из Excel
+						</button>
+
+						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">
+							Загрузить данные из заявки
+						</button>
+
+						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="onFormsOffer">
+							Сформировать КП
+						</button>
 					</div>
 				</div>
 			</div>
@@ -52,7 +62,7 @@
 		<!-- Добавление в таблицу. -->
 		<div class="block-inputs mb-3">
 			<div class="block-inputs-item">
-				<label for="#id-inp-mat" required>Материал</label><br />
+				<label for="#id-inp-mat" class="form-control-sm" required>Материал</label><br />
 				<select id="id-inp-mat" class="form-control-sm">
 					<option></option>
 					<option v-for="el in aDistinctMaterials">{{el}}</option>
@@ -60,7 +70,7 @@
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="#id-inp-group" required>Группа</label><br />
+				<label for="#id-inp-group" class="form-control-sm" required>Группа</label><br />
 				<select id="id-inp-group" class="form-control-sm">
 					<option></option>
 					<option v-for="el in aMaterialsGroups">{{el}}</option>
@@ -68,7 +78,7 @@
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="id-int-meas" required>Ед.Изм.</label><br />
+				<label for="id-int-meas" class="form-control-sm" required>Ед.Изм.</label><br />
 				<select id="id-inp-meas" class="form-control-sm">
 					<option></option>
 					<option v-for="el in aMeasures">{{el}}</option>
@@ -76,27 +86,27 @@
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="id-int-count" required>Количество</label><br />
+				<label for="id-int-count" class="form-control-sm" required>Количество</label><br />
 				<input id="id-int-count" type="number" class="form-control-sm" />
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="id-int-date" required>Дата поставки</label><br />
+				<label for="id-int-date" class="form-control-sm" required>Дата поставки</label><br />
 				<input id="id-int-date" type="datetime-local" class="form-control-sm" />
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="id-int-max-sum">Макс.сумма</label><br />
+				<label for="id-int-max-sum" class="form-control-sm">Макс.сумма</label><br />
 				<input id="id-int-max-sum" type="number" class="form-control-sm" />
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="#id-btn-add-to-table">&nbsp;</label>
+				<label for="#id-btn-add-to-table" class="form-control-sm">&nbsp;</label>
 				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="">Удалить</button>
 			</div>
 
 			<div class="block-inputs-item">
-				<label for="#id-btn-add-to-table">&nbsp;</label>
+				<label for="#id-btn-add-to-table" class="form-control-sm">&nbsp;</label>
 				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="onAddedTableRow">Добавить</button>
 			</div>
 		</div>

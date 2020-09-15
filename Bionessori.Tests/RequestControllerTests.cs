@@ -26,7 +26,7 @@ namespace Bionessori.Tests {
 
             AddTestRequests(context);
 
-            var query = new GetRequestsQuery(context);
+            var query = new GetDataQuery(context);
             var result = query.GetRequests();
 
             Assert.Equals(3, result.Count);
@@ -62,7 +62,7 @@ namespace Bionessori.Tests {
 
             AddTestRequestWithStatuses(context);
 
-            var query = new GetRequestsQuery(context);
+            var query = new GetDataQuery(context);
 
             // Изменяет статус на "В работе".
             query.GetRequests().Where(s => s.Status.Equals(RequestStatus.REQ_STATUS_NEW)).Where(r => r.Number == 8508).ToList().ForEach(r => r.Status = RequestStatus.REQ_STATUS_IN_WORK);
