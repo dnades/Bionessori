@@ -9,9 +9,9 @@ namespace Bionessori.Tests {
     /// <summary>
     /// Класс тестирования получения данных.
     /// </summary>
-    public class GetDataQuery {
+    public class GetTestDataQuery {
         ApplicationDbContext _db;
-        public GetDataQuery(ApplicationDbContext db) {
+        public GetTestDataQuery(ApplicationDbContext db) {
             _db = db;
         }
 

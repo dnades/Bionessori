@@ -4,7 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Text;
+using System.IO;
+using System.Data;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml;
+using Newtonsoft.Json;
 
 namespace Bionessori.Tests {
     /// <summary>
@@ -13,11 +20,18 @@ namespace Bionessori.Tests {
     [TestClass]
     public class ManagePurchasingTest {
         /// <summary>
-        /// Метод тестирует выгрузку коммерческого предложения в файл Excel.
+        /// Метод тестирует выгрузку коммерческих предложений в файл excel.
         /// </summary>
         [TestMethod]
-        public void ExportToExcelTest() {
+        public void WriteToExcelTest() {
+            List<UserDetails> persons = new List<UserDetails>() {
+               new UserDetails() { Id = 1001, Name = "ABCD", City = "City1", Country = "USA" },
+               new UserDetails() { Id = 1002, Name = "PQRS", City = "City2", Country = "INDIA" },
+               new UserDetails() { Id = 1003, Name = "XYZZ", City = "City3", Country = "CHINA" },
+               new UserDetails() { Id = 1004, Name = "LMNO", City = "City4", Country = "UK" },
+          };
 
+            TestWorkingDataExcel.WriteExcelFileTest(persons);
         }
 
         /// <summary>
@@ -29,7 +43,7 @@ namespace Bionessori.Tests {
             var context = new ApplicationDbContext(options);
 
             AddTestOffers(context);
-            var query = new GetDataQuery(context);
+            var query = new GetTestDataQuery(context);
             var result = query.GetOffers();
 
             Assert.Equals(3, result.Count);
