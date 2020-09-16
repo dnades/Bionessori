@@ -8,8 +8,8 @@ Task tracker: https://app.clickup.com/2553106/v/b/7-2553106-2
 
 Ссылка на веб-приложение: https://apihosting.ru/ 
 
-Тестовые данные авторизации:
-Login: OlyaLeya
+Тестовые данные авторизации:<br/>
+Login: OlyaLeya<br/>
 Password: 12345!
 
 Технологический стек ERP-системы:</br>
