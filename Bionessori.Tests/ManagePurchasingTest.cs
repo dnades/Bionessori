@@ -20,7 +20,7 @@ namespace Bionessori.Tests {
     [TestClass]
     public class ManagePurchasingTest {
         /// <summary>
-        /// Метод тестирует выгрузку коммерческих предложений в файл excel.
+        /// Метод тестирует выгрузку в файл Excel.
         /// </summary>
         [TestMethod]
         public void WriteToExcelTest() {
@@ -32,6 +32,14 @@ namespace Bionessori.Tests {
           };
 
             TestWorkingDataExcel.WriteExcelFileTest(persons);
+        }
+
+        /// <summary>
+        /// Метод тестирует чтение из Excel.
+        /// </summary>
+        [TestMethod]
+        public void ReadFromExcelTest() {
+            TestWorkingDataExcel.ReadExcelFileTest();
         }
 
         /// <summary>

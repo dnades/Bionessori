@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace Bionessori.Tests {
@@ -56,6 +57,55 @@ namespace Bionessori.Tests {
                     }
 
                     workbookPart.Workbook.Save();
+                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        public static void ReadExcelFileTest() {
+            try {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(@"c:\test_excel\TestFile.xlsx", false)) {
+                    WorkbookPart workbookPart = doc.WorkbookPart;
+                    Sheets thesheetcollection = workbookPart.Workbook.GetFirstChild<Sheets>();
+                    StringBuilder excelResult = new StringBuilder();
+
+                    foreach (Sheet thesheet in thesheetcollection) {
+                        excelResult.AppendLine("Excel Sheet Name : " + thesheet.Name);
+                        excelResult.AppendLine("----------------------------------------------- ");
+                        Worksheet theWorksheet = ((WorksheetPart)workbookPart.GetPartById(thesheet.Id)).Worksheet;
+
+                        SheetData thesheetdata = theWorksheet.GetFirstChild<SheetData>();
+                        foreach (Row thecurrentrow in thesheetdata) {
+                            foreach (Cell thecurrentcell in thecurrentrow) {
+                                string currentcellvalue = string.Empty;
+                                if (thecurrentcell.DataType != null) {
+                                    if (thecurrentcell.DataType == CellValues.SharedString) {
+                                        int id;
+                                        if (int.TryParse(thecurrentcell.InnerText, out id)) {
+                                            SharedStringItem item = workbookPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(id);
+                                            if (item.Text != null) {
+                                                excelResult.Append(item.Text.Text + " ");
+                                            }
+                                            else if (item.InnerText != null) {
+                                                currentcellvalue = item.InnerText;
+                                            }
+                                            else if (item.InnerXml != null) {
+                                                currentcellvalue = item.InnerXml;
+                                            }
+                                        }
+                                    }
+                                }
+                                else {
+                                    excelResult.Append(Convert.ToInt16(thecurrentcell.InnerText) + " ");
+                                }
+                            }
+                            excelResult.AppendLine();
+                        }
+                        excelResult.Append("");
+                        Console.WriteLine(excelResult.ToString());
+                    }
                 }
             }
             catch (Exception ex) {
