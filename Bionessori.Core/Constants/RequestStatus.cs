@@ -16,5 +16,9 @@ namespace Bionessori.Core.Constants {
         public const string REQ_STATUS_NEED_MAPPING = "Требует сопоставления";
 
         public const string REQ_STATUS_NEED_ACCEPT_DELETE = "Требует подтверждения удаления";
+
+        public const string REQ_STATUS_ACCEPT = "Подтверждена";
+
+        public const string REQ_STATUS_COMPLETE = "Выполнена";
     }
 }

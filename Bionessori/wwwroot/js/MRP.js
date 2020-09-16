@@ -2,7 +2,8 @@
 
 var main_mrp = new Vue({
 	el: '#main_mrp',
-	created() {
+	mounted() {
+		this.onInit();
 		this.loadMaterials();
 		this.loadRequests();
 		this.loadNameWerehouses();
@@ -17,17 +18,30 @@ var main_mrp = new Vue({
 
 		// Блокирует поля от изменений в модальных окнах просмотра деталей, но не блокирует копирование.
 		$(".not-edit").prop("disabled", true);
-		
+
 		if (localStorage["selectRequest"]) {
 			this.aSelectRequest = JSON.parse(localStorage["selectRequest"]);
+
+			// Материалы выбранной заявки.
+			this.aEditMaterials = JSON.parse(localStorage["addedMaterials"]).aMaterials;
+
+			// Группы выбранной заявки.
+			this.aEditGroups = JSON.parse(localStorage["addedMaterials"]).aGroups;
+
+			// Кол-во материалов выбранной заявки.
+			this.aEditCounts = JSON.parse(localStorage["addedMaterials"]).aCounts;
+
+			// Ед.Изм. материалов выбранной заявки.
+			this.aEditMeasures = JSON.parse(localStorage["addedMaterials"]).aMeasures;
 			console.log("Выбранная заявка", this.aSelectRequest);
+			console.log("Выбранная заявка (полная)", JSON.parse(localStorage["addedMaterials"]));
 		}
 
 		// Еслим список материалов к заявке уже добавляли, то запишет их в массив.
 		if (localStorage["addedMaterials"]) {
 			this.aAddedMaterials = JSON.parse(localStorage["addedMaterials"]);
 			console.log("Материалы заявки", this.aAddedMaterials);
-		}		
+		}
 	},
 	data: {
 		aMaterials: [],
@@ -49,9 +63,134 @@ var main_mrp = new Vue({
 		countRequestsInWork: null,
 		countRefillMaterials: null,
 		countMappingMaterials: null,
-		countAcceptDeleteReq: null
+		countAcceptDeleteReq: null,
+		aNewRequests: [],
+		aInWorkRequests: [],
+		aAcceptDeleteRequests: [],
+		aRefillMaterials: [],
+		aCountMaterials: [],
+		aMeasuresMaterials: [],
+		aGroups: [],
+		aMappingMaterials: [],
+		aEditMaterials: [],
+		aEditGroups: [],
+		aEditCounts: [],
+		aEditMeasures: [],
+		isStateGroup: null,
+		isStateMaterial: null,
+		isStateCount: null,
+		isStateMeasure: null
 	},
 	methods: {
+		onInit() {
+			console.log("oninit");
+			let sParam = localStorage["dynamicParam"];
+			sParam !== null && sParam !== "" ? this.onGetDynamicData(sParam) : null;
+		},
+
+		// Функция получает динамические данные определенной структуры.
+		onGetDynamicData(sParam) {
+			localStorage["dynamicParam"] = sParam;
+			console.log("dynamicParam", sParam);
+
+			switch (sParam) {
+				// Получить новые заявки.
+				case "new_req":
+					var sUrlNewReq = "https://localhost:44312/api/werehouse/request/get-new-requests";
+
+					try {
+						axios.get(sUrlNewReq)
+							.then((response) => {
+								this.aNewRequests = response.data;
+								console.log("Список новых заявок", this.aNewRequests);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения списка новых заявок", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
+
+				// Получить заявки в работе.
+				case "inwork_req":
+					var sUrlInWorkReq = "https://localhost:44312/api/werehouse/request/get-inwork-requests";
+
+					try {
+						axios.get(sUrlInWorkReq)
+							.then((response) => {
+								this.aInWorkRequests = response.data;
+								console.log("Список заявок в работе", this.aInWorkRequests);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения заявок в работе", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
+
+				// Получить заявки ожидающих подтверждения удаления.
+				case "accept_del_req":
+					var sUrlAcceptDeleteReq = "https://localhost:44312/api/werehouse/request/get-accept-delete-requests";
+
+					try {
+						axios.get(sUrlAcceptDeleteReq)
+							.then((response) => {
+								this.aAcceptDeleteRequests = response.data;
+								console.log("Список заявок ожидающие подтверждения удаления", this.aAcceptDeleteRequests);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения заявок ожидающих подтверждения удаления", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
+
+				// Получить материалы для пополнения.
+				case "ref_mat":
+					var sUrlRefill = "https://localhost:44312/api/werehouse/request/get-refill-materials";
+
+					try {
+						axios.post(sUrlRefill)
+							.then((response) => {
+								this.aRefillMaterials = response.data;
+								console.log("Материалы для пополнения", this.aRefillMaterials);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения материалов для пополнения", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
+
+				// Получить материалы для сопоставления.
+				case "mapp_mat":
+					var sUrlMapp = "https://localhost:44312/api/werehouse/request/";
+
+					try {
+						axios.post(sUrlMapp)
+							.then((response) => {
+								this.aMappingMaterials = response.data;
+								console.log("Материалы для сопоставления", this.aMappingMaterials);
+							})
+							.catch((XMLHttpRequest) => {
+								throw new Error("Ошибка получения материалов для сопоставления", XMLHttpRequest.response.data);
+							});
+					}
+					catch (ex) {
+						throw new Error(ex);
+					}
+					break;
+			}
+		},
+
 		// Функция загружает список материалов.
 		loadMaterials() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-materials";
@@ -76,14 +215,11 @@ var main_mrp = new Vue({
 			let sUrl = "https://localhost:44312/api/werehouse/request/get-requests";
 
 			try {
-				axios.post(sUrl, {})
+				axios.post(sUrl)
 					.then((response) => {
 						this.aRequests = response.data;
 
-						// Парсит объект заявки с материалами.
-						this.aRequests.forEach(el => el.material = JSON.parse(el.material));
-
-						console.log("Список заявок", this.aRequests);						
+						console.log("Список заявок", this.aRequests);
 					})
 					.catch((XMLHttpRequest) => {
 						throw new Error("Ошибка получения списка заявок", XMLHttpRequest.response.data);
@@ -191,11 +327,6 @@ var main_mrp = new Vue({
 			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
 		},
 
-		// Функция перенаправляет роут к списку материалов MRP.
-		onRouteMaterial(event) {
-			main.onRouteMatched(event);	// Передает роут в главную точку роутов.
-		},
-
 		// Функция получает список названий складов.
 		loadNameWerehouses() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-werehouses";
@@ -275,17 +406,12 @@ var main_mrp = new Vue({
 		// Функция создает новую заявку на потребность в материалах.
 		onCreateRequest() {
 			localStorage.removeItem("addedMaterials");
-			let sGroup = $("#id-select-group").val();
-			let nCount = +$("#id-select-count").val();
-			let sMeasure = $("#id-select-measure").val();
-			let sWerehouse = $("#id-select-werehouse").val();
 
 			let oRequest = {
 				Material: main_mrp.aAddedMaterials,
-				MaterialGroup: sGroup,
-				Measure: sMeasure,
-				Count: nCount,
-				WerehouseNumber: sWerehouse
+				MaterialGroup: main_mrp.aGroups,
+				Measure: main_mrp.aMeasuresMaterials,
+				Count: main_mrp.aCountMaterials
 			};
 
 			let sUrl = "https://localhost:44312/api/werehouse/request/create-request";
@@ -295,11 +421,11 @@ var main_mrp = new Vue({
 					.then((response) => {
 						console.log("Заявка на потребность успешно создана", response);
 
-						setTimeout(function () {							
+						setTimeout(function () {
 							window.location.href = "https://localhost:44312/view/request";
-						}, 3000);				
+						}, 3000);
 
-						swal("Создание заявки", "Заявка на потребность успешно создана.", "success");				
+						swal("Создание заявки", "Заявка на потребность успешно создана.", "success");
 					})
 					.catch((XMLHttpRequest) => {
 						swal("Ошибка", "Ошибка создания заявки на потребность.", "error");
@@ -320,51 +446,77 @@ var main_mrp = new Vue({
 
 		// Функция добавляет материал к заявке.
 		onAddMaterialRequest() {
-			let item = $("#id-select-material").val();
+			let sMaterial = $("#id-select-material").val();
+			let sGroup = $("#id-select-group").val();
+			let sMeasure = $("#id-select-measure").val();
+			let iCount = +$("#id-select-count").val();
+
+			//// Если не все поля заполнены, не дает добавить материал.
+			if (!this.isStateGroup || !this.isStateMaterial || !this.isStateCount || !this.isStateMeasure) {
+				swal("Внимание", "Для добавления материалов заявки необходимо заполнить все поля.", "error");
+				return;
+			}
 
 			// Если материал еще не добавлен к заявке, то добавит, иначе не добавит и дублей не будет.
 			if (this.aAddedMaterials.length) {
 				this.aAddedMaterials.forEach(el => {
-					if (el !== item) {
-						this.aAddedMaterials.push(item);
+					if (el !== sMaterial) {
+						this.aAddedMaterials.push(sMaterial);
+						this.aGroups.push(sGroup);
+						this.aMeasuresMaterials.push(sMeasure);
+						this.aCountMaterials.push(iCount);
 					}
 					else {
-						swal("Внимание", "Вы пытаетесь добавить к заявке материал, который уже добавлен.", "error");
+						swal("Внимание", "Вы пытаетесь добавить к заявке материал, который уже добавлен. " +
+							"Материал «" + sMaterial + "» уже включен в заявку.", "error");
 						return;
 					}
 				});
 			}
 			else {	// Если к заявке еще не добавляли ни одного материала.
-				this.aAddedMaterials.push(item);
+				this.aAddedMaterials.push(sMaterial);
+				this.aGroups.push(sGroup);
+				this.aMeasuresMaterials.push(sMeasure);
+				this.aCountMaterials.push(iCount);
 			}
-			console.log(this.aAddedMaterials);
 		},
 
 		// Функция переходит к редактированию заявки.
-		onRouteEditRequest(event) {
+		onRouteEditRequest(e) {
 			// Очищает список материалов заявки.
 			localStorage.removeItem("addedMaterials");
-			let reqId = $(event.target).parent().parent().parent()[0].textContent.split(" ")[1];
-			let reqStatus = this.aRequests[0].status;
+			let reqId = e.currentTarget.value;	// Id нажатой заявки.
+			let reqStatus = this.aRequests.filter(el => el.id == reqId)[0].status;
 
 			// На всякий случай чистит массив материалов заявки.
 			this.aAddedMaterials = [];
 
 			if (reqStatus === "Новая" || reqStatus === "В работе") {
-				// Находит заявку, на которую нажали.
-				localStorage["selectRequest"] = JSON.stringify(this.aRequests.filter(el => el.id == reqId));
+				// № заявки для которой нужно получить все данные.
+				let numRequest = +this.aRequests.filter(el => el.id == reqId)[0].number;
 
-				this.aRequests[0].material.Material.forEach(el => {
-					this.aAddedMaterials.push(el);
-				});
+				let sUrl = "https://localhost:44312/api/werehouse/request/get-request?number=".concat(numRequest);
 
-				localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);
+				try {
+					axios.get(sUrl)
+						.then((response) => {
+							console.log("Выбранная заявка", response.data);
+							this.aAddedMaterials = response.data;
+							localStorage["addedMaterials"] = JSON.stringify(this.aAddedMaterials);
 
-				window.location.href = "https://localhost:44312/edit-request";
+							window.location.href = "https://localhost:44312/edit-request";
+						})
+						.catch((XMLHttpRequest) => {
+							throw new Error("Ошибка получения данных заявки", XMLHttpRequest.response.data);
+						});
+				}
+				catch (ex) {
+					throw new Error(ex);
+				}
 			}
 			else {
 				swal("Внимание", "Статус заявки не позволяет редактировать.", "info");
-
+				return;
 			}
 		},
 
@@ -372,7 +524,6 @@ var main_mrp = new Vue({
 		onChangeGroup(event) {
 			console.log("change group", event.target.value);
 			let sGroup = event.target.value;
-
 			let sUrl = "https://localhost:44312/api/werehouse/material/get-material-group?group=".concat(sGroup);
 
 			try {
@@ -395,37 +546,35 @@ var main_mrp = new Vue({
 			let elem = $(event.target).parent().parent().parent()[0].textContent.split(" × ")[0];
 
 			// Оставляет в массиве лишь те материалы, которые не равны выбранному.
-			let temp = this.aAddedMaterials.filter(el => el !== elem);
-			this.aAddedMaterials = temp;
+			let temp = main_mrp.aEditMaterials.filter(el => el !== elem) || [];
+			main_mrp.aEditMaterials = temp;
+			main_mrp.aEditGroups = temp;
+			main_mrp.aEditCounts = temp;
+			main_mrp.aEditMeasures = temp;
 		},
 
 		// Функция сохраняет отредактированную заявку.
 		onSaveChangeRequest() {
-			let sGroup = $("#id-select-group").val();
-			let nCount = +$("#id-select-count").val();
-			let sMeasure = $("#id-select-measure").val();
-			let sWerehouse = $("#id-select-werehouse").val();
-
+			let reqNumber = +JSON.parse(localStorage["addedMaterials"]).numberRequest;	// Номер заявки.
 			let oRequest = {
-				Material: main_mrp.aAddedMaterials,
-				MaterialGroup: sGroup,
-				Measure: sMeasure,
-				Count: nCount,
-				WerehouseNumber: sWerehouse,
-				Status: this.aSelectRequest[0].status
+				Number: reqNumber,
+				Material: main_mrp.aEditMaterials,
+				MaterialGroup: main_mrp.aEditGroups,
+				Measure: main_mrp.aEditMeasures,
+				Count: main_mrp.aEditCounts
 			};
 
 			let sUrl = "https://localhost:44312/api/werehouse/request/save-change-request";
 
 			try {
-				axios.post(sUrl, oRequest)
-					.then((response) => {						
+				axios.put(sUrl, oRequest)
+					.then((response) => {
 						setTimeout(function () {
 							window.location.href = "https://localhost:44312/view/request";
 						}, 3000);
 
-						swal("Редактирование заявки", "Заявка на потребность успешно изменена.", "success");
-						console.log("Заявка на потребность успешно изменена", response);
+						swal("Редактирование заявки", "Заявка №" + reqNumber + " успешно изменена.", "success");
+						console.log("Заявка №" + reqNumber + " успешно изменена", response);
 						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {
@@ -447,20 +596,20 @@ var main_mrp = new Vue({
 		},
 
 		// Функция удаляет заявку.
-		onDeleteRequest() {
-			let reqId = +$(event.target).parent().parent()[0].textContent.split(" ")[3];
-			let sUrl = "https://localhost:44312/api/werehouse/request/delete-request?number=".concat(reqId);
+		onPostDeleteRequest() {
+			let reqNumber = +JSON.parse(localStorage["addedMaterials"]).numberRequest;	// Номер заявки.
+			let sUrl = "https://localhost:44312/api/werehouse/request/post-delete-request?number=".concat(reqNumber);
 
 			try {
 				axios.put(sUrl)
 					.then((response) => {
-						console.log("Заявка на потребность успешно удалена", response);
-						swal("Удаление заявки", "Заявка на потребность успешно удалена", "success");
+						console.log("Заявка № " + reqNumber + " переведена в статус «Требует подтверждения удаления».", response);
+						swal("Пометка заявки для удаления", "Заявка № " + reqNumber + "переведена в статус «Требует подтверждения удаления».", "success");
 						this.loadRequests();
 					})
 					.catch((XMLHttpRequest) => {
 						swal("Ошибка", "Ошибка удаления заявки на потребность", "error");
-						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);						
+						throw new Error("Ошибка удаления заявки на потребность", XMLHttpRequest.response.data);
 					});
 			}
 			catch (ex) {
@@ -543,7 +692,7 @@ var main_mrp = new Vue({
 				throw new Error(ex);
 			}
 		},
-
+	
 		// Функция получает кол-во материалов, требующих пополнения.
 		getCountMaterialsRefill() {
 			let sUrl = "https://localhost:44312/api/werehouse/material/count-refill-materials";
@@ -599,6 +748,35 @@ var main_mrp = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
-		}
+		},
+
+		// Функция отправляет заявку в отдел закупок.
+		onSendPurchases() {
+			let reqNumber = +main_mrp.selectedRequests;
+			let sUrl = "https://localhost:44312/api/werehouse/request/change-status-inwork?number=".concat(reqNumber);
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						this.loadRequests();
+						main_mrp.selectedRequests = [];	// Убирает чекбокс выбранной заявки.
+						console.log(response.data);
+						swal("Отправка заявки в отдел закупок", "Заявка успешно отправлена в отдел закупок.", "success");						
+					})
+					.catch((XMLHttpRequest) => {
+						main_mrp.selectedRequests = [];
+
+						if (XMLHttpRequest.response.status === 400) {
+							swal("Отправка заявки в отдел закупок", XMLHttpRequest.response.data.data.responseText, "error");
+							return;
+						}
+						swal("Отправка заявки в отдел закупок", "Ошибка отправки заявки в отдел закупок. Заявка не была отправлена.", "error");
+						throw new Error("Ошибка изменения статуса заявки", XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
 	}
 });

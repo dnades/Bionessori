@@ -45,17 +45,17 @@
 						<div class="btn-right-block">
 							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="">Отменить</button>
 
-							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onSaveChangeRequest">Сохранить изменения</button>
+							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-create-card form-control-modal" v-on:click="onSaveChangeRequest">Сохранить заявку</button>
 						</div>
 					</div>
 
-					<!-- Секция редактирования заявки. -->
-					<div class="mt-3 column-1">
+					<!-- Секция редактирование заявки. -->
+					<div class="mt-3">
 						<div class="row-1">
 							<label for="#id-select-group">Группа</label>
-							<select id="id-select-group" class="form-control-sm form-card" v-show="!visibleGroup" v-on:change="onChangeGroup">
+							<select id="id-select-group" class="form-control-sm form-card" v-model="isStateGroup" v-show="!visibleGroup" v-on:change="onChangeGroup">
 								<option></option>
-								<option v-for="el in aMaterialsGroups">{{el.material_group}}</option>
+								<option v-for="el in aMaterialsGroups">{{el}}</option>
 							</select>
 							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название группы" v-show="visibleGroup" />
 							<div class="checkbox-date">
@@ -63,7 +63,7 @@
 							</div>
 
 							<label for="#id-select-material">Материал</label>
-							<select id="id-select-material" class="form-control-sm form-card" v-show="!visibleMaterial">
+							<select id="id-select-material" class="form-control-sm form-card" v-model="isStateMaterial" v-show="!visibleMaterial">
 								<option></option>
 								<option v-for="el in aDistinctMaterials">{{el}}</option>
 							</select>
@@ -74,36 +74,78 @@
 							<button type="button" id="id-create-card" class="btn-item btn btn-default btn-sm btn-create-card form-control-modal mb-3" v-on:click="onAddMaterialRequest">Добавить материал в заявку</button>
 
 							<label for="#id-select-count">Количество материала</label>
-							<input type="number" id="id-select-count" class="form-control-sm">
+							<input type="number" id="id-select-count" v-model="isStateCount" class="form-control-sm">
 
 							<label for="#id-select-measure">Ед.Изм.</label>
-							<select id="id-select-measure" class="form-control-sm form-card" v-show="!visibleMeasure">
-								@*<option></option>*@
-								<option v-for="el in aMeasures">{{el.measure}}</option>
+							<select id="id-select-measure" class="form-control-sm form-card" v-model="isStateMeasure" v-show="!visibleMeasure">
+								<option></option>
+								<option v-for="el in aMeasures">{{el}}</option>
 							</select>
 							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название ед.изм." v-show="visibleMeasure" />
 							<div class="checkbox-date">
 								<input type="checkbox" id="id-check-werehouse-num" class="form-control-sm" v-on:click="visibleMeasure=!visibleMeasure"><span class="ml-1">Неизвестно</span>
 							</div>
-
-							<label for="#id-select-werehouse">Номер склада</label>
-							<select id="id-select-werehouse" class="form-control-sm form-card" v-show="!werehouseNum">
-								@*<option></option>*@
-								<option v-for="el in aWerehousesNames">{{el.werehouse_number}}</option>
-							</select>
-							<input aria-hidden="true" type="text" class="form-control-sm" placeholder="Введите название материала" v-show="werehouseNum" />
-							<div class="checkbox-date">
-								<input type="checkbox" id="id-check-werehouse-num" class="form-control-sm" v-on:click="werehouseNum=!werehouseNum"><span class="ml-1">Неизвестно</span>
-							</div>
 						</div>
 					</div>
 
-					<div class="mt-3 column-2">
+					<!-- Материал. -->
+					<div class="mt-3">
 						<div class="row-2">
-							<h3>Материалы заявки</h3>
+							<h5>Материалы заявки</h5>
 							<ul class="list-group">
-								<li v-for="el in aAddedMaterials" class="list-group-item">
-									<span>{{el}}</span>
+								<li v-for="el in aEditMaterials" class="list-group-item">
+									<span>{{el == null ? 'пусто' : el}}</span>
+									<div v-on:click="onDeleteMaterialRequest">
+										<div><span aria-hidden="true">&times;</span></div>
+
+										<div><span class="close"></span></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Группа материала. -->
+					<div class="mt-3">
+						<div class="row-2">
+							<h5>Группа</h5>
+							<ul class="list-group">
+								<li v-for="el in aEditGroups" class="list-group-item">
+									<span>{{el == null || el == '' ? 'пусто' : el}}</span>
+									<div v-on:click="onDeleteMaterialRequest">
+										<div><span aria-hidden="true">&times;</span></div>
+
+										<div><span class="close"></span></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Количество -->
+					<div class="mt-3">
+						<div class="row-3">
+							<h5>Количество</h5>
+							<ul class="list-group">
+								<li v-for="el in aEditCounts" class="list-group-item">
+									<span>{{el == null || el == '' ? 'пусто' : el}}</span>
+									<div v-on:click="onDeleteMaterialRequest">
+										<div><span aria-hidden="true">&times;</span></div>
+
+										<div><span class="close"></span></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Единицы измерения. -->
+					<div class="mt-3">
+						<div class="row-3">
+							<h5>Ед.Изм.</h5>
+							<ul class="list-group">
+								<li v-for="el in aEditMeasures" class="list-group-item">
+									<span>{{el == null || el == '' ? 'пусто' : el}}</span>
 									<div v-on:click="onDeleteMaterialRequest">
 										<div><span aria-hidden="true">&times;</span></div>
 
@@ -116,6 +158,30 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Секция модального окна об успешном создании заявки. -->
+		<div class="modal fade" id="success-create-request" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+			<div id="successModalLabel" class="modal-dialog" role="document">
+				<div class="modal-content" v-for="">
+					<div class="modal-header">
+						<h5 class="modal-title" id="successModalLabel">Создание заявки</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<span>Заявка успешно создана.</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn-item btn-modal btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция тоста о дубле материала. -->
 	</div>
 
 

@@ -1,0 +1,119 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+
+	<div id="main_mrp">
+		<div>
+			<div class="col-lg-12">
+				<div class="row block-main-info">
+					<div class="btn-block-main mb-3 col-lg-12">
+						<!-- Левая секция кнопок -->
+						<div class="btn-left-block">
+							<div class="btns">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+										<li class="breadcrumb-item">
+											<a href="@Url.Action("RouteMRP", "Route")">Планирование потребностей в материалах</a>
+										</li>
+
+										<li class="breadcrumb-item active" aria-current="page">@ViewData["Data"]</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+
+						<!-- Правая секция кнопок -->
+						<div class="btn-right-block">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Секция с новыми заявками. -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Заявки ожидающие подтверждения удаления</h3>
+			</div>
+		</div>
+
+		<div class="tbl">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								Статус
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								№ заявки
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								Количество
+							</button>
+						</th>
+
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="" v-on:click="">
+								Ед.Изм.
+							</button>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr id="tbl-item tbl-row-click" class="tbl-item" v-for="el in aAcceptDeleteRequests">
+						<td class="text-center req-id">
+							{{el.id}}
+						</td>
+
+						<td class="text-center">
+							<span>{{el.status}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.number}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.count}}</span>
+						</td>
+
+						<td class="text-center">
+							<span>{{el.measure}}</span>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="~/js/Route.js"></script>
+	<script src="~/js/MRP.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

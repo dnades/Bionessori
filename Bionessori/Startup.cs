@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionessori.Core;
+using Bionessori.Core.Data;
 using Bionessori.Core.Extensions;
 using Bionessori.Core.Interfaces;
 using Bionessori.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,18 +34,17 @@ namespace Bionessori {
 
             services.AddTransient<IBackOffice, BackOfficeService>(provider => new BackOfficeService(connectionString));
 
-            services.AddTransient<IWerehouse, WerehouseService>(provider => new WerehouseService(connectionString));
-
-            services.AddTransient<IRequest, RequestService>(provider => new RequestService(connectionString));
-
             services.AddTransient<IRegistry, RegistryService>(provider => new RegistryService(connectionString));
 
-            services.AddTransient<IFrontOffice, FrontOfficeService>(provider => new FrontOfficeService(connectionString));
-
+            services.AddTransient<IFrontOffice, FrontOfficeService>(provider => new FrontOfficeService(connectionString));            
             services.AddControllersWithViews();
 
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
-                builder.WithOrigins("https://apihosting.online/", "https://apihosting.online").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("https://apihosting.ru/", "https://apihosting.ru").AllowAnyMethod().AllowAnyHeader();
             }));
 
             services.AddMvc(option => option.EnableEndpointRouting = false);

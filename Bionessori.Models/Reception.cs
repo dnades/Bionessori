@@ -18,5 +18,7 @@ namespace Bionessori.Models {
         public string CardNumber { get; set; }  // Номер карты пациента.
 
         public string FullName { get; set; }    // ФИО врача.
+
+        public string Status { get; set; }  // Статус записи.
     }
 }

@@ -8,16 +8,17 @@ using Microsoft.Extensions.Logging;
 using Bionessori.Models;
 using Bionessori.Core;
 using Bionessori.Core.Interfaces;
+using System.Security.Policy;
 
 namespace Bionessori.Controllers {
     /// <summary>
     /// Контроллер описывает работу с роутами ERP-системы.
     /// </summary>
-    public class RouteController : Controller {   
+    public class RouteController : Controller {
         // Метод перенаправляет на главную страницу ведения объектов.
         public IActionResult Index() {
-            ViewData["Title"] = "Ведение объектов";
-            
+            //ViewData["Title"] = "Главная страница - Ведение объектов";
+
             return View();
         }
 
@@ -31,7 +32,7 @@ namespace Bionessori.Controllers {
         [Route("card")]
         public IActionResult RouteCard() {
             ViewData["Title"] = "Электронные медицинские карты пациентов - Список карт пациентов";
-            
+
             return View();
         }
 
@@ -62,7 +63,7 @@ namespace Bionessori.Controllers {
         // Метод переходит на страницу со списком материалов.
         [Route("view/material")]
         public IActionResult GetMaterials() {
-            ViewData["Title"] = "Планирование потребностей в материалах - Список материалов на складах";
+            ViewData["Title"] = "Ведение объектов номенклатуры";
 
             return View();
         }
@@ -170,19 +171,35 @@ namespace Bionessori.Controllers {
 
             return View();
         }
-
-        // Метод переходит на страницу номенклатуры.
-        [Route("view-nomenclature")]
-        public IActionResult RouteNomenclature() {
-            ViewData["Title"] = "Ведение объектов номенклатуры";
-
-            return View();
-        }
-
+       
         // Метод переходит на страницу управления закупками.
         [Route("view-manage-purchases")]
         public IActionResult RouteManagePurchases() {
             ViewData["Title"] = "Ведение объектов управления закупками";
+
+            return View();
+        }
+        
+        // Метод создает номенклатуру.
+        [Route("create-nomenclature")]
+        public IActionResult CreateNomenclature() {
+            ViewData["Title"] = "Номенклатура - Создание номенклатуры";
+
+            return View();
+        }
+
+        // Метод переходит на страницу коммерческих предложений.
+        [Route("commerce-offer")]
+        public IActionResult CommerceOffer() {
+            ViewData["Title"] = "Управление закупками - КП (коммерческие предложения)";
+
+            return View();
+        }
+
+        // Метод создает коммерческое предложение поставщику.
+        [Route("create-commerce-offer")]
+        public IActionResult CreateCommerceOffer() {
+            ViewData["Title"] = "Управление закупками - Создание коммерческого предложения";
 
             return View();
         }

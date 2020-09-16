@@ -8,7 +8,7 @@ namespace Bionessori.Services {
     /// <summary>
     /// Сервис для генерации рандомных данных.
     /// </summary>
-    public class RandomDataService {      
+    public sealed class RandomDataService {      
         /// <summary>
         /// Метод реализует генерацию рандомного номера.
         /// </summary>

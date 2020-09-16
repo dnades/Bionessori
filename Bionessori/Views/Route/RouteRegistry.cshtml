@@ -50,15 +50,21 @@
 		</div>
 
 		<!-- Секция с таблицей со списком записей на приемы. -->
-		<div class="mr-2">
+		<div>
 			<h3>Список записей на приемы</h3>
 			<input class="form-control input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="onSearchReception" placeholder="Поиск по номеру записи на прием">
 			<div class="tbl">
-				<table id="id-request-list-table" class="table table-bordered">
+				<table id="id-request-list-table" class="table table-sm table-bordered">
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">
 								<input type="checkbox">
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="reception_status" v-on:click="">
+									Статус
+								</button>
 							</th>
 
 							<th class="text-center" scope="col">
@@ -96,6 +102,14 @@
 								<input type="checkbox" v-bind:value="el.id" v-model="aSelectedReceptions" v-on:change="onChecked">
 							</th>
 
+							<td class="text-center">
+								<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">{{el.status}}</span>
+
+								<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Подтверждена'">{{el.status}}</span>
+
+								<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Ожидает подтверждения удаления'">{{el.status}}</span>
+							</td>
+
 							<td class="text-center req-id">
 								<span>{{el.id}}</span>
 							</td>
@@ -131,6 +145,9 @@
 					</tbody>
 				</table>
 			</div>
+			<p>
+				<span>Количество строк: <strong>{{aReceptions.length}}</strong></span>
+			</p>
 		</div>
 
 		<!-- Секция модального окна удаления записи. -->

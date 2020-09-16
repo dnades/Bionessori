@@ -1,0 +1,184 @@
+﻿@{
+	Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@ViewData["Title"]</title>
+	<link href="~/css/Header.css" rel="stylesheet" />
+	<link href="~/css/Main.css" rel="stylesheet" />
+	<link href="~/css/Footer.css" rel="stylesheet" />
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/1c903a9a3d.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.min.js"></script>
+
+	<div id="nomenclature">
+		<!-- Главная секция кнопок -->
+		<div class="btn-block-main mb-3">
+			<!-- Левая секция кнопок -->
+			<div class="btn-left-block">
+				<div class="btns">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="@Url.Action("Index", "Route")">Главная</a></li>
+
+							<li class="breadcrumb-item"><a href="@Url.Action("GetMaterials", "Route")">Номенклатура</a></li>
+
+							<li class="breadcrumb-item active" aria-current="page">Создание номенклатуры</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+
+			<!-- Правая секция кнопок -->
+			<div class="btn-right-block">
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Создать номенклатуру</button>
+
+				<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">Отменить</button>
+			</div>
+		</div>
+
+		<!-- Секция создания номенклатуры. -->
+		<div class="block-table-rows mb-3">
+			<h3>Номенклатура (создание)</h3>
+		</div>
+
+		<div class="row">
+			<!-- Первый столбец. -->
+			<div class="col">
+				<div class="block-label">
+					<div>
+						<label for="id-nomen-field" class="form-control-sm" required>Наименование материала</label><br />
+						<input id="id-nomen-field" type="text" class="form-control-sm mb-1"><br />
+						<a href="#" class="form-control-sm">Сопоставить материал</a><br />
+					</div>
+
+					<div class="disclaimer">
+						<small class="text-muted ml-3">Наименование материала.</small>
+					</div>
+				</div>
+
+				<div class="block-label">
+					<div>
+						<label for="id-group" class="form-control-sm">Группа</label><br />
+						<div class="block-disclaimer">
+							<select id="id-group" class="form-control-sm mb-1">
+								<option></option>
+								<option>Какая то группа</option>
+							</select>
+							<br />
+							<div class="disclaimer">
+								<small class="text-muted ml-3">Группа, в которую входит конкретный материал.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="block-label">
+					<div>
+						<label for="id-articl" class="form-control-sm" required>Артикул</label><br />
+						<div class="block-disclaimer">
+							<input id="id-articl" type="text" class="form-control-sm mb-1"><br />
+							<div class="disclaimer">
+								<small class="text-muted ml-3">Уникальный номер материала. Заполняется вручную при создании материала.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="block-label">
+					<div>
+						<label for="id-provider" class="form-control-sm" required>Поставщик</label><br />
+						<div class="block-disclaimer">
+							<select id="id-provider" class="form-control-sm mb-1">
+								<option></option>
+								<option>ООО Ромашка</option>
+							</select>
+							<div class="disclaimer">
+								<small class="text-muted ml-3">Наименование поставщика.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Второй столбец. -->
+			<div class="col">
+				<div class="weight-row mb-1">
+					<div class="block-label">
+						<div>
+							<label for="id-measure" class="form-control-sm">Ед.Изм.</label><br />
+							<div class="block-disclaimer">
+								<select id="id-measure" class="form-control-sm mb-1">
+									<option></option>
+									<option>Единица измерения</option>
+								</select>
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Единица, в которой измеряется материал.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="weight-row mb-1">
+					<div class="block-label">
+						<div>
+							<div class="center-content">
+								<input type="checkbox" v-model="weight" class="form-control-sm" /><span class="ml-1">Указать вес</span>
+							</div>
+							<div class="block-disclaimer">
+								<input id="id-weight" v-bind:disabled="!weight" type="number" class="form-control-sm mb-1" />
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Вес материала.</small>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+
+				<div class="measurement-row mb-1">
+					<div class="block-label">
+						<div>
+							<div class="center-content">
+								<input type="checkbox" v-model="weightMeasurement" class="form-control-sm" /><span class="ml-1">Указать объем</span>
+							</div>
+							<div class="block-disclaimer">
+								<input id="id-weight-measurement" v-bind:disabled="!weightMeasurement" type="number" class="form-control-sm mb-1" />
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Объем материала.</small>
+								</div>
+							</div>
+						</div>					
+					</div>
+				</div>
+
+				<div class="vat-row mb-1">
+					<div class="block-label">
+						<div>
+							<div class="center-content">
+								<input type="checkbox" v-model="vat" class="form-control-sm" /><span class="ml-1">Указать НДС</span>
+							</div>
+							<div class="block-disclaimer">
+								<input id="id-vat" v-bind:disabled="!vat" type="number" class="form-control-sm mb-1">
+								<div class="disclaimer">
+									<small class="text-muted ml-3">Процентная ставка НДС (указывается в %). Может указываться при создании материала или измениться позже.</small>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/js/Nomenclature.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

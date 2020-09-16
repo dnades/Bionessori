@@ -74,6 +74,9 @@ table thead th {
   table thead th .btn-link {
     color: white;
     font-weight: 600; }
+  table thead th .link {
+    color: white;
+    font-weight: 600; }
 
 table th {
   background: #FDFFFF;
@@ -95,7 +98,8 @@ table .state {
 
 .tbl {
   height: 400px;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  width: fit-content; }
 
 .tbl-item td {
   vertical-align: middle; }
@@ -199,13 +203,20 @@ table thead th {
   .block-main-info .row-1 {
     display: flex;
     flex-direction: column; }
+    .block-main-info .row-1 h5 {
+      font-size: 16px; }
   .block-main-info .row-2 {
     display: flex;
     flex-direction: column;
     width: 300px; }
+    .block-main-info .row-2 h5 {
+      font-size: 16px; }
   .block-main-info .row-3 {
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    width: 150px; }
+    .block-main-info .row-3 h5 {
+      font-size: 16px; }
 
 .checkbox-date {
   font-size: 10px;
@@ -324,7 +335,65 @@ hr {
   background: #EAF4F4;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px; }
+  font-size: 14px;
+  text-transform: uppercase; }
 
 .empty-card {
   border: none; }
+
+.dynamic-link:hover {
+  cursor: pointer !important;
+  text-decoration: underline !important; }
+
+.block-table-rows {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+
+.center-content {
+  display: flex;
+  align-items: center; }
+
+.block-label {
+  display: flex;
+  align-items: center; }
+
+label[required=required]:after {
+  color: red;
+  content: " *"; }
+
+.disclaimer {
+  display: flex; }
+
+.block-disclaimer {
+  display: flex; }
+
+#id-nomen-field {
+  width: 300px; }
+
+input:focus {
+  background-color: #ffffe0; }
+
+.block-inputs {
+  display: flex;
+  align-items: center; }
+  .block-inputs .block-inputs-item {
+    margin: 0 5px; }
+  .block-inputs #id-btn-add-to-table {
+    margin-top: 0; }
+
+.text-item {
+  font-size: 14px; }
+
+.load-req {
+  display: flex;
+  align-items: flex-start; }
+
+.block-load-req {
+  display: flex;
+  align-items: center; }
+
+.table td, .table th {
+  /* padding: .75rem; */
+  vertical-align: middle;
+  /* border-top: 1px solid #dee2e6; */ }

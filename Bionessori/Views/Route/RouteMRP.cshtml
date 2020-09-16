@@ -35,7 +35,7 @@
 			<div class="btn-right-block">
 				<button type="button" class="btn-item btn btn-default btn-create-card" value="" v-on:click="">Отчеты</button>
 
-				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Номенклатура</button>
+				@*<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_material_list" v-on:click="onRouteMaterial">Номенклатура</button>*@
 
 				<button type="button" class="btn-item btn btn-default btn-create-card" value="mrp_requests_list" v-on:click="onRouteReq">Перейти к заявкам</button>
 			</div>
@@ -47,9 +47,9 @@
 				<div class="card-deck">
 					<div class="card border-danger">
 						<div class="card-body text-danger">
-							<h5 class="card-title">Количество материалов, требующих пополнения.</h5>
-							<p class="card-text">Количество материалов, которые требуют пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<h5 class="card-title">Заявок со статусом «Требует пополнения».</h5>
+							<p class="card-text">Заявок требующих пополнения: {{countRefillMaterials !== null ? countRefillMaterials : '0'}}</p>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="ref_mat" })" class="text-muted" v-show="countRefillMaterials > 0" v-on:click="onGetDynamicData('ref_mat')"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 
@@ -57,7 +57,7 @@
 						<div class="card-body text-success">
 							<h5 class="card-title">Заявок со статусом «Новая».</h5>
 							<p class="card-text"> Заявок со статусом «Новая»: {{countNewRequests !== null ? countNewRequests : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="new_req" })" class="text-muted" v-on:click="onGetDynamicData('new_req')" v-show="countNewRequests > 0"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 
@@ -65,7 +65,7 @@
 						<div class="card-body text-info">
 							<h5 class="card-title">Заявок со статусом «В работе».</h5>
 							<p class="card-text">Заявок со статусом «В работе»: {{countRequestsInWork !== null ? countRequestsInWork : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="inwork_req" })" class="text-muted" v-on:click="onGetDynamicData('inwork_req')" v-show="countRequestsInWork > 0"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 				</div>
@@ -79,18 +79,17 @@
 						<div class="card-body text-warning">
 							<h5 class="card-title">Заявок со статусом «Ожидает подтверждения удаления».</h5>
 							<p class="card-text">Заявок ожидающих подтверждения удаления: {{countAcceptDeleteReq !== null ? countAcceptDeleteReq : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="accept_del_req" })" class="text-muted" v-on:click="onGetDynamicData('accept_del_req')" v-show="countAcceptDeleteReq > 0"><small>Просмотреть список</small></a>
 						</div>
 					</div>
 
 					<div class="card border-primary">
 						<div class="card-body text-primary">
-							<h5 class="card-title">Количество материалов, требующих сопоставления.</h5>
-							<p class="card-text">Количество материалов, требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
-							<a href="#"><small class="text-muted">Просмотреть список</small></a>
+							<h5 class="card-title">Заявок со статусом «Требует сопоставления».</h5>
+							<p class="card-text">Заявок требующих сопоставления: {{countMappingMaterials !== null ? countMappingMaterials : '0'}}</p>
+							<a href="@Url.Action("RouteDynamicStructureData", "Route", new { type="mapp_mat" })" class="text-muted" v-on:click="onGetDynamicData('mapp_mat')" v-show="countMappingMaterials > 0"><small>Просмотреть список</small></a>
 						</div>
 					</div>
-
 
 					<div class="card empty-card">
 						<div class="card-body">

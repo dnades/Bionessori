@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Bionessori.Core.Data;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Bionessori.Models {
@@ -7,30 +11,58 @@ namespace Bionessori.Models {
     /// Модель описывает склад.
     /// </summary>
     public class Werehouse {
+        [Key, Column("id")]
         public int Id { get; set; }
 
+        [Column("code")]
+        public string Code { get; set; }    // Код материала.
+
+        [Required(ErrorMessage = "Не заполнен материал"), Column("material")]
         public string Material { get; set; }    // Материал склада.
 
-        public string MaterialGroup { get; set; }
+        [Required(ErrorMessage = "Не заполнена группа"), Column("material_group")]
+        public string MaterialGroup { get; set; }   // Группа в которую входит материал.
 
+        [Column("measure")]
         public string Measure { get; set; } // Ед.Изм.
 
-        public int Count { get; set; }
+        [Column("count")]
+        public int Count { get; set; }  // Кол-во материала.
 
+        [Column("weight")]
+        public string Weight { get; set; }   // Вес материала.
+
+        [Column("weight_measurement")]
+        public string WeightMeasurement { get; set; }   // Ед.изм. веса.
+
+        [Column("reserve")]
         public int Reserve { get; set; }    // В резерве.
 
-        public string VendorCode { get; set; }  // Артикул материала.
+        [Column("vendor_code")]
+        public int VendorCode { get; set; }  // Артикул материала.
 
+        [Column("werehouse_number")]
         public string WerehouseNumber { get; set; }    // Номер склада.
 
-        public double Price { get; set; }  // Цена.
+        [Column("price")]
+        public decimal Price { get; set; }  // Цена.
 
-        public double TotalSum { get; set; }   // Сумма.
+        [Column("total_sum")]
+        public decimal TotalSum { get; set; }   // Сумма.
 
-        public string ProviderName { get; set; } // Наименование поставщика.
+        [NotMapped, Column("provider_id")]
+        public string ProviderId { get; set; } // Наименование поставщика.
 
-        public double Percentage { get; set; }  // Процент скидки.
+        [Column("percentage")]
+        public string Percentage { get; set; }  // Процент скидки.
 
-        public double VAT { get; set; } // НДС.
+        [Column("vat")]
+        public string VAT { get; set; } // НДС.
+
+        public List<MultepleContextTable> MultepleContextTables { get; set; }
+
+        public Werehouse() {
+            MultepleContextTables = new List<MultepleContextTable>();
+        }
     }
 }

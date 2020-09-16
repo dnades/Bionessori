@@ -181,7 +181,7 @@ namespace Bionessori.Services {
         public async Task<List<Reception>> GetReceptions() {
             try {
                 using (var db = new SqlConnection(_connectionString)) {
-                    // Процедура получает список записей на прием врачу.
+                    // Процедура получает список записей на прием к врачу.
                     var oReceptions = await db.QueryAsync<Reception>("dbo.sp_GetReceptions");
 
                     return oReceptions.ToList();

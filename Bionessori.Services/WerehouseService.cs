@@ -1,7 +1,11 @@
-﻿using Bionessori.Core.Constants;
+﻿using Bionessori.Core;
+using Bionessori.Core.Constants;
+using Bionessori.Core.Data;
 using Bionessori.Core.Interfaces;
 using Bionessori.Models;
 using Dapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -20,105 +24,100 @@ namespace Bionessori.Services {
     /// <summary>
     /// Сервис реализует методы складов.
     /// </summary>
-    public class WerehouseService : IWerehouse {
-        string _connectionString = null;
-
-        public WerehouseService(string conStr) {
-            _connectionString = conStr;
+    public class WerehouseService : BaseWerehouse {
+        ApplicationDbContext _db;
+        public WerehouseService(ApplicationDbContext db) {
+            _db = db;
         }
 
         /// <summary>
         /// Метод получает список материалов со складов.
         /// </summary>
-        /// <returns></returns>
-        public async Task<List<Werehouse>> GetMaterials() {
-            using (var db = new SqlConnection(_connectionString)) {
-                // Вызывает процедуру для выбора списка материалов.
-                var oMaterials = await db.QueryAsync<Werehouse>("sp_GetMaterials");
+        /// <returns>Список материалов.</returns>
+        public async override Task<IEnumerable> GetMaterials() {
+            // Получает список материалов.
+            var oMaterials = await _db.Werehouses.Join(_db.Providers,
+                w => w.Id,
+                p => p.Id,
+                (w, p) => new {
+                    id = w.Id,
+                    material = w.Material,
+                    materialGroup = w.MaterialGroup,
+                    measure = w.Measure,
+                    count = w.Count,
+                    vendorCode = w.VendorCode,
+                    werehouseNumber = w.WerehouseNumber,
+                    price = w.Price,
+                    totalSum = w.TotalSum,
+                    reserve = w.Reserve,
+                    percentage = w.Percentage,
+                    vat = w.VAT,
+                    providerName = p.ProviderName
+                }).ToListAsync();   
 
-                return oMaterials.ToList();
-            }
+            return oMaterials;
         }
 
         /// <summary>
         /// Метод получает список названий складов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetNameWerehouses() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var oNames = await db.QueryAsync("sp_GetNamesWerehouses");
+        public async override Task<IEnumerable> GetNameWerehouses() {
+            // Выбирает только уникальные.
+            var oNamesWerehouse = await _db.Werehouses.Select(w => w.WerehouseNumber).Distinct().ToListAsync();
 
-                return oNames; 
-            }
+            return oNamesWerehouse;
         }
 
         /// <summary>
         /// Метод получает список групп материалов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetGroupsWerehouses() { 
-            using (var db = new SqlConnection(_connectionString)) {
-                var oGroups = await db.QueryAsync("sp_GetGroupNames");
+        public async override Task<IEnumerable> GetGroupsWerehouses() {
+            // Выбирает только уникальные.
+            var oGroups = await _db.Werehouses.Select(w => w.MaterialGroup).Distinct().ToListAsync();
 
-                return oGroups;
-            }
+            return oGroups;
         }
 
         /// <summary>
         /// Метод получает список ед.изм.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetMeasuresWerehouses() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var oMeasures = await db.QueryAsync("sp_GetMeasures");
+        public async override Task<IEnumerable> GetMeasuresWerehouses() {
+            var oMeasures = await _db.Werehouses.Select(m => m.Measure).Distinct().ToListAsync();
 
-                return oMeasures;
-            }
+            return oMeasures;
         }
 
         /// <summary>
         /// Метод получает список материалов без дубликатов.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable> GetDistinctMaterials() {
-            using (var db = new SqlConnection(_connectionString)) {
-                var oDistinctMaterials = await db.QueryAsync("sp_GetDistinctMaterials");
+        public async override Task<IEnumerable> GetDistinctMaterials() {
+            var oDistinctMaterials = await _db.Werehouses.Select(m => m.Material).Distinct().ToListAsync();
 
-                return oDistinctMaterials;
-            }
+            return oDistinctMaterials;
         }
 
         /// <summary>
-        /// Метод реализует выбору материалов группы.
+        /// Метод реализует выбор материалов группы.
         /// </summary>
         /// <param name="group"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<string>> GetMaterialsGroup(string group) {
-            using (var db = new SqlConnection(_connectionString)) {
-                var parameters = new DynamicParameters();
-                parameters.Add("@group", group, DbType.String);
+        /// <returns>Материалы группы.</returns>
+        public async override Task<IEnumerable> GetMaterialsGroup(string group) {
+            var oMaterialGroups = await _db.Werehouses.Where(m => m.MaterialGroup == group).Select(m => m.Material).ToListAsync();
 
-                // Процедура выбирает все материалы группы.
-                var oMaterialsGroup = await db.QueryAsync<string>("dbo.sp_GetMaterialsGroup",
-                    commandType: CommandType.StoredProcedure,
-                    param: parameters);
-
-                return oMaterialsGroup;
-            }
+            return oMaterialGroups;
         }
 
         /// <summary>
         /// Метод получает кол-во заявок со статусом "Новая".
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
-        public async Task<int> GetCountNewRequests() {
+        public async override Task<int> GetCountNewRequests() {
             try {
-                using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEW}'");
-
-                    return iRequests.FirstOrDefault();
-                }
+                return await _db.Requests.Where(c => c.Status == RequestStatus.REQ_STATUS_NEW).CountAsync();
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -129,14 +128,11 @@ namespace Bionessori.Services {
         /// Метод получает кол-во заявок со статусом "В работе".
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
-        public async Task<int> GetCountRequestInWork() {
+        public async override Task<int> GetCountRequestInWork() {
             try {
-                using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_IN_WORK}'");
+                int countInWorkReq = await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_IN_WORK).CountAsync();
 
-                    return iRequests.FirstOrDefault();
-                }
+                return countInWorkReq;
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -147,24 +143,9 @@ namespace Bionessori.Services {
         /// Метод получает кол-во материалов, которые требуют пополнения.
         /// </summary>
         /// <returns>Кол-во материалов.</returns>
-        public async Task<int> GetCountRefillMaterials() {
+        public async override Task<int> GetCountRefillMaterials() {
             try {
-                int iMaterials = 0; // Кол-во материалов.
-
-                using (var db = new SqlConnection(_connectionString)) {
-                    IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_REFILL}'");                    
-
-                    // Обрабатывает результат выборки и десериализует в объект.
-                    foreach (var el in aMaterials) {
-                        var materials = el as IDictionary<string, dynamic>;
-                        var oMaterials = materials["material"];
-                        Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
-                        iMaterials = parseMaterial.Material.Count();
-                    }
-
-                    return iMaterials;
-                }
+                return await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_REFILL).CountAsync(); 
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
@@ -175,22 +156,14 @@ namespace Bionessori.Services {
         /// Метод получает кол-во материалов, которые требуют сопоставления.
         /// </summary>
         /// <returns>Кол-во материалов.</returns>
-        public async Task<int> GetCountMappingMaterials() {
-            int iMaterials = 0; // Кол-во материалов.
+        public async override Task<int> GetCountMappingMaterials() {
+            try {
+                int countMappMaterials = await _db.Requests.Where(m => m.Status == RequestStatus.REQ_STATUS_NEED_MAPPING).CountAsync();
 
-            using (var db = new SqlConnection(_connectionString)) {
-                IEnumerable<dynamic> aMaterials = await db.QueryAsync($"SELECT * FROM dbo.Requests " +
-                    $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_MAPPING}'");
-
-                // Обрабатывает результат выборки и десериализует в объект.
-                foreach (var el in aMaterials) {
-                    var materials = el as IDictionary<string, dynamic>;
-                    var oMaterials = materials["material"];
-                    Request parseMaterial = JsonSerializer.Deserialize<Request>(oMaterials);
-                    iMaterials = parseMaterial.Material.Count();
-                }
-
-                return iMaterials;
+                return countMappMaterials;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
             }
         }
 
@@ -198,14 +171,39 @@ namespace Bionessori.Services {
         /// Метод получает кол-во заявок, требующих подтверждения удаления.
         /// </summary>
         /// <returns>Кол-во заявок.</returns>
-        public async Task<int> GetCountAcceptDeleteRequests() {
+        public async override Task<int> GetCountAcceptDeleteRequests() {
             try {
-                using (var db = new SqlConnection(_connectionString)) {
-                    var iRequests = await db.QueryAsync<int>($"SELECT COUNT(*) FROM dbo.Requests " +
-                        $"WHERE status = '{RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE}'");
+                int countAcceptDeleteReq = await _db.Requests.Where(r => r.Status == RequestStatus.REQ_STATUS_NEED_ACCEPT_DELETE).CountAsync();
 
-                    return iRequests.FirstOrDefault();
+                return countAcceptDeleteReq;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод создает новую номенклатуру.
+        /// </summary>
+        /// <param name="werehouse"></param>
+        /// <returns></returns>
+        public override async Task CreateNomenclature(Werehouse werehouse) {
+            try {
+                // Проверяет, есть ли материал с таким артикулом.
+                var sVendor = await _db.Werehouses.Where(v => v.VendorCode == werehouse.VendorCode).FirstOrDefaultAsync();
+
+                if (sVendor != null) {
+                    throw new ArgumentException();
                 }
+
+                // Генерит код материала.
+                werehouse.Code = Guid.NewGuid().ToString(); 
+
+                await _db.Werehouses.AddRangeAsync(werehouse);
+                await _db.SaveChangesAsync();
+            }
+            catch(ArgumentException ex) {
+                throw new ArgumentException("Материал с таким артикулом уже существует", ex.Message.ToString());
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());
