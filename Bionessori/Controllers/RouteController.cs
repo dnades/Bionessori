@@ -179,48 +179,7 @@ namespace Bionessori.Controllers {
 
             return View();
         }
-
-        // Метод переходит на страницу, на которую подгружаются разные шаблоны структур таблиц.
-        [Route("dynamic-structure-data")]
-        public IActionResult RouteDynamicStructureData(string type) {
-            switch (type) {
-                // Если нужно получить новые заявки.
-                case "new_req":
-                    ViewData["Title"] = "Планирование потребностей в материалах - Список новых заявок";
-                    ViewData["Data"] = "Новые заявки";
-
-                    return View("_PartialNewRequests");
-
-                // Если нужно получить заявки в работе.
-                case "inwork_req":
-                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок в работе";
-                    ViewData["Data"] = "Заявки в работе";
-
-                    return View("_PartialInWorkRequests");
-
-                // Если нужно получить заявки ожидающие подтверждения удаления.
-                case "accept_del_req":
-                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок ожидающих подтверждения удаления";
-                    ViewData["Data"] = "Заявки ожидающие подтверждения удаления";
-
-                    return View("_PartialAcceptDeleteRequests");
-
-                    // Если нужно получить заявки с материалами, которые необходимо пополнить.
-                case "ref_mat":
-                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок с материалами требующих пополнения";
-                    ViewData["Data"] = "Заявки материалов для пополнения";
-
-                    return View("_PartialRefillMaterials");
-
-                case "mapp_mat":
-                    ViewData["Title"] = "Планирование потребностей в материалах - Список заявок с материалами требующих сопоставления";
-                    ViewData["Data"] = "Заявки материалов для сопоставления";
-
-                    return View("_PartialMappingMaterials");
-            }
-            return View();
-        }
-
+        
         // Метод создает номенклатуру.
         [Route("create-nomenclature")]
         public IActionResult CreateNomenclature() {

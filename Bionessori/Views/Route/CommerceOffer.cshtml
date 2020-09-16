@@ -40,7 +40,7 @@
 							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="">
 								Анализ предложений
 							</button>
-							
+
 							<button type="button" class="btn-item btn btn-default btn-nomenclature" v-on:click="onCreateOffer">Сформировать КП</button>
 						</div>
 					</div>
@@ -48,90 +48,94 @@
 			</div>
 		</div>
 
+		<div class="block-table-rows mb-3">
+			<p>Здесь отображать список сформированных коммерческих предложений...</p>
+		</div>
+
 		<!-- Секция с таблицей со списком заявок на закупки. -->
 		@*<div _class="block-table-rows">
-				<h3>Список заявок на закупки</h3>
-				<input class="form-control-sm input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск">
-			</div>
-			<div class="tbl">
-				<table id="id-request-list-table" class="table table-sm table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">
-								<input type="checkbox" name="a" value="1934">
-							</th>
+			<h3>Список заявок на закупки</h3>
+			<input class="form-control-sm input-search mb-1" id="id-search-request" type="text" v-on:keyup.enter="" placeholder="Поиск">
+		</div>
+		<div class="tbl">
+			<table id="id-request-list-table" class="table table-sm table-bordered">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">
+							<input type="checkbox" name="a" value="1934">
+						</th>
 
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="req_status" v-on:click="">
-									Статус
-								</button>
-							</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="req_status" v-on:click="">
+								Статус
+							</button>
+						</th>
 
-							<th class="text-center" scope="col">
-								<button class="btn btn-link" value="card_number" v-on:click="">
-									№ заявки
-								</button>
-							</th>
+						<th class="text-center" scope="col">
+							<button class="btn btn-link" value="card_number" v-on:click="">
+								№ заявки
+							</button>
+						</th>
 
-							<th class="text-center" scope="col"></th>
-							<th class="text-center" scope="col"></th>
-						</tr>
-					</thead>
+						<th class="text-center" scope="col"></th>
+						<th class="text-center" scope="col"></th>
+					</tr>
+				</thead>
 
-					<tbody>
-						<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="">
-							<th class="text-center" scope="col">
-								<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
-							</th>
+				<tbody>
+					<tr class="tbl-item tbl-row-click" v-for="el in aRequests" v-on:dblclick="">
+						<th class="text-center" scope="col">
+							<input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq">
+						</th>
 
-							<td class="text-center req-id">
-								<span>{{el.id}}</span>
-							</td>
+						<td class="text-center req-id">
+							<span>{{el.id}}</span>
+						</td>
 
-							<td class="text-center">
-								<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">
-									{{el.status}}
-								</span>
+						<td class="text-center">
+							<span id="id-status-req" class="badge badge-pill badge-primary" v-show="el.status == 'Новая'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-info" v-show="el.status == 'В работе'">
-									{{el.status}}
-								</span>
+							<span id="id-status-req" class="badge badge-pill badge-info" v-show="el.status == 'В работе'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Требует подтверждения удаления'">
-									{{el.status}}
-								</span>
+							<span id="id-status-req" class="badge badge-pill badge-warning" v-show="el.status == 'Требует подтверждения удаления'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Выполнена'">
-									{{el.status}}
-								</span>
+							<span id="id-status-req" class="badge badge-pill badge-success" v-show="el.status == 'Выполнена'">
+								{{el.status}}
+							</span>
 
-								<span id="id-status-req" class="badge badge-pill badge-dark" v-show="el.status == 'Подтверждена'">
-									{{el.status}}
-								</span>
-							</td>
+							<span id="id-status-req" class="badge badge-pill badge-dark" v-show="el.status == 'Подтверждена'">
+								{{el.status}}
+							</span>
+						</td>
 
-							<td class="text-center">
-								<span>{{el.number}}</span>
-							</td>
+						<td class="text-center">
+							<span>{{el.number}}</span>
+						</td>
 
-							<td class="text-center state">
-								<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" v-bind:value="el.id" v-on:click="">
-									<i class="fa fa-pencil" aria-hidden="true"></i>
-								</button>
-							</td>
+						<td class="text-center state">
+							<button type="button" id="id-icon-edit" class="btn btn-default btn-sm" v-bind:value="el.id" v-on:click="">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+							</button>
+						</td>
 
-							<td class="text-center state">
-								<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal">
-									<i class="fa fa-trash-o" aria-hidden="true"></i>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<p>
-				<span>Количество строк: <strong>{{aRequests.length}}</strong></span>
-			</p>*@
+						<td class="text-center state">
+							<button type="button" id="id-icon-delete" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete-card-modal">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p>
+			<span>Количество строк: <strong>{{aRequests.length}}</strong></span>
+		</p>*@
 	</div>
 
 	<script src="~/js/Purchases.js"></script>

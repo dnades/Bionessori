@@ -42,7 +42,7 @@
 							Импорт из Excel
 						</button>
 
-						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">
+						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="isLoadReq=!isLoadReq">
 							Загрузить данные из заявки
 						</button>
 
@@ -102,6 +102,11 @@
 
 			<div class="block-inputs-item">
 				<label for="#id-btn-add-to-table" class="form-control-sm">&nbsp;</label>
+				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="onClearTable">Очистить</button>
+			</div>
+
+			<div class="block-inputs-item">
+				<label for="#id-btn-add-to-table" class="form-control-sm">&nbsp;</label>
 				<button id="id-btn-add-to-table" type="button" class="btn-item btn btn-sm" v-on:click="">Удалить</button>
 			</div>
 
@@ -111,89 +116,105 @@
 			</div>
 		</div>
 
-		<!-- Сама таблица. -->
-		<div class="tbl">
-			<table id="id-request-list-table" class="table table-sm table-bordered">
-				<thead>
-					<tr>
+		<div class="load-req">
+			<!-- Сама таблица. -->
+			<div class="tbl">
+				<table id="id-request-list-table" class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							@*<th class="text-center" scope="col">
+									<input type="checkbox">
+								</th>*@
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="req_status" v-on:click="">
+									Материал
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number" v-on:click="">
+									Группа
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number" v-on:click="">
+									Ед.Изм.
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number" v-on:click="">
+									Количество
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number" v-on:click="">
+									Дата поставки
+								</button>
+							</th>
+
+							<th class="text-center" scope="col">
+								<button class="btn btn-link" value="card_number" v-on:click="">
+									Максимальная сумма
+								</button>
+							</th>
+						</tr>
+					</thead>
+
+					<tbody class="content-body">
+						<!--<tr class="tbl-item tbl-row-click" _v-for="el in aRequests" v-on:dblclick="">-->
 						@*<th class="text-center" scope="col">
-							<input type="checkbox">
-						</th>*@
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="req_status" v-on:click="">
-								Материал
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="">
-								Группа
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="">
-								Ед.Изм.
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="">
-								Количество
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="">
-								Дата поставки
-							</button>
-						</th>
-
-						<th class="text-center" scope="col">
-							<button class="btn btn-link" value="card_number" v-on:click="">
-								Максимальная сумма
-							</button>
-						</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<!--<tr class="tbl-item tbl-row-click" _v-for="el in aRequests" v-on:dblclick="">-->
-						@*<th class="text-center" scope="col">
-			<input type="checkbox" _v-bind:value="el.id" _v-model="selectedRequests" _v-on:change="onCheckedReq">
-		</th>*@
+								<input type="checkbox" _v-bind:value="el.id" _v-model="selectedRequests" _v-on:change="onCheckedReq">
+							</th>*@
 
 						@*<td class="text-center req-id" v-for="el in aMaterials">
-			<span>{{el}}</span>
-		</td>*@
+								<span>{{el}}</span>
+							</td>*@
 
 						<!--<td class="text-center" v-for="el in aMaterials">
-							<span>{{el}}</span>
-						</td>
+								<span>{{el}}</span>
+							</td>
 
-						<td class="text-center" v-for="el in aGroups">
-							<span>{{el}}</span>
-						</td>
+							<td class="text-center" v-for="el in aGroups">
+								<span>{{el}}</span>
+							</td>
 
-						<td class="text-center" v-for="el in aAddMeasures">
-							<span>{{el}}</span>
-						</td>
+							<td class="text-center" v-for="el in aAddMeasures">
+								<span>{{el}}</span>
+							</td>
 
-						<td class="text-center" v-for="el in aCountMaterials">
-							<span>{{el}}</span>
-						</td>
+							<td class="text-center" v-for="el in aCountMaterials">
+								<span>{{el}}</span>
+							</td>
 
-						<td class="text-center" v-for="el in aDates">
-							<span>{{el}}</span>
-						</td>
+							<td class="text-center" v-for="el in aDates">
+								<span>{{el}}</span>
+							</td>
 
-						<td class="text-center" v-for="el in aSums">
-							<span>{{el}}</span>
-						</td>
-					</tr>-->
-				</tbody>
-			</table>
+							<td class="text-center" v-for="el in aSums">
+								<span>{{el}}</span>
+							</td>
+						</tr>-->
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Секция загрузки данных из заявки -->
+			<div class="block-label" v-show="isLoadReq">
+				<div class="ml-3">
+					<label for="id-number-req" class="form-control-sm" required>Номер заявки</label><br />
+					<div class="block-load-req">
+						<input id="id-number-req" type="text" class="form-control-sm mb-1" width="100">
+						<small class="text-muted disclaimer ml-3">Введите номер заявки, данные которой нужно загрузить в таблицу.</small><br />
+					</div>
+					<button type="button" class="btn btn-link form-control-sm" v-on:click="onGetDataRequest">
+						Загрузить данные
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 

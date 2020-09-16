@@ -384,3 +384,11 @@ input:focus {
 
 .text-item {
   font-size: 14px; }
+
+.load-req {
+  display: flex;
+  align-items: flex-start; }
+
+.block-load-req {
+  display: flex;
+  align-items: center; }

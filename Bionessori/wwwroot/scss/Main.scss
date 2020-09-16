@@ -582,10 +582,10 @@ hr {
 .block-label {
     display: flex;
     align-items: center;
-    //justify-content: center;
+    //justify-content: center;    
 }
 
-// Добавляет астериск
+// Добавляет астериск.
 label[required=required]:after {
     color: red;
     content: " *";
@@ -622,4 +622,14 @@ input:focus {
 
 .text-item {
     font-size: 14px;
+}
+
+.load-req {
+    display: flex;
+    align-items: flex-start;
+}
+
+.block-load-req {
+    display: flex;
+    align-items: center;
 }

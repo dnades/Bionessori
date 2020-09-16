@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bionessori.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -21,5 +22,12 @@ namespace Bionessori.Core {
         /// <param name="offer"></param>
         /// <returns></returns>
         public abstract Task FormOfferNoTemplate(object offer);
+
+        /// <summary>
+        /// Метод загружает данные заявки.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public abstract Task<IEnumerable<Request>> GetDataRequest(int number);
     }
 }

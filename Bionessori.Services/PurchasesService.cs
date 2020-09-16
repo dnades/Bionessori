@@ -29,9 +29,7 @@ namespace Bionessori.Services {
         public async override Task<IEnumerable> GetRequests() {
             try {
                 var oRequests = await _db.Requests
-                    .Where(r => r.Status.Equals(RequestStatus.REQ_STATUS_IN_WORK) ||
-                    r.Status.Equals(RequestStatus.REQ_STATUS_ACCEPT) ||
-                    r.Status.Equals(RequestStatus.REQ_STATUS_COMPLETE)).ToListAsync();
+                    .Where(r => r.Status.Equals(RequestStatus.REQ_STATUS_IN_WORK)).ToListAsync();
 
                 return oRequests;
             }
@@ -99,6 +97,30 @@ namespace Bionessori.Services {
                     i++;
                 }
                 await _db.SaveChangesAsync();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Метод загружает данные заявки.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public async override Task<IEnumerable<Request>> GetDataRequest(int number) {
+            try {
+                if (number == 0) {
+                    throw new ArgumentNullException();
+                }
+
+                // Выбирает заявку по ее номеру.
+                var oRequest = await _db.Requests.Where(r => r.Number == number).ToListAsync();
+
+                return oRequest;
+            }
+            catch (ArgumentNullException) {
+                throw new ArgumentNullException("Номер заявки не передан");
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message.ToString());

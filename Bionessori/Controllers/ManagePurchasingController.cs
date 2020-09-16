@@ -39,5 +39,15 @@ namespace Bionessori.Controllers {
 
             return Ok("Коммерческое предложение успешно создано");
         }
+
+        /// <summary>
+        /// Метод загружает данные заявки.
+        /// </summary>
+        [HttpGet, Route("load-request")]
+        public async Task<IActionResult> GetDataRequest([FromQuery] int number) {
+            BasePurchases basePurchases = new PurchasesService(_db);
+
+            return Ok(await basePurchases.GetDataRequest(number));
+        }
     }
 }

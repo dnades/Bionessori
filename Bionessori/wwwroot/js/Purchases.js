@@ -22,7 +22,8 @@ var purchases = new Vue({
 			aAddMeasures: [],
 			aDates: [],
 			aSums: []
-		}
+		},
+		isLoadReq: false
 	},
 	methods: {
 		// Функция загружает список заявок на потребности.
@@ -198,6 +199,50 @@ var purchases = new Vue({
 			catch (ex) {
 				throw new Error(ex);
 			}
+		},
+
+		// Функция загружает данные заявки.
+		onGetDataRequest() {
+			let iNumber = +$("#id-number-req").val();
+			let sUrl = "https://localhost:44312/api/purchase/load-request?number=".concat(iNumber);
+			let oTable = purchases.oTable;
+
+			try {
+				axios.get(sUrl)
+					.then((response) => {
+						console.log(response.data);
+
+						// Заполнение таблицы.
+						response.data.forEach(el => {
+							oTable.aMaterials.push(el.material);
+							oTable.aGroups.push(el.materialGroup);
+							oTable.aAddMeasures.push(el.measure);
+							oTable.aCountMaterials.push(el.count);
+							oTable.aDates.push("нет");
+							oTable.aSums.push("нет");
+
+							$('#id-request-list-table').append(`<tr>
+							<td>${oTable.aMaterials[oTable.aMaterials.length - 1]}</td>
+							<td>${oTable.aGroups[oTable.aGroups.length - 1]}</td>
+							<td>${oTable.aAddMeasures[oTable.aAddMeasures.length - 1]}</td>
+							<td>${oTable.aCountMaterials[oTable.aCountMaterials.length - 1]}</td>
+							<td>${oTable.aDates[oTable.aDates.length - 1]}</td>
+							<td>${oTable.aSums[oTable.aSums.length - 1]}</td></tr>`);
+						});						
+					})
+					.catch((XMLHttpRequest) => {
+						swal("Загрузка данных заявки", "Ошибка загрузки заявки.", "error");
+						throw new Error(XMLHttpRequest.response.data);
+					});
+			}
+			catch (ex) {
+				throw new Error(ex);
+			}
+		},
+
+		// Функция очищает таблицу.
+		onClearTable() {
+			$(".content-body")[0].innerText = [];	// Очищает таблицу.	
 		}
 	}
 });
