@@ -44,7 +44,7 @@ namespace Bionessori {
                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
-                builder.WithOrigins("https://apihosting.online/", "https://apihosting.online").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("https://apihosting.ru/", "https://apihosting.ru").AllowAnyMethod().AllowAnyHeader();
             }));
 
             services.AddMvc(option => option.EnableEndpointRouting = false);

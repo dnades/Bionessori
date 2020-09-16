@@ -208,7 +208,7 @@ table {
     height: 400px;
     overflow-y: scroll;
     //width: min-content;
-    width: fit-content;
+    width: fit-content;    
 }
 
 .tbl-item {
@@ -632,4 +632,10 @@ input:focus {
 .block-load-req {
     display: flex;
     align-items: center;
+}
+
+.table td, .table th {
+    /* padding: .75rem; */
+    vertical-align: middle;
+    /* border-top: 1px solid #dee2e6; */
 }

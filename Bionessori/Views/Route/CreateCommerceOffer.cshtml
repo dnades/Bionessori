@@ -42,12 +42,16 @@
 							Импорт из Excel
 						</button>
 
+						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="">
+							Назначить сумму
+						</button>
+
 						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="isLoadReq=!isLoadReq">
 							Загрузить данные из заявки
 						</button>
 
 						<button type="button" class="btn-item btn btn-sm btn-nomenclature" v-on:click="onFormsOffer">
-							Сформировать КП
+							К выбору поставщика
 						</button>
 					</div>
 				</div>
@@ -122,9 +126,9 @@
 				<table id="id-request-list-table" class="table table-sm table-bordered">
 					<thead>
 						<tr>
-							@*<th class="text-center" scope="col">
-									<input type="checkbox">
-								</th>*@
+							<th class="text-center" scope="col">
+								<input type="checkbox">
+							</th>
 
 							<th class="text-center" scope="col">
 								<button class="btn btn-link" value="req_status" v-on:click="">

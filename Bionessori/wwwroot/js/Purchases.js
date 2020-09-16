@@ -172,6 +172,7 @@ var purchases = new Vue({
 			let oTable = purchases.oTable;
 
 			$('#id-request-list-table').append(`<tr>
+<td><input type="checkbox" class="text-center" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq" /></td>							
 			<td>${oTable.aMaterials[oTable.aMaterials.length - 1]}</td>
 			<td>${oTable.aGroups[oTable.aGroups.length - 1]}</td>
 			<td>${oTable.aAddMeasures[oTable.aAddMeasures.length - 1]}</td>
@@ -184,6 +185,12 @@ var purchases = new Vue({
 		onFormsOffer() {
 			let sUrl = "https://localhost:44312/api/purchase/forms-offer";
 			let oTable = purchases.oTable;
+			let oTableData = $(".content-body")[0].innerText;
+
+			if (!oTableData) {
+				swal("Ошибка", "Таблица пуста. Добавьте данные.", "error");
+				return;
+			}
 
 			try {
 				axios.post(sUrl, oTable)
@@ -218,10 +225,12 @@ var purchases = new Vue({
 							oTable.aGroups.push(el.materialGroup);
 							oTable.aAddMeasures.push(el.measure);
 							oTable.aCountMaterials.push(el.count);
-							oTable.aDates.push("нет");
-							oTable.aSums.push("нет");
+							oTable.aDates.push("");
+							oTable.aSums.push(0);							
 
+							//<td class="text-center req-id><span>{{el.id}}</span></td>
 							$('#id-request-list-table').append(`<tr>
+							<td class="text-center check-req" scope="col"><input type="checkbox" v-bind:value="el.id" v-model="selectedRequests" v-on:change="onCheckedReq" /></td>							
 							<td>${oTable.aMaterials[oTable.aMaterials.length - 1]}</td>
 							<td>${oTable.aGroups[oTable.aGroups.length - 1]}</td>
 							<td>${oTable.aAddMeasures[oTable.aAddMeasures.length - 1]}</td>
